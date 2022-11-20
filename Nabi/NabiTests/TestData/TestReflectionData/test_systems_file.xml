@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<system_group id="TestSystems">
+  <system id="ExampleSystem">
+    <property id="SomeValue" value="10" />
+  </system>
+</system_group>

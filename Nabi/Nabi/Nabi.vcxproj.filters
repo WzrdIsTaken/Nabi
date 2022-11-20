@@ -1,22 +1,93 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
+    <Filter Include="Libraries">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Libraries\entt">
+      <UniqueIdentifier>{6480d5e5-787d-4d59-bfc4-eec8ab4461b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\pugixml">
+      <UniqueIdentifier>{ec83b054-72b3-4a33-8ebe-41b5c402c544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reflection">
+      <UniqueIdentifier>{ab8c89f5-370a-4970-818a-870ad03113b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{086fc726-3f55-4e8a-b7ad-9a9aaec12f05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{46ff4215-b38f-4002-932b-ba91583b407b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{6be6307c-2087-49c7-93cf-3d0feeffe9a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\CoreComponents">
+      <UniqueIdentifier>{aaf2c6b4-9b57-4dbd-9590-6577d1979245}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Nabi.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Libraries\pugixml\pugixml.cpp">
+      <Filter>Libraries\pugixml</Filter>
     </ClCompile>
+    <ClCompile Include="Reflection\StringConverter.cpp">
+      <Filter>Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\XmlParser.cpp">
+      <Filter>Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\NabiCore.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Libraries\entt\entt.h">
+      <Filter>Libraries\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\pugixml\pugiconfig.hpp">
+      <Filter>Libraries\pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\pugixml\pugixml.hpp">
+      <Filter>Libraries\pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="Reflection\StringConverter.h">
+      <Filter>Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\ReflectionGlobals.h">
+      <Filter>Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\MetaObjectLookup.h">
+      <Filter>Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\ReflectionMacros.h">
+      <Filter>Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\XmlParser.h">
+      <Filter>Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\ReflectionHelpers.h">
+      <Filter>Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\SystemBase.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ComponentBase.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\DebugUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\StringUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\NabiCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\CoreComponents\EntityInfoComponent.h">
+      <Filter>ECS\CoreComponents</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
