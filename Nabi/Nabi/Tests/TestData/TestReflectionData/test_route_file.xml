@@ -4,6 +4,6 @@
   <!-- Systems -->
   <file id="Systems" value="Tests/TestData/TestReflectionData/test_system_file.xml" />
 
-  <!-- Components -->
+  <!-- Entities -->
   <file id="TestStuff" value="Tests/TestData/TestReflectionData/test_entity_file.xml" />
 </route>
