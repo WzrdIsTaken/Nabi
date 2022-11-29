@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../Libraries/entt/entt.h"
+
 namespace nabi::ECS
 {
 	/// <summary>
@@ -27,9 +29,6 @@ namespace nabi::ECS
 		}
 
 	private:
-		SystemBase(SystemBase const&) = delete;
-		SystemBase& operator = (SystemBase const&) = delete;
-
 		entt::registry& m_Registery;
 
 		entt::hashed_string const c_SystemId;

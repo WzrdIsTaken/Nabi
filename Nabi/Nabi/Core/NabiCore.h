@@ -2,17 +2,12 @@
 
 #include "../Libraries/entt/entt.h"
 
-namespace entt
-{
-	// forward declares
-	// rule of 6?
-}
-
 namespace nabi
 {
-	class NabiCore
+	class NabiCore abstract
 	{
 	public:
+		NabiCore() = default;
 		virtual ~NabiCore() = default;
 
 		virtual void Init() = 0;
@@ -22,5 +17,9 @@ namespace nabi
 
 	protected:
 		entt::registry m_Registry;
+
+	private:
+		NabiCore(NabiCore const&) = delete;
+		NabiCore& operator = (NabiCore const&) = delete;
 	};
 } // namespace nabi

@@ -1,7 +1,5 @@
 #pragma once
 
-//#include "../../Libraries/entt/entt.h"
-
 #include "../ComponentBase.h"
 
 // Contains some basic infomation about an entity.

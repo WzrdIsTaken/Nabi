@@ -2,29 +2,21 @@
 
 int main()
 {
-    // Todo: entityinfocomponent
-    // setup nabi logic
-    // write unit tests logic 
-    // test / iron out any issues
+#ifdef _DEBUG
+	// TODO - Disable logging
 
-    // Setup Nabi
-    //nabi::NabiCore nabi{};
-    //nabi.Init();
+	::testing::InitGoogleTest(&__argc, __argv);
+	const int testResults = RUN_ALL_TESTS();
 
-    /*
-    // The route doc
-		std::string const routeDoc = "route.xml";
+	ASSERT(testResults == nabi::Utils::TestUtils::c_TestResultSuccess, "One or more of the tests failed! See the console output for details, or run the test explorer.");
 
-		// Deserialize data files
-		nabi::Reflection::MetaObjectLookup systemsLookup{};
-		nabi::Reflection::XmlParser xmlParser{};
+	// TODO - Enable logging
+#endif // #ifdef _DEBUG
 
-		xmlParser.ParseXml(routeDoc, m_Registry, &systemsLookup);
-		
-		// Extract Systems*/
-
-    // Start main loop
-    //nabi.Run();
+	// TODO - Seperate tests define?
+	// TODO - Fix google test warnings (or suppress)
+	// TODO - Find and fix that incomplete type not allowed
 
     std::cout << "Hello Nabi!\n";
+	return 0;
 }

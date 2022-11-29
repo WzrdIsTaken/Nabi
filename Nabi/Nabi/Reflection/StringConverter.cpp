@@ -18,7 +18,7 @@ namespace nabi::Reflection::StringConverter
 
 		   So, why has it been resolved in this way? Because it works, and a game engine is not just the reflection system - 
 		   the plan is to get an MVP of all the systems I need, then come back and improve them if needed. 
-		   This is a uni assignment! I don't have infinite time... ): 
+		   I don't have infinite time... ): 
 		*/
 
 		if (entt::resolve<std::string>() == metaMember.type())
@@ -37,12 +37,12 @@ namespace nabi::Reflection::StringConverter
 			}
 			else
 			{
-				ASSERT(false, "The FromString method on " << propertyTypeHash << " is not static!");
+				ASSERT_FAIL("The FromString method on " << propertyTypeHash.data() << " is not static!");
 			}
 		}
 		else
 		{
-			ASSERT(false, "The type " << propertyTypeHash << " does not have a FromString method!");
+			ASSERT_FAIL("The type " << propertyTypeHash.data() << " does not have a FromString method!");
 		}
 	}
 

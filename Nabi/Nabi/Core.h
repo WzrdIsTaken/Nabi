@@ -2,17 +2,21 @@
 
 // A collection of core includes to make life easier
 
-// entt
+// Entt
 #include "Libraries/entt/entt.h"
 using namespace entt::literals;
 
-// ecs
+// ECS
 #include "ECS/ComponentBase.h"
 #include "ECS/SystemBase.h"
 
-// reflection
+// Reflection
 #include "Reflection/ReflectionGlobals.h"
 #include "Reflection/ReflectionMacros.h"
 
-// debug (includes iostream)
+// Testing
+#include "gtest/gtest.h"
+#include "Utils/TestUtils.h"
+
+// Debug (includes iostream)
 #include "Utils/DebugUtils.h"

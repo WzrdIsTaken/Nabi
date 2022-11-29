@@ -46,7 +46,7 @@ namespace nabi::Reflection
 			}
 			else
 			{
-				ASSERT(false, "The document type isn't valid!");
+				ASSERT_FAIL("The document type isn't valid!");
 			}
 		}
 	}
@@ -151,7 +151,7 @@ namespace nabi::Reflection
 			std::string_view const propertyValue = propertyNode.attribute(c_ValueAttribute.c_str()).value();
 
 			// Some debug only checks to make sure the logging is alright
-#ifndef NDEBUG
+#ifdef _DEBUG
 			std::string_view const nodeType = node.name();
 			if (nodeType == c_SystemAttribute)
 			{
@@ -162,7 +162,7 @@ namespace nabi::Reflection
 				LOG(LOG_PREP, LOG_INFO, SPACE(9) << "Found a property on the component with id " << WRAP(propertyId, "'") << " and value " << WRAP(propertyValue, "'") << ENDLINE);
 			}
 			// else if Singletons soontm??
-#endif // ifndef NDEBUG
+#endif // #ifdef _DEBUG
 
 			// Resolve the property
 			ResolveProperty(metaObject, propertyId, propertyValue);
@@ -197,7 +197,7 @@ namespace nabi::Reflection
 		}
 		else
 		{
-			ASSERT(false, "The component " << WRAP(metaComponent.type().info().name(), "'") << " does not have an 'Assign' method!");
+			ASSERT_FAIL("The component " << WRAP(metaComponent.type().info().name(), "'") << " does not have an 'Assign' method!");
 		}
 	}
 } // namespace nabi::Reflection

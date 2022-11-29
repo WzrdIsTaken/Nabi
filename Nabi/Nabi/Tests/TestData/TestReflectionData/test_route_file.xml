@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<route id="TestCoreData">
+  <!-- Systems -->
+  <file id="Systems" value="Tests/TestData/TestReflectionData/test_system_file.xml" />
+
+  <!-- Components -->
+  <file id="TestStuff" value="Tests/TestData/TestReflectionData/test_entity_file.xml" />
+</route>

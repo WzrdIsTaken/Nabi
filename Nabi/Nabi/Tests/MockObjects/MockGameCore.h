@@ -1,19 +1,21 @@
 #pragma once
 
-#include "Core/NabiCore.h"
+#include "../../Core/NabiCore.h"
 
-namespace nabitests
+#ifdef _DEBUG
+
+namespace nabitest
 {
 	class MockGameCore : public nabi::NabiCore
 	{
 	public:
 		MockGameCore() = default;
-		~MockGameCore() = default;
+		~MockGameCore() override = default;
 
 		void Init() override
 		{
 		}
-		// TODO: RULE OF 6
+		
 		void Run() override
 		{
 		}
@@ -22,4 +24,6 @@ namespace nabitests
 		MockGameCore(MockGameCore const&) = delete;
 		MockGameCore& operator = (MockGameCore const&) = delete;
 	};
-} // namespace nabitests
+} // namespace nabitest
+
+#endif // #ifdef _DEBUG

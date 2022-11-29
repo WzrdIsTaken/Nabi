@@ -1,10 +1,13 @@
 #pragma once
 
-#include "Core.h"
-#include "Reflection/StringConverter.h"
-#include "Utils/StringUtils.h"
+#include "../../Core.h"
 
-namespace nabitests
+#include "../../Reflection/StringConverter.h"
+#include "../../Utils/StringUtils.h"
+
+#ifdef _DEBUG
+
+namespace nabitest
 {
 	struct MockCustomDataType
 	{
@@ -23,8 +26,15 @@ namespace nabitests
 			MockCustomDataType const result = { doubleType, boolType };
 			return result;
 		}
+
+		bool operator == (MockCustomDataType const rhs) const
+		{
+			return this->m_DoubleType == rhs.m_DoubleType && 
+				   this->m_BoolType   == rhs.m_BoolType;
+		}
 	};
 
 	REFLECT_DATA_TYPE_DEFAULT(MockCustomDataType)
-} // nabitests
+} // namespace nabitest
 
+#endif // #ifdef _DEBUG

@@ -26,6 +26,24 @@
     <Filter Include="ECS\CoreComponents">
       <UniqueIdentifier>{aaf2c6b4-9b57-4dbd-9590-6577d1979245}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{97113a89-756d-4a08-a8c8-a67742d7b089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\TestData">
+      <UniqueIdentifier>{e846808b-fddc-4892-83d1-16ea39b7e354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\MockObjects">
+      <UniqueIdentifier>{2b352c04-6adb-4975-bec4-b8b729ff0df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\TestData\TestReflectionData">
+      <UniqueIdentifier>{890fb8f2-01b0-414d-a265-09e15bc3ce50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\TestData\TestRenderingData">
+      <UniqueIdentifier>{093709c1-ebd8-499a-9c35-08fcd56f0809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ReflectionTests">
+      <UniqueIdentifier>{169a5f6d-5342-44e9-b60d-f2c781d41968}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -40,6 +58,24 @@
     </ClCompile>
     <ClCompile Include="Core\NabiCore.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\ReflectionTests\ReflectionInitTests.cpp">
+      <Filter>Tests\ReflectionTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\MockObjects\MockComponent.cpp">
+      <Filter>Tests\MockObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\MockObjects\MockCustomDataType.cpp">
+      <Filter>Tests\MockObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\MockObjects\MockGameCore.cpp">
+      <Filter>Tests\MockObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\MockObjects\MockSystem.cpp">
+      <Filter>Tests\MockObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\BaseTypeReflection.cpp">
+      <Filter>Reflection</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,5 +125,40 @@
     <ClInclude Include="ECS\CoreComponents\EntityInfoComponent.h">
       <Filter>ECS\CoreComponents</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\TestUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\MockObjects\MockComponent.h">
+      <Filter>Tests\MockObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\MockObjects\MockCustomDataType.h">
+      <Filter>Tests\MockObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\MockObjects\MockGameCore.h">
+      <Filter>Tests\MockObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\MockObjects\MockSystem.h">
+      <Filter>Tests\MockObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\TestCore.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\BaseTypeReflection.h">
+      <Filter>Reflection</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Tests\TestData\TestReflectionData\test_entity_file.xml">
+      <Filter>Tests\TestData\TestReflectionData</Filter>
+    </Xml>
+    <Xml Include="Tests\TestData\TestReflectionData\test_system_file.xml">
+      <Filter>Tests\TestData\TestReflectionData</Filter>
+    </Xml>
+    <Xml Include="Tests\TestData\TestReflectionData\test_route_file.xml">
+      <Filter>Tests\TestData\TestReflectionData</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

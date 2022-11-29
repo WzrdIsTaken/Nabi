@@ -1,9 +1,12 @@
 #pragma once
 #include <iostream>
 
-#ifdef NDEBUG
+#ifndef _DEBUG
 	#define ASSERT_FATAL(condition, message) ((void)0)
 	#define ASSERT(condition, message) ((void)0) 
+
+	#define ASSERT_FAIL_FATAL(message) ASSERT_FATAL(false, message)
+	#define ASSERT_FAIL(message) ASSERT(false, message)
 
 	#define LOG(message) ((void)0)
 #else
@@ -18,6 +21,9 @@
 			std::cout << "TODO: ASSERT: " << message << std::endl; \
 		}
 
+#define ASSERT_FAIL_FATAL(message) ASSERT_FATAL(false, message)
+#define ASSERT_FAIL(message) ASSERT(false, message)
+
 #define LOG(prep, severity, message) \
 		if (std::strcmp(severity, LOG_ERROR) == 0) \
 		{ \
@@ -27,7 +33,7 @@
 		{ \
 			std::cout << prep << severity << message; \
 		}
-#endif // ifdef NDEBUG
+#endif // ifndef _DEBUG
 
 #define TOSTRING(thing) #thing
 #define CONCAT(A, B) A ## B

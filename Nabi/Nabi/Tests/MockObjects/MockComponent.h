@@ -1,16 +1,18 @@
 #pragma once
 
+#include "../../Core.h"
+
 #include <string>
 
-#include "Core.h"
-#include "ECS/ComponentBase.h"
-
+#include "../../ECS/ComponentBase.h"
 #include "MockCustomDataType.h"
 
-namespace nabitests::MockComponent
+#ifdef _DEBUG
+
+namespace nabitest::MockComponent
 {
 	// Settings
-	struct MockComponentSettings : nabi::ECS::ComponentSettingsBase
+	struct MockComponentSettings : public nabi::ECS::ComponentSettingsBase
 	{
 		int m_IntType;
 		float m_FloatType;
@@ -19,7 +21,7 @@ namespace nabitests::MockComponent
 	};
 
 	// Component
-	struct MockComponent : nabi::ECS::ComponentBase
+	struct MockComponent : public nabi::ECS::ComponentBase
 	{
 		int m_IntType;
 		float m_FloatType;
@@ -70,5 +72,6 @@ namespace nabitests::MockComponent
 		REFLECT_COMPONENT_PROPERTY(MockComponent::m_StringType, "StringType")
 		REFLECT_COMPONENT_PROPERTY(MockComponent::m_CustomType, "CustomType")
 	REFLECT_COMPONENT_END()
-} // namespace nabitests::MockComponent
+} // namespace nabitest::MockComponent
 
+#endif // #ifdef _DEBUG
