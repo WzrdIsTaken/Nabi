@@ -150,4 +150,4 @@
 
 #define REFLECT_BASE_TYPE(baseType) \
 	entt::meta<baseType>().type(entt::hashed_string(#baseType)) \
-	.func<&StringConverter::FromString<baseType>>(ReflectionGlobals::c_FromStringFunctionName);
+		.func<&StringConverter::FromString<baseType>>(ReflectionGlobals::c_FromStringFunctionName);
