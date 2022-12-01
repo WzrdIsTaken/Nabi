@@ -44,6 +44,9 @@
     <Filter Include="Tests\ReflectionTests">
       <UniqueIdentifier>{169a5f6d-5342-44e9-b60d-f2c781d41968}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils\UtilClasses">
+      <UniqueIdentifier>{8acc0348-a10c-49e7-adeb-62ae221f5585}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -76,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="Reflection\BaseTypeReflection.cpp">
       <Filter>Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\UtilClasses\Logger.cpp">
+      <Filter>Utils\UtilClasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Reflection\BaseTypeReflection.h">
       <Filter>Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\UtilClasses\Logger.h">
+      <Filter>Utils\UtilClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

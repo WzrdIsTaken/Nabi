@@ -144,3 +144,10 @@
 #define RELFECT_SYSTEM_END() \
 	; } \
 	CREATE_REFLECTOR_END()
+
+// --- Base Type Reflection ---
+// A simple marcro to reflect base types. The ToString method for base types will always live on StringConverter.
+
+#define REFLECT_BASE_TYPE(baseType) \
+	entt::meta<baseType>().type(entt::hashed_string(#baseType)) \
+	.func<&StringConverter::FromString<baseType>>(ReflectionGlobals::c_FromStringFunctionName);

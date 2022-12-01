@@ -3,6 +3,7 @@
 #include "../Libraries/entt/entt.h"
 #include "StringConverter.h"
 #include "ReflectionGlobals.h"
+#include "ReflectionMacros.h"
 
 namespace nabi::Reflection
 {
@@ -10,24 +11,11 @@ namespace nabi::Reflection
 
 	BaseTypeReflection::BaseTypeReflector::BaseTypeReflector()
 	{
-		using namespace entt::literals;
-
-		entt::meta<char>().type("char"_hs)
-			.func<&StringConverter::FromString<char>>(ReflectionGlobals::c_FromStringFunctionName);
-
-		entt::meta<int>().type("int"_hs)
-			.func<&StringConverter::FromString<int>>(ReflectionGlobals::c_FromStringFunctionName);
-
-		entt::meta<float>().type("float"_hs)
-			.func<&StringConverter::FromString<float>>(ReflectionGlobals::c_FromStringFunctionName);
-
-		entt::meta<double>().type("double"_hs)
-			.func<&StringConverter::FromString<double>>(ReflectionGlobals::c_FromStringFunctionName);
-
-		entt::meta<bool>().type("bool"_hs)
-			.func<&StringConverter::FromString<bool>>(ReflectionGlobals::c_FromStringFunctionName);
-
-		entt::meta<std::string>().type("std::string"_hs)
-			.func<&StringConverter::FromString<std::string>>(ReflectionGlobals::c_FromStringFunctionName);
+		REFLECT_BASE_TYPE(char)
+		REFLECT_BASE_TYPE(int);
+		REFLECT_BASE_TYPE(float);
+		REFLECT_BASE_TYPE(double);
+		REFLECT_BASE_TYPE(bool);
+		REFLECT_BASE_TYPE(std::string);
 	}
 } // namespace nabi::Reflection

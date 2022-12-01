@@ -157,6 +157,7 @@
     <ClCompile Include="Tests\MockObjects\MockGameCore.cpp" />
     <ClCompile Include="Tests\MockObjects\MockSystem.cpp" />
     <ClCompile Include="Tests\ReflectionTests\ReflectionInitTests.cpp" />
+    <ClCompile Include="Utils\UtilClasses\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Utils\DebugUtils.h" />
     <ClInclude Include="Utils\StringUtils.h" />
     <ClInclude Include="Utils\TestUtils.h" />
+    <ClInclude Include="Utils\UtilClasses\Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

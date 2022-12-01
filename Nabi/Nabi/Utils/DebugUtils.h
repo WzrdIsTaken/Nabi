@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+// #include "UtilClasses/Logger.h" TODO: SoonTm
+
 #ifndef _DEBUG
 	#define ASSERT_FATAL(condition, message) ((void)0)
 	#define ASSERT(condition, message) ((void)0) 
