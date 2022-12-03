@@ -3,12 +3,14 @@
 #include <string>
 #include <unordered_map>
 
+#include "../../Templates/Singleton.h"
+
 // NOTE - THIS IS VERY WIP, BUT WILL DEFO BE IN HERE ONE DAY
 
 #ifdef _DEBUG
 namespace nabi::Utils::DebugUtils
 {
-	class Logger // Todo: Make inherit from Singleton
+	class Logger : public nabi::TSingleton<Logger>
 	{
 	public:
 		Logger();

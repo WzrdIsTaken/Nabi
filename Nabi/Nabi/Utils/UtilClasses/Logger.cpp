@@ -7,6 +7,10 @@
 #ifdef _DEBUG
 namespace nabi::Utils::DebugUtils
 {
+	//TSINGLETON_INSTANCE(Logger)
+
+	//std::unique_ptr<Logger> Logger::m_Instance = nullptr; ???
+
 	Logger::Logger()
 		: m_LogLevel(0)
 	{

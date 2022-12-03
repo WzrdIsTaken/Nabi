@@ -152,6 +152,7 @@
     <ClCompile Include="Reflection\BaseTypeReflection.cpp" />
     <ClCompile Include="Reflection\StringConverter.cpp" />
     <ClCompile Include="Reflection\XmlParser.cpp" />
+    <ClCompile Include="Templates\Singleton.cpp" />
     <ClCompile Include="Tests\MockObjects\MockComponent.cpp" />
     <ClCompile Include="Tests\MockObjects\MockCustomDataType.cpp" />
     <ClCompile Include="Tests\MockObjects\MockGameCore.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="Reflection\ReflectionMacros.h" />
     <ClInclude Include="Reflection\StringConverter.h" />
     <ClInclude Include="Reflection\XmlParser.h" />
+    <ClInclude Include="Templates\Singleton.h" />
     <ClInclude Include="Tests\MockObjects\MockComponent.h" />
     <ClInclude Include="Tests\MockObjects\MockCustomDataType.h" />
     <ClInclude Include="Tests\MockObjects\MockGameCore.h" />

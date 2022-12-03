@@ -18,6 +18,6 @@ namespace nabi::Reflection
 			BaseTypeReflector();
 		};
 
-		static BaseTypeReflector baseTypeReflectorInstance;
+		static BaseTypeReflector s_BaseTypeReflectorInstance;
 	};
 } // namespace nabi::Reflection

@@ -7,7 +7,7 @@
 
 namespace nabi::Reflection
 {
-	BaseTypeReflection::BaseTypeReflector BaseTypeReflection::baseTypeReflectorInstance;
+	BaseTypeReflection::BaseTypeReflector BaseTypeReflection::s_BaseTypeReflectorInstance;
 
 	BaseTypeReflection::BaseTypeReflector::BaseTypeReflector()
 	{

@@ -23,10 +23,10 @@
 #define CREATE_REFLECTOR_END() \
 		}; \
 		\
-		static ReflectorConstructor reflectedConstructor; \
+		static ReflectorConstructor s_ReflectedConstructor; \
 	};
 
-#define CREATE_REFLECTOR_INSTANCE(typeName) CONCAT(typeName, Reflector::ReflectorConstructor) CONCAT(typeName, Reflector::reflectedConstructor);
+#define CREATE_REFLECTOR_INSTANCE(typeName) CONCAT(typeName, Reflector::ReflectorConstructor) CONCAT(typeName, Reflector::s_ReflectedConstructor);
 
 // --- Helper ---
 // A couple of helper macros to do operations which are done multiple times in multiple places.
