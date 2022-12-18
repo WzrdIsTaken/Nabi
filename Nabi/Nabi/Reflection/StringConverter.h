@@ -36,6 +36,26 @@ namespace nabi::Reflection::StringConverter
 	void ExtractTypeName(std::string& typeInfoName);
 
 	/// <summary>
+	/// Converts a string to an enum of type T
+	/// </summary>
+	/// <typeparam name="T">The type of the enum</typeparam>
+	/// <param name="enumName">- The name of the enum</param>
+	/// <returns>The enum</returns>
+	template<typename T>
+	T StringToEnum(std::string_view const /*enumName*/)
+	{
+		/*
+		entt::hashed_string const enumHash = entt::hashed_string(enumName.data());
+		entt::meta_type const enumType = entt::resolve(enumHash);
+
+		entt::meta_any const metaEnum{ MyEnum::Two };
+		metaEnum.allow_cast(enumType);
+
+		return metaEnum.cast<T>();
+		*/
+	}
+
+	/// <summary>
 	/// This specialised template functions convert a string to a type. They are used to support basic type reflection.
 	/// </summary>
 	/// <typeparam name="T">- The basic type</typeparam>

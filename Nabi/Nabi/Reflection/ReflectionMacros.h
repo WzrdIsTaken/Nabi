@@ -50,12 +50,9 @@
 	static void Assign(entt::meta_any const& metaComponent, entt::registry& registry, entt::entity const entity) \
 	{ \
 		using T = componentType; \
-		using U = CONCAT(componentType, Settings); \
-		\
 		T const component = metaComponent.cast<T>(); \
-		U const settings = ConstructSettingsFromComponent(component); \
 		\
-		registry.emplace<T>(entity, settings); \
+		registry.emplace<T>(entity, component); \
 	}
 
 	// Begin
@@ -144,6 +141,17 @@
 #define RELFECT_SYSTEM_END() \
 	; } \
 	CREATE_REFLECTOR_END()
+
+// --- Enum Reflection ---
+// A macro to handle the reflection of enums. To get an enum from a string, use StringToEnum in StringConverter. 
+// TODO - Also need a EnumToString function
+
+//#define REFLECT_ENUM_BEGIN(enumeration) \
+//	entt::meta<enumeration>().type(entt::hashed_string(#enumeration)) \
+//		.conv<std::underlying_type_t<enumeration>>();
+	
+
+#define REFLECT_ENUM_VALUE(enumValue)
 
 // --- Base Type Reflection ---
 // A simple marcro to reflect base types. The ToString method for base types will always live on StringConverter.

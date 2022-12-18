@@ -1,54 +1,54 @@
-#include "../TestCore.h"
+#include "../../TestCore.h"
 
-#include "../../ECS/CoreComponents/EntityInfoComponent.h"
-#include "../../Reflection/MetaObjectLookup.h"
-#include "../../Reflection/XmlParser.h"
+#include "../../../ECS/CoreComponents/EntityInfoComponent.h"
+#include "../../../Reflection/MetaObjectLookup.h"
+#include "../../../Reflection/XmlParser.h"
 
 #ifdef _DEBUG
 
 namespace nabitest::ReflectionTests
 {
 	// Check system files can be loaded correctly
-	TEST(RelfectionTests, ParseSystems)
+	TEST(RelfectionTests, ParseSystemsFromRoute)
 	{
 		// Mock objects
 		entt::registry registry;
-		std::string const mockRouteDocPath = "Tests/TestData/TestReflectionData/test_route_file.xml";
+		std::string const routeDocPath = "Tests/TestData/TestReflectionData/test_route_file.xml";
 
 		// Deserialize data files
 		nabi::Reflection::MetaObjectLookup systemsLookup{};
 		nabi::Reflection::XmlParser xmlParser{};
 
-		xmlParser.ParseXml(mockRouteDocPath, registry, &systemsLookup);
+		xmlParser.ParseXml(routeDocPath, registry, &systemsLookup);
 
 		// Get the system
-		MockSystem::MockSystem mockSystem = systemsLookup.GetObject<MockSystem::MockSystem>("MockSystem");
+		MockSystem mockSystem = std::move(systemsLookup.GetObject<MockSystem>("MockSystem"));
 
 		// Test that the system data is what we expect
 		Comparison<int> systemDataComparison{};
 		systemDataComparison.m_Expected = 5;
 		systemDataComparison.m_Actual = mockSystem.GetMockSystemData();
 
-		EXPECT_EQ(systemDataComparison.m_Expected, systemDataComparison.m_Actual);
+		COMPAIR_EQ(systemDataComparison);
 	}
 
 	// Check entity files can be loaded correctly
-	TEST(RelfectionTests, ParseEntities)
+	TEST(RelfectionTests, ParseEntitiesFromRoute)
 	{
 		// Mock objects
 		entt::registry registry;
-		std::string const mockRouteDocPath = "Tests/TestData/TestReflectionData/test_route_file.xml";
+		std::string const routeDocPath = "Tests/TestData/TestReflectionData/test_route_file.xml";
 
 		// Deserialize data files
 		nabi::Reflection::XmlParser xmlParser{};
-		xmlParser.ParseXml(mockRouteDocPath, registry, nullptr);
+		xmlParser.ParseXml(routeDocPath, registry, nullptr);
 
 		// Check that this is only one entity in the registry
 		Comparison<size_t> numberOfEntities(1, registry.alive());
-		EXPECT_EQ(numberOfEntities.m_Expected, numberOfEntities.m_Actual);
+		COMPAIR_EQ(numberOfEntities);
 
 		// Iterate over the registery and check for MockComponent
-		auto mockComponentView = registry.view<MockComponent::MockComponent>();
+		auto mockComponentView = registry.view<MockComponent>();
 
 		Comparison<int> intType(20);
 		Comparison<float> floatType(50.8f);
@@ -63,13 +63,13 @@ namespace nabitest::ReflectionTests
 			customType.m_Actual = mockComponent.m_CustomType;
 		}
 
-		EXPECT_EQ(intType.m_Expected, intType.m_Actual);
-		EXPECT_EQ(floatType.m_Expected, floatType.m_Actual);
-		EXPECT_EQ(stringType.m_Expected, stringType.m_Actual);
-		EXPECT_EQ(customType.m_Expected, customType.m_Actual);
+		COMPAIR_EQ(intType);
+		COMPAIR_EQ(floatType);
+		COMPAIR_EQ(stringType);
+		COMPAIR_EQ(customType);
 
 		// Iterate over the registery and check for EntityInfoComponent
-		auto entityInfoComponentView = registry.view<EntityInfoComponent::EntityInfoComponent>();
+		auto entityInfoComponentView = registry.view<ecs::EntityInfoComponent>();
 
 		Comparison<entt::hashed_string> entityGroup("TestGroup"_hs);
 		Comparison<entt::hashed_string> entityName("TestEntity"_hs);
@@ -80,8 +80,8 @@ namespace nabitest::ReflectionTests
 			entityName.m_Actual = entityInfoComponent.m_EntityName;
 		}
 
-		EXPECT_EQ(entityGroup.m_Expected, entityGroup.m_Actual);
-		EXPECT_EQ(entityName.m_Expected, entityName.m_Actual);
+		COMPAIR_EQ(entityGroup);
+		COMPAIR_EQ(entityName);
 	}
 } // namespace nabitest::ReflectionTests
 

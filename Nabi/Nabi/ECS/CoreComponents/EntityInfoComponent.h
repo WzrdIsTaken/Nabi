@@ -5,21 +5,25 @@
 // Contains some basic infomation about an entity.
 // No need to reflect, as its always added anyway
 
-namespace EntityInfoComponent
+namespace ecs
 {
 	// Settings
-	struct EntityInfoComponentSettings : nabi::ECS::ComponentSettingsBase
+	struct EntityInfoComponentSettings final : public nabi::ECS::ComponentSettingsBase
 	{
 		entt::hashed_string m_EntityGroup;
 		entt::hashed_string m_EntityName;
 	};
 
-	// Component
-	struct EntityInfoComponent : nabi::ECS::ComponentBase
+	// Default Settings
+	EntityInfoComponentSettings const entityInfoComponentDefaultSettings
 	{
-		entt::hashed_string m_EntityGroup;
-		entt::hashed_string m_EntityName;
+		.m_EntityGroup = entt::hashed_string(),
+		.m_EntityName = entt::hashed_string()
+	};
 
+	// Component
+	struct EntityInfoComponent final : public nabi::ECS::ComponentBase
+	{
 		EntityInfoComponent()
 			: m_EntityGroup(entt::hashed_string())
 			, m_EntityName(entt::hashed_string())
@@ -32,25 +36,7 @@ namespace EntityInfoComponent
 		{
 		}
 
-	private:
-		EntityInfoComponent(EntityInfoComponent const&) = delete;
-		EntityInfoComponent& operator = (EntityInfoComponent const&) = delete;
+		entt::hashed_string m_EntityGroup;
+		entt::hashed_string m_EntityName;
 	};
-
-	// Default Settings
-	EntityInfoComponentSettings const entityInfoComponentDefaultSettings
-	{
-		.m_EntityGroup = entt::hashed_string(),
-		.m_EntityName = entt::hashed_string()
-	};
-
-	// Helper
-	inline EntityInfoComponentSettings ConstructSettingsFromComponent(EntityInfoComponent const& component)
-	{
-		EntityInfoComponentSettings settings = entityInfoComponentDefaultSettings;
-		settings.m_EntityGroup = component.m_EntityGroup;
-		settings.m_EntityName = component.m_EntityName;
-
-		return settings;
-	}
-} // namespace EntityInfoComponent
+} // namespace ecs

@@ -11,33 +11,10 @@
 #include "MockObjects/MockGameCore.h"
 #include "MockObjects/MockSystem.h"
 
-// Basic comparison struct. Might move this in the future...
+// Helpers
+#include "Helpers/Comparison.h"
+
+// Using - I thought this might be good so in the tests every test thing exists at the same level + its easy to differentiate between mock ecs stuff and 'real' ecs stuff 
 #ifdef _DEBUG
-namespace nabitest
-{
-	template<typename T>
-	struct Comparison
-	{
-		Comparison()
-			: m_Expected{}
-			, m_Actual{}
-		{
-		}
-
-		explicit Comparison(T expected)
-			: m_Expected(expected)
-			, m_Actual{}
-		{
-		}
-
-		Comparison(T expected, T actual)
-			: m_Expected(expected)
-			, m_Actual(actual)
-		{
-		}
-
-		T m_Expected;
-		T m_Actual;
-	};
-}
-#endif // #ifdef _DEBUG
+	using namespace nabitest::ECS;
+#endif // ifdef _DEBUG

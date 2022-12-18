@@ -4,9 +4,9 @@
 
 #ifdef _DEBUG
 
-namespace nabitest::MockSystem
+namespace nabitest::ECS
 {
-	class MockSystem : public nabi::ECS::SystemBase
+	class MockSystem final : public nabi::ECS::SystemBase
 	{
 	public:
 		using SystemBase::SystemBase;
@@ -25,6 +25,6 @@ namespace nabitest::MockSystem
 	REFLECT_SYSTEM_BEGIN(MockSystem, "MockSystem")
 		RELFECT_SYSTEM_PROPERTY(MockSystem::m_MockSystemData, "MockSystemData")
 	RELFECT_SYSTEM_END()
-} // namespace nabitest::MockSystem
+} // namespace nabitest::ECS
 
 #endif // #ifdef _DEBUG

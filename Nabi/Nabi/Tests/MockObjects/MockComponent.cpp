@@ -2,9 +2,9 @@
 
 #ifdef _DEBUG
 
-namespace nabitest::MockComponent
+namespace nabitest::ECS
 {
 	CREATE_REFLECTOR_INSTANCE(MockComponent)
-} // namespace nabitest::MockComponent
+} // namespace nabitest::ECS
 
 #endif // #ifdef _DEBUG

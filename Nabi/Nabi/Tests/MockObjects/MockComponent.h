@@ -9,10 +9,10 @@
 
 #ifdef _DEBUG
 
-namespace nabitest::MockComponent
+namespace nabitest::ECS
 {
 	// Settings
-	struct MockComponentSettings : public nabi::ECS::ComponentSettingsBase
+	struct MockComponentSettings final : public nabi::ECS::ComponentSettingsBase
 	{
 		int m_IntType;
 		float m_FloatType;
@@ -20,8 +20,17 @@ namespace nabitest::MockComponent
 		MockCustomDataType m_CustomType;
 	};
 
+	// Default settings
+	MockComponentSettings const mockComponentDefaultSettings
+	{
+		.m_IntType = 5,
+		.m_FloatType = 20.6f,
+		.m_StringType = "I wrote this on 20/11/2022",
+		.m_CustomType = { 6.4, true }
+	};
+
 	// Component
-	struct MockComponent : public nabi::ECS::ComponentBase
+	struct MockComponent final : public nabi::ECS::ComponentBase
 	{
 		int m_IntType;
 		float m_FloatType;
@@ -44,34 +53,13 @@ namespace nabitest::MockComponent
 		{
 		}
 	};
-
-	// Default settings
-	MockComponentSettings const mockComponentDefaultSettings
-	{
-		.m_IntType = 5,
-		.m_FloatType = 20.6f,
-		.m_StringType = "I wrote this on 20/11/2022",
-		.m_CustomType = { 6.4, true }
-	}; // Transform Component Default Settings
-
-	// Helper
-	inline MockComponentSettings ConstructSettingsFromComponent(MockComponent const& component)
-	{
-		MockComponentSettings settings = mockComponentDefaultSettings;
-		settings.m_IntType = component.m_IntType;
-		settings.m_FloatType = component.m_FloatType;
-		settings.m_StringType = component.m_StringType;
-		settings.m_CustomType = component.m_CustomType;
-
-		return settings;
-	}
-
+	
 	REFLECT_COMPONENT_BEGIN(MockComponent, "MockComponent")
 		REFLECT_COMPONENT_PROPERTY(MockComponent::m_IntType, "IntType")
 		REFLECT_COMPONENT_PROPERTY(MockComponent::m_FloatType, "FloatType")
 		REFLECT_COMPONENT_PROPERTY(MockComponent::m_StringType, "StringType")
 		REFLECT_COMPONENT_PROPERTY(MockComponent::m_CustomType, "CustomType")
 	REFLECT_COMPONENT_END()
-} // namespace nabitest::MockComponent
+} // namespace nabitest::ECS
 
 #endif // #ifdef _DEBUG

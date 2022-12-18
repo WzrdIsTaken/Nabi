@@ -41,14 +41,23 @@
     <Filter Include="Tests\TestData\TestRenderingData">
       <UniqueIdentifier>{093709c1-ebd8-499a-9c35-08fcd56f0809}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tests\ReflectionTests">
-      <UniqueIdentifier>{169a5f6d-5342-44e9-b60d-f2c781d41968}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils\UtilClasses">
       <UniqueIdentifier>{8acc0348-a10c-49e7-adeb-62ae221f5585}</UniqueIdentifier>
     </Filter>
     <Filter Include="Templates">
       <UniqueIdentifier>{571a13ec-ba5e-4daa-8cb9-3116f895f4cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Helpers">
+      <UniqueIdentifier>{8def6cdf-7876-4b1f-b39f-415016877140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Fixtures">
+      <UniqueIdentifier>{eb5d9135-e324-45d3-b17c-88126a6945ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Fixtures\DebugTests">
+      <UniqueIdentifier>{cd9cd0ef-21ab-4bb8-ab9b-de1ec11e8269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Fixtures\ReflectionTests">
+      <UniqueIdentifier>{169a5f6d-5342-44e9-b60d-f2c781d41968}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,9 +73,6 @@
     </ClCompile>
     <ClCompile Include="Core\NabiCore.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Tests\ReflectionTests\ReflectionInitTests.cpp">
-      <Filter>Tests\ReflectionTests</Filter>
     </ClCompile>
     <ClCompile Include="Tests\MockObjects\MockComponent.cpp">
       <Filter>Tests\MockObjects</Filter>
@@ -88,6 +94,15 @@
     </ClCompile>
     <ClCompile Include="Templates\Singleton.cpp">
       <Filter>Templates</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\DebugTests\LoggingTests.cpp">
+      <Filter>Tests\Fixtures\DebugTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionInitTests.cpp">
+      <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp">
+      <Filter>Tests\Fixtures\ReflectionTests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +179,12 @@
     <ClInclude Include="Templates\Singleton.h">
       <Filter>Templates</Filter>
     </ClInclude>
+    <ClInclude Include="Reflection\MetaECSTypes.h">
+      <Filter>Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Helpers\Comparison.h">
+      <Filter>Tests\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -178,5 +199,11 @@
     <Xml Include="Tests\TestData\TestReflectionData\test_route_file.xml">
       <Filter>Tests\TestData\TestReflectionData</Filter>
     </Xml>
+    <Xml Include="Tests\TestData\TestReflectionData\test_entity_template_file.xml">
+      <Filter>Tests\TestData\TestReflectionData</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Todo.txt" />
   </ItemGroup>
 </Project>

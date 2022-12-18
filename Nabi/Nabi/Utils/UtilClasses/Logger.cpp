@@ -2,47 +2,58 @@
 
 #include <iostream>
 
-//#include "../DebugUtils.h"
+#include "../DebugUtils.h"
 
 #ifdef _DEBUG
+
+TSINGLETON_INSTANCE(nabi::Utils::DebugUtils::Logger)
+
 namespace nabi::Utils::DebugUtils
 {
-	//TSINGLETON_INSTANCE(Logger)
-
-	//std::unique_ptr<Logger> Logger::m_Instance = nullptr; ???
-
 	Logger::Logger()
-		: m_LogLevel(0)
+		: m_LogLevel(c_LogLevelAll)
+		, m_LogLevels{
+			{ "INFO",        c_LogLevelInfo },
+			{ "WARN",        c_LogLevelWarn },
+			{ "ERROR",       c_LogLevelError },
+			{ "FATAL ERROR", c_LogLevelFatal }
+		}
+		, m_LogMessageCount(0)
 	{
-		m_LogLevels = std::unordered_map<std::string_view, int> // todo should this be string view?
-		{
-			{ "INFO",  c_LogLevelInfo },
-			{ "WARN",  c_LogLevelWarn },
-			{ "ERROR", c_LogLevelError }
-		};
 	}
 
-	void Logger::Log(std::string_view prep, std::string_view severity, std::string_view message)
+	void Logger::Log(std::string_view const severity, std::ostringstream const& logStream)
 	{
-		int const logLevel = m_LogLevels[severity];
-		if (logLevel > m_LogLevel)
+		int const logLevel = m_LogLevels.at(severity);
+		if (m_LogLevel <= logLevel)
 		{
-			return;
+			switch (logLevel)
+			{
+				case c_LogLevelInfo:
+				case c_LogLevelWarn:
+					std::cout << logStream.str();
+					break;
+				case c_LogLevelError:
+				case c_LogLevelFatal:
+					std::cerr << logStream.str();
+					break;
+				default:
+					ASSERT_FAIL("The log level is not accounted for!");
+					break;
+			}
 		}
 
-		std::string const logMessage = std::string(prep) + std::string(severity) + std::string(message); // todo can this be improved?
-		switch (logLevel)
-		{
-		case c_LogLevelInfo:
-		case c_LogLevelWarn:
-			std::cout << logMessage;
-			break;
-		case c_LogLevelError:
-			std::cerr << logMessage;
-			break;
-		}
+		m_LogMessageCount++;
+	}
 
-		// todo - assert undefined log level (default case)
+	void Logger::SetLogLevel(int const logLevel)
+	{
+		m_LogLevel = logLevel;
+	}
+
+	Logger::LogCount Logger::GetLogCount() const
+	{
+		return m_LogMessageCount;
 	}
 } // namespace nabi::Utils::DebugUtils
 #endif // ifdef _DEBUG

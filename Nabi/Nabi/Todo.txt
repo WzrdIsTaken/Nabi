@@ -1,0 +1,54 @@
+Goals:
+- Nabi should be: Fast, flexible, data driven, testable
+- For an MVP we need: Reflection, rendering, input, collision, networking(?), core
+
+Current:
+- Current WIP: Reflecting enums (wip stuff in ReflectionMacros and StringConverter). Prototype this fully in the test proj first I recon
+  Once this is done can fix the todo in Logger.h / tidy up Logger. 
+
+- Seperate tests define?
+- Find and fix that incomplete type not allowed (can we do a seperate thing to what we did in google test in entt.h?)
+- Singleton static constructor / fix circular dependency with singleton and debugutils (worst come to worse have like a call assert func with implementation in singleton.cpp)
+- Some static asserts to make sure log level and the macro match up (see logger todos - comeon dude nearly done with all these todos!!)
+- Handle runtime entity creation
+
+- Debug tag for entities / components / systems / properties
+- Create anonymous id for entities which don't have names? is this needed? is this entt functionality already which hashed string?
+
+// --- Once have done all the todos above, can go back to rendering! Finally... i want to get back to rendering ):
+
+- Create the assert logic (just do like entt assert? looks pretty simple - just use c++ assert!)
+- Log to file function for Logger
+
+- core in pch. testcore as well?
+- idea: could have like CoreRenderer, CorePhysics system etc - no virtual inheritance but can be overriden? idk how that would work thou
+
+- see email for input stuff
+
+Archive: 
+- Have file lines all line up by inserting some spaces
+- Fix circular dependency between Singleton and DebugUtils DONE
+- Does DebugUtils need to include IO stream? or can it go in logger cpp? (remember to update core comment) DONE
+- Can I std::move systems rather than copying them? try this, and if so try deleting the copy operators again DONE
+- with this namespace stuff, remember to to it everywhere. eg with mocksystem etc as well. should we just go lowercase? its not that bad | DOne I dont acc like this
+- All final for classes !!! DONE
+- Fix google test warnings (or suppress) DONE
+- Remove delete rule of 6 stuff from EntityInfoComponent? Will components use this (only if systems do)? If so - put it in the base? DONE
+- Need to decide on namespace structure. See mocksystem, mockcomponent
+- PERHAPS the component and stuff could just live inside ECS, but anything free eg the create function could have another namespace lv
+- Rule of 'if its a class, dont bascially dupe it like ComponentA::ComponentA should stay i recon' DONE
+- With singletons, if dont data drive them need the static constructor stuff. if do data drive, then dont. 
+  tbh i dont think i need to data drive them, it doesnt make much sense. shouldnt have many singletons anyway. consider the static constructor DONE
+- Put Comparison in its own header DONE
+- If the MetaObjectLookup map is complaining with entthashedstring, just make the key a u64 or whatever hashed string is under the hood
+   ^ ngl i dont think we need to do this as std::hash it already going to be called DONE ****
+- Make ConstructSettingsFromComponent functions not inline and have  def in cpp ty brandon DONE
+- Also have to solve this ConstructComponentSettings thing.. its real dumb . i think i have just solved.. dont delte the copy constrctor..?? DONE
+
+Info:
+All the 'todos' of the project! This isn't all the todos ever, its just since I started tracking them in one place (18/12/2022)
+This isn't the best way of tracking stuff I know, but trust me its better than what it was :D
+Besides, I like just being able to open up the proj and everything is right there
+
+Credits:
+Brandon, Matt, Jake, Sam

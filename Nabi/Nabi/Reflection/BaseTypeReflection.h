@@ -5,11 +5,11 @@ namespace nabi::Reflection
 	/// <summary>
 	/// We need to reflect our base types
 	/// </summary>
-	class BaseTypeReflection
+	class BaseTypeReflection final
 	{
 		friend class BaseTypeReflector;
 
-		class BaseTypeReflector
+		class BaseTypeReflector final
 		{
 		public:
 			/// <summary>

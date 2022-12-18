@@ -9,7 +9,7 @@
 
 namespace nabitest
 {
-	struct MockCustomDataType
+	struct MockCustomDataType final
 	{
 		double m_DoubleType;
 		bool m_BoolType;

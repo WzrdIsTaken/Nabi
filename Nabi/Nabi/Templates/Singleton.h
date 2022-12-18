@@ -2,9 +2,10 @@
 
 #include <memory>
 
-#include "../Utils/DebugUtils.h"
+// TODO - We get circular dependency if we include this. Fix!
+//#include "../Utils/DebugUtils.h"
 
-namespace nabi //::Templates
+namespace nabi::Templates
 {
 	template<class T>
 	class TSingleton
@@ -12,8 +13,15 @@ namespace nabi //::Templates
 	public:
 		static void CreateInstance()
 		{
-			ASSERT(!s_Instance, "Singleton already has an instance!")
+			//ASSERT(!s_Instance, "Singleton already has an instance!");
 			s_Instance = std::make_unique<T>();
+		}
+
+		template<typename... Args>
+		static void CreateInstance(Args... args)
+		{
+			//ASSERT(!s_Instance, "Singleton already has an instance!");
+			s_Instance = std::make_unique<T>(std::forward<Args>(args...));
 		}
 
 		static bool IsInstanceValid()
@@ -23,7 +31,7 @@ namespace nabi //::Templates
 
 		static T* Instance()
 		{
-			ASSERT(!s_Instance, "Trying to access the singleton instance when it hasn't been created yet!");
+			//ASSERT(!s_Instance, "Trying to access the singleton instance when it hasn't been created yet!");
 			return s_Instance.get();
 		}
 
@@ -46,5 +54,6 @@ namespace nabi //::Templates
 		static std::unique_ptr<T> s_Instance;
 	};
 
-#define TSINGLETON_INSTANCE(_class) std::unique_ptr<_class> _class::s_Instance = nullptr;
-} // namespace nabi //::Templates
+#define TSINGLETON_INSTANCE(_class) std::unique_ptr<_class> nabi::Templates::TSingleton<_class>::s_Instance = nullptr;
+} // namespace nabi::Templates
+

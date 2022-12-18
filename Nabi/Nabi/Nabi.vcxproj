@@ -90,6 +90,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,6 +108,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,6 +125,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,11 +157,13 @@
     <ClCompile Include="Reflection\StringConverter.cpp" />
     <ClCompile Include="Reflection\XmlParser.cpp" />
     <ClCompile Include="Templates\Singleton.cpp" />
+    <ClCompile Include="Tests\Fixtures\DebugTests\LoggingTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionInitTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp" />
     <ClCompile Include="Tests\MockObjects\MockComponent.cpp" />
     <ClCompile Include="Tests\MockObjects\MockCustomDataType.cpp" />
     <ClCompile Include="Tests\MockObjects\MockGameCore.cpp" />
     <ClCompile Include="Tests\MockObjects\MockSystem.cpp" />
-    <ClCompile Include="Tests\ReflectionTests\ReflectionInitTests.cpp" />
     <ClCompile Include="Utils\UtilClasses\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +176,7 @@
     <ClInclude Include="Libraries\pugixml\pugiconfig.hpp" />
     <ClInclude Include="Libraries\pugixml\pugixml.hpp" />
     <ClInclude Include="Reflection\BaseTypeReflection.h" />
+    <ClInclude Include="Reflection\MetaECSTypes.h" />
     <ClInclude Include="Reflection\MetaObjectLookup.h" />
     <ClInclude Include="Reflection\ReflectionGlobals.h" />
     <ClInclude Include="Reflection\ReflectionHelpers.h" />
@@ -177,6 +184,7 @@
     <ClInclude Include="Reflection\StringConverter.h" />
     <ClInclude Include="Reflection\XmlParser.h" />
     <ClInclude Include="Templates\Singleton.h" />
+    <ClInclude Include="Tests\Helpers\Comparison.h" />
     <ClInclude Include="Tests\MockObjects\MockComponent.h" />
     <ClInclude Include="Tests\MockObjects\MockCustomDataType.h" />
     <ClInclude Include="Tests\MockObjects\MockGameCore.h" />
@@ -192,8 +200,12 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Tests\TestData\TestReflectionData\test_entity_file.xml" />
+    <Xml Include="Tests\TestData\TestReflectionData\test_entity_template_file.xml" />
     <Xml Include="Tests\TestData\TestReflectionData\test_route_file.xml" />
     <Xml Include="Tests\TestData\TestReflectionData\test_system_file.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

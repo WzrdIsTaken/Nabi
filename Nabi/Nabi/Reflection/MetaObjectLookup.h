@@ -17,7 +17,7 @@ namespace nabi::Reflection
 	/// Store meta objects in a lookup of string name to meta object
 	/// tl;dr the main reason this exists is because I want to avoid virtual inheritance for systems
 	/// </summary>
-	class MetaObjectLookup
+	class MetaObjectLookup final
 	{
 	public:
 		/// <summary>

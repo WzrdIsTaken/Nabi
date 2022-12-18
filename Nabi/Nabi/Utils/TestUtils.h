@@ -8,6 +8,6 @@
 	namespace nabi::Utils::TestUtils
 	{
 		constexpr int c_TestResultSuccess = 0;
-		constexpr int c_TestReultFail = 1;
+		constexpr int c_TestResultFail = 1;
 	} // nabi nabi::Utils::TestUtils
 #endif // #ifdef _DEBUG

@@ -6,7 +6,7 @@
 
 namespace nabitest
 {
-	class MockGameCore : public nabi::NabiCore
+	class MockGameCore final : public nabi::NabiCore
 	{
 	public:
 		MockGameCore() = default;
