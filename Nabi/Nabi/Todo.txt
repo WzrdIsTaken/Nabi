@@ -15,10 +15,11 @@ Current:
 - Debug tag for entities / components / systems / properties
 - Create anonymous id for entities which don't have names? is this needed? is this entt functionality already which hashed string?
 
+- Create the assert logic (just do like entt assert? looks pretty simple - just use c++ assert!)
+
 // --- Once have done all the todos above, can go back to rendering! Finally... i want to get back to rendering ):
 
-- Create the assert logic (just do like entt assert? looks pretty simple - just use c++ assert!)
-- Log to file function for Logger
+- Log to file functionality for Logger
 
 - core in pch. testcore as well?
 - idea: could have like CoreRenderer, CorePhysics system etc - no virtual inheritance but can be overriden? idk how that would work thou
