@@ -6,15 +6,18 @@
 
 #include "../../Templates/Singleton.h"
 
-// Todo - Would be good to make these log levels an enum and be able to convert enum->string. Atm its a little jank
-// ^ Or just have the log levels take in the same string as debug utils?
-
 #ifdef _DEBUG
 
 namespace nabi::Utils::DebugUtils
 {
+	// Some new defines to be used with SetLogLevel. Macros so they match up stylistically with the logging levels defined in DebugUtils
+#define LOG_LEVEL_ALL  "this string could be anything!"
+#define LOG_LEVEL_NONE "this one as well, bananas!"
+
 	/// <summary>
-	/// Handles all logging in the game. Atm its a little rough around the edges, but servicable. Hopefully that will change soon!
+	/// Handles all* logging in the game. Pretty important!
+	/// *almost...
+	///
 	/// </summary>
 	class Logger final : public nabi::Templates::TSingleton<Logger>
 	{
@@ -34,22 +37,13 @@ namespace nabi::Utils::DebugUtils
 		/// Sets m_LogLevel. Only debug messages with a level equal or above to m_LogLevel will be displayed
 		/// </summary>
 		/// <param name="logLevel">- The new log level</param>
-		void SetLogLevel(int const logLevel);
+		void SetLogLevel(std::string_view const logLevel);
 
 		/// <summary>
 		/// Gets the number of messages that have been logged this session
 		/// </summary>
-		/// <returns>The number of messages logged this session (as an unsigned long long int)</returns>
+		/// <returns>The number of messages logged this session (as an unsigned long long)</returns>
 		LogCount GetLogCount() const;
-
-		// Log Levels
-		static int constexpr c_LogLevelAll   = -1;
-		static int constexpr c_LogLevelNone  = 9999;
-
-		static int constexpr c_LogLevelInfo  = 0;
-		static int constexpr c_LogLevelWarn  = 1;
-		static int constexpr c_LogLevelError = 2;
-		static int constexpr c_LogLevelFatal = 3;
 
 	private:
 		std::unordered_map<std::string_view, int> const m_LogLevels;

@@ -54,19 +54,22 @@ namespace nabitest::ReflectionTests
 		Comparison<float> floatType(50.8f);
 		Comparison<std::string> stringType("somestring");
 		Comparison<MockCustomDataType> customType({ 27.3, true });
+		Comparison<MockEnum> enumType(MockEnum::AnotherEntry);
 
 		for (auto [entity, mockComponent] : mockComponentView.each())
 		{
-			intType.m_Actual = mockComponent.m_IntType;
-			floatType.m_Actual = mockComponent.m_FloatType;
+			intType.m_Actual    = mockComponent.m_IntType;
+			floatType.m_Actual  = mockComponent.m_FloatType;
 			stringType.m_Actual = mockComponent.m_StringType;
 			customType.m_Actual = mockComponent.m_CustomType;
+			enumType.m_Actual   = mockComponent.m_Enum;
 		}
 
 		COMPAIR_EQ(intType);
 		COMPAIR_EQ(floatType);
 		COMPAIR_EQ(stringType);
 		COMPAIR_EQ(customType);
+		COMPAIR_EQ(enumType);
 
 		// Iterate over the registery and check for EntityInfoComponent
 		auto entityInfoComponentView = registry.view<ecs::EntityInfoComponent>();

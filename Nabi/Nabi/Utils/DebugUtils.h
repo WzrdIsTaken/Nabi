@@ -5,13 +5,16 @@
 #include "UtilClasses/Logger.h"
 
 #ifndef _DEBUG
-	#define ASSERT_FATAL(condition, message) ((void)0)
-	#define ASSERT(condition, message) ((void)0) 
+	#define ASSERT_FATAL(condition, message) NOT_DEFINED
+	#define ASSERT(condition, message) NOT_DEFINED 
 
-	#define ASSERT_FAIL_FATAL(message) ASSERT_FATAL(false, message)
-	#define ASSERT_FAIL(message) ASSERT(false, message)
+	#define ASSERT_FAIL_FATAL(message) NOT_DEFINED
+	#define ASSERT_FAIL(message) NOT_DEFINED
 
-	#define LOG(message) ((void)0)
+	#define LOG(message) NOT_DEFINED
+	#define LOG_RAW(message) NOT_DEFINED
+
+	#define FUNCTION_NOT_IMPLEMENTED NOT_DEFINED
 #else
 #define ASSERT_FATAL(condition, message) \
 		if (!(condition)) \
@@ -33,8 +36,12 @@
 			debugStream << prep << severity << LEVEL_MESSAGE_DIVIDER << message; \
 			nabi::Utils::DebugUtils::Logger::Instance()->Log(severity, debugStream); \
 		}
+#define LOG_RAW(message) std::cout << message << std::endl;
 
+#define FUNCTION_NOT_IMPLEMENTED ASSERT_FAIL("The function " << __FUNCTION__  << " is not implemented!");
 #endif // ifndef _DEBUG
+
+#define NOT_DEFINED ((void)0)
 
 #define TOSTRING(thing) #thing
 #define CONCAT(A, B) A ## B
@@ -52,6 +59,7 @@
 #define LOG_ERROR   "ERROR"
 #define LOG_FATAL   "FATAL ERROR"
 
+#define NEWLINE "\n"
 #define ENDLINE std::endl
 #define WRAP(item, wrapCharacter) wrapCharacter << item << wrapCharacter
 #define SPACE(numberOfSpaces) std::string(numberOfSpaces, ' ')

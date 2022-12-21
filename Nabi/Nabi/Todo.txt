@@ -3,12 +3,11 @@ Goals:
 - For an MVP we need: Reflection, rendering, input, collision, networking(?), core
 
 Current:
-- Current WIP: Reflecting enums (wip stuff in ReflectionMacros and StringConverter). Prototype this fully in the test proj first I recon
-  Once this is done can fix the todo in Logger.h / tidy up Logger. 
 
 - Seperate tests define?
 - Find and fix that incomplete type not allowed (can we do a seperate thing to what we did in google test in entt.h?)
 - Singleton static constructor / fix circular dependency with singleton and debugutils (worst come to worse have like a call assert func with implementation in singleton.cpp)
+  Get rid of that big comment in Singleton.h
 - Some static asserts to make sure log level and the macro match up (see logger todos - comeon dude nearly done with all these todos!!)
 - Handle runtime entity creation
 
@@ -25,8 +24,18 @@ Current:
 - idea: could have like CoreRenderer, CorePhysics system etc - no virtual inheritance but can be overriden? idk how that would work thou
 
 - see email for input stuff
+- could we fix the warning that void(0) log produces in release builds by doing the pragma error thing in release only? (we did in google test)
 
 Archive: 
+- DOING THIS WILL RESOLVE BELOW: Fix the failing test with mock component!
+  I think something link /* .func<&nabi::Reflection::StringConverter::FromString<int>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName) \ */
+  In the reflect end will work. This is the problem, no from string defined but enums are ints so should be able to use..???
+- https://github.com/skypjack/entt/wiki/Crash-Course:-runtime-reflection-system#named-constants-and-enums
+- Write enum tests in reflection (gotta test stand alone and in mock component)
+- Check over all changes up to this point and commit. make sure you haven't done anything else dumb... i would do it now but i gotta go pack!
+- Remember to update the comment in ReflectionMacros -> enums
+- Current WIP: Reflecting enums (wip stuff in ReflectionMacros and StringConverter). Prototype this fully in the test proj first I recon
+  Once this is done can fix the todo in Logger.h / tidy up Logger.  (I was being so dumb logger was well easy. and so was enums!!!! ah well, you live and learn)
 - Have file lines all line up by inserting some spaces
 - Fix circular dependency between Singleton and DebugUtils DONE
 - Does DebugUtils need to include IO stream? or can it go in logger cpp? (remember to update core comment) DONE
@@ -53,3 +62,10 @@ Besides, I like just being able to open up the proj and everything is right ther
 
 Credits:
 Brandon, Matt, Jake, Sam
+
+To Read:
+- https://dzone.com/articles/performance-of-stdstring-view-vs-stdstring-from-c1
+- Small string optimisation
+- https://taylorconor.com/blog/enum-reflection/
+- https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom
+idk why this is here really but as i say, i like everything in one place :D

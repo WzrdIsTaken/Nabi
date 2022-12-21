@@ -143,19 +143,35 @@
 	CREATE_REFLECTOR_END()
 
 // --- Enum Reflection ---
-// A macro to handle the reflection of enums. To get an enum from a string, use StringToEnum in StringConverter. 
-// TODO - Also need a EnumToString function
+// A macro to handle the reflection of enums. Works in basically the same way as the others user facing wise.
+// However, to get the enum reflected data (eg, enum value -> string name) use the functions defined in EnumConverter.
+// The StringToEnum function defined in EnumConverter is also used for the xml->object FromString function.
 
-//#define REFLECT_ENUM_BEGIN(enumeration) \
-//	entt::meta<enumeration>().type(entt::hashed_string(#enumeration)) \
-//		.conv<std::underlying_type_t<enumeration>>();
+#define REFLECT_ENUM_BEGIN(_enum, enumName) \
+	CREATE_REFLECTOR_BEGIN(_enum) \
+	CREATE_INIT_REFLECTION_FUNCTION() \
+		entt::meta<_enum>().type(entt::hashed_string(enumName)) \
+			.func<&nabi::Reflection::EnumConverter::StringToEnum<_enum>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName)
+
+#define REFLECT_ENUM_BEGIN_DEFAULT(_enum) \
+	CREATE_REFLECTOR_BEGIN(_enum) \
+	CREATE_INIT_REFLECTION_FUNCTION() \
+		entt::meta<_enum>().type(entt::hashed_string(#_enum)) \
+			.func<&nabi::Reflection::EnumConverter::StringToEnum<_enum>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName)
+
+#define REFLECT_ENUM_VALUE(enumValue, enumValueName) \
+			.data<enumValue>(entt::hashed_string(enumValueName))
+
+#define REFLECT_ENUM_VALUE_DEFAULT(enumValue) \
+			.data<enumValue>(entt::hashed_string(nabi::Reflection::StringConverter::ExtractTypeName(#enumValue).c_str()))
+
+#define REFLECT_ENUM_END \
+	; } \
+	CREATE_REFLECTOR_END()
 	
-
-#define REFLECT_ENUM_VALUE(enumValue)
-
 // --- Base Type Reflection ---
 // A simple marcro to reflect base types. The ToString method for base types will always live on StringConverter.
 
 #define REFLECT_BASE_TYPE(baseType) \
 	entt::meta<baseType>().type(entt::hashed_string(#baseType)) \
-		.func<&StringConverter::FromString<baseType>>(ReflectionGlobals::c_FromStringFunctionName);
+		.func<&nabi::Reflection::StringConverter::FromString<baseType>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName);

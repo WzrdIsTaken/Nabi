@@ -10,7 +10,7 @@ int main()
 
 	// Create the logger
 	Logger::CreateInstance();
-	Logger::Instance()->SetLogLevel(Logger::c_LogLevelNone);
+	Logger::Instance()->SetLogLevel(LOG_ERROR);
 
 	// Run all tests
 	::testing::InitGoogleTest(&__argc, __argv);
@@ -20,9 +20,9 @@ int main()
 	ASSERT(testResults == c_TestResultSuccess, "One or more of the tests failed! See the console output for details, or run the test explorer.");
 
 	// Set the log level back to all (we disabled it because otherwise it spams the console during the tests)
-	Logger::Instance()->SetLogLevel(Logger::c_LogLevelAll);
+	Logger::Instance()->SetLogLevel(LOG_LEVEL_ALL);
 #endif // #ifdef _DEBUG
 
-	LOG(LOG_PREP, LOG_INFO, "Nabi has initialized successfully!" << ENDLINE);
+	LOG(NEWLINE << LOG_PREP, LOG_INFO, "Nabi has initialized successfully!" << ENDLINE);
 	return 0;
 }

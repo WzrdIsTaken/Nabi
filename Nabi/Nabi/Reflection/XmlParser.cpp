@@ -62,7 +62,7 @@ namespace nabi::Reflection
 
 	void XmlParser::ParseSingletons(pugi::xml_document const& /*doc*/)
 	{
-		ASSERT_FAIL("This function is not implemented!");
+		FUNCTION_NOT_IMPLEMENTED
 
 		// I dont know how singletons will work
 		// And I don't need them right now (or ever??), so:

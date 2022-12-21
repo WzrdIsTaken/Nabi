@@ -2,6 +2,9 @@
 
 // A collection of core includes to make life easier
 
+// DirectX
+// #include DirectXCore
+
 // Entt
 #include "Libraries/entt/entt.h"
 using namespace entt::literals;
@@ -13,6 +16,9 @@ using namespace entt::literals;
 // Reflection
 #include "Reflection/ReflectionGlobals.h"
 #include "Reflection/ReflectionMacros.h"
+
+#include "Reflection/EnumConverter.h"
+#include "Reflection/StringConverter.h"
 
 // Testing
 #include "gtest/gtest.h" // Note - This has been done https://stackoverflow.com/questions/68193449/disable-warnings-from-google-test

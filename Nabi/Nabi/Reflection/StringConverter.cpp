@@ -46,6 +46,14 @@ namespace nabi::Reflection::StringConverter
 		}
 	}
 
+	std::string ExtractTypeName(std::string_view const typeInfoName)
+	{
+		std::string extractedTypeName = std::string(typeInfoName);
+		ExtractTypeName(extractedTypeName);
+
+		return extractedTypeName;
+	}
+
 	void ExtractTypeName(std::string& typeInfoName)
 	{
 		size_t const lastColon = typeInfoName.find_last_of(':') + 1; // i.e type name could look like MyNameSpace::MyType

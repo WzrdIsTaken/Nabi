@@ -158,10 +158,12 @@
     <ClCompile Include="Reflection\XmlParser.cpp" />
     <ClCompile Include="Templates\Singleton.cpp" />
     <ClCompile Include="Tests\Fixtures\DebugTests\LoggingTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionInitTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp" />
     <ClCompile Include="Tests\MockObjects\MockComponent.cpp" />
     <ClCompile Include="Tests\MockObjects\MockCustomDataType.cpp" />
+    <ClCompile Include="Tests\MockObjects\MockEnum.cpp" />
     <ClCompile Include="Tests\MockObjects\MockGameCore.cpp" />
     <ClCompile Include="Tests\MockObjects\MockSystem.cpp" />
     <ClCompile Include="Utils\UtilClasses\Logger.cpp" />
@@ -176,6 +178,7 @@
     <ClInclude Include="Libraries\pugixml\pugiconfig.hpp" />
     <ClInclude Include="Libraries\pugixml\pugixml.hpp" />
     <ClInclude Include="Reflection\BaseTypeReflection.h" />
+    <ClInclude Include="Reflection\EnumConverter.h" />
     <ClInclude Include="Reflection\MetaECSTypes.h" />
     <ClInclude Include="Reflection\MetaObjectLookup.h" />
     <ClInclude Include="Reflection\ReflectionGlobals.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="Tests\Helpers\Comparison.h" />
     <ClInclude Include="Tests\MockObjects\MockComponent.h" />
     <ClInclude Include="Tests\MockObjects\MockCustomDataType.h" />
+    <ClInclude Include="Tests\MockObjects\MockEnum.h" />
     <ClInclude Include="Tests\MockObjects\MockGameCore.h" />
     <ClInclude Include="Tests\MockObjects\MockSystem.h" />
     <ClInclude Include="Tests\TestCore.h" />

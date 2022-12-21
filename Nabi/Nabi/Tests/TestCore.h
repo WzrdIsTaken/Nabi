@@ -8,6 +8,7 @@
 // Mock Objects
 #include "MockObjects/MockComponent.h"
 #include "MockObjects/MockCustomDataType.h"
+#include "MockObjects/MockEnum.h"
 #include "MockObjects/MockGameCore.h"
 #include "MockObjects/MockSystem.h"
 

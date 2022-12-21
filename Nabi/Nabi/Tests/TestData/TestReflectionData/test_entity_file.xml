@@ -6,7 +6,8 @@
       <property id="IntType" value="20" />
       <property id="FloatType" value="50.8" />
       <property id="StringType" value="somestring" />
-      <property id="CustomType" value="27.3, true"/>
+      <property id="CustomType" value="27.3, true" />
+      <property id="Enum" value="AnotherEntry" />
     </component>
   </entity>
 </entity_group>

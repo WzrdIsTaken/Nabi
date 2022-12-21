@@ -104,6 +104,12 @@
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp">
       <Filter>Tests\Fixtures\ReflectionTests</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\MockObjects\MockEnum.cpp">
+      <Filter>Tests\MockObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp">
+      <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\entt\entt.h">
@@ -184,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="Tests\Helpers\Comparison.h">
       <Filter>Tests\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\MockObjects\MockEnum.h">
+      <Filter>Tests\MockObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\EnumConverter.h">
+      <Filter>Reflection</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
