@@ -8,13 +8,10 @@ Current:
 - Find and fix that incomplete type not allowed (can we do a seperate thing to what we did in google test in entt.h?)
 - Singleton static constructor / fix circular dependency with singleton and debugutils (worst come to worse have like a call assert func with implementation in singleton.cpp)
   Get rid of that big comment in Singleton.h
-- Some static asserts to make sure log level and the macro match up (see logger todos - comeon dude nearly done with all these todos!!)
 - Handle runtime entity creation
 
-- Debug tag for entities / components / systems / properties
+- Debug tag for entities / components / systems / properties in xml
 - Create anonymous id for entities which don't have names? is this needed? is this entt functionality already which hashed string?
-
-- Create the assert logic (just do like entt assert? looks pretty simple - just use c++ assert!)
 
 // --- Once have done all the todos above, can go back to rendering! Finally... i want to get back to rendering ):
 
@@ -24,9 +21,11 @@ Current:
 - idea: could have like CoreRenderer, CorePhysics system etc - no virtual inheritance but can be overriden? idk how that would work thou
 
 - see email for input stuff
-- could we fix the warning that void(0) log produces in release builds by doing the pragma error thing in release only? (we did in google test)
 
 Archive: 
+- could we fix the warning that void(0) log produces in release builds by doing the pragma error thing in release only? (we did in google test)
+- Create the assert logic (just do like entt assert? looks pretty simple - just use c++ assert!) [acc wasn't so simple but we've got it done!]
+- Some static asserts to make sure log level and the macro match up (see logger todos - comeon dude nearly done with all these todos!!) [no longer needed]
 - DOING THIS WILL RESOLVE BELOW: Fix the failing test with mock component!
   I think something link /* .func<&nabi::Reflection::StringConverter::FromString<int>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName) \ */
   In the reflect end will work. This is the problem, no from string defined but enums are ints so should be able to use..???

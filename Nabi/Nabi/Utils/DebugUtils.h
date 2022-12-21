@@ -5,6 +5,10 @@
 #include "UtilClasses/Logger.h"
 
 #ifndef _DEBUG
+	// Solve's the problem of these macros in release being void(0), so the compiler warns that there are too many arguements
+	#pragma warning( push ) // Push but never pop
+	#pragma warning( disable : 4002 ) // Disables 'too many arguements for function-like macro' warning
+
 	#define ASSERT_FATAL(condition, message) NOT_DEFINED
 	#define ASSERT(condition, message) NOT_DEFINED 
 
@@ -16,32 +20,46 @@
 
 	#define FUNCTION_NOT_IMPLEMENTED NOT_DEFINED
 #else
-#define ASSERT_FATAL(condition, message) \
-		if (!(condition)) \
-		{ \
-			LOG(LOG_PREP, LOG_FATAL, "TODO: ASSERT FATAL: " << message << ENDLINE); \
-		}
-#define ASSERT(condition, message) \
-		if (!(condition)) \
-		{ \
-			LOG(LOG_PREP, LOG_ERROR, "TODO: ASSERT: " << message << ENDLINE); \
-		}
+#define ASSERT_FATAL(condition, message) ASSERT_BASE(condition, message, "ASSERT FATAL", LOG_FATAL)
+#define ASSERT(condition, message) ASSERT_BASE(condition, message, "ASSERT", LOG_ERROR)
 
 #define ASSERT_FAIL_FATAL(message) ASSERT_FATAL(false, message)
 #define ASSERT_FAIL(message) ASSERT(false, message)
 
 #define LOG(prep, severity, message) \
 		{ \
+			using nabi::Utils::DebugUtils::Logger; \
+			\
 			std::ostringstream debugStream; \
 			debugStream << prep << severity << LEVEL_MESSAGE_DIVIDER << message; \
-			nabi::Utils::DebugUtils::Logger::Instance()->Log(severity, debugStream); \
+			\
+			if (Logger::IsInstanceValid()) \
+			{ \
+				Logger::Instance()->Log(severity, debugStream); \
+			} \
+			else \
+			{ \
+				LOG_RAW(debugStream); \
+			} \
 		}
-#define LOG_RAW(message) std::cout << message << std::endl;
+#define LOG_RAW(message) nabi::Utils::DebugUtils::Logger::LogRaw(message);
 
 #define FUNCTION_NOT_IMPLEMENTED ASSERT_FAIL("The function " << __FUNCTION__  << " is not implemented!");
 #endif // ifndef _DEBUG
 
-#define NOT_DEFINED ((void)0)
+#define NOT_DEFINED (void(0));
+#define ASSERT_BASE(condition, message, messagePrefix, logLevel) \
+		do { \
+			if (!(condition)) { \
+				std::ostringstream assertStream; \
+				assertStream << messagePrefix << LEVEL_MESSAGE_DIVIDER << message; \
+				std::string const assertMessage = assertStream.str(); \
+				\
+				LOG(LOG_PREP, logLevel, message << ENDLINE); \
+				_RPTF0(_CRT_ASSERT, assertMessage.c_str()); \
+			} \
+		} while (false)
+		// We use _RPTF0 because: It creates the dialogue box / makes the noise like assert, but allows us to add a custom message to the popup
 
 #define TOSTRING(thing) #thing
 #define CONCAT(A, B) A ## B

@@ -34,6 +34,12 @@ namespace nabi::Utils::DebugUtils
 		void Log(std::string_view const severity, std::ostringstream const& logStream);
 
 		/// <summary>
+		/// A fall back for logging incase the Logger isn't initialized
+		/// </summary>
+		/// <param name="logStream">- The message to log</param>
+		static void LogRaw(std::ostringstream const& logStream);
+
+		/// <summary>
 		/// Sets m_LogLevel. Only debug messages with a level equal or above to m_LogLevel will be displayed
 		/// </summary>
 		/// <param name="logLevel">- The new log level</param>

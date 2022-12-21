@@ -50,6 +50,12 @@ namespace nabi::Utils::DebugUtils
 		m_LogMessageCount++;
 	}
 
+	void Logger::LogRaw(std::ostringstream const& logStream)
+	{
+		std::string const warningMessage = "[Logger::LogRaw] WARNING - LOGGER NOT INITIALIZED |";
+		std::cout << warningMessage << " " << logStream.str();
+	}
+
 	void Logger::SetLogLevel(std::string_view const logLevel)
 	{
 		ASSERT_FATAL(m_LogLevels.find(logLevel) != m_LogLevels.end(), "The log level is not defined!");
