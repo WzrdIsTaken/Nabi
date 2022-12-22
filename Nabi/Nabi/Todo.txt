@@ -6,8 +6,6 @@ Current:
 
 - Seperate tests define?
 - Find and fix that incomplete type not allowed (can we do a seperate thing to what we did in google test in entt.h?)
-- Singleton static constructor / fix circular dependency with singleton and debugutils (worst come to worse have like a call assert func with implementation in singleton.cpp)
-  Get rid of that big comment in Singleton.h
 - Handle runtime entity creation
 
 - Debug tag for entities / components / systems / properties in xml
@@ -16,6 +14,8 @@ Current:
 // --- Once have done all the todos above, can go back to rendering! Finally... i want to get back to rendering ):
 
 - Log to file functionality for Logger
+- It might be possible to make Singleton's use a static constructor to init themselves as well? But when I did a quick attempt I got a lot of scary linker errors
+  and I don't want to go down that road right now!
 
 - core in pch. testcore as well?
 - idea: could have like CoreRenderer, CorePhysics system etc - no virtual inheritance but can be overriden? idk how that would work thou
@@ -23,6 +23,8 @@ Current:
 - see email for input stuff
 
 Archive: 
+- Singleton static constructor / fix circular dependency with singleton and debugutils (worst come to worse have like a call assert func with implementation in singleton.cpp)
+  Get rid of that big comment in Singleton.h
 - could we fix the warning that void(0) log produces in release builds by doing the pragma error thing in release only? (we did in google test)
 - Create the assert logic (just do like entt assert? looks pretty simple - just use c++ assert!) [acc wasn't so simple but we've got it done!]
 - Some static asserts to make sure log level and the macro match up (see logger todos - comeon dude nearly done with all these todos!!) [no longer needed]

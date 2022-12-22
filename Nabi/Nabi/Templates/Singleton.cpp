@@ -1,7 +1,14 @@
 #include "Singleton.h"
 
+#include "../Utils/DebugUtils.h"
+
 namespace nabi::Templates
 {
-	//template<class T>
-	//TSingleton<T>::SingletonCreator TSingleton<T>::m_SingletonCreatorInstance;
+	namespace Singleton
+	{
+		void CallAssert(bool const assertCondition, std::string_view const assertMessge)
+		{
+			ASSERT(assertCondition, assertMessge);
+		}
+	} // namespace nabi::Templates::Singleton
 } // namespace nabi::Templates
