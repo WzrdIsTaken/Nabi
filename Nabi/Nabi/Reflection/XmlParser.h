@@ -126,6 +126,15 @@ namespace nabi::Reflection
 		void AssignComponentToRegistery(entt::meta_any& metaComponent, entt::registry& registery, entt::entity const entity);
 
 		/// <summary>
+		/// Checks if a node has the c_DebugAttribute attribute and its value is "true"
+		/// Debug [systems/entities/components/properties] are only created in debug mode
+		/// Then, checks if we are in debug mode. If both these things are true, then the node is debug only
+		/// </summary>
+		/// <param name="node">- The node to check</param>
+		/// <returns>If the node has a debug attribute set to true</returns>
+		bool CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(pugi::xml_node const& node);
+
+		/// <summary>
 		/// Creates a MetaECSTypeData from an xml node
 		/// Note - MetaECSTypeData can be a system or component. See MetaECSTypes.h for more infomation
 		/// </summary>
@@ -162,5 +171,8 @@ namespace nabi::Reflection
 
 		std::string const c_IdAttribute = "id";
 		std::string const c_ValueAttribute = "value";
+
+		// Debug
+		std::string const c_DebugAttribute = "debug";
 	};
 } // namespace nabi::Reflection

@@ -2,7 +2,7 @@
 
 #include "../../Core.h"
 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 
 namespace nabitest::ECS
 {
@@ -27,4 +27,4 @@ namespace nabitest::ECS
 	RELFECT_SYSTEM_END()
 } // namespace nabitest::ECS
 
-#endif // #ifdef _DEBUG
+#endif // #ifdef RUN_TESTS

@@ -2,7 +2,7 @@
 
 #include "../../Core/NabiCore.h"
 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 
 namespace nabitest
 {
@@ -26,4 +26,4 @@ namespace nabitest
 	};
 } // namespace nabitest
 
-#endif // #ifdef _DEBUG
+#endif // #ifdef RUN_TESTS

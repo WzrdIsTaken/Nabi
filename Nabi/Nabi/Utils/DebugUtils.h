@@ -2,9 +2,10 @@
 
 #include <sstream>
 
+#include "../Core/Defines.h"
 #include "UtilClasses/Logger.h"
 
-#ifndef _DEBUG
+#ifndef USE_DEBUG_UTILS
 	// Solve's the problem of these macros in release being void(0), so the compiler warns that there are too many arguements
 	#pragma warning( push ) // Push but never pop
 	#pragma warning( disable : 4002 ) // Disables 'too many arguements for function-like macro' warning
@@ -45,7 +46,7 @@
 #define LOG_RAW(message) nabi::Utils::DebugUtils::Logger::LogRaw(message);
 
 #define FUNCTION_NOT_IMPLEMENTED ASSERT_FAIL("The function " << __FUNCTION__  << " is not implemented!");
-#endif // ifndef _DEBUG
+#endif // ifndef USE_DEBUG_UTILS
 
 #define NOT_DEFINED (void(0));
 #define ASSERT_BASE(condition, message, messagePrefix, logLevel) \
@@ -85,3 +86,4 @@
 #define INDENT_1 3
 #define INDENT_2 6
 #define INDENT_3 9
+

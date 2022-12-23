@@ -8,7 +8,7 @@
 #include "MockCustomDataType.h"
 #include "MockEnum.h"
 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 
 namespace nabitest::ECS
 {
@@ -69,4 +69,4 @@ namespace nabitest::ECS
 	REFLECT_COMPONENT_END()
 } // namespace nabitest::ECS
 
-#endif // #ifdef _DEBUG
+#endif // #ifdef RUN_TESTS

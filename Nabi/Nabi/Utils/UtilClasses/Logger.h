@@ -4,9 +4,10 @@
 #include <sstream>
 #include <unordered_map>
 
+#include "../../Core/Defines.h"
 #include "../../Templates/Singleton.h"
 
-#ifdef _DEBUG
+#ifdef USE_DEBUG_UTILS
 
 namespace nabi::Utils::DebugUtils
 {
@@ -60,4 +61,4 @@ namespace nabi::Utils::DebugUtils
 	};
 } // namespace nabi::Utils::DebugUtils
 
-#endif // ifdef _DEBUG
+#endif // ifdef USE_DEBUG_UTILS

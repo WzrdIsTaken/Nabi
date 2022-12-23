@@ -1,10 +1,10 @@
 #include "MockCustomDataType.h"
 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 
 namespace nabitest
 {
 	CREATE_REFLECTOR_INSTANCE(MockCustomDataType)
 } // namespace nabitest::MockCustomDataType
 
-#endif // #ifdef _DEBUG
+#endif // #ifdef RUN_TESTS

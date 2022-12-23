@@ -158,6 +158,7 @@
     <ClCompile Include="Reflection\XmlParser.cpp" />
     <ClCompile Include="Templates\Singleton.cpp" />
     <ClCompile Include="Tests\Fixtures\DebugTests\LoggingTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionInitTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp" />
@@ -170,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Core\Defines.h" />
     <ClInclude Include="Core\NabiCore.h" />
     <ClInclude Include="ECS\ComponentBase.h" />
     <ClInclude Include="ECS\CoreComponents\EntityInfoComponent.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="Tests\MockObjects\MockGameCore.h" />
     <ClInclude Include="Tests\MockObjects\MockSystem.h" />
     <ClInclude Include="Tests\TestCore.h" />
+    <ClInclude Include="Utils\BuildUtils.h" />
     <ClInclude Include="Utils\DebugUtils.h" />
     <ClInclude Include="Utils\StringUtils.h" />
     <ClInclude Include="Utils\TestUtils.h" />
@@ -203,6 +206,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Tests\TestData\TestReflectionData\test_debug_entity_file.xml" />
     <Xml Include="Tests\TestData\TestReflectionData\test_entity_file.xml" />
     <Xml Include="Tests\TestData\TestReflectionData\test_entity_template_file.xml" />
     <Xml Include="Tests\TestData\TestReflectionData\test_route_file.xml" />

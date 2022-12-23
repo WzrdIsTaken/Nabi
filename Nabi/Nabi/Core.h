@@ -9,6 +9,9 @@
 #include "Libraries/entt/entt.h"
 using namespace entt::literals;
 
+// Nabi Defines
+#include "Core/Defines.h"
+
 // ECS
 #include "ECS/ComponentBase.h"
 #include "ECS/SystemBase.h"

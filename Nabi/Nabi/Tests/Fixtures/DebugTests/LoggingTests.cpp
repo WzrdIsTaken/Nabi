@@ -2,10 +2,11 @@
 
 #include "../../../Utils/UtilClasses/Logger.h"
 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 
 namespace nabitest::DebugTests
 {
+#ifdef USE_DEBUG_UTILS
 	// Test that the logger is initialized
 	TEST(DebugTests, CheckLoggerIsInitialized)
 	{
@@ -33,6 +34,6 @@ namespace nabitest::DebugTests
 	}
 
 	// Idea - Could write tests for asserts?
+#endif // #ifdef USE_DEBUG_UTILS
 }
-
-#endif // #ifdef _DEBUG
+#endif // #ifdef RUN_TESTS

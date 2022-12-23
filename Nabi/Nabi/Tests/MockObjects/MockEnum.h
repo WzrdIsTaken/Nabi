@@ -2,7 +2,7 @@
 
 #include "../../Core.h"
 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 
 namespace nabitest
 {
@@ -24,4 +24,4 @@ namespace nabitest
 	REFLECT_ENUM_END
 } // namespace nabitest
 
-#endif // ifdef _DEBUG
+#endif // ifdef RUN_TESTS

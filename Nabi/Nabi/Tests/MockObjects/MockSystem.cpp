@@ -1,10 +1,10 @@
 #include "MockSystem.h"
 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 
 namespace nabitest::ECS
 {
 	CREATE_REFLECTOR_INSTANCE(MockSystem)
 } // namespace nabitest::ECS
 
-#endif // #ifdef _DEBUG
+#endif // #ifdef RUN_TESTS

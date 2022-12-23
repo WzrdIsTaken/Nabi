@@ -3,6 +3,7 @@
 #include "../Libraries/pugixml/pugixml.hpp"
 
 #include "../ECS/CoreComponents/EntityInfoComponent.h"
+#include "../Utils/BuildUtils.h"
 #include "../Utils/DebugUtils.h"
 #include "MetaObjectLookup.h"
 #include "ReflectionGlobals.h"
@@ -80,24 +81,28 @@ namespace nabi::Reflection
 		// Iterate through all of the systems in the group
 		for (pugi::xml_node const systemNode : doc.child(c_SystemGroupAttribute.c_str()))
 		{
-			// Get the system's id
-			std::string_view const systemId = systemNode.attribute(c_IdAttribute.c_str()).value();
-			entt::hashed_string const systemIdHash = entt::hashed_string(systemId.data());
-			LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << "Created a system with id " << WRAP(systemId, "'") << ENDLINE);
-
-			// Construct the system
-			entt::meta_any metaSystem = ReflectionHelpers::ConstructMetaObject(systemIdHash, entt::forward_as_meta(registery), systemIdHash, systemGroupIdHash);
-
-			// Construct the data for the ststem
-			SystemData const systemData = CreateECSTypeData(systemNode);
-
-			// Resolve any properties on the system
-			ResolveProperties(systemData, metaSystem);
-
-			// Add the system to the system's lookup map
-			if (systemsLookup != nullptr)
+			// Check if the system is debug only
+			if (!CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(systemNode))
 			{
-				systemsLookup->AddObject(systemId.data(), metaSystem);
+				// Get the system's id
+				std::string_view const systemId = systemNode.attribute(c_IdAttribute.c_str()).value();
+				entt::hashed_string const systemIdHash = entt::hashed_string(systemId.data());
+				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << "Created a system with id " << WRAP(systemId, "'") << ENDLINE);
+
+				// Construct the system
+				entt::meta_any metaSystem = ReflectionHelpers::ConstructMetaObject(systemIdHash, entt::forward_as_meta(registery), systemIdHash, systemGroupIdHash);
+
+				// Construct the data for the ststem
+				SystemData const systemData = CreateECSTypeData(systemNode);
+
+				// Resolve any properties on the system
+				ResolveProperties(systemData, metaSystem);
+
+				// Add the system to the system's lookup map
+				if (systemsLookup != nullptr)
+				{
+					systemsLookup->AddObject(systemId.data(), metaSystem);
+				}
 			}
 		}
 	}
@@ -112,15 +117,19 @@ namespace nabi::Reflection
 		// Loop through all of the entities in the group
 		for (pugi::xml_node entityNode : doc.child(c_EntityGroupAttribute.c_str()))
 		{
-			// Check if the entity is a template or not
-			bool const isEntityTemplate = entityNode.name() == c_EntityTemplateAttribute;
-			if (isEntityTemplate)
+			// Check if the entity is debug only
+			if (!CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(entityNode))
 			{
-				ResolveEntityTemplate(entityNode);
-			}
-			else
-			{
-				ResolveEntity(entityNode, entityGroupIdHash, registery);
+				// Check if the entity is a template or not
+				bool const isEntityTemplate = entityNode.name() == c_EntityTemplateAttribute;
+				if (isEntityTemplate)
+				{
+					ResolveEntityTemplate(entityNode);
+				}
+				else
+				{
+					ResolveEntity(entityNode, entityGroupIdHash, registery);
+				}
 			}
 		}
 	}
@@ -254,25 +263,29 @@ namespace nabi::Reflection
 		// Iterate through the entity node's children
 		for (pugi::xml_node const componentOrPropertyNode : entityNode.children())
 		{
-			// Check if the node is a property node
-			bool const isPropertyNode = componentOrPropertyNode.name() == c_PropertyAttribute;
-			if (isPropertyNode)
+			// Check if the component or property is debug only
+			if (!CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(componentOrPropertyNode))
 			{
-				// If the node is a property node, then we want to override an assigned components property with its value
-				ResolveEntityComponents(entityComponents, componentOrPropertyNode);
-				continue;
+				// Check if the node is a property node
+				bool const isPropertyNode = componentOrPropertyNode.name() == c_PropertyAttribute;
+				if (isPropertyNode)
+				{
+					// If the node is a property node, then we want to override an assigned components property with its value
+					ResolveEntityComponents(entityComponents, componentOrPropertyNode);
+					continue;
+				}
+
+				// Otherwise, the node must be a component node. Create a component for this data
+				ComponentData const component = CreateECSTypeData(componentOrPropertyNode);
+
+				// Entt already doesn't allow this, but this assert is more explicit
+				ASSERT(std::find(entityComponents.begin(), entityComponents.end(), component) == entityComponents.end(),
+					"The entity already has a component of type " << WRAP(component.m_Id.data(), "'") << "!" << ENDLINE);
+
+				// Push back the created component into the entity templates component list
+				entityComponents.push_back(component);
+				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << "Found a component on the entity template with id " << WRAP(component.m_Id.data(), "'") << ENDLINE);
 			}
-
-			// Otherwise, the node must be a component node. Create a component for this data
-			ComponentData const component = CreateECSTypeData(componentOrPropertyNode);
-
-			// Entt already doesn't allow this, but this assert is more explicit
-			ASSERT(std::find(entityComponents.begin(), entityComponents.end(), component) == entityComponents.end(),
-				"The entity already has a component of type " << WRAP(component.m_Id.data(), "'") << "!" << ENDLINE);
-
-			// Push back the created component into the entity templates component list
-			entityComponents.push_back(component);
-			LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << "Found a component on the entity template with id " << WRAP(component.m_Id.data(), "'") << ENDLINE);
 		}
 	}
 
@@ -345,13 +358,44 @@ namespace nabi::Reflection
 		}
 	}
 
+	bool XmlParser::CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(pugi::xml_node const& node)
+	{
+		/*
+		  This little bit of black magic logic ensures that the if check if only run in debug
+		  It allows us to write a test for the debug property, as in debug mode we can sneakily change c_BuildConfiguration
+		  If this logic was just ifndef'ed in _DEBUG we couldn't do this
+		  See ReflectionDebugAttributeTests.cpp for the test (yes I know doing this is jank..)
+		*/
+#ifdef _DEBUG
+		using namespace nabi::Utils::BuildUtils;
+		if (c_BuildConfiguration == BuildConfiguration::Release)
+#endif // #ifdef _DEBUG
+		{
+			pugi::xml_attribute const debugAttribute = node.attribute(c_DebugAttribute.c_str());
+
+			// Can early out if the node doesn't have the property 
+			if (debugAttribute)
+			{
+				// Else check the properties value
+				bool const debugPropertyValue = StringConverter::FromString<bool>(debugAttribute.value());
+				return debugPropertyValue;
+			}
+		}
+
+		return false;
+	}
+
 	MetaECSTypeData XmlParser::CreateECSTypeData(pugi::xml_node const& node)
 	{
 		std::vector<PropertyData> componentProperties;
 		for (pugi::xml_node const propertyNode : node.children())
 		{
-			PropertyData const propertyData = CreatePropertyData(propertyNode);
-			componentProperties.push_back(propertyData);
+			// Check if the property is debug only
+			if (!CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(propertyNode))
+			{
+				PropertyData const propertyData = CreatePropertyData(propertyNode);
+				componentProperties.push_back(propertyData);
+			}
 		}
 
 		std::string_view const nodeId = node.attribute(c_IdAttribute.c_str()).value();

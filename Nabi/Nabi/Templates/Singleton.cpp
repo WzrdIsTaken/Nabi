@@ -4,11 +4,11 @@
 
 namespace nabi::Templates
 {
-	namespace Singleton
+	namespace SingletonHelpers
 	{
 		void CallAssert(bool const assertCondition, std::string_view const assertMessge)
 		{
 			ASSERT(assertCondition, assertMessge);
 		}
-	} // namespace nabi::Templates::Singleton
+	} // namespace nabi::Templates::SingletonHelpers
 } // namespace nabi::Templates

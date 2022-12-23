@@ -1,10 +1,10 @@
 #include "MockEnum.h"
 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 
 namespace nabitest
 {
 	CREATE_REFLECTOR_INSTANCE(MockEnum);
 } // namespace nabitest
 
-#endif // ifdef _DEBUG
+#endif // ifdef RUN_TESTS

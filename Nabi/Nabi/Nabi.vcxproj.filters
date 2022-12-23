@@ -110,6 +110,9 @@
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp">
       <Filter>Tests\Fixtures\ReflectionTests</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp">
+      <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\entt\entt.h">
@@ -197,6 +200,12 @@
     <ClInclude Include="Reflection\EnumConverter.h">
       <Filter>Reflection</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\BuildUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Defines.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -212,6 +221,9 @@
       <Filter>Tests\TestData\TestReflectionData</Filter>
     </Xml>
     <Xml Include="Tests\TestData\TestReflectionData\test_entity_template_file.xml">
+      <Filter>Tests\TestData\TestReflectionData</Filter>
+    </Xml>
+    <Xml Include="Tests\TestData\TestReflectionData\test_debug_entity_file.xml">
       <Filter>Tests\TestData\TestReflectionData</Filter>
     </Xml>
   </ItemGroup>

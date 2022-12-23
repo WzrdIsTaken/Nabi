@@ -16,6 +16,6 @@
 #include "Helpers/Comparison.h"
 
 // Using - I thought this might be good so in the tests every test thing exists at the same level + its easy to differentiate between mock ecs stuff and 'real' ecs stuff 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 	using namespace nabitest::ECS;
-#endif // ifdef _DEBUG
+#endif // ifdef RUN_TESTS

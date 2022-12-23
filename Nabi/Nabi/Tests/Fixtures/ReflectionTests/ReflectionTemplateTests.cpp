@@ -6,7 +6,7 @@
 #include "../../../Reflection/MetaObjectLookup.h"
 #include "../../../Reflection/XmlParser.h"
 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 
 namespace nabitest::ReflectionTests
 {
@@ -80,4 +80,4 @@ namespace nabitest::ReflectionTests
 	}
 } // namespace nabitest::ReflectionTests
 
-#endif // #ifdef _DEBUG
+#endif // #ifdef RUN_TESTS

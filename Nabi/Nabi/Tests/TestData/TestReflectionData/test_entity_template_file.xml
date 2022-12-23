@@ -25,7 +25,4 @@
   <entity id="TestEntity4" template="TestEntityTemplate2">
     <property component="MockComponent" id="FloatType" value="3.0" />
   </entity>
-
-  <!-- need to test if an entity overrides a templates value -->
-  <!-- need to test if an entity template overrides a templates value -->
 </entity_group>

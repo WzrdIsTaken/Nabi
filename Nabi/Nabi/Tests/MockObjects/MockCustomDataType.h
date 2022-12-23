@@ -5,7 +5,7 @@
 #include "../../Reflection/StringConverter.h"
 #include "../../Utils/StringUtils.h"
 
-#ifdef _DEBUG
+#ifdef RUN_TESTS
 
 namespace nabitest
 {
@@ -37,4 +37,4 @@ namespace nabitest
 	REFLECT_DATA_TYPE_DEFAULT(MockCustomDataType)
 } // namespace nabitest
 
-#endif // #ifdef _DEBUG
+#endif // #ifdef RUN_TESTS

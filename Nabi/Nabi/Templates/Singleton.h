@@ -5,7 +5,7 @@
 
 namespace nabi::Templates
 {
-	namespace Singleton
+	namespace SingletonHelpers
 	{
 		/// <summary>
 		/// This is a little jank and if I think of a better solution I will do it. Whats happening is that DebugUtils includes Singleton, 
@@ -25,14 +25,14 @@ namespace nabi::Templates
 	public:
 		static void CreateInstance()
 		{
-			Singleton::CallAssert(s_Instance == nullptr, "Your creating a Singleton instance when one already exists!");
+			SingletonHelpers::CallAssert(s_Instance == nullptr, "Your creating a Singleton instance when one already exists!");
 			s_Instance = std::make_unique<T>();
 		}
 
 		template<typename... Args>
 		static void CreateInstance(Args... args)
 		{
-			Singleton::CallAssert(s_Instance == nullptr, "Your creating a Singleton instance when one already exists!");
+			SingletonHelpers::CallAssert(s_Instance == nullptr, "Your creating a Singleton instance when one already exists!");
 			s_Instance = std::make_unique<T>(std::forward<Args>(args...));
 		}
 
@@ -43,7 +43,7 @@ namespace nabi::Templates
 
 		static T* Instance()
 		{
-			Singleton::CallAssert(s_Instance != nullptr, "Trying to access the singleton instance when it hasn't been created yet!");
+			SingletonHelpers::CallAssert(s_Instance != nullptr, "Trying to access the singleton instance when it hasn't been created yet!");
 			return s_Instance.get();
 		}
 

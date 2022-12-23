@@ -5,7 +5,7 @@
 #include "../../Libraries/entt/entt.h"
 #include "../DebugUtils.h"
 
-#ifdef _DEBUG
+#ifdef USE_DEBUG_UTILS
 
 TSINGLETON_INSTANCE(nabi::Utils::DebugUtils::Logger)
 
@@ -68,4 +68,4 @@ namespace nabi::Utils::DebugUtils
 	}
 } // namespace nabi::Utils::DebugUtils
 
-#endif // ifdef _DEBUG
+#endif // ifdef USE_DEBUG_UTILS
