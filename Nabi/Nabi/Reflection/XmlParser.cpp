@@ -5,6 +5,7 @@
 #include "../ECS/CoreComponents/EntityInfoComponent.h"
 #include "../Utils/BuildUtils.h"
 #include "../Utils/DebugUtils.h"
+#include "../Utils/TestUtils.h"
 #include "MetaObjectLookup.h"
 #include "ReflectionGlobals.h"
 #include "ReflectionHelpers.h"
@@ -59,6 +60,11 @@ namespace nabi::Reflection
 
 		ASSERT_FATAL(result, "The document " << WRAP(docPath, "'") << " could not be found!");
 		return doc;
+	}
+
+	std::unordered_map<std::string, EntityTemplateData>& XmlParser::GetEntityTemplateStore()
+	{
+		return m_EntityTemplates;
 	}
 
 	void XmlParser::ParseSingletons(pugi::xml_document const& /*doc*/)
@@ -360,16 +366,7 @@ namespace nabi::Reflection
 
 	bool XmlParser::CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(pugi::xml_node const& node)
 	{
-		/*
-		  This little bit of black magic logic ensures that the if check if only run in debug
-		  It allows us to write a test for the debug property, as in debug mode we can sneakily change c_BuildConfiguration
-		  If this logic was just ifndef'ed in _DEBUG we couldn't do this
-		  See ReflectionDebugAttributeTests.cpp for the test (yes I know doing this is jank..)
-		*/
-#ifdef _DEBUG
-		using namespace nabi::Utils::BuildUtils;
-		if (c_BuildConfiguration == BuildConfiguration::Release)
-#endif // #ifdef _DEBUG
+		MAKE_LOGIC_TESTABLE // (test in ReflectionDebugAttributeTests.cpp)
 		{
 			pugi::xml_attribute const debugAttribute = node.attribute(c_DebugAttribute.c_str());
 

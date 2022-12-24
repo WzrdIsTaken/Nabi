@@ -69,4 +69,5 @@ To Read:
 - Small string optimisation
 - https://taylorconor.com/blog/enum-reflection/
 - https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom
+- https://stackoverflow.com/questions/26152096/when-and-why-would-you-use-static-with-constexpr
 idk why this is here really but as i say, i like everything in one place :D

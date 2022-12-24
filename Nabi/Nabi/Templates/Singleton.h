@@ -17,7 +17,7 @@ namespace nabi::Templates
 		/// <param name="assertCondition">- The condition that will trigger the assertion</param>
 		/// <param name="assertMessge">- The message displayed in the assertion</param>
 		void CallAssert(bool const assertCondition, std::string_view const assertMessge);
-	}
+	} // namespace nabi::Templates::SingletonHelpers
 
 	template<class T>
 	class TSingleton

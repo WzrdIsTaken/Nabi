@@ -59,6 +59,9 @@
     <Filter Include="Tests\Fixtures\ReflectionTests">
       <UniqueIdentifier>{169a5f6d-5342-44e9-b60d-f2c781d41968}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Reflection\Runtime">
+      <UniqueIdentifier>{93e8cb1b-87e7-4ce6-a623-0f98033b873b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -112,6 +115,12 @@
     </ClCompile>
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp">
       <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Runtime\EntityPropertyList.cpp">
+      <Filter>Reflection\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Runtime\EntityCreator.cpp">
+      <Filter>Reflection\Runtime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +214,15 @@
     </ClInclude>
     <ClInclude Include="Core\Defines.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\MathUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Runtime\EntityPropertyList.h">
+      <Filter>Reflection\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Runtime\EntityCreator.h">
+      <Filter>Reflection\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

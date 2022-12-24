@@ -12,13 +12,15 @@ int main()
 	// Set up the logger
 	using nabi::Utils::DebugUtils::Logger;
 	Logger::CreateInstance();
-
-	// Set the log level to error because otherwise it spams the console when tests are run
-	Logger::Instance()->SetLogLevel(LOG_ERROR);
 #endif // #ifdef USE_DEBUG_UTILS
 
 	// Run Tests
 #ifdef RUN_TESTS
+	// Set the log level to error because otherwise it spams the console when tests are run
+#ifdef USE_DEBUG_UTILS
+	Logger::Instance()->SetLogLevel(LOG_ERROR);
+#endif // USE_DEBUG_UTILS
+
 	// Run all tests
 	::testing::InitGoogleTest(&__argc, __argv);
 	int const testResults = RUN_ALL_TESTS();
@@ -26,13 +28,12 @@ int main()
 	// Assert if any of the tests failed
 	using namespace nabi::Utils::TestUtils;
 	ASSERT(testResults == c_TestResultSuccess, "One or more of the tests failed! See the console output for details, or run the test explorer.");
-#endif // #ifdef RUN_TESTS
 
-	// Reset the logger's state
-#ifdef USE_DEBUG_UTILS
 	// Set the log level back to all
+#ifdef USE_DEBUG_UTILS
 	Logger::Instance()->SetLogLevel(LOG_LEVEL_ALL);
 #endif // USE_DEBUG_UTILS
+#endif // #ifdef RUN_TESTS
 
 	// --- Init Nabi ---
 

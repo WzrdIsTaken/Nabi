@@ -154,6 +154,8 @@
     <ClCompile Include="Libraries\pugixml\pugixml.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Reflection\BaseTypeReflection.cpp" />
+    <ClCompile Include="Reflection\Runtime\EntityCreator.cpp" />
+    <ClCompile Include="Reflection\Runtime\EntityPropertyList.cpp" />
     <ClCompile Include="Reflection\StringConverter.cpp" />
     <ClCompile Include="Reflection\XmlParser.cpp" />
     <ClCompile Include="Templates\Singleton.cpp" />
@@ -186,6 +188,8 @@
     <ClInclude Include="Reflection\ReflectionGlobals.h" />
     <ClInclude Include="Reflection\ReflectionHelpers.h" />
     <ClInclude Include="Reflection\ReflectionMacros.h" />
+    <ClInclude Include="Reflection\Runtime\EntityCreator.h" />
+    <ClInclude Include="Reflection\Runtime\EntityPropertyList.h" />
     <ClInclude Include="Reflection\StringConverter.h" />
     <ClInclude Include="Reflection\XmlParser.h" />
     <ClInclude Include="Templates\Singleton.h" />
@@ -198,6 +202,7 @@
     <ClInclude Include="Tests\TestCore.h" />
     <ClInclude Include="Utils\BuildUtils.h" />
     <ClInclude Include="Utils\DebugUtils.h" />
+    <ClInclude Include="Utils\MathUtils.h" />
     <ClInclude Include="Utils\StringUtils.h" />
     <ClInclude Include="Utils\TestUtils.h" />
     <ClInclude Include="Utils\UtilClasses\Logger.h" />

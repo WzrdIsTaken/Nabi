@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "../Libraries/entt/entt.h"
+
 namespace nabi::Reflection
 {
 	// Now this might be a little confusing, both because of the kinda ambiguous file / struct names and why this is even needed, notably in XmlParser

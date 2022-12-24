@@ -3,7 +3,6 @@
 #include "../../../Libraries/pugixml/pugixml.hpp"
 
 #include "../../../Reflection/XmlParser.h"
-#include "../../../Utils/BuildUtils.h"
 
 // This is kinda jank test ngl, I gotta get better at writing these things...
 
@@ -16,6 +15,8 @@ namespace nabitest::ReflectionTests
 	// Checks that debug attribute works as expected
 	TEST(RelfectionTests, ParseEntityWithDebugAttribute)
 	{
+		BUILD_CONFIGURATION_CHANGE_BEGIN
+
 		using namespace nabi::Utils::BuildUtils;
 
 		// Mock objects
@@ -45,9 +46,7 @@ namespace nabitest::ReflectionTests
 
 		registry.clear();
 
-		// Double check that c_BuildConfiguration is Debug at the end (otherwise this could cause some odd bugs xD)!!
-		Comparison<BuildConfiguration> correctBuildConfig(BuildConfiguration::Debug, c_BuildConfiguration);
-		COMPAIR_EQ(correctBuildConfig);
+		BUILD_CONFIGURATION_CHANGE_END
 	}
 #endif // ifdef USE_DEBUG_UTILS
 #endif // ifdef _DEBUG

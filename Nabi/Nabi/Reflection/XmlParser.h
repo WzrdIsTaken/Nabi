@@ -40,6 +40,13 @@ namespace nabi::Reflection
 		pugi::xml_document LoadDocument(std::string_view const docPath);
 
 		/// <summary>
+		/// Gets the all of the entity templates that have been read.
+		/// Should ideally be called once at the end of xml parsing and used to set up EntityCreator
+		/// </summary>
+		/// <returns>The entity template store</returns>
+		std::unordered_map<std::string, EntityTemplateData>& GetEntityTemplateStore();
+
+		/// <summary>
 		/// Parses a document containing singleton data. Note: Currently not implemented.
 		/// </summary>
 		/// <param name="doc">- The singleton data document</param>
