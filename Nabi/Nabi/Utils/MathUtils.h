@@ -1,19 +1,24 @@
 #pragma once
 
-#include <stdint.h> // uint64_t == unsigned long long
+#include "DebugUtils.h"
 
 namespace nabi::Utils::MathUtils
 {
 	// --- Random Number Generations ---
+
+	/*
+	  It might be good to move away from rand() in the future? But for now its fine.
+	  Perhaps https://prng.di.unimi.it/xoshiro256plusplus.c?
+	*/
 
 	/// <summary>
 	/// Generates a random number in the range of [0] - [max]
 	/// </summary>
 	/// <param name="max">- The maximum random number that will be generated</param>
 	/// <returns>A random number</returns>
-	static uint64_t GenerateRandomNumber(uint64_t const max)
+	static int GenerateRandomNumber(int const max)
 	{
-		return (next() % max) + 1;
+		return (rand() % max) + 1;
 	}
 
 	/// <summary>
@@ -22,41 +27,9 @@ namespace nabi::Utils::MathUtils
 	/// <param name="min">- The minimum random number that will be generated</param>
 	/// <param name="max">- The maximum random number that will be generated</param>
 	/// <returns>A random number</returns>
-	static uint64_t GenerateRandomNumberInRange(uint64_t const min, uint64_t const max)
+	static int GenerateRandomNumberInRange(int const min, int const max)
 	{
-		return min + next() % (max - min + 1);
+		ASSERT(min < max, "Trying to generate a random number in a range but [min] (" << min << ") is greater than or equal to [max] (" << max << ")!");
+		return min + rand() % (max - min + 1);
 	}
-	
-	// Helper functions for random number generation
-	namespace
-	{
-		/*
-		  Taken from https://prng.di.unimi.it/xoshiro256plusplus.c
-		  Under CC0 1.0 (see http://creativecommons.org/publicdomain/zero/1.0/)
-		  Credit to David Blackman and Sebastiano Vigna (vigna@acm.org) (2019)
-		*/
-
-		static uint64_t s[4];
-
-		static inline uint64_t rotl(const uint64_t x, int k) {
-			return (x << k) | (x >> (64 - k));
-		}
-
-		static uint64_t next() {
-			const uint64_t result = rotl(s[0] + s[3], 23) + s[0];
-
-			const uint64_t t = s[1] << 17;
-
-			s[2] ^= s[0];
-			s[3] ^= s[1];
-			s[1] ^= s[2];
-			s[0] ^= s[3];
-
-			s[2] ^= t;
-
-			s[3] = rotl(s[3], 45);
-
-			return result;
-		}
-	} 
 } // namespace nabi::Utils::MathUtils

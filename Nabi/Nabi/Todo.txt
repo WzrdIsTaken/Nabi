@@ -6,8 +6,7 @@ Current:
 
 // --- High Priority ---
 
-- Fix linker error (ask Brandon for help) (it appears when you comment out the use debug utils define in debug mode only)
-- actually test the math random number generation xd (if it doesnt work, just use normal random - it no longer needs to be the fastest it can be)
+- Learn rendering!
 
 // --- Low Priority ---
 
@@ -30,6 +29,8 @@ Current:
 - Log to file functionality for Logger
 
 Archive: 
+- actually test the math random number generation xd (if it doesnt work, just use normal random - it no longer needs to be the fastest it can be)
+- Fix linker error (ask Brandon for help) (it appears when you comment out the use debug utils define in debug mode only) [seems to have magically disappeared???]
 - Should c_DefaultEntityGroup go in a different place?
 - Gotta sort out the logging, UUID stuff [DONE], and an assert if a entityproperty list is referecning a component/property which doesnt exist [DONE]?
 - Once all that is done, clean up code / move comments over / refactor xml parser  - make sure everything is to a good standard

@@ -35,6 +35,9 @@ int main()
 #endif // USE_DEBUG_UTILS
 #endif // #ifdef RUN_TESTS
 
+	// Seed random
+	srand(static_cast<unsigned int>(time(nullptr)));
+
 	// --- Init Nabi ---
 
 	LOG(NEWLINE << LOG_PREP, LOG_INFO, "Nabi has initialized successfully!" << ENDLINE);
