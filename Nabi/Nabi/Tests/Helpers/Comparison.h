@@ -9,15 +9,7 @@ namespace nabitest
 	// Is it kinda just rewriting gtest macros? kinda.. but idk i had that typo and it cost me like 10 mins! never again xD 
 	// I need to be able to trust the tests! not be double checking them...
 
-#define COMPAIR(comparison, comparisonType) comparison.Compair(comparisonType);
-#define COMPAIR_EQ(comparison) COMPAIR(comparison, ComparisonType::Equal);
-
-	// The comparisons supported (well, that google test supports and that I have made a roundabout way of using xd)
-	enum class ComparisonType
-	{
-		Equal,
-		ENUM_COUNT
-	};
+#define COMPAIR_EQ(comparison) EXPECT_EQ(comparison.m_Expected, comparison.m_Actual);
 
 	/// <summary>
 	/// Basic comparison struct
@@ -42,23 +34,6 @@ namespace nabitest
 			: m_Expected(expected)
 			, m_Actual(actual)
 		{
-		}
-
-		/// <summary>
-		/// Runs the gtest EXPECT func which corresponds to comparisonType against m_Expected and m_Actual
-		/// </summary>
-		/// <param name="comparisonType">The type of EXPECT_[comparison] which will be called</param>
-		void Compair(ComparisonType const comparisonType)
-		{
-			switch (comparisonType)
-			{
-			case ComparisonType::Equal:
-				EXPECT_EQ(m_Expected, m_Actual);
-				break;
-			default:
-				ASSERT_FAIL("ComparisonType comparison is not implemented!");
-				break;
-			}
 		}
 
 		T m_Expected;

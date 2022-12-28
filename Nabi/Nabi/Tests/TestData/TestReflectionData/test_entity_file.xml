@@ -3,7 +3,6 @@
 <entity_group id="TestGroup">
   <entity id="TestEntity">
     <component id="MockComponent">
-      <property id="IntType" value="20" />
       <property id="FloatType" value="50.8" />
       <property id="StringType" value="somestring" />
       <property id="CustomType" value="27.3, true" />

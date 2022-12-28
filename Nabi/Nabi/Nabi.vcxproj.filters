@@ -122,6 +122,9 @@
     <ClCompile Include="Reflection\Runtime\EntityCreator.cpp">
       <Filter>Reflection\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionRuntimeEntityCreationTests.cpp">
+      <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\entt\entt.h">
@@ -223,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="Reflection\Runtime\EntityCreator.h">
       <Filter>Reflection\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\ECSUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ECSGlobals.h">
+      <Filter>ECS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

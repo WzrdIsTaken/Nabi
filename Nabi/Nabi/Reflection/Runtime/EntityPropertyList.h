@@ -13,6 +13,18 @@ namespace nabi::Reflection
 	class EntityPropertyList final
 	{
 	public:
+		struct PropertyComponentPair final
+		{
+			entt::hashed_string m_ComponentHash;
+			PropertyData m_PropertyOverride;
+
+			bool operator == (PropertyComponentPair const rhs) const
+			{
+				return this->m_ComponentHash == rhs.m_ComponentHash &&
+					this->m_PropertyOverride.m_Id == rhs.m_PropertyOverride.m_Id;
+			}
+		};
+
 		/// <summary>
 		/// Adds a property that will be overriden on whatever entity is created using this list
 		/// </summary>
@@ -34,19 +46,13 @@ namespace nabi::Reflection
 		/// <param name="propertyName">- The name of the property to remove</param>
 		void RemoveProperty(std::string_view const component, std::string_view const propertyName);
 
+		/// <summary>
+		/// Returns all of the overriden properties this PropertyList contains
+		/// </summary>
+		/// <returns>A vector of PropertyComponentPair</returns>
+		std::vector<PropertyComponentPair> const& GetOverridenProperties() const;
+
 	private:
-		struct PropertyComponentPair final
-		{
-			entt::hashed_string m_ComponentHash;
-			PropertyData m_PropertyOverride;
-
-			bool operator == (PropertyComponentPair const rhs) const
-			{
-				return this->m_ComponentHash == rhs.m_ComponentHash &&
-					   this->m_PropertyOverride.m_Id == rhs.m_PropertyOverride.m_Id;
-			}
-		};
-
 		/// <summary>
 		/// Finds a property in m_OverriddenProperties 
 		/// </summary>

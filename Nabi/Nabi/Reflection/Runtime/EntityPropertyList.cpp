@@ -29,6 +29,11 @@ namespace nabi::Reflection
 		m_OverriddenProperties.erase(std::remove(m_OverriddenProperties.begin(), m_OverriddenProperties.end(), propertyComponentPair));
 	}
 
+	std::vector<EntityPropertyList::PropertyComponentPair> const& EntityPropertyList::GetOverridenProperties() const
+	{
+		return m_OverriddenProperties;
+	}
+
 	EntityPropertyList::PropertyComponentPair& EntityPropertyList::FindPropertyComponentPair(std::string_view const component, std::string_view const propertyName)
 	{
 		entt::hashed_string componentHash = entt::hashed_string(component.data());

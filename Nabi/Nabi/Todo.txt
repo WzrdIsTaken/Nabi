@@ -4,13 +4,15 @@ Goals:
 
 Current:
 
-- Find and fix that incomplete type not allowed (can we do a seperate thing to what we did in google test in entt.h?)
-- Handle runtime entity creation
-- Create anonymous id for entities which don't have names? is this needed? is this entt functionality already which hashed string?
+// --- High Priority ---
 
-// --- Once have done all the todos above, can go back to rendering! Finally... i want to get back to rendering ):
+- Fix linker error (ask Brandon for help) (it appears when you comment out the use debug utils define in debug mode only)
+- actually test the math random number generation xd (if it doesnt work, just use normal random - it no longer needs to be the fastest it can be)
 
-- Log to file functionality for Logger
+// --- Low Priority ---
+
+- Have all entity groups / event calls etc as constexpr in a file
+
 - It might be possible to make Singleton's use a static constructor to init themselves as well? But when I did a quick attempt I got a lot of scary linker errors
   and I don't want to go down that road right now!
 
@@ -19,7 +21,30 @@ Current:
 
 - see email for input stuff
 
+- Find and fix that incomplete type not allowed (can we do a seperate thing to what we did in google test in entt.h?)
+  (ngl i don't think this is possible.. and might well just be visual studio doing visual studio things. if i have an idea i'll do it, but for now i'm 
+   decreasing its priority)
+
+// --- Nice to have stuff / random ideas ---
+
+- Log to file functionality for Logger
+
 Archive: 
+- Should c_DefaultEntityGroup go in a different place?
+- Gotta sort out the logging, UUID stuff [DONE], and an assert if a entityproperty list is referecning a component/property which doesnt exist [DONE]?
+- Once all that is done, clean up code / move comments over / refactor xml parser  - make sure everything is to a good standard
+- Can make a function of ResolveEntityComponents i think
+- refactor entity info? think [just left a comment - i think the struct is still valid and its a bit of history xd]
+- make the comaprison not have a method so test errors appear on the time in the test file they are on
+- Dont just sit there stuck. you've already got this working in the xmlparser. carefully review that code with a fresh pair of eyes
+  and work out where you're going wrong
+- Current problems with the Runtime entity creation stuff
+- Custom Components dont seem to be creating properly
+- The first is just mangled, and the next look like they are default constructing
+- SO close thou dude. DO NOT give up! 
+- Remember the goal: Be ready for rendering by the time you go back to leam
+- Handle runtime entity creation
+- Create anonymous id for entities which don't have names? is this needed? is this entt functionality already which hashed string?
 - Debug tag for entities DONE / components / systems DONE / properties in xml (i think this should go in parsesystems, parseentities, createecscomponent, createproperty)
   BUT doesn't actually do what its meant to in debug?? getting a bit tired, so will do this tmoz
 - Seperate tests define? and seperate assert define. this will acc be useful and probs a pain to do later so come on!
@@ -70,4 +95,9 @@ To Read:
 - https://taylorconor.com/blog/enum-reflection/
 - https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom
 - https://stackoverflow.com/questions/26152096/when-and-why-would-you-use-static-with-constexpr
+- https://learn.microsoft.com/en-us/cpp/cpp/property-cpp?view=msvc-170
+
+Remember:
+- Can't use ifdef inside __pragma
+
 idk why this is here really but as i say, i like everything in one place :D

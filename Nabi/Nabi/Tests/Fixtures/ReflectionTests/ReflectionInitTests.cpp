@@ -50,7 +50,7 @@ namespace nabitest::ReflectionTests
 		// Iterate over the registery and check for MockComponent
 		auto mockComponentView = registry.view<MockComponent>();
 
-		Comparison<int> intType(20);
+		Comparison<int> intType(5); // 5 is the default value, IntType is unassigned in the xml
 		Comparison<float> floatType(50.8f);
 		Comparison<std::string> stringType("somestring");
 		Comparison<MockCustomDataType> customType({ 27.3, true });

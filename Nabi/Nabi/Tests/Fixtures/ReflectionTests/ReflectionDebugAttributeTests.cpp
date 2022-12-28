@@ -10,7 +10,6 @@
 
 namespace nabitest::ReflectionTests
 {
-#ifdef _DEBUG // Need _DEBUG because thats back XmlParser::CheckIfNodeHasDebugPropertyAndConfigurationIsDebug uses
 #ifdef USE_DEBUG_UTILS
 	// Checks that debug attribute works as expected
 	TEST(RelfectionTests, ParseEntityWithDebugAttribute)
@@ -49,7 +48,6 @@ namespace nabitest::ReflectionTests
 		BUILD_CONFIGURATION_CHANGE_END
 	}
 #endif // ifdef USE_DEBUG_UTILS
-#endif // ifdef _DEBUG
 } // namespace nabitest::ReflectionTests
 
 #endif // #ifdef RUN_TESTS

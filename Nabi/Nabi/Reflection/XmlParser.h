@@ -94,45 +94,6 @@ namespace nabi::Reflection
 		void ResolveComponentOrPropertyNode(pugi::xml_node const& entityNode, std::vector<ComponentData>& entityComponents);
 
 		/// <summary>
-		/// Creates a meta component from component data
-		/// </summary>
-		/// <param name="componentData">- The data for the component</param>
-		/// <param name="componentId">- The component's id. For looking up its type descriptor</param>
-		/// <returns>The meta component</returns>
-		entt::meta_any ResolveComponent(ComponentData const& componentData, std::string_view const componentId);
-		/// <summary>
-		/// Resolves properties on a system or entity. Ie, this process takes the string property id, value and assigns the specified value to the specified meta property.
-		/// </summary>
-		/// <param name="data">- The system or entity node on which the propertie reside</param>
-		/// <param name="metaObject">- The object to which the properties belong to</param>
-		void ResolveProperties(MetaECSTypeData const& data, entt::meta_any& metaObject);
-		/// <summary>
-		/// Assigns the specified property to the passed in metaObject.
-		/// </summary>
-		/// <param name="metaComponent">- The meta object to assign the property to</param>
-		/// <param name="propertyName">- The name of the property</param>
-		/// <param name="propertyValue">- The value of the property</param>
-		void ResolveProperty(entt::meta_any& metaObject, std::string_view const propertyName, std::string_view const propertyValue);
-
-		/// <summary>
-		/// Adds the EntityInfoComponent to an entity. This component contains some basic data about the entity.
-		/// </summary>
-		/// <param name="registey">- A reference to the registery, required for assigning the component to the entity</param>
-		/// <param name="entity">- The entity to assign the component to</param>
-		/// <param name="entityGroupHash">- The hash of the entity group (hash as its already in this form from ParseEntities</param>
-		/// <param name="entityName">- The entity's name</param>
-		void AddEntityInfoComponentToEntity(entt::registry& registey, entt::entity const entity,
-			entt::hashed_string const& entityGroupHash, std::string_view const entityName);
-
-		/// <summary>
-		/// Calls the Assign function on a component's Reflector, which emplaces the component to the entity
-		/// </summary>
-		/// <param name="metaComponent">- The component to assign to the entity</param>
-		/// <param name="entity">- The entity</param>
-		/// <param name="registery">- A reference to the registery</param>
-		void AssignComponentToRegistery(entt::meta_any& metaComponent, entt::registry& registery, entt::entity const entity);
-
-		/// <summary>
 		/// Checks if a node has the c_DebugAttribute attribute and its value is "true"
 		/// Debug [systems/entities/components/properties] are only created in debug mode
 		/// Then, checks if we are in debug mode. If both these things are true, then the node is debug only

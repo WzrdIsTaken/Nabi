@@ -163,6 +163,7 @@
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionInitTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionRuntimeEntityCreationTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp" />
     <ClCompile Include="Tests\MockObjects\MockComponent.cpp" />
     <ClCompile Include="Tests\MockObjects\MockCustomDataType.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Core\NabiCore.h" />
     <ClInclude Include="ECS\ComponentBase.h" />
     <ClInclude Include="ECS\CoreComponents\EntityInfoComponent.h" />
+    <ClInclude Include="ECS\ECSGlobals.h" />
     <ClInclude Include="ECS\SystemBase.h" />
     <ClInclude Include="Libraries\entt\entt.h" />
     <ClInclude Include="Libraries\pugixml\pugiconfig.hpp" />
@@ -202,6 +204,7 @@
     <ClInclude Include="Tests\TestCore.h" />
     <ClInclude Include="Utils\BuildUtils.h" />
     <ClInclude Include="Utils\DebugUtils.h" />
+    <ClInclude Include="Utils\ECSUtils.h" />
     <ClInclude Include="Utils\MathUtils.h" />
     <ClInclude Include="Utils\StringUtils.h" />
     <ClInclude Include="Utils\TestUtils.h" />

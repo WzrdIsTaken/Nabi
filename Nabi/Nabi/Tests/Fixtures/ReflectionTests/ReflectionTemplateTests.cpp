@@ -62,7 +62,8 @@ namespace nabitest::ReflectionTests
 					entityFourFloatType.m_Actual = mockComponent.m_FloatType;
 					break;
 				default:
-					ASSERT_FAIL("The entity " << WRAP(entityInfo.m_EntityName.data(), "'") << " is not used in ReflectionTests/ParseEntityTemplate!");
+					// The entity is not used in ReflectionTests/ParseEntityTemplate
+					ASSERT_EQ(false, true);
 					break;
 			}
 		}

@@ -12,44 +12,14 @@
 
 namespace nabitest::ECS
 {
-	// Settings
-	struct MockComponentSettings final : public nabi::ECS::ComponentSettingsBase
-	{
-		int m_IntType;
-		float m_FloatType;
-		std::string m_StringType;
-		MockCustomDataType m_CustomType;
-		MockEnum m_Enum;
-	};
-
-	// Default settings
-	MockComponentSettings const mockComponentDefaultSettings
-	{
-		.m_IntType = 5,
-		.m_FloatType = 20.6f,
-		.m_StringType = "I wrote this on 20/11/2022",
-		.m_CustomType = { 6.4, true },
-		.m_Enum = MockEnum::Ben
-	};
-
-	// Component
 	struct MockComponent final : public nabi::ECS::ComponentBase
 	{
 		MockComponent()
-			: m_IntType(0)
-			, m_FloatType(0.0f)
-			, m_StringType("")
-			, m_CustomType({})
-			, m_Enum(MockEnum::None)
-		{
-		}
-
-		explicit MockComponent(MockComponentSettings const& settings)
-			: m_IntType(settings.m_IntType)
-			, m_FloatType(settings.m_FloatType)
-			, m_StringType(settings.m_StringType)
-			, m_CustomType(settings.m_CustomType)
-			, m_Enum(settings.m_Enum)
+			: m_IntType(5)
+			, m_FloatType(20.6f)
+			, m_StringType("I wrote this on 20 / 11 / 2022")
+			, m_CustomType({ 6.4, true })
+			, m_Enum(MockEnum::Ben)
 		{
 		}
 
