@@ -7,7 +7,7 @@
 
 namespace nabi::Utils::StringUtils
 {
-	inline std::vector<std::string_view> SplitString(std::string_view const string, char const delimiter, size_t const expectedValues = SIZE_MAX)
+	static std::vector<std::string_view> SplitString(std::string_view const string, char const delimiter, size_t const expectedValues = SIZE_MAX)
 	{
 		std::vector<std::string_view> result;
 		result.reserve(std::count(string.begin(), string.end(), delimiter) + 1);

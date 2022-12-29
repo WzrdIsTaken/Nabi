@@ -233,6 +233,12 @@
     <ClInclude Include="ECS\ECSGlobals.h">
       <Filter>ECS</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\EngineUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EngineCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

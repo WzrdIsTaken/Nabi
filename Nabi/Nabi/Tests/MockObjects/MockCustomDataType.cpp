@@ -4,7 +4,7 @@
 
 namespace nabitest
 {
-	CREATE_REFLECTOR_INSTANCE(MockCustomDataType)
+	REFLECT_DATA_TYPE_DEFAULT(MockCustomDataType)
 } // namespace nabitest::MockCustomDataType
 
 #endif // #ifdef RUN_TESTS

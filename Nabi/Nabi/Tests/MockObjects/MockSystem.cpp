@@ -4,7 +4,9 @@
 
 namespace nabitest::ECS
 {
-	CREATE_REFLECTOR_INSTANCE(MockSystem)
+	REFLECT_SYSTEM_BEGIN(MockSystem, "MockSystem")
+		RELFECT_SYSTEM_PROPERTY(MockSystem::m_MockSystemData, "MockSystemData")
+	RELFECT_SYSTEM_END(MockSystem)
 } // namespace nabitest::ECS
 
 #endif // #ifdef RUN_TESTS

@@ -33,8 +33,6 @@ namespace nabitest
 				   this->m_BoolType   == rhs.m_BoolType;
 		}
 	};
-
-	REFLECT_DATA_TYPE_DEFAULT(MockCustomDataType)
 } // namespace nabitest
 
 #endif // #ifdef RUN_TESTS

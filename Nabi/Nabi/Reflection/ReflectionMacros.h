@@ -20,11 +20,12 @@
 				InitReflection(); \
 			} 
 
-#define CREATE_REFLECTOR_END() \
+#define CREATE_REFLECTOR_END(typeName) \
 		}; \
 		\
 		static ReflectorConstructor s_ReflectedConstructor; \
-	};
+	}; \
+	CREATE_REFLECTOR_INSTANCE(typeName)
 
 #define CREATE_REFLECTOR_INSTANCE(typeName) CONCAT(typeName, Reflector::ReflectorConstructor) CONCAT(typeName, Reflector::s_ReflectedConstructor);
 
@@ -80,10 +81,10 @@
 			.data<&member>(entt::hashed_string(reflectedName))
 
 // End
-#define REFLECT_COMPONENT_END() \
+#define REFLECT_COMPONENT_END(component) \
 			.func<&Assign>(nabi::Reflection::ReflectionGlobals::c_AssignFunctionName); \
 	} \
-	CREATE_REFLECTOR_END()
+	CREATE_REFLECTOR_END(component)
 
 // --- Data Type Reflection ---
 // Data type (/just normal structs and classes) reflection works a bit differently to systems and components. 
@@ -95,7 +96,7 @@
 		entt::meta<dataType>().type(entt::hashed_string(#dataType)) \
 			.func<&dataType::FromString>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName); \
 	} \
-	CREATE_REFLECTOR_END()
+	CREATE_REFLECTOR_END(dataType)
 
 #define REFLECT_DATA_TYPE(dataType, reflectedName) \
 	CREATE_REFLECTOR_BEGIN(dataType) \
@@ -103,7 +104,7 @@
 		entt::meta<dataType>().type(entt::hashed_string(reflectedName)) \
 			.func<&dataType::FromString>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName); \
 	} \
-	CREATE_REFLECTOR_END()
+	CREATE_REFLECTOR_END(dataType)
 
 // --- System Reflection ---
 // System reflection works in exactly the same way as component reflection for a user.
@@ -138,9 +139,9 @@
 			.data<&member>(entt::hashed_string(reflectedName))
 
 // End
-#define RELFECT_SYSTEM_END() \
+#define RELFECT_SYSTEM_END(system) \
 	; } \
-	CREATE_REFLECTOR_END()
+	CREATE_REFLECTOR_END(system)
 
 // --- Enum Reflection ---
 // A macro to handle the reflection of enums. Works in basically the same way as the others user facing wise.
@@ -165,9 +166,9 @@
 #define REFLECT_ENUM_VALUE_DEFAULT(enumValue) \
 			.data<enumValue>(entt::hashed_string(nabi::Reflection::StringConverter::ExtractTypeName(#enumValue).c_str()))
 
-#define REFLECT_ENUM_END \
+#define REFLECT_ENUM_END(_enum) \
 	; } \
-	CREATE_REFLECTOR_END()
+	CREATE_REFLECTOR_END(_enum)
 	
 // --- Base Type Reflection ---
 // A simple marcro to reflect base types. The ToString method for base types will always live on StringConverter.
