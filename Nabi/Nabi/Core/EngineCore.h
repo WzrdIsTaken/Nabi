@@ -1,6 +1,15 @@
 #pragma once
 
-#include "Defines.h"
-#include "../Utils/EngineUtils.h"
+// Nabi
+#include "Inc/Defines.h"
 
-// One day I may use this... right now I just want to do rendering!
+#include "../Utils/Inc/EngineUtils.h"
+#include "../Utils/Inc/TypeUtils.h"
+
+// Standard
+#include <algorithm>
+#include <memory>
+#include <string>
+#include <sstream>
+#include <unordered_map>
+#include <vector>

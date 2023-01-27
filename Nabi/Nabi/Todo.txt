@@ -9,14 +9,20 @@ Current:
 - Learn rendering! (im still torn between directx and opengl.. once get an answer from uni hopefully things will become clearer)
 - Direct X namespace as dx?
 
-Structure Stuff
+- Core should be pch
 - Sort out pch. - core in pch. testcore as well?
-- If one day we want to NOEXCEPT stuff, include engine core everywhere in engine first thing and do this.
-- Split up header files from src files (is this something we actually want to do?)
+
+Structure Stuff
+- Make project structure more flat
+
+- Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
+- call assert inside the dx exception 
 
 // --- Low Priority ---
 
 - Have all entity groups / event calls etc as constexpr in a file
+
+- Inline string converter From[Type] functions?
 
 - It might be possible to make Singleton's use a static constructor to init themselves as well? But when I did a quick attempt I got a lot of scary linker errors
   and I don't want to go down that road right now!
@@ -35,6 +41,22 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- Core should include standard libs like vec, array, map etc so dont have to include them everywhere
+- Check through code where done this and fix accordingly
+- And g_ for global vars - eg that inline xml parser one
+  #define DELETE_COPY_MOVE_CONSTRUCTORS(Type)     Type(Type&) = delete; \ (this has been created in TypeUtils and included in EngineCore. just need to use it!)
+                                                Type(Type&&) = delete; \
+                                                Type(const Type&) = delete; \
+                                                Type(const Type&&) = delete;
+^ For singleton? and anything else 
+- If one day we want to NOEXCEPT stuff, include engine core everywhere in engine first thing and do this.
+- Split up header files from src files (is this something we actually want to do?)
+- Having core in .h and .cpp files is a good idea
+- i am actually liking the idea of splitting up the headers and cpp more and more. can acc use engine core and define more functions in cpp
+  where it makes sense (eg the string converter stuff) without it upsetting my ocd xD do this i think
+- AND move to a .h and .cpp approach
+- Rename 'Templates' -> 'Patterns' (https://github.com/dbeef/spelunky-psp/tree/master/src/patterns/interface/patterns)
+- name 'rhs' to 'other' in == overrides and stuff
 - Have an engine core with defines and NABI_NOEXCEPT in it? Core can become GameCore? (made Engine Utils with NOEXCEPT in it)
 - Make functions longer than line 1 line in header files static not inline (eg - the string converter one)
 - Can the reflection macro stuff (ie begin, middle, end) go in the cpp not h? if so, dont need the create reflector instance macro and will not pollute the namespace (this does work - should do but need some reflection macro work)

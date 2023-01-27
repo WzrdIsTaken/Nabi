@@ -1,6 +1,6 @@
 #include "../../TestCore.h"
 
-#include "../../../Utils/UtilClasses/Logger.h"
+#include "../../../Utils/Inc/UtilClasses/Logger.h"
 
 #ifdef RUN_TESTS
 

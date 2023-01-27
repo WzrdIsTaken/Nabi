@@ -13,7 +13,7 @@ namespace nabitest::ReflectionTests
 		Comparison<MockEnum> valueComparison(MockEnum::Kyra);
 
 		//nameComparison.m_Actual = nabi::Reflection::EnumConverter::EnumToString(20);
-		valueComparison.m_Actual = nabi::Reflection::EnumConverter::StringToEnum<MockEnum>("Kyra");
+		valueComparison.m_Actual = nabi::Reflection::EnumConverter::StringToEnum<MockEnum>("Kyra"); // Wooyoung <3
 
 		//COMPAIR_EQ(nameComparison);
 		COMPAIR_EQ(valueComparison);

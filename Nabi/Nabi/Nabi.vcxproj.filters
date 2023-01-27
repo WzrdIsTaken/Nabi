@@ -5,12 +5,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Libraries\entt">
-      <UniqueIdentifier>{6480d5e5-787d-4d59-bfc4-eec8ab4461b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Libraries\pugixml">
-      <UniqueIdentifier>{ec83b054-72b3-4a33-8ebe-41b5c402c544}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Reflection">
       <UniqueIdentifier>{ab8c89f5-370a-4970-818a-870ad03113b3}</UniqueIdentifier>
     </Filter>
@@ -23,218 +17,293 @@
     <Filter Include="Core">
       <UniqueIdentifier>{6be6307c-2087-49c7-93cf-3d0feeffe9a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ECS\CoreComponents">
-      <UniqueIdentifier>{aaf2c6b4-9b57-4dbd-9590-6577d1979245}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tests">
       <UniqueIdentifier>{97113a89-756d-4a08-a8c8-a67742d7b089}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tests\TestData">
-      <UniqueIdentifier>{e846808b-fddc-4892-83d1-16ea39b7e354}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tests\MockObjects">
-      <UniqueIdentifier>{2b352c04-6adb-4975-bec4-b8b729ff0df2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tests\TestData\TestReflectionData">
-      <UniqueIdentifier>{890fb8f2-01b0-414d-a265-09e15bc3ce50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tests\TestData\TestRenderingData">
-      <UniqueIdentifier>{093709c1-ebd8-499a-9c35-08fcd56f0809}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utils\UtilClasses">
-      <UniqueIdentifier>{8acc0348-a10c-49e7-adeb-62ae221f5585}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Templates">
+    <Filter Include="Patterns">
       <UniqueIdentifier>{571a13ec-ba5e-4daa-8cb9-3116f895f4cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tests\Helpers">
+    <Filter Include="Utils\Src">
+      <UniqueIdentifier>{9e69df40-b9f3-4aa3-a1f3-49c949a04315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\Src\UtilClasses">
+      <UniqueIdentifier>{7a00fb6d-4950-4efb-9c19-a9431d136dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\Inc">
+      <UniqueIdentifier>{bc04c562-fc07-47ed-a467-11abe82ac4a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\Inc\UtilClasses">
+      <UniqueIdentifier>{8acc0348-a10c-49e7-adeb-62ae221f5585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Patterns\Inc">
+      <UniqueIdentifier>{0370f853-dc56-4558-84c3-12537d7752e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Patterns\Src">
+      <UniqueIdentifier>{f550c198-f0f8-4bf1-aa57-c4115f7136ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reflection\Inc">
+      <UniqueIdentifier>{75b12b87-5e8d-4ec2-b287-7ad4aa9d0f4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reflection\Src">
+      <UniqueIdentifier>{937ee6e6-3d0d-4045-a750-c464f9765bcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Inc">
+      <UniqueIdentifier>{1d796698-7ffa-46da-b6bc-8e7396ebb716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Src">
+      <UniqueIdentifier>{7a1f831f-74f6-4ea1-a227-a72a0b60407d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Inc\CoreComponents">
+      <UniqueIdentifier>{ef1d2ebc-d25b-494f-a875-0b4161ab27ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Src\CoreComponents">
+      <UniqueIdentifier>{9bd2a158-5181-4db8-a6ab-c2e225766373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Inc">
+      <UniqueIdentifier>{cd49f1b8-8637-4567-8f7a-9926db1e3ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Src">
+      <UniqueIdentifier>{017e1cea-d6c2-4bbb-b795-33ae2bcc150b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Inc">
+      <UniqueIdentifier>{bc112d12-348d-411b-9603-bbd0c0049a77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src">
+      <UniqueIdentifier>{5c9cacad-0939-4a6e-865c-da7b62ddbee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Inc\Helpers">
       <UniqueIdentifier>{8def6cdf-7876-4b1f-b39f-415016877140}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Inc\MockObjects">
+      <UniqueIdentifier>{2b352c04-6adb-4975-bec4-b8b729ff0df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src\MockObjects">
+      <UniqueIdentifier>{952e4cd6-d393-48d1-9580-4229e707bd8a}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tests\Fixtures">
-      <UniqueIdentifier>{eb5d9135-e324-45d3-b17c-88126a6945ce}</UniqueIdentifier>
+      <UniqueIdentifier>{ebc8fc32-30a7-4983-8289-5f51713e0797}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tests\Fixtures\DebugTests">
-      <UniqueIdentifier>{cd9cd0ef-21ab-4bb8-ab9b-de1ec11e8269}</UniqueIdentifier>
+      <UniqueIdentifier>{f6435ceb-cba8-452a-9f94-e35dbc3a8414}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tests\Fixtures\ReflectionTests">
-      <UniqueIdentifier>{169a5f6d-5342-44e9-b60d-f2c781d41968}</UniqueIdentifier>
+      <UniqueIdentifier>{4c18c728-e8f4-4b5c-9416-5822f05fd157}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Reflection\Runtime">
-      <UniqueIdentifier>{93e8cb1b-87e7-4ce6-a623-0f98033b873b}</UniqueIdentifier>
+    <Filter Include="Tests\Data">
+      <UniqueIdentifier>{e846808b-fddc-4892-83d1-16ea39b7e354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Data\Reflection">
+      <UniqueIdentifier>{890fb8f2-01b0-414d-a265-09e15bc3ce50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Data\Rendering">
+      <UniqueIdentifier>{093709c1-ebd8-499a-9c35-08fcd56f0809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Inc">
+      <UniqueIdentifier>{4bc2feea-4663-4a82-abb8-f441e2259d40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Src">
+      <UniqueIdentifier>{c34aba8b-7ed2-49b0-9292-e339f5cc62e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Inc\entt">
+      <UniqueIdentifier>{6480d5e5-787d-4d59-bfc4-eec8ab4461b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Src\pugixml">
+      <UniqueIdentifier>{fc960152-4635-40de-b5dd-e47adc3ddc2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Inc\pugixml">
+      <UniqueIdentifier>{ec83b054-72b3-4a33-8ebe-41b5c402c544}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Libraries\pugixml\pugixml.cpp">
-      <Filter>Libraries\pugixml</Filter>
+    <ClCompile Include="Utils\Src\UtilClasses\Logger.cpp">
+      <Filter>Utils\Src\UtilClasses</Filter>
     </ClCompile>
-    <ClCompile Include="Reflection\StringConverter.cpp">
-      <Filter>Reflection</Filter>
+    <ClCompile Include="Utils\Src\ECSUtils.cpp">
+      <Filter>Utils\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Reflection\XmlParser.cpp">
-      <Filter>Reflection</Filter>
+    <ClCompile Include="Utils\Src\StringUtils.cpp">
+      <Filter>Utils\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Core\NabiCore.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="Utils\Src\MathUtils.cpp">
+      <Filter>Utils\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\MockObjects\MockComponent.cpp">
-      <Filter>Tests\MockObjects</Filter>
+    <ClCompile Include="Patterns\Src\Singleton.cpp">
+      <Filter>Patterns\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\MockObjects\MockCustomDataType.cpp">
-      <Filter>Tests\MockObjects</Filter>
+    <ClCompile Include="Reflection\Src\BaseTypeReflection.cpp">
+      <Filter>Reflection\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\MockObjects\MockGameCore.cpp">
-      <Filter>Tests\MockObjects</Filter>
+    <ClCompile Include="Reflection\Src\EntityCreator.cpp">
+      <Filter>Reflection\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\MockObjects\MockSystem.cpp">
-      <Filter>Tests\MockObjects</Filter>
+    <ClCompile Include="Reflection\Src\EntityPropertyList.cpp">
+      <Filter>Reflection\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Reflection\BaseTypeReflection.cpp">
-      <Filter>Reflection</Filter>
+    <ClCompile Include="Reflection\Src\StringConverter.cpp">
+      <Filter>Reflection\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\UtilClasses\Logger.cpp">
-      <Filter>Utils\UtilClasses</Filter>
+    <ClCompile Include="Reflection\Src\XmlParser.cpp">
+      <Filter>Reflection\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Templates\Singleton.cpp">
-      <Filter>Templates</Filter>
+    <ClCompile Include="ECS\Src\SystemBase.cpp">
+      <Filter>ECS\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\EntityInfoComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Src\NabiCore.cpp">
+      <Filter>Core\Src</Filter>
     </ClCompile>
     <ClCompile Include="Tests\Fixtures\DebugTests\LoggingTests.cpp">
       <Filter>Tests\Fixtures\DebugTests</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp">
+      <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp">
+      <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    </ClCompile>
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionInitTests.cpp">
+      <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionRuntimeEntityCreationTests.cpp">
       <Filter>Tests\Fixtures\ReflectionTests</Filter>
     </ClCompile>
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp">
       <Filter>Tests\Fixtures\ReflectionTests</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\MockObjects\MockEnum.cpp">
-      <Filter>Tests\MockObjects</Filter>
+    <ClCompile Include="Tests\Src\MockObjects\MockComponent.cpp">
+      <Filter>Tests\Src\MockObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp">
-      <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    <ClCompile Include="Tests\Src\MockObjects\MockCustomDataType.cpp">
+      <Filter>Tests\Src\MockObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp">
-      <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    <ClCompile Include="Tests\Src\MockObjects\MockEnum.cpp">
+      <Filter>Tests\Src\MockObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Reflection\Runtime\EntityPropertyList.cpp">
-      <Filter>Reflection\Runtime</Filter>
+    <ClCompile Include="Tests\Src\MockObjects\MockGameCore.cpp">
+      <Filter>Tests\Src\MockObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Reflection\Runtime\EntityCreator.cpp">
-      <Filter>Reflection\Runtime</Filter>
+    <ClCompile Include="Tests\Src\MockObjects\MockSystem.cpp">
+      <Filter>Tests\Src\MockObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionRuntimeEntityCreationTests.cpp">
-      <Filter>Tests\Fixtures\ReflectionTests</Filter>
+    <ClCompile Include="Libraries\Src\pugixml\pugixml.cpp">
+      <Filter>Libraries\Src\pugixml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Libraries\entt\entt.h">
-      <Filter>Libraries\entt</Filter>
-    </ClInclude>
-    <ClInclude Include="Libraries\pugixml\pugiconfig.hpp">
-      <Filter>Libraries\pugixml</Filter>
-    </ClInclude>
-    <ClInclude Include="Libraries\pugixml\pugixml.hpp">
-      <Filter>Libraries\pugixml</Filter>
-    </ClInclude>
     <ClInclude Include="Core.h" />
-    <ClInclude Include="Reflection\StringConverter.h">
-      <Filter>Reflection</Filter>
+    <ClInclude Include="Utils\Inc\BuildUtils.h">
+      <Filter>Utils\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Reflection\ReflectionGlobals.h">
-      <Filter>Reflection</Filter>
+    <ClInclude Include="Utils\Inc\DebugUtils.h">
+      <Filter>Utils\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Reflection\MetaObjectLookup.h">
-      <Filter>Reflection</Filter>
+    <ClInclude Include="Utils\Inc\ECSUtils.h">
+      <Filter>Utils\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Reflection\ReflectionMacros.h">
-      <Filter>Reflection</Filter>
+    <ClInclude Include="Utils\Inc\EngineUtils.h">
+      <Filter>Utils\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Reflection\XmlParser.h">
-      <Filter>Reflection</Filter>
+    <ClInclude Include="Utils\Inc\MathUtils.h">
+      <Filter>Utils\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Reflection\ReflectionHelpers.h">
-      <Filter>Reflection</Filter>
+    <ClInclude Include="Utils\Inc\StringUtils.h">
+      <Filter>Utils\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\SystemBase.h">
-      <Filter>ECS</Filter>
+    <ClInclude Include="Utils\Inc\TestUtils.h">
+      <Filter>Utils\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\ComponentBase.h">
-      <Filter>ECS</Filter>
+    <ClInclude Include="Utils\Inc\TypeUtils.h">
+      <Filter>Utils\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\DebugUtils.h">
-      <Filter>Utils</Filter>
+    <ClInclude Include="Utils\Inc\UtilClasses\Logger.h">
+      <Filter>Utils\Inc\UtilClasses</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\StringUtils.h">
-      <Filter>Utils</Filter>
+    <ClInclude Include="Patterns\Inc\Singleton.h">
+      <Filter>Patterns\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Core\NabiCore.h">
-      <Filter>Core</Filter>
+    <ClInclude Include="Reflection\Inc\BaseTypeReflection.h">
+      <Filter>Reflection\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\CoreComponents\EntityInfoComponent.h">
-      <Filter>ECS\CoreComponents</Filter>
+    <ClInclude Include="Reflection\Inc\EntityCreator.h">
+      <Filter>Reflection\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\TestUtils.h">
-      <Filter>Utils</Filter>
+    <ClInclude Include="Reflection\Inc\EntityPropertyList.h">
+      <Filter>Reflection\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Tests\MockObjects\MockComponent.h">
-      <Filter>Tests\MockObjects</Filter>
+    <ClInclude Include="Reflection\Inc\EnumConverter.h">
+      <Filter>Reflection\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Tests\MockObjects\MockCustomDataType.h">
-      <Filter>Tests\MockObjects</Filter>
+    <ClInclude Include="Reflection\Inc\MetaECSTypes.h">
+      <Filter>Reflection\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Tests\MockObjects\MockGameCore.h">
-      <Filter>Tests\MockObjects</Filter>
+    <ClInclude Include="Reflection\Inc\MetaObjectLookup.h">
+      <Filter>Reflection\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Tests\MockObjects\MockSystem.h">
-      <Filter>Tests\MockObjects</Filter>
+    <ClInclude Include="Reflection\Inc\ReflectionGlobals.h">
+      <Filter>Reflection\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Inc\ReflectionHelpers.h">
+      <Filter>Reflection\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Inc\ReflectionMacros.h">
+      <Filter>Reflection\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Inc\StringConverter.h">
+      <Filter>Reflection\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Inc\XmlParser.h">
+      <Filter>Reflection\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\EntityInfoComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\ComponentBase.h">
+      <Filter>ECS\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\ECSGlobals.h">
+      <Filter>ECS\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\SystemBase.h">
+      <Filter>ECS\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Inc\Defines.h">
+      <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Inc\NabiCore.h">
+      <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Helpers\Comparison.h">
+      <Filter>Tests\Inc\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\MockObjects\MockComponent.h">
+      <Filter>Tests\Inc\MockObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\MockObjects\MockCustomDataType.h">
+      <Filter>Tests\Inc\MockObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\MockObjects\MockEnum.h">
+      <Filter>Tests\Inc\MockObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\MockObjects\MockGameCore.h">
+      <Filter>Tests\Inc\MockObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\MockObjects\MockSystem.h">
+      <Filter>Tests\Inc\MockObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Inc\entt\entt.h">
+      <Filter>Libraries\Inc\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Inc\pugixml\pugiconfig.hpp">
+      <Filter>Libraries\Inc\pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Inc\pugixml\pugixml.hpp">
+      <Filter>Libraries\Inc\pugixml</Filter>
     </ClInclude>
     <ClInclude Include="Tests\TestCore.h">
       <Filter>Tests</Filter>
-    </ClInclude>
-    <ClInclude Include="Reflection\BaseTypeReflection.h">
-      <Filter>Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\UtilClasses\Logger.h">
-      <Filter>Utils\UtilClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Templates\Singleton.h">
-      <Filter>Templates</Filter>
-    </ClInclude>
-    <ClInclude Include="Reflection\MetaECSTypes.h">
-      <Filter>Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="Tests\Helpers\Comparison.h">
-      <Filter>Tests\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Tests\MockObjects\MockEnum.h">
-      <Filter>Tests\MockObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Reflection\EnumConverter.h">
-      <Filter>Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\BuildUtils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Defines.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\MathUtils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Reflection\Runtime\EntityPropertyList.h">
-      <Filter>Reflection\Runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="Reflection\Runtime\EntityCreator.h">
-      <Filter>Reflection\Runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\ECSUtils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\ECSGlobals.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\EngineUtils.h">
-      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Core\EngineCore.h">
       <Filter>Core</Filter>
@@ -244,23 +313,23 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Tests\TestData\TestReflectionData\test_entity_file.xml">
-      <Filter>Tests\TestData\TestReflectionData</Filter>
-    </Xml>
-    <Xml Include="Tests\TestData\TestReflectionData\test_system_file.xml">
-      <Filter>Tests\TestData\TestReflectionData</Filter>
-    </Xml>
-    <Xml Include="Tests\TestData\TestReflectionData\test_route_file.xml">
-      <Filter>Tests\TestData\TestReflectionData</Filter>
-    </Xml>
-    <Xml Include="Tests\TestData\TestReflectionData\test_entity_template_file.xml">
-      <Filter>Tests\TestData\TestReflectionData</Filter>
-    </Xml>
-    <Xml Include="Tests\TestData\TestReflectionData\test_debug_entity_file.xml">
-      <Filter>Tests\TestData\TestReflectionData</Filter>
-    </Xml>
+    <Text Include="Todo.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Todo.txt" />
+    <Xml Include="Tests\Data\Reflection\test_debug_entity_file.xml">
+      <Filter>Tests\Data\Reflection</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Reflection\test_entity_file.xml">
+      <Filter>Tests\Data\Reflection</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Reflection\test_entity_template_file.xml">
+      <Filter>Tests\Data\Reflection</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Reflection\test_route_file.xml">
+      <Filter>Tests\Data\Reflection</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Reflection\test_system_file.xml">
+      <Filter>Tests\Data\Reflection</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

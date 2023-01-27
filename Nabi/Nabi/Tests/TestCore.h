@@ -6,14 +6,14 @@
 #include "../Core.h"
 
 // Mock Objects
-#include "MockObjects/MockComponent.h"
-#include "MockObjects/MockCustomDataType.h"
-#include "MockObjects/MockEnum.h"
-#include "MockObjects/MockGameCore.h"
-#include "MockObjects/MockSystem.h"
+#include "Inc/MockObjects/MockComponent.h"
+#include "Inc/MockObjects/MockCustomDataType.h"
+#include "Inc/MockObjects/MockEnum.h"
+#include "Inc/MockObjects/MockGameCore.h"
+#include "Inc/MockObjects/MockSystem.h"
 
 // Helpers
-#include "Helpers/Comparison.h"
+#include "Inc/Helpers/Comparison.h"
 
 // Using - I thought this might be good so in the tests every test thing exists at the same level + its easy to differentiate between mock ecs stuff and 'real' ecs stuff 
 #ifdef RUN_TESTS

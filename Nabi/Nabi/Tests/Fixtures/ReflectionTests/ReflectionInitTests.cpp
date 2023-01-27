@@ -1,8 +1,8 @@
 #include "../../TestCore.h"
 
-#include "../../../ECS/CoreComponents/EntityInfoComponent.h"
-#include "../../../Reflection/MetaObjectLookup.h"
-#include "../../../Reflection/XmlParser.h"
+#include "../../../ECS/Inc/CoreComponents/EntityInfoComponent.h"
+#include "../../../Reflection/Inc/MetaObjectLookup.h"
+#include "../../../Reflection/Inc/XmlParser.h"
 
 #ifdef RUN_TESTS
 
@@ -13,7 +13,7 @@ namespace nabitest::ReflectionTests
 	{
 		// Mock objects
 		entt::registry registry;
-		std::string const routeDocPath = "Tests/TestData/TestReflectionData/test_route_file.xml";
+		std::string const routeDocPath = "Tests/Data/Reflection/test_route_file.xml";
 
 		// Deserialize data files
 		nabi::Reflection::MetaObjectLookup systemsLookup{};
@@ -37,7 +37,7 @@ namespace nabitest::ReflectionTests
 	{
 		// Mock objects
 		entt::registry registry;
-		std::string const routeDocPath = "Tests/TestData/TestReflectionData/test_route_file.xml";
+		std::string const routeDocPath = "Tests/Data/Reflection/test_route_file.xml";
 
 		// Deserialize data files
 		nabi::Reflection::XmlParser xmlParser{};

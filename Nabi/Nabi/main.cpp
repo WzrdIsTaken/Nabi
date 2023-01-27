@@ -1,8 +1,25 @@
+/*
+	                 ,;;,.                  ,;'',
+                    /~\                    /~\
+                   ([~])                  ([~])
+                 ,_.~~~.                  .~~~.
+               ()--|   ,\                /    ,\    ()
+            ,_//   |   |>)              (<|   |\()--'m
+         (~'  m''~)(   )/                \(   )   ~~'|
+          \(~||~)/ //~\\                  //~\\     ||
+             ||   ()   ()                ()   () /( || )\
+             ||   ||   ||                ||   ||( '-||-' )
+             || ,;.)   (.;,            ,;.)   (.;,(~\/~)/
+
+	These are the header guards. Idk I just think they are kinda neat
+*/
+
 #include "Core.h"
 
 int main()
 {
-	// --- Initial Nabi Setup and Tests ---
+	// --- Initial Nabi Setup ---
+	using namespace nabi::Utils;
 
 	// Setup Debug Utils
 #ifdef USE_DEBUG_UTILS
@@ -10,9 +27,14 @@ int main()
 	_CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_WNDW);
 
 	// Set up the logger
-	using nabi::Utils::DebugUtils::Logger;
+	using DebugUtils::Logger;
 	Logger::CreateInstance();
 #endif // #ifdef USE_DEBUG_UTILS
+
+	// Seed random
+	MathUtils::SeedRandom();
+
+	// --- Run Tests ---
 
 	// Run Tests
 #ifdef RUN_TESTS
@@ -26,17 +48,13 @@ int main()
 	int const testResults = RUN_ALL_TESTS();
 
 	// Assert if any of the tests failed
-	using namespace nabi::Utils::TestUtils;
-	ASSERT(testResults == c_TestResultSuccess, "One or more of the tests failed! See the console output for details, or run the test explorer.");
+	ASSERT(testResults == TestUtils::c_TestResultSuccess, "One or more of the tests failed! See the console output for details, or run the test explorer.");
 
 	// Set the log level back to all
 #ifdef USE_DEBUG_UTILS
 	Logger::Instance()->SetLogLevel(LOG_LEVEL_ALL);
 #endif // USE_DEBUG_UTILS
 #endif // #ifdef RUN_TESTS
-
-	// Seed random
-	srand(static_cast<unsigned int>(time(nullptr)));
 
 	// --- Init Nabi ---
 

@@ -1,8 +1,8 @@
 #include "../../TestCore.h"
 
-#include "../../../Libraries/pugixml/pugixml.hpp"
+#include "../../../Libraries/Inc/pugixml/pugixml.hpp"
 
-#include "../../../Reflection/XmlParser.h"
+#include "../../../Reflection/Inc/XmlParser.h"
 
 // This is kinda jank test ngl, I gotta get better at writing these things...
 
@@ -20,7 +20,7 @@ namespace nabitest::ReflectionTests
 
 		// Mock objects
 		entt::registry registry;
-		std::string const docPath = "Tests/TestData/TestReflectionData/test_debug_entity_file.xml";
+		std::string const docPath = "Tests/Data/Reflection/test_debug_entity_file.xml";
 		nabi::Reflection::XmlParser xmlParser{};
 
 		// Release mode test

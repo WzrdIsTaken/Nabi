@@ -6,27 +6,37 @@
 // #include DirectXCore
 
 // Entt
-#include "Libraries/entt/entt.h"
+#include "Libraries/Inc/entt/entt.h"
 using namespace entt::literals;
 
 // Nabi Defines
-#include "Core/Defines.h"
+#include "Core/Inc/Defines.h"
 
 // ECS
-#include "ECS/ComponentBase.h"
-#include "ECS/SystemBase.h"
+#include "ECS/Inc/ComponentBase.h"
+#include "ECS/Inc/SystemBase.h"
 
 // Reflection
-#include "Reflection/ReflectionGlobals.h"
-#include "Reflection/ReflectionMacros.h"
+#include "Reflection/Inc/ReflectionGlobals.h"
+#include "Reflection/Inc/ReflectionMacros.h"
 
-#include "Reflection/EnumConverter.h"
-#include "Reflection/StringConverter.h"
+#include "Reflection/Inc/EnumConverter.h"
+#include "Reflection/Inc/StringConverter.h"
 
 // Testing
 #include "gtest/gtest.h" // Note - This has been done https://stackoverflow.com/questions/68193449/disable-warnings-from-google-test
-#include "Utils/BuildUtils.h"
-#include "Utils/TestUtils.h"
+#include "Utils/Inc/BuildUtils.h"
+#include "Utils/Inc/TestUtils.h"
 
 // Debug (includes Logger)
-#include "Utils/DebugUtils.h"
+#include "Utils/Inc/DebugUtils.h"
+
+// Maths
+#include "Utils/Inc/MathUtils.h"
+
+// Types
+#include "Utils/Inc/TypeUtils.h"
+
+// Standard Lib
+#include <string>
+/* more in the future i'm sure... */
