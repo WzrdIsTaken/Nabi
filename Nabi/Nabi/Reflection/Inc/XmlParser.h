@@ -1,8 +1,8 @@
 #pragma once
+#include "EngineCore.h"
 
-#include "../../Core/EngineCore.h"
+#include "entt.h" // Unfortunately not possible (I think?) to forward declare entt in this case, due to pass by value of entt::entity (because under the hood its just a uint32)
 
-#include "../../Libraries/Inc/entt/entt.h" // Unfortunately not possible (I think?) to forward declare entt in this case, due to pass by value of entt::entity (because under the hood its just a uint32)
 #include "MetaECSTypes.h"
 
 // Forward declarations

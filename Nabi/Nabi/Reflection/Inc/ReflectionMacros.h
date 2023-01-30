@@ -1,6 +1,5 @@
 #pragma once
-
-#include "../../Core/EngineCore.h"
+#include "EngineCore.h"
 
 // Macros to aid in the reflection of components, systems and data types
 

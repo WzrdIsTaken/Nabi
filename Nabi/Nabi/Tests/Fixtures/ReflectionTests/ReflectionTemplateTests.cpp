@@ -1,10 +1,10 @@
-#include "../../TestCore.h"
+#include "TestCore.h"
 
-#include "../../../Libraries/Inc/pugixml/pugixml.hpp"
+#include "pugixml.hpp"
 
-#include "../../../ECS/Inc/CoreComponents/EntityInfoComponent.h"
-#include "../../../Reflection/Inc/MetaObjectLookup.h"
-#include "../../../Reflection/Inc/XmlParser.h"
+#include "CoreComponents/EntityInfoComponent.h"
+#include "MetaObjectLookup.h"
+#include "XmlParser.h"
 
 #ifdef RUN_TESTS
 

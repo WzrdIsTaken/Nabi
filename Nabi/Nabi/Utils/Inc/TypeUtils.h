@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Core/Inc/Defines.h"
+#include "Defines.h"
 
 #ifndef USE_DEBUG_UTILS
     #define NABI_NOEXCEPT noexcept

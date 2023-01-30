@@ -1,11 +1,12 @@
-#include "../../../Core/EngineCore.h"
+#include "EngineCore.h"
 
-#include "../../Inc/UtilClasses/Logger.h"
+#include "UtilClasses/Logger.h"
 
 #include <iostream>
 
-#include "../../../Libraries/Inc/entt/entt.h"
-#include "../../Inc/DebugUtils.h"
+#include "entt.h"
+
+#include "DebugUtils.h"
 
 #ifdef USE_DEBUG_UTILS
 

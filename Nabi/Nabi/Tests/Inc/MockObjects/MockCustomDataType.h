@@ -1,9 +1,8 @@
 #pragma once
+#include "Core.h"
 
-#include "../../../Core.h"
-
-#include "../../../Reflection/Inc/StringConverter.h"
-#include "../../../Utils/Inc/StringUtils.h"
+#include "StringConverter.h"
+#include "StringUtils.h"
 
 #ifdef RUN_TESTS
 

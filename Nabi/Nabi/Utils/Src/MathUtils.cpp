@@ -1,6 +1,6 @@
-#include "../Inc/MathUtils.h"
+#include "MathUtils.h"
 
-#include "../Inc/DebugUtils.h"
+#include "DebugUtils.h"
 
 namespace nabi::Utils::MathUtils
 {

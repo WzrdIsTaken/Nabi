@@ -1,14 +1,14 @@
-#include "../../Core/EngineCore.h"
+#include "EngineCore.h"
 
-#include "../Inc/EntityCreator.h"
+#include "EntityCreator.h"
 
-#include "../../ECS/Inc/CoreComponents/EntityInfoComponent.h"
-#include "../../Utils/Inc/DebugUtils.h"
-#include "../../Utils/Inc/ECSUtils.h"
-#include "../Inc/StringConverter.h"
-#include "../Inc/ReflectionGlobals.h"
-#include "../Inc/ReflectionHelpers.h"
-#include "../Inc/EntityPropertyList.h"
+#include "CoreComponents/EntityInfoComponent.h"
+#include "DebugUtils.h"
+#include "ECSUtils.h"
+#include "EntityPropertyList.h"
+#include "ReflectionGlobals.h"
+#include "ReflectionHelpers.h"
+#include "StringConverter.h"
 
 TSINGLETON_INSTANCE(nabi::Reflection::EntityCreator)
 

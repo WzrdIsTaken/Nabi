@@ -13,7 +13,6 @@ Current:
 - Sort out pch. - core in pch. testcore as well?
 
 Structure Stuff
-- Make project structure more flat
 
 - Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
 - call assert inside the dx exception 
@@ -41,6 +40,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- Make project structure more flat
 - Core should include standard libs like vec, array, map etc so dont have to include them everywhere
 - Check through code where done this and fix accordingly
 - And g_ for global vars - eg that inline xml parser one

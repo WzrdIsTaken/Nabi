@@ -1,6 +1,6 @@
-#include "../../../Core.h"
+#include "Core.h"
 
-#include "../../Inc/MockObjects/MockComponent.h"
+#include "MockObjects/MockComponent.h"
 
 #ifdef RUN_TESTS
 

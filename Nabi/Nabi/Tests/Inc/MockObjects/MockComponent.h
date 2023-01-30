@@ -1,8 +1,7 @@
 #pragma once
+#include "Core.h"
 
-#include "../../../Core.h"
-
-#include "../../../ECS/Inc/ComponentBase.h"
+#include "ComponentBase.h"
 #include "MockCustomDataType.h"
 #include "MockEnum.h"
 

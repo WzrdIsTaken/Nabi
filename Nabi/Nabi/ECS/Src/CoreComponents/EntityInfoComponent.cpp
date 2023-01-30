@@ -1,6 +1,6 @@
-#include "../../../Core/EngineCore.h"
+#include "EngineCore.h"
 
-#include "../../Inc/CoreComponents/EntityInfoComponent.h"
+#include "CoreComponents/EntityInfoComponent.h"
 
 namespace ecs
 {

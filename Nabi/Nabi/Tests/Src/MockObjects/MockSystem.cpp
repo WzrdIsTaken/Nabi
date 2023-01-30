@@ -1,6 +1,6 @@
-#include "../../../Core.h"
+#include "Core.h"
 
-#include "../../Inc/MockObjects/MockSystem.h"
+#include "MockObjects/MockSystem.h"
 
 #ifdef RUN_TESTS
 

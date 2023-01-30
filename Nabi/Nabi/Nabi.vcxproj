@@ -92,6 +92,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,6 +112,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,6 +131,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +148,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

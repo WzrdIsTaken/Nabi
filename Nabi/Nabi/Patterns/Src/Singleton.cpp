@@ -1,8 +1,8 @@
-#include "../../Core/EngineCore.h"
+#include "EngineCore.h"
 
-#include "../Inc/Singleton.h"
+#include "Singleton.h"
 
-#include "../../Utils/Inc/DebugUtils.h"
+#include "DebugUtils.h"
 
 namespace nabi::Templates
 {

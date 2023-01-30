@@ -1,8 +1,7 @@
 #pragma once
+#include "EngineCore.h"
 
-#include "../../Core/EngineCore.h"
-
-#include "../../Libraries/Inc/entt/entt.h"
+#include "entt.h"
 
 namespace nabi::ECS
 {

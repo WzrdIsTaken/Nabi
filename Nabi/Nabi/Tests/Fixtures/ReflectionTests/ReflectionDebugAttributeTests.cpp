@@ -1,8 +1,8 @@
-#include "../../TestCore.h"
+#include "TestCore.h"
 
-#include "../../../Libraries/Inc/pugixml/pugixml.hpp"
+#include "pugixml.hpp"
 
-#include "../../../Reflection/Inc/XmlParser.h"
+#include "XmlParser.h"
 
 // This is kinda jank test ngl, I gotta get better at writing these things...
 

@@ -1,9 +1,9 @@
 #pragma once
+#include "EngineCore.h"
 
-#include "../../Core/EngineCore.h"
+#include "entt.h"
 
-#include "../../Libraries/Inc/entt/entt.h"
-#include "../../Utils/Inc/DebugUtils.h"
+#include "DebugUtils.h"
 
 namespace nabi::Reflection::EnumConverter
 {
@@ -29,7 +29,7 @@ namespace nabi::Reflection::EnumConverter
 	}
 
 	// Soon tm!
-	inline std::string EnumToString(int const /*_enum*/) NABI_NOEXCEPT
+	[[nodiscard]] inline std::string EnumToString(int const /*_enum*/) NABI_NOEXCEPT
 	{
 		FUNCTION_NOT_IMPLEMENTED
 

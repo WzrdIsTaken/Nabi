@@ -1,8 +1,8 @@
-#include "../../TestCore.h"
+#include "TestCore.h"
 
-#include "../../../ECS/Inc/CoreComponents/EntityInfoComponent.h"
-#include "../../../Reflection/Inc/EntityCreator.h"
-#include "../../../Reflection/Inc/EntityPropertyList.h"
+#include "CoreComponents/EntityInfoComponent.h"
+#include "EntityCreator.h"
+#include "EntityPropertyList.h"
 
 #ifdef RUN_TESTS
 

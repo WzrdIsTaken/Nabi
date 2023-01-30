@@ -1,6 +1,5 @@
 #pragma once
-
-#include "../../Core/EngineCore.h"
+#include "EngineCore.h"
 
 // Forward Declarations
 namespace entt

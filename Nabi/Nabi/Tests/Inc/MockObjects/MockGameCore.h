@@ -1,8 +1,7 @@
 #pragma once
+#include "Core.h"
 
-#include "../../../Core.h"
-
-#include "../../../Core/Inc/NabiCore.h"
+#include "NabiCore.h"
 
 #ifdef RUN_TESTS
 

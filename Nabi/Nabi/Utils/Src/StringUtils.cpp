@@ -1,6 +1,6 @@
-#include "../Inc/StringUtils.h"
+#include "StringUtils.h"
 
-#include "../Inc/DebugUtils.h"
+#include "DebugUtils.h"
 
 namespace nabi::Utils::StringUtils
 {

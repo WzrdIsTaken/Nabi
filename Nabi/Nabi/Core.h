@@ -2,41 +2,43 @@
 
 // A collection of core includes to make life easier
 
-// DirectX
-// #include DirectXCore
+// --- Standard Lib ---
+#include <string>
+/* more in the future i'm sure... 
+   is it dumb to have like a standard.h file with all the standard includes i use? can include here and in enginecore*/
 
+// --- DirectX ---
+// #include DirectXCore (have to double check if this should go before or after standard)
+
+// --- Nabi ---
 // Entt
-#include "Libraries/Inc/entt/entt.h"
+#include "entt.h"
 using namespace entt::literals;
 
 // Nabi Defines
-#include "Core/Inc/Defines.h"
+#include "Defines.h"
 
 // ECS
-#include "ECS/Inc/ComponentBase.h"
-#include "ECS/Inc/SystemBase.h"
+#include "ComponentBase.h"
+#include "SystemBase.h"
 
 // Reflection
-#include "Reflection/Inc/ReflectionGlobals.h"
-#include "Reflection/Inc/ReflectionMacros.h"
+#include "ReflectionGlobals.h"
+#include "ReflectionMacros.h"
 
-#include "Reflection/Inc/EnumConverter.h"
-#include "Reflection/Inc/StringConverter.h"
+#include "EnumConverter.h"
+#include "StringConverter.h"
 
 // Testing
 #include "gtest/gtest.h" // Note - This has been done https://stackoverflow.com/questions/68193449/disable-warnings-from-google-test
-#include "Utils/Inc/BuildUtils.h"
-#include "Utils/Inc/TestUtils.h"
+#include "BuildUtils.h"
+#include "TestUtils.h"
 
 // Debug (includes Logger)
-#include "Utils/Inc/DebugUtils.h"
+#include "DebugUtils.h"
 
 // Maths
-#include "Utils/Inc/MathUtils.h"
+#include "MathUtils.h"
 
 // Types
-#include "Utils/Inc/TypeUtils.h"
-
-// Standard Lib
-#include <string>
-/* more in the future i'm sure... */
+#include "TypeUtils.h"

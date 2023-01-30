@@ -1,10 +1,9 @@
 #pragma once
+#include "EngineCore.h"
 
-#include "../../../Core/EngineCore.h"
+#include "entt.h"
 
-#include "../ComponentBase.h"
-
-#include "../../../Libraries/Inc/entt/entt.h"
+#include "ComponentBase.h"
 
 // Contains some basic infomation about an entity.
 // No need to reflect, as its always added anyway.

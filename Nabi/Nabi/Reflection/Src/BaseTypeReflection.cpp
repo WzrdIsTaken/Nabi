@@ -1,11 +1,12 @@
-#include "../../Core/EngineCore.h"
+#include "EngineCore.h"
 
-#include "../Inc/BaseTypeReflection.h"
+#include "BaseTypeReflection.h"
 
-#include "../../Libraries/Inc/entt/entt.h"
-#include "../Inc/StringConverter.h"
-#include "../Inc/ReflectionGlobals.h"
-#include "../Inc/ReflectionMacros.h"
+#include "entt.h"
+
+#include "ReflectionGlobals.h"
+#include "ReflectionMacros.h"
+#include "StringConverter.h"
 
 namespace nabi::Reflection
 {

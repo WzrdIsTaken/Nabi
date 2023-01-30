@@ -2,7 +2,8 @@
 
 #include <string>
 
-#include "../../Libraries/Inc/entt/entt.h"
+#include "entt.h"
+
 #include "TypeUtils.h"
 
 namespace nabi::Utils::ECSUtils

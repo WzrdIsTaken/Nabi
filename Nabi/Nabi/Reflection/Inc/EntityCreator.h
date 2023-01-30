@@ -1,12 +1,11 @@
 #pragma once
+#include "EngineCore.h"
 
-#include "../../Core/EngineCore.h"
+#include "entt.h"
 
-#include "../../Core/Inc/Defines.h"
-#include "../../ECS/Inc/ECSGlobals.h"
-#include "../../Libraries/Inc/entt/entt.h"
-#include "../../Patterns/Inc/Singleton.h"
+#include "ECSGlobals.h"
 #include "MetaECSTypes.h"
+#include "Singleton.h"
 
 namespace nabi::Reflection
 {

@@ -1,9 +1,7 @@
 #pragma once
+#include "EngineCore.h"
 
-#include "../../../Core/EngineCore.h"
-
-#include "../../../Core/Inc/Defines.h"
-#include "../../../Patterns/Inc/Singleton.h"
+#include "Singleton.h"
 
 #ifdef USE_DEBUG_UTILS
 

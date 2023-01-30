@@ -1,8 +1,8 @@
-#include "../../Core/Inc/EngineCore.h"
+#include "EngineCore.h"
 
-#include "../Inc/EntityPropertyList.h"
+#include "EntityPropertyList.h"
 
-#include "../../Utils/Inc/DebugUtils.h"
+#include "DebugUtils.h"
 
 namespace nabi::Reflection
 {

@@ -1,4 +1,4 @@
-#include "../../TestCore.h"
+#include "TestCore.h"
 
 #ifdef RUN_TESTS
 

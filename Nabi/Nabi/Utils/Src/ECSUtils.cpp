@@ -1,6 +1,6 @@
-#include "../Inc/ECSUtils.h"
+#include "ECSUtils.h"
 
-#include "../Inc/DebugUtils.h"
+#include "DebugUtils.h"
 
 namespace nabi::Utils::ECSUtils
 {

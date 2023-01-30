@@ -1,6 +1,6 @@
-#include "../../../Core.h"
+#include "Core.h"
 
-#include "../../Inc/MockObjects/MockCustomDataType.h"
+#include "MockObjects/MockCustomDataType.h"
 
 #ifdef RUN_TESTS
 

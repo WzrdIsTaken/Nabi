@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-#include "../../Core/Inc/Defines.h"
+#include "Defines.h"
 #include "UtilClasses/Logger.h"
 
 #ifndef USE_DEBUG_UTILS

@@ -1,6 +1,6 @@
-#include "../../../Core.h"
+#include "Core.h"
 
-#include "../../Inc/MockObjects/MockEnum.h"
+#include "MockObjects/MockEnum.h"
 
 #ifdef RUN_TESTS
 

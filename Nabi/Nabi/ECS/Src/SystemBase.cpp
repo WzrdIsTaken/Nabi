@@ -1,6 +1,6 @@
-#include "../../Core/EngineCore.h"
+#include "EngineCore.h"
 
-#include "../Inc/SystemBase.h"
+#include "SystemBase.h"
 
 namespace nabi::ECS
 {

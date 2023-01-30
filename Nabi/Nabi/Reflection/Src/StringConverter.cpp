@@ -1,11 +1,11 @@
-#include "../../Core/Inc/EngineCore.h"
+#include "EngineCore.h"
 
-#include "../Inc/StringConverter.h"
+#include "StringConverter.h"
 
-#include "../../Libraries/Inc/entt/entt.h"
+#include "entt.h"
 
-#include "../../Utils/Inc/DebugUtils.h"
-#include "../Inc/ReflectionGlobals.h"
+#include "DebugUtils.h"
+#include "ReflectionGlobals.h"
 
 namespace nabi::Reflection::StringConverter
 {

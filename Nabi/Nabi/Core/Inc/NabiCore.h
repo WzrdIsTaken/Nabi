@@ -1,8 +1,7 @@
 #pragma once
+#include "EngineCore.h"
 
-#include "../EngineCore.h"
-
-#include "../../Libraries/Inc/entt/entt.h"
+#include "entt.h"
 
 namespace nabi
 {
@@ -12,8 +11,8 @@ namespace nabi
 		NabiCore() NABI_NOEXCEPT = default;
 		virtual ~NabiCore() = default;
 
-		virtual void Init() = 0;
-		virtual void Run() = 0;
+		virtual void Init() = 0; // noexcept?
+		virtual void Run() = 0;  // " "
 
 		[[nodiscard]] inline entt::registry& GetRegistry() NABI_NOEXCEPT;
 

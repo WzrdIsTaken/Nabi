@@ -1,8 +1,8 @@
 #pragma once
+#include "EngineCore.h"
 
-#include "../../Core/EngineCore.h"
+#include "entt.h"
 
-#include "../../Libraries/Inc/entt/entt.h"
 #include "MetaECSTypes.h"
 
 namespace nabi::Reflection

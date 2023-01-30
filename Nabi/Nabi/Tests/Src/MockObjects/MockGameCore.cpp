@@ -1,3 +1,3 @@
-#include "../../../Core.h"
+#include "Core.h"
 
-#include "../../Inc/MockObjects/MockGameCore.h"
+#include "MockObjects/MockGameCore.h"

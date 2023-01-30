@@ -1,8 +1,7 @@
 #pragma once
+#include "EngineCore.h"
 
-#include "../../Core/EngineCore.h"
-
-#include "../../Utils/Inc/DebugUtils.h"
+#include "DebugUtils.h"
 
 // Forward Declarations
 namespace entt

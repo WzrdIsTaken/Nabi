@@ -1,8 +1,7 @@
 #pragma once
+#include "EngineCore.h"
 
-#include "../../Core/EngineCore.h"
-
-#include "../../Libraries/Inc/entt/entt.h"
+#include "entt.h"
 
 // A collection of variables used throughout the reflection system, so it makes sense to group them in one place
 

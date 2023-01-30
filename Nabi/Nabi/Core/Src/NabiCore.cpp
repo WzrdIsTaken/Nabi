@@ -1,6 +1,6 @@
-#include "../EngineCore.h"
+#include "EngineCore.h"
 
-#include "../Inc/NabiCore.h"
+#include "NabiCore.h"
 
 namespace nabi
 {

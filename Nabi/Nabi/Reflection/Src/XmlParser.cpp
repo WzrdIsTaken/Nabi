@@ -1,17 +1,17 @@
-#include "../../Core/EngineCore.h"
+#include "EngineCore.h"
 
-#include "../Inc/XmlParser.h"
+#include "XmlParser.h"
 
-#include "../../Libraries/Inc/pugixml/pugixml.hpp"
+#include "pugixml.hpp"
 
-#include "../../Utils/Inc/BuildUtils.h"
-#include "../../Utils/Inc/DebugUtils.h"
-#include "../../Utils/Inc/TestUtils.h"
-#include "../Inc/MetaObjectLookup.h"
-#include "../Inc/ReflectionGlobals.h"
-#include "../Inc/ReflectionHelpers.h"
-#include "../Inc/EntityCreator.h"
-#include "../Inc/StringConverter.h"
+#include "BuildUtils.h"
+#include "DebugUtils.h"
+#include "EntityCreator.h"
+#include "MetaObjectLookup.h"
+#include "ReflectionGlobals.h"
+#include "ReflectionHelpers.h"
+#include "StringConverter.h"
+#include "TestUtils.h"
 
 namespace nabi::Reflection
 {
