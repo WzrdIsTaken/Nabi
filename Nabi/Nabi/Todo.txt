@@ -1,6 +1,6 @@
 Goals:
 - Nabi should be: Fast, flexible, data driven, testable
-- For an MVP we need: Reflection, rendering, input, collision, networking(?), core
+- For an MVP we need: Reflection, rendering, input, collision, audio, networking(?), core
 
 Current:
 
@@ -8,13 +8,17 @@ Current:
 
 - Learn rendering! (im still torn between directx and opengl.. once get an answer from uni hopefully things will become clearer)
 - Direct X namespace as dx?
+- Make sure to include some good logging when the direct x render stuff is starting up / running
 
 - Core should be pch
 - Sort out pch. - core in pch. testcore as well?
 
 Structure Stuff
+- Entity creator could also live in context? and not be a singleton
 
 - Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
+  (acc i think this is ok on the stack?)
+
 - call assert inside the dx exception 
 
 // --- Low Priority ---

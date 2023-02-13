@@ -113,6 +113,33 @@
     <Filter Include="Libraries\Inc\pugixml">
       <UniqueIdentifier>{ec83b054-72b3-4a33-8ebe-41b5c402c544}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{a5e5dfb8-a9bb-4cb0-af81-6ef69c30b8c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Inc">
+      <UniqueIdentifier>{2e0ed657-f061-4001-9299-f28039132372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Src">
+      <UniqueIdentifier>{5f33c036-d6c3-4269-b096-dbdf6bd22636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Fixtures\ResourceTests">
+      <UniqueIdentifier>{7ae99563-f203-4ab5-a182-e667c5d3d74e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{d5eaf5ce-0e5d-4886-b9d2-d79834095410}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Inc">
+      <UniqueIdentifier>{b34b42c2-a66f-4894-be8e-c8586392ff49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Src">
+      <UniqueIdentifier>{62f2de42-f4d6-46f2-a136-31ba85bc6773}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Inc\Containers">
+      <UniqueIdentifier>{77da8503-fe9a-46dc-a57a-f47b93715b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Src\Containers">
+      <UniqueIdentifier>{fc86e6e8-aec6-41d5-b077-e98e95aa60d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -190,6 +217,12 @@
     </ClCompile>
     <ClCompile Include="Libraries\Src\pugixml\pugixml.cpp">
       <Filter>Libraries\Src\pugixml</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\ResourceTests\ResourceLoadTests.cpp">
+      <Filter>Tests\Fixtures\ResourceTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Src\Containers\Colour.cpp">
+      <Filter>Rendering\Src\Containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +340,24 @@
     </ClInclude>
     <ClInclude Include="Core\EngineCore.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Inc\Resource.h">
+      <Filter>Resource\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Inc\ResourceBank.h">
+      <Filter>Resource\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Inc\Context.h">
+      <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Inc\WinCore.h">
+      <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Containers\Colour.h">
+      <Filter>Rendering\Inc\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Containers\DirectXTypes.h">
+      <Filter>Rendering\Inc\Containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

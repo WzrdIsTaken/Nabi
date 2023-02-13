@@ -9,9 +9,15 @@
 #endif // ifndef USE_DEBUG_UTLS
 
 #define DELETE_COPY_MOVE_CONSTRUCTORS(type) \
-    type(type&) = delete; \
+    DELETE_COPY_CONSTRUCTORS(type) \
+    DELETE_MOVE_CONSTRUCTORS(type)
+
+#define DELETE_COPY_CONSTRUCTORS(type) \
+     type(type&) = delete; \
+     type(type const&) = delete; \
+
+#define DELETE_MOVE_CONSTRUCTORS(type) \
     type(type&&) = delete; \
-    type(type const&) = delete; \
     type(type const&&) = delete;
 
 /*
