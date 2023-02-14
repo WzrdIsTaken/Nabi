@@ -61,7 +61,7 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	// Set the log level to error because otherwise it spams the console when tests are run
 #ifdef USE_DEBUG_UTILS
 	Logger::Instance()->SetLogLevel(LOG_ERROR);
-#endif // USE_DEBUG_UTILS
+#endif // #ifdef USE_DEBUG_UTILS
 
 	// Run all tests
 	::testing::InitGoogleTest(&argc, argv);
@@ -73,7 +73,7 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	// Set the log level back to all
 #ifdef USE_DEBUG_UTILS
 	Logger::Instance()->SetLogLevel(LOG_LEVEL_ALL);
-#endif // USE_DEBUG_UTILS
+#endif // #ifdef USE_DEBUG_UTILS
 #endif // #ifdef RUN_TESTS
 
 	// --- Init Nabi ---
@@ -92,7 +92,7 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	// Destroy the console
 #ifdef USE_DEBUG_UTILS
 	ReleaseConsole();
-#endif // USE_DEBUG_UTILS
+#endif // #ifdef USE_DEBUG_UTILS
 
 	LOG(NEWLINE << LOG_PREP, LOG_INFO, "Shutting down Nabi with an appRunResult of " << WRAP(appRunResult, "'") << ENDLINE);
 	return appRunResult;
