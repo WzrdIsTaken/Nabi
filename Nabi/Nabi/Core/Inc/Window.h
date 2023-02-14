@@ -17,7 +17,7 @@ namespace nabi
 
 		/// <summary>
 		/// TODO - Note how this func is static because it should process messages for all windows
-		/// TODO - const up stuff here
+		/// TODO - const up stuff here and [[nodisacrd]] etc
 		/// </summary>
 		/// <returns></returns>
 		static std::optional<int> ProcessMessages() NABI_NOEXCEPT;

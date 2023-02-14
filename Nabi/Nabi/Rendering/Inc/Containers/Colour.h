@@ -32,7 +32,7 @@ namespace nabi::Rendering
 		/// <returns>The array converted to type T</returns>
 		template<typename T,
 			typename = typename std::enable_if<std::is_same<T, int>::value || std::is_same<T, float>::value || std::is_same<T, unsigned char>::value>::type>
-			std::array<T, 4> ToArray(ColourRange const colourRange) const
+		[[nodiscard]] std::array<T, 4> ToArray(ColourRange const colourRange) const
 		{
 			std::array<T, 4> colour
 			{

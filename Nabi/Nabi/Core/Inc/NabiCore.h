@@ -22,8 +22,8 @@ namespace nabi
 		NabiCore(HINSTANCE hInstance, NabiCoreSettings const& initSettings) NABI_NOEXCEPT;
 		virtual ~NabiCore();
 
-		virtual int Init() NABI_NOEXCEPT;
-		virtual int Run() NABI_NOEXCEPT;
+		[[nodiscard]] virtual int Init() NABI_NOEXCEPT;
+		[[nodiscard]] virtual int Run() NABI_NOEXCEPT;
 
 		[[nodiscard]] inline entt::registry& GetRegistry() NABI_NOEXCEPT;
 
