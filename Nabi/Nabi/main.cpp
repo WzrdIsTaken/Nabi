@@ -11,15 +11,35 @@
              ||   ||   ||                ||   ||( '-||-' )
              || ,;.)   (.;,            ,;.)   (.;,(~\/~)/
 
-	These are the header guards. Idk I just think they are kinda neat
+	These are the header guards. They guard every header in this project, keeping the lands of Nabi safe.
 */
 
 #include "Core.h"
 
-int main()
+#include "shellapi.h" // For CommandLineToArgvW
+
+#include "Console.h"
+#include "InitSettings.h"
+#include "NabiCore.h"
+
+int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
 {
+	// --- Application Setup ---
+
+	// Get argc/argv
+	int argc;
+	LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+
 	// --- Initial Nabi Setup ---
+
+	using namespace nabi;
 	using namespace nabi::Utils;
+
+	// Create a console window
+#ifdef USE_DEBUG_UTILS
+	UINT const consoleMaxLines = 4096u;
+	AllocateConsole(consoleMaxLines);
+#endif // #ifdef USE_DEBUG_UTILS
 
 	// Setup Debug Utils
 #ifdef USE_DEBUG_UTILS
@@ -44,11 +64,11 @@ int main()
 #endif // USE_DEBUG_UTILS
 
 	// Run all tests
-	::testing::InitGoogleTest(&__argc, __argv);
+	::testing::InitGoogleTest(&argc, argv);
 	int const testResults = RUN_ALL_TESTS();
 
 	// Assert if any of the tests failed
-	ASSERT(testResults == TestUtils::c_TestResultSuccess, "One or more of the tests failed! See the console output for details, or run the test explorer.");
+	ASSERT(testResults == NABI_SUCCESS, "One or more of the tests failed! See the console output for details, or run the test explorer.");
 
 	// Set the log level back to all
 #ifdef USE_DEBUG_UTILS
@@ -58,6 +78,22 @@ int main()
 
 	// --- Init Nabi ---
 
+	nabi::NabiCore app = nabi::NabiCore(hInstance, nabi::nabiCoreDefaultSettings);
 	LOG(NEWLINE << LOG_PREP, LOG_INFO, "Nabi has initialized successfully!" << ENDLINE);
-	return 0;
+
+	int appRunResult = app.Init();
+	ASSERT(appRunResult == NABI_SUCCESS, "The app failed to initialize!");
+
+	appRunResult = app.Run();
+	ASSERT(appRunResult == NABI_SUCCESS, "The app hit an error while running!");
+
+	// --- Shutdown Nabi ---
+
+	// Destroy the console
+#ifdef USE_DEBUG_UTILS
+	ReleaseConsole();
+#endif // USE_DEBUG_UTILS
+
+	LOG(NEWLINE << LOG_PREP, LOG_INFO, "Shutting down Nabi with an appRunResult of " << WRAP(appRunResult, "'") << ENDLINE);
+	return appRunResult;
 }

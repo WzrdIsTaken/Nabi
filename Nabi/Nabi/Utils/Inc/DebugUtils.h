@@ -3,7 +3,8 @@
 #include <sstream>
 
 #include "Defines.h"
-#include "UtilClasses/Logger.h"
+#include "UtilClasses\Logger.h"
+#include "Debug\DXException.h" // For DX_ASSERT - So we have a single include debug file
 
 #ifndef USE_DEBUG_UTILS
 	// Solve's the problem of these macros in release being void(0), so the compiler warns that there are too many arguements
@@ -15,6 +16,8 @@
 
 	#define ASSERT_FAIL_FATAL(message) NOT_DEFINED
 	#define ASSERT_FAIL(message) NOT_DEFINED
+
+	#define DX_ASSERT(result) NOT_DEFINED
 
 	#define STATIC_ASSERT(...) NOT_DEFINED
 
@@ -28,6 +31,8 @@
 
 #define ASSERT_FAIL_FATAL(message) ASSERT_FATAL(false, message)
 #define ASSERT_FAIL(message) ASSERT(false, message)
+
+#define DX_ASSERT(result) nabi::DirectX::ThrowIfFailed(__FILE__, __LINE__, result); // Compiler is not guaranteed to inline so pass in __LINE__ and __FILE__ here
 
 #define STATIC_ASSERT(...) static_assert(__VA_ARGS__);
 
@@ -90,4 +95,3 @@
 #define INDENT_1 3
 #define INDENT_2 6
 #define INDENT_3 9
-

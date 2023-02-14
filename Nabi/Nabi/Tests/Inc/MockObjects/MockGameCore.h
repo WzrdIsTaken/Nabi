@@ -13,12 +13,14 @@ namespace nabitest
 		MockGameCore() NABI_NOEXCEPT = default;
 		~MockGameCore() override = default;
 
-		void Init() override
+		int Init() override
 		{
+			return NABI_SUCCESS;
 		}
 		
-		void Run() override
+		int Run() override
 		{
+			return NABI_SUCCESS;
 		}
 
 	private:

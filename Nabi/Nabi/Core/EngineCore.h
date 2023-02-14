@@ -2,6 +2,10 @@
 
 // Standard
 #include <algorithm>
+#include <array>
+#include <exception>
+#include <functional>
+#include <optional>
 #include <memory>
 #include <string>
 #include <sstream>

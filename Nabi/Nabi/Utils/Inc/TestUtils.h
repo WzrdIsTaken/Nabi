@@ -30,10 +30,4 @@
 	#define BUILD_CONFIGURATION_CHANGE_END \
 		c_BuildConfiguration = startBuildConfiguration; \
 		ASSERT_EQ(startBuildConfiguration, c_BuildConfiguration); // These macros should only be run in tests, so we can do this gMock check
-
-	namespace nabi::Utils::TestUtils
-	{
-		constexpr int c_TestResultSuccess = 0;
-		constexpr int c_TestResultFail = 1;
-	} // nabi nabi::Utils::TestUtils
 #endif // #ifdef RUN_TESTS
