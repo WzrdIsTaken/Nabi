@@ -8,7 +8,7 @@ namespace nabi
 	/// <summary>
 	/// A collection references to core level systems. Initialized in NabiCore
 	/// </summary>
-	struct Context
+	struct Context final
 	{
 		enum SingletonEntities : size_t
 		{
