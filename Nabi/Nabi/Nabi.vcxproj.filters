@@ -146,6 +146,24 @@
     <Filter Include="Utils\Src\Debug">
       <UniqueIdentifier>{d7e2b8d6-7c53-492d-a497-ee90cfab1fda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Rendering\Inc\Buffers">
+      <UniqueIdentifier>{eb92a748-e67f-436b-97bc-a1336613dd2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Inc\Shaders">
+      <UniqueIdentifier>{0d872b12-08c1-4933-a10c-46bdf1f31858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Inc\Textures">
+      <UniqueIdentifier>{d4274879-706b-4818-93a8-8f33836e4132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Inc\WICTextureLoader">
+      <UniqueIdentifier>{cc7ec30f-28c8-4a44-a92b-d736f29aea74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Src\WICTextureLoader">
+      <UniqueIdentifier>{ffd98577-b66c-462d-bad9-f671ba1b7e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Inc\Model">
+      <UniqueIdentifier>{420b26df-c250-4cab-b87b-d83c053d0458}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -238,6 +256,12 @@
     </ClCompile>
     <ClCompile Include="Utils\Src\Debug\DXException.cpp">
       <Filter>Utils\Src\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Src\RenderCommand.cpp">
+      <Filter>Rendering\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\Src\WICTextureLoader\WICTextureLoader.cpp">
+      <Filter>Libraries\Src\WICTextureLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -365,9 +389,6 @@
     <ClInclude Include="Core\Inc\Context.h">
       <Filter>Core\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Inc\WinCore.h">
-      <Filter>Core\Inc</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\Inc\Containers\Colour.h">
       <Filter>Rendering\Inc\Containers</Filter>
     </ClInclude>
@@ -382,6 +403,45 @@
     </ClInclude>
     <ClInclude Include="Utils\Inc\Debug\DXException.h">
       <Filter>Utils\Inc\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\RenderCommand.h">
+      <Filter>Rendering\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\DXObjects.h">
+      <Filter>Rendering\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\WinCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\DirectXCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Buffers\ConstantBuffer.h">
+      <Filter>Rendering\Inc\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Buffers\IndexBuffer.h">
+      <Filter>Rendering\Inc\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Buffers\VertexBuffer.h">
+      <Filter>Rendering\Inc\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Textures\Sampler.h">
+      <Filter>Rendering\Inc\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Textures\Texture.h">
+      <Filter>Rendering\Inc\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Shaders\PixelShader.h">
+      <Filter>Rendering\Inc\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Shaders\VertexShader.h">
+      <Filter>Rendering\Inc\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Inc\WICTextureLoader\WICTextureLoader.h">
+      <Filter>Libraries\Inc\WICTextureLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Model\Vertex.h">
+      <Filter>Rendering\Inc\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

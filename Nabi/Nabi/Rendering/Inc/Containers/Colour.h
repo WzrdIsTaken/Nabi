@@ -9,6 +9,9 @@ namespace nabi::Rendering
 	/// </summary>
 	struct Colour
 	{
+		template<typename T>
+		using ColourFormat = typename std::enable_if<std::is_same<T, int>::value || std::is_same<T, float>::value || std::is_same<T, unsigned char>::value>::type;
+
 		enum class ColourRange
 		{
 			O_TO_255,
@@ -30,8 +33,7 @@ namespace nabi::Rendering
 		/// <typeparam name="T">The type to convert the colour array to. Limited to ints, floats and unsigned chars</typeparam>
 		/// <param name="colourRange">- The format of the returned colour (see Colour::ColourRange)</param>
 		/// <returns>The array converted to type T</returns>
-		template<typename T,
-			typename = typename std::enable_if<std::is_same<T, int>::value || std::is_same<T, float>::value || std::is_same<T, unsigned char>::value>::type>
+		template<typename T, typename = ColourFormat<T>>
 		[[nodiscard]] std::array<T, 4> ToArray(ColourRange const colourRange) const
 		{
 			std::array<T, 4> colour
@@ -51,6 +53,17 @@ namespace nabi::Rendering
 			}
 
 			return colour;
+		}
+
+		/// <summary>
+		/// Converts an array of rgba values to a colour. Note: Does not currently support ColourRange
+		/// </summary>
+		/// <typeparam name="colourArray">- The colour's rgba values in an array</typeparam>
+		/// <returns>The colour</returns>
+		template<typename T, typename = ColourFormat<T>>
+		[[nodiscard]] static Colour FromArray(std::array<T, 4> const& colourArray)
+		{
+			return Colour(colourArray[0], colourArray[1], colourArray[2], colourArray[3]);
 		}
 
 		unsigned char m_R;

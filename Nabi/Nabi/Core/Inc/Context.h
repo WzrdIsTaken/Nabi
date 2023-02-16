@@ -1,37 +1,28 @@
 #pragma once
 
 #include "entt.h"
+#include "RenderCommand.h"
 
 namespace nabi
 {
 	/// <summary>
-	/// A collection references to core level systems
+	/// A collection references to core level systems. Initialized in NabiCore
 	/// </summary>
 	struct Context
 	{
-		/*
-		enum SingletonEntities
+		enum SingletonEntities : size_t
 		{
 			Graphic,
 			Input,
 			ENUM_COUNT
 		};
 
-		Context(entt::registry& registery, RenderCommand& renderCommand)
-			: m_Registry(registery)
-			, m_RenderCommand(renderCommand)
-			, m_SingletonEntites{}
-		{
-			m_SingletonEntites.fill(entt::null);
-		}
-
 		// Entities
-		entt::registry& m_Registry;
+		entt::registry m_Registry;
 		std::array<entt::entity, SingletonEntities::ENUM_COUNT> m_SingletonEntites;
 
 		// Graphic
-		RenderCommand& m_RenderCommand;
-		// Window?
-		*/
+		std::unique_ptr<Rendering::RenderCommand> m_RenderCommand;
+		// Window? Need a way of registering events but I'm not sure if this is it
 	};
 } // namespace nabi

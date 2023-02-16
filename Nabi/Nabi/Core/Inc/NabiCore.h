@@ -5,11 +5,14 @@
 #include "entt.h"
 
 #include "Context.h"
-#include "InitSettings.h"
+#include "DXObjects.h"
 #include "Window.h"
 
 namespace nabi
 {
+	// Forward Declares
+	struct NabiCoreSettings;
+
 	/// <summary>
 	/// The base of all things Nabi. This is kinda big deal
 	/// </summary>
@@ -19,26 +22,27 @@ namespace nabi
 #endif // !ENGINE_DEVELOPMENT
 	{
 	public:
-		NabiCore(HINSTANCE hInstance, NabiCoreSettings const& initSettings) NABI_NOEXCEPT;
+		NabiCore(HINSTANCE const hInstance, NabiCoreSettings const& initSettings) NABI_NOEXCEPT;
 		virtual ~NabiCore();
 
 		[[nodiscard]] virtual int Init() NABI_NOEXCEPT;
 		[[nodiscard]] virtual int Run() NABI_NOEXCEPT;
 
-		[[nodiscard]] inline entt::registry& GetRegistry() NABI_NOEXCEPT;
+		[[nodiscard]] inline Context const& GetContext() NABI_NOEXCEPT;
 
 	protected:
 		//virtual void Update(gametime) NABI_NOEXCEPT;
-		//virtual void Render(gametime) NABI_NOEXCEPT;
+		virtual void Render(/*gametime?*/) NABI_NOEXCEPT;
 
-		// Windows Core
-		HINSTANCE m_hInstance; // const?
+		// Windows
+		HINSTANCE const m_hInstance;
 		Window m_Window;
 
-		// Nabi Core
-		Context m_Ctx;
+		// DirectX
+		Rendering::DXObjects m_DXObjects;
 
-		entt::registry m_Registry;
+		// Nabi
+		Context m_Ctx;
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)

@@ -4,6 +4,10 @@ Goals:
 
 Current:
 
+// --- Critical Priority ---
+
+- Fix release mode (nvm that doesnt work..)
+
 // --- High Priority ---
 
 - Learn rendering! (im still torn between directx and opengl.. once get an answer from uni hopefully things will become clearer)
@@ -12,6 +16,7 @@ Current:
 
 - Core should be pch
 - Sort out pch. - core in pch. testcore as well?
+- Wincore above Enginecore?
 
 Structure Stuff
 - Entity creator could also live in context? and not be a singleton

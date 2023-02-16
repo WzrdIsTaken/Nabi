@@ -9,6 +9,7 @@
 
 // --- Windows / DirectX ---
 #include "WinCore.h" // TODO (have to double check if this should go before or after standard)
+#include "DirectXCore.h"
 
 // --- Nabi ---
 // Entt
