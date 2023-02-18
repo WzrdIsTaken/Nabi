@@ -16,7 +16,8 @@
 #include "entt.h"
 using namespace entt::literals;
 
-// Nabi Defines
+// Nabi Core
+#include "Context.h"
 #include "Defines.h"
 
 // ECS

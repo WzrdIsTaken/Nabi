@@ -117,13 +117,13 @@
 	CREATE_REFLECTOR_BEGIN(system) \
 	CREATE_INIT_REFLECTION_FUNCTION() \
 		entt::meta<system>().type(entt::hashed_string(#system)) \
-			.ctor<entt::registry&, entt::hashed_string const, entt::hashed_string const>()
+			.ctor<nabi::Context&, entt::hashed_string const, entt::hashed_string const>()
 
 #define REFLECT_SYSTEM_BEGIN(system, reflectedName) \
 	CREATE_REFLECTOR_BEGIN(system) \
 	CREATE_INIT_REFLECTION_FUNCTION() \
 		entt::meta<system>().type(entt::hashed_string(reflectedName)) \
-			.ctor<entt::registry&, entt::hashed_string const, entt::hashed_string const>()
+			.ctor<nabi::Context&, entt::hashed_string const, entt::hashed_string const>()
 
 // Functions
 #define REFLECT_SYSTEM_METHOD_DEFAULT(method) \

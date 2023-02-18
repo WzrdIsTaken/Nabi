@@ -6,15 +6,19 @@
 #include "MetaECSTypes.h"
 
 // Forward declarations
+namespace nabi
+{
+	struct Context;
+} // namespace nabi
+namespace nabi::Reflection
+{
+	class MetaObjectLookup;
+} // namespace nabi::Reflection
 namespace pugi
 {
 	class xml_document;
 	class xml_node;
 } // namespace pugi
-namespace nabi::Reflection
-{
-	class MetaObjectLookup;
-} // namespace nabi::Reflection
 
 namespace nabi::Reflection
 {
@@ -31,7 +35,7 @@ namespace nabi::Reflection
 		/// <param name="routeDoc">- The first route document, likely containing file paths to other data documents</param>
 		/// <param name="registery">- A reference to the registery, forwarded on to the ParseSystems and ParseComponents functions</param>
 		/// <param name="systemsLookup">- An optional MetaObjectLookup, which systems will be added to. Pass in nullptr if it is not required</param>
-		void ParseXml(std::string_view const routeDoc, entt::registry& registery, MetaObjectLookup* const systemsLookup) NABI_NOEXCEPT;
+		void ParseXml(std::string_view const routeDoc, nabi::Context& context, MetaObjectLookup* const systemsLookup) NABI_NOEXCEPT;
 		/// <summary>
 		/// Loads the document at the specified path.
 		/// </summary>
@@ -57,7 +61,7 @@ namespace nabi::Reflection
 		/// <param name="doc">- The system data document</param>
 		/// <param name="registery">- A reference to the registery, required to initialise systems</param>
 		/// <param name="systemsLookup">- An optional MetaObjectLookup, which systems will be added to. Pass in nullptr if it is not required</param>
-		void ParseSystems(pugi::xml_document const& doc, entt::registry& registery, MetaObjectLookup* const systemsLookup) NABI_NOEXCEPT;
+		void ParseSystems(pugi::xml_document const& doc, nabi::Context& context, MetaObjectLookup* const systemsLookup) NABI_NOEXCEPT;
 		/// <summary>
 		/// Parses a document containing entity data. Component documents are designated by c_EntityGroupAttribute's value.
 		/// </summary>

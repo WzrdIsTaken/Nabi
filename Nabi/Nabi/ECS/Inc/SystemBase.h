@@ -3,6 +3,12 @@
 
 #include "entt.h"
 
+// Forward declares
+namespace nabi
+{
+	struct Context;
+} // namespace nabi
+
 namespace nabi::ECS
 {
 	/// <summary>
@@ -12,13 +18,13 @@ namespace nabi::ECS
 	class SystemBase
 	{
 	public:
-		SystemBase(entt::registry& registery, entt::hashed_string const systemId, entt::hashed_string const systemGroupId) NABI_NOEXCEPT;
+		SystemBase(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId) NABI_NOEXCEPT;
 
 		[[nodiscard]] entt::hashed_string const& GetSystemId() const NABI_NOEXCEPT;
 		[[nodiscard]] entt::hashed_string const& GetSystemGroupId() const NABI_NOEXCEPT;
 
 	private:
-		entt::registry& m_Registery;
+		nabi::Context& m_Context;
 
 		entt::hashed_string const c_SystemId;
 		entt::hashed_string const c_SystemGroupId;

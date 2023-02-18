@@ -5,6 +5,7 @@
 #include "pugixml.hpp"
 
 #include "BuildUtils.h"
+#include "Context.h"
 #include "DebugUtils.h"
 #include "EntityCreator.h"
 #include "MetaObjectLookup.h"
@@ -15,11 +16,14 @@
 
 namespace nabi::Reflection
 {
-	void XmlParser::ParseXml(std::string_view const routeDocPath, entt::registry& registery, MetaObjectLookup* const systemsLookup) NABI_NOEXCEPT
+	void XmlParser::ParseXml(std::string_view const routeDocPath, nabi::Context& context, MetaObjectLookup* const systemsLookup) NABI_NOEXCEPT
 	{
 		// Load the route document
 		pugi::xml_document const routeDoc = LoadDocument(routeDocPath);
 		LOG(LOG_PREP, LOG_INFO, "Loaded a route document " << WRAP(routeDocPath, "'") << " successfully!" << ENDLINE);
+
+		// Cache the context's registry
+		entt::registry& registry = context.m_Registry;
 
 		// Enable Creation logging (see EntityCreator.h for an explanation of this jankness)
 #ifdef USE_DEBUG_UTILS
@@ -39,7 +43,7 @@ namespace nabi::Reflection
 			// Depending on the document's type, call the relevant parse function
 			if (docType == c_RouteDocAttribute)
 			{
-				ParseXml(path, registery, systemsLookup);
+				ParseXml(path, context, systemsLookup);
 			}
 			else if (docType == c_SingletonGroupAttribute)
 			{
@@ -47,11 +51,11 @@ namespace nabi::Reflection
 			}
 			else if (docType == c_SystemGroupAttribute)
 			{
-				ParseSystems(dataDoc, registery, systemsLookup);
+				ParseSystems(dataDoc, context, systemsLookup);
 			}
 			else if (docType == c_EntityGroupAttribute)
 			{
-				ParseEntities(dataDoc, registery);
+				ParseEntities(dataDoc, registry);
 			}
 			else
 			{
@@ -89,7 +93,7 @@ namespace nabi::Reflection
 		// - Else I will think about them when I actually need to 
 	}
 
-	void XmlParser::ParseSystems(pugi::xml_document const& doc, entt::registry& registery, MetaObjectLookup* const systemsLookup) NABI_NOEXCEPT
+	void XmlParser::ParseSystems(pugi::xml_document const& doc, nabi::Context& context, MetaObjectLookup* const systemsLookup) NABI_NOEXCEPT
 	{
 		// Get the system group's id
 		std::string_view const systemGroupId = doc.first_child().attribute(c_IdAttribute.c_str()).value();
@@ -108,7 +112,7 @@ namespace nabi::Reflection
 				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << "Created a system with id " << WRAP(systemId, "'") << ENDLINE);
 
 				// Construct the system
-				entt::meta_any metaSystem = ReflectionHelpers::ConstructMetaObject(systemIdHash, entt::forward_as_meta(registery), systemIdHash, systemGroupIdHash);
+				entt::meta_any metaSystem = ReflectionHelpers::ConstructMetaObject(systemIdHash, entt::forward_as_meta(context), systemIdHash, systemGroupIdHash);
 
 				// Construct the data for the ststem
 				SystemData const systemData = CreateECSTypeData(systemNode);

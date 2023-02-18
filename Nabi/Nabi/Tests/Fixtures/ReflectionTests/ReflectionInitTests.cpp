@@ -1,5 +1,6 @@
 #include "TestCore.h"
 
+#include "Context.h"
 #include "CoreComponents/EntityInfoComponent.h"
 #include "MetaObjectLookup.h"
 #include "XmlParser.h"
@@ -12,14 +13,15 @@ namespace nabitest::ReflectionTests
 	TEST(RelfectionTests, ParseSystemsFromRoute)
 	{
 		// Mock objects
-		entt::registry registry;
+		nabi::Context context;
+		context.m_Registry = {};
 		std::string const routeDocPath = "Tests/Data/Reflection/test_route_file.xml";
 
 		// Deserialize data files
 		nabi::Reflection::MetaObjectLookup systemsLookup{};
 		nabi::Reflection::XmlParser xmlParser{};
 
-		xmlParser.ParseXml(routeDocPath, registry, &systemsLookup);
+		xmlParser.ParseXml(routeDocPath, context, &systemsLookup);
 
 		// Get the system
 		MockSystem mockSystem = std::move(systemsLookup.GetObject<MockSystem>("MockSystem"));
@@ -36,12 +38,15 @@ namespace nabitest::ReflectionTests
 	TEST(RelfectionTests, ParseEntitiesFromRoute)
 	{
 		// Mock objects
-		entt::registry registry;
+		nabi::Context context;
+		context.m_Registry = {};
+
 		std::string const routeDocPath = "Tests/Data/Reflection/test_route_file.xml";
+		entt::registry& registry = context.m_Registry;
 
 		// Deserialize data files
 		nabi::Reflection::XmlParser xmlParser{};
-		xmlParser.ParseXml(routeDocPath, registry, nullptr);
+		xmlParser.ParseXml(routeDocPath, context, nullptr);
 
 		// Check that this is only one entity in the registry
 		Comparison<size_t> numberOfEntities(1, registry.alive());
