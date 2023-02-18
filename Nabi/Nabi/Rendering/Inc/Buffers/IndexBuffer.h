@@ -21,6 +21,6 @@ namespace nabi::Rendering
 	class IndexBufferLoader
 	{
 	public:
-		IndexBuffer operator()(Mesh const& mesh, nabi::Context const& context);
+		[[nodiscard]] IndexBuffer operator()(Mesh const& mesh, nabi::Context const& context) const NABI_NOEXCEPT;
 	};
 } // namespace nabi::Rendering

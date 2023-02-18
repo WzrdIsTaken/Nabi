@@ -7,7 +7,7 @@
 
 namespace nabi::Rendering
 {
-	ConstantBuffer nabi::Rendering::ConstantBufferLoader::operator()(UINT const byteWidth, nabi::Context const& context)
+	ConstantBuffer nabi::Rendering::ConstantBufferLoader::operator()(UINT const byteWidth, nabi::Context const& context) const NABI_NOEXCEPT
 	{
 		ConstantBuffer const constantBuffer = context.m_RenderCommand->CreateConstantBuffer(byteWidth);
 		return constantBuffer;

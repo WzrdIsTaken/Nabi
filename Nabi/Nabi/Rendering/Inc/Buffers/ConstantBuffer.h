@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineCore.h"
 #include "DirectXCore.h"
 
 // Forward Declares
@@ -49,12 +50,11 @@ namespace nabi::Rendering
 
 	/// <summary>
 	/// Creates a constant buffer. Don't really need this, but its for consistency...
-	/// Though the fact that it takes in a UINT as a first arg rather than a sting makes it inconsistent xD
 	/// </summary>
 	class ConstantBufferLoader
 	{
 	public:
-		ConstantBuffer operator()(UINT const byteWidth, nabi::Context const& context);
+		[[nodiscard]] ConstantBuffer operator()(UINT const byteWidth, nabi::Context const& context) const NABI_NOEXCEPT;
 	};
 } // namespace nabi::Rendering
 

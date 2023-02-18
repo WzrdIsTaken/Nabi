@@ -23,6 +23,6 @@ namespace nabi::Rendering
 	class VertexBufferLoader
 	{
 	public:
-		VertexBuffer operator()(Mesh const& mesh, nabi::Context const& context);
+		[[nodiscard]] VertexBuffer operator()(Mesh const& mesh, nabi::Context const& context) const NABI_NOEXCEPT;
 	};
 } // namespace nabi::Rendering

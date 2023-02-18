@@ -7,7 +7,7 @@
 
 namespace nabi::Rendering
 {
-	IndexBuffer nabi::Rendering::IndexBufferLoader::operator()(Mesh const& mesh, nabi::Context const& context)
+	IndexBuffer nabi::Rendering::IndexBufferLoader::operator()(Mesh const& mesh, nabi::Context const& context) const NABI_NOEXCEPT
 	{
 		return {};
 	}

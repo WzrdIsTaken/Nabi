@@ -75,15 +75,15 @@ namespace nabi::Rendering
 
 		// --- Creation ---
 
-		ConstantBuffer CreateConstantBuffer(UINT const byteWidth) const NABI_NOEXCEPT;
-		IndexBuffer CreateIndexBuffer(std::vector<UINT> const& triangles) const NABI_NOEXCEPT;
-		VertexBuffer CreateVertexBuffer(std::vector<Vertex> const& vertices) const NABI_NOEXCEPT;
+		[[nodiscard]] ConstantBuffer CreateConstantBuffer(UINT const byteWidth) const NABI_NOEXCEPT;
+		[[nodiscard]] IndexBuffer CreateIndexBuffer(std::vector<UINT> const& triangles) const NABI_NOEXCEPT;
+		[[nodiscard]] VertexBuffer CreateVertexBuffer(std::vector<Vertex> const& vertices) const NABI_NOEXCEPT;
 
-		PixelShader CreatePixelShader(std::string const& filePath) const NABI_NOEXCEPT;
-		VertexShader CreateVertexShader(std::string const& filePath, std::vector<D3D11_INPUT_ELEMENT_DESC> const& layout) const NABI_NOEXCEPT;
+		[[nodiscard]] PixelShader CreatePixelShader(std::string const& filePath) const NABI_NOEXCEPT;
+		[[nodiscard]] VertexShader CreateVertexShader(std::string const& filePath, std::vector<D3D11_INPUT_ELEMENT_DESC> const& layout) const NABI_NOEXCEPT;
 
-		Texture CreateTexture(std::string const& filePath) const NABI_NOEXCEPT;
-		Sampler CreateSampler() const NABI_NOEXCEPT;
+		[[nodiscard]] Texture CreateTexture(std::string const& filePath) const NABI_NOEXCEPT;
+		[[nodiscard]] Sampler CreateSampler() const NABI_NOEXCEPT;
 
 		// --- Binding ---
 
@@ -107,8 +107,8 @@ namespace nabi::Rendering
 
 		// --- Getters ---
 
-		RenderCommandCache const& GetCache() const NABI_NOEXCEPT;
-		Colour GetBackgroundColour() const NABI_NOEXCEPT;
+		[[nodiscard]] RenderCommandCache const& GetCache() const NABI_NOEXCEPT;
+		[[nodiscard]] Colour GetBackgroundColour() const NABI_NOEXCEPT;
 
 		// --- Setters ---
 

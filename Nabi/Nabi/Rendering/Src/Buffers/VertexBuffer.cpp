@@ -7,7 +7,7 @@
 
 namespace nabi::Rendering
 {
-	VertexBuffer nabi::Rendering::VertexBufferLoader::operator()(Mesh const& mesh, nabi::Context const& context)
+	VertexBuffer nabi::Rendering::VertexBufferLoader::operator()(Mesh const& mesh, nabi::Context const& context) const NABI_NOEXCEPT
 	{
 		return {};
 	}
