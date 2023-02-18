@@ -20,18 +20,7 @@
     type(type&&) = delete; \
     type(type const&&) = delete;
 
-/*
-* Is this a good idea? Probs not..
-* #define DEFAULT_CTOR_DTOR(type) \
-*    type() NABI_NOEXCEPT = default; \
-*    ~type() = default;
-* #define DEFAULT_CTOR_DTOR_VIRTUAL(type) \
-*     type() NABI_NOEXCEPT = default; \
-*     virtual ~type() = default;
-* #define DEFAULT_CTOR_DTOR_OVERRIDE(type) \
-*     type() NABI_NOEXCEPT = default; \
-*     ~type() override = default;
-*/
+//#define interface __interface
 
 // ngl i don't think 'TypeUtils' is the best name... if I think of something better I'll change it!
 // types are classes and structs.. so that was my reasoning. but 'ClassStructUtils' seemed even worse xD

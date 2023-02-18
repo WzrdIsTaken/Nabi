@@ -26,7 +26,7 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 {
 	// --- Application Setup ---
 
-	// Get argc/argv
+	// Get argc + argv
 	int argc;
 	LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
 
@@ -94,6 +94,6 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	ReleaseConsole();
 #endif // #ifdef USE_DEBUG_UTILS
 
-	LOG(NEWLINE << LOG_PREP, LOG_INFO, "Shutting down Nabi with an appRunResult of " << WRAP(appRunResult, "'") << ENDLINE);
+	LOG(NEWLINE << LOG_PREP, LOG_INFO, "Shutting down Nabi with code " << appRunResult << ENDLINE);
 	return appRunResult;
 }

@@ -1,9 +1,5 @@
 #pragma once
-#include "EngineCore.h"
-
-#include "entt.h"
-
-#include "ComponentBase.h"
+#include "Core.h"
 
 // Contains some basic infomation about an entity.
 // No need to reflect, as its always added anyway.
@@ -40,8 +36,8 @@ namespace ecs
 	// Component
 	struct EntityInfoComponent final : public nabi::ECS::ComponentBase
 	{
-		EntityInfoComponent() NABI_NOEXCEPT;
-		explicit EntityInfoComponent(EntityInfoComponentSettings const& settings) NABI_NOEXCEPT;
+		EntityInfoComponent();
+		explicit EntityInfoComponent(EntityInfoComponentSettings const& settings);
 
 		entt::hashed_string m_EntityGroup;
 		entt::hashed_string m_EntityName;

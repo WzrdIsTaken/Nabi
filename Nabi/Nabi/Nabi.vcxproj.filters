@@ -164,6 +164,27 @@
     <Filter Include="Rendering\Inc\Model">
       <UniqueIdentifier>{420b26df-c250-4cab-b87b-d83c053d0458}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{958a56bd-a450-4029-b378-f4492a1b71e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Inc">
+      <UniqueIdentifier>{e128af16-03d5-4091-8201-a55007987354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Src">
+      <UniqueIdentifier>{2ac9294b-011e-433f-8ceb-a60b5126e90a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Inc\Examples">
+      <UniqueIdentifier>{2c54c233-68b1-4a79-8ec8-2115ea8d44db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src\Examples">
+      <UniqueIdentifier>{0270208b-89b5-480a-80e0-57758aae3163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Inc\CoreSystems">
+      <UniqueIdentifier>{40a83653-ca00-4418-b2e9-6c7b4ef68e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Src\CoreSystems">
+      <UniqueIdentifier>{e19b30f1-11c9-4af0-ada8-e2574a79db81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -262,6 +283,15 @@
     </ClCompile>
     <ClCompile Include="Libraries\Src\WICTextureLoader\WICTextureLoader.cpp">
       <Filter>Libraries\Src\WICTextureLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\ModelComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Examples\BasicTriangle.cpp">
+      <Filter>Tests\Src\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp">
+      <Filter>ECS\Src\CoreSystems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +472,18 @@
     </ClInclude>
     <ClInclude Include="Rendering\Inc\Model\Vertex.h">
       <Filter>Rendering\Inc\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\ModelComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Examples\IExample.h">
+      <Filter>Tests\Inc\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Examples\BasicTriangle.h">
+      <Filter>Tests\Inc\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem.h">
+      <Filter>ECS\Inc\CoreSystems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

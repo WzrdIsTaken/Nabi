@@ -34,7 +34,7 @@ namespace nabi::Rendering
 		swapChainDescriptor.SampleDesc.Count = 1;
 		swapChainDescriptor.SampleDesc.Quality = 0;
 		swapChainDescriptor.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		swapChainDescriptor.BufferCount = 2;
+		swapChainDescriptor.BufferCount = 2; // Double buffering
 		swapChainDescriptor.OutputWindow = hWnd;
 		swapChainDescriptor.Windowed = TRUE;
 		swapChainDescriptor.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
@@ -55,20 +55,20 @@ namespace nabi::Rendering
 			0u,                       // Feature Levels
 			D3D11_SDK_VERSION,        // SDK Version
 			&swapChainDescriptor,     // Swap Chain Descriptor
-			&dxObjects.m_SwapChain,   // Swap Chain
-			&dxObjects.m_Device,      // Device
+			&m_DXObjects.m_SwapChain, // Swap Chain
+			&m_DXObjects.m_Device,    // Device
 			nullptr,                  // Feature Level
-			&dxObjects.m_Context	  // Device Context
+			&m_DXObjects.m_Context	  // Device Context
 		));
 
 #ifdef USE_DEBUG_UTILS
-		DX_ASSERT(dxObjects.m_Device->QueryInterface(__uuidof(ID3D11Debug), reinterpret_cast<void**>(&dxObjects.m_DebugDevice)));
+		DX_ASSERT(m_DXObjects.m_Device->QueryInterface(__uuidof(ID3D11Debug), reinterpret_cast<void**>(&m_DXObjects.m_DebugDevice)));
 #endif // ifdef USE_DEBUG_UTILS
 
 		// Gain access to texture subresource in swap chain (back buffer)
 		wrl::ComPtr<ID3D11Resource> backBuffer;
-		DX_ASSERT(dxObjects.m_SwapChain->GetBuffer(0, __uuidof(ID3D11Resource), &backBuffer));
-		DX_ASSERT(dxObjects.m_Device->CreateRenderTargetView(backBuffer.Get(), nullptr, &dxObjects.m_RenderTargetView));
+		DX_ASSERT(m_DXObjects.m_SwapChain->GetBuffer(0, __uuidof(ID3D11Resource), &backBuffer));
+		DX_ASSERT(m_DXObjects.m_Device->CreateRenderTargetView(backBuffer.Get(), nullptr, &m_DXObjects.m_RenderTargetView));
 
 		// Create the depth stencil state
 		wrl::ComPtr<ID3D11DepthStencilState> depthStencilState;
@@ -77,10 +77,10 @@ namespace nabi::Rendering
 		depthStencilDescriptor.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 		depthStencilDescriptor.DepthFunc = D3D11_COMPARISON_LESS;
 
-		DX_ASSERT(dxObjects.m_Device->CreateDepthStencilState(&depthStencilDescriptor, &depthStencilState));
+		DX_ASSERT(m_DXObjects.m_Device->CreateDepthStencilState(&depthStencilDescriptor, &depthStencilState));
 
 		// Bind the depth stencil state to the pipeline
-		dxObjects.m_Context->OMSetDepthStencilState(depthStencilState.Get(), 1u);
+		m_DXObjects.m_Context->OMSetDepthStencilState(depthStencilState.Get(), 1u);
 
 		// Create the depth stensil texture
 		wrl::ComPtr<ID3D11Texture2D> depthStencil;
@@ -95,7 +95,7 @@ namespace nabi::Rendering
 		depthDescriptor.Usage = D3D11_USAGE_DEFAULT;
 		depthDescriptor.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
-		DX_ASSERT(dxObjects.m_Device->CreateTexture2D(&depthDescriptor, nullptr, &depthStencil));
+		DX_ASSERT(m_DXObjects.m_Device->CreateTexture2D(&depthDescriptor, nullptr, &depthStencil));
 
 		// Create a view of the depth stencil texture
 		D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDescriptor = {};
@@ -103,20 +103,20 @@ namespace nabi::Rendering
 		depthStencilViewDescriptor.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 		depthStencilViewDescriptor.Texture2D.MipSlice = 0u;
 
-		DX_ASSERT(dxObjects.m_Device->CreateDepthStencilView(depthStencil.Get(), &depthStencilViewDescriptor, &dxObjects.m_DepthStencilView));
+		DX_ASSERT(m_DXObjects.m_Device->CreateDepthStencilView(depthStencil.Get(), &depthStencilViewDescriptor, &m_DXObjects.m_DepthStencilView));
 
 		// Set the primitive topology (D3D11_PRIMITIVE_TOPOLOGY_LINELIST useful for debugging)
-		dxObjects.m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		m_DXObjects.m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		// Setup and bind viewport
-		dxObjects.m_Viewport.TopLeftX = 0.0f;
-		dxObjects.m_Viewport.TopLeftY = 0.0f;
-		dxObjects.m_Viewport.Width = static_cast<FLOAT>(settings.m_Width);
-		dxObjects.m_Viewport.Height = static_cast<FLOAT>(settings.m_Height);
-		dxObjects.m_Viewport.MinDepth = 0.0f;
-		dxObjects.m_Viewport.MaxDepth = 1.0f;
+		m_DXObjects.m_Viewport.TopLeftX = 0.0f;
+		m_DXObjects.m_Viewport.TopLeftY = 0.0f;
+		m_DXObjects.m_Viewport.Width = static_cast<FLOAT>(settings.m_Width);
+		m_DXObjects.m_Viewport.Height = static_cast<FLOAT>(settings.m_Height);
+		m_DXObjects.m_Viewport.MinDepth = 0.0f;
+		m_DXObjects.m_Viewport.MaxDepth = 1.0f;
 
-		dxObjects.m_Context->RSSetViewports(1u, &dxObjects.m_Viewport);
+		m_DXObjects.m_Context->RSSetViewports(1u, &m_DXObjects.m_Viewport);
 
 		// Set the background colour. Only right its cornflower blue...
 		SetBackgroundColour(Colours::CornflowerBlue);

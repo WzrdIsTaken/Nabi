@@ -170,6 +170,8 @@
     <ClCompile Include="Core\Src\NabiCore.cpp" />
     <ClCompile Include="Core\Src\Window.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\EntityInfoComponent.cpp" />
+    <ClCompile Include="ECS\Src\CoreComponents\ModelComponent.cpp" />
+    <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp" />
     <ClCompile Include="ECS\Src\SystemBase.cpp" />
     <ClCompile Include="Libraries\Src\pugixml\pugixml.cpp" />
     <ClCompile Include="Libraries\Src\WICTextureLoader\WICTextureLoader.cpp" />
@@ -189,6 +191,7 @@
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionRuntimeEntityCreationTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ResourceTests\ResourceLoadTests.cpp" />
+    <ClCompile Include="Tests\Src\Examples\BasicTriangle.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockComponent.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockCustomDataType.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockEnum.cpp" />
@@ -213,6 +216,8 @@
     <ClInclude Include="Core\WinCore.h" />
     <ClInclude Include="ECS\Inc\ComponentBase.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\EntityInfoComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreComponents\ModelComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem.h" />
     <ClInclude Include="ECS\Inc\ECSGlobals.h" />
     <ClInclude Include="ECS\Inc\SystemBase.h" />
     <ClInclude Include="Libraries\Inc\entt\entt.h" />
@@ -244,6 +249,8 @@
     <ClInclude Include="Rendering\Inc\Textures\Texture.h" />
     <ClInclude Include="Resource\Inc\Resource.h" />
     <ClInclude Include="Resource\Inc\ResourceBank.h" />
+    <ClInclude Include="Tests\Inc\Examples\BasicTriangle.h" />
+    <ClInclude Include="Tests\Inc\Examples\IExample.h" />
     <ClInclude Include="Tests\Inc\Helpers\Comparison.h" />
     <ClInclude Include="Tests\Inc\MockObjects\MockComponent.h" />
     <ClInclude Include="Tests\Inc\MockObjects\MockCustomDataType.h" />

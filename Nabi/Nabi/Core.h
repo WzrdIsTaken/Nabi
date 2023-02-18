@@ -35,11 +35,7 @@ using namespace entt::literals;
 #include "BuildUtils.h"
 #include "TestUtils.h"
 
-// Debug (includes Logger)
-#include "DebugUtils.h"
-
-// Maths
+// Utils
+#include "DebugUtils.h" // (includes Logger)
 #include "MathUtils.h"
-
-// Types
 #include "TypeUtils.h"

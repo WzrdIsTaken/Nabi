@@ -17,7 +17,7 @@
 	#define ASSERT_FAIL_FATAL(message) NOT_DEFINED
 	#define ASSERT_FAIL(message) NOT_DEFINED
 
-	#define DX_ASSERT(result) NOT_DEFINED
+	#define DX_ASSERT(logic) logic
 
 	#define STATIC_ASSERT(...) NOT_DEFINED
 
