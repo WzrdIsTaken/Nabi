@@ -18,7 +18,7 @@ namespace nabi
 	/// </summary>
 	class NabiCore 
 #ifndef ENGINE_DEVELOPMENT
-		abstract
+		abstract // So we can create a base instance of Nabi in main to easily test core features
 #endif // !ENGINE_DEVELOPMENT
 	{
 	public:
@@ -42,9 +42,12 @@ namespace nabi
 		Rendering::DXObjects m_DXObjects;
 
 		// Nabi
-		Context m_Ctx;
+		Context m_Context;
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)
+
+		bool InitGraphicsEntity();
+		bool InitInputEntity();
 	};
 } // namespace nabi

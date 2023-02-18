@@ -169,8 +169,11 @@
     <ClCompile Include="Core\Src\Console.cpp" />
     <ClCompile Include="Core\Src\NabiCore.cpp" />
     <ClCompile Include="Core\Src\Window.cpp" />
+    <ClCompile Include="ECS\Src\CoreComponents\CameraComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\EntityInfoComponent.cpp" />
+    <ClCompile Include="ECS\Src\CoreComponents\GraphicsComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\ModelComponent.cpp" />
+    <ClCompile Include="ECS\Src\CoreComponents\TransformComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp" />
     <ClCompile Include="ECS\Src\SystemBase.cpp" />
     <ClCompile Include="Libraries\Src\pugixml\pugixml.cpp" />
@@ -182,6 +185,9 @@
     <ClCompile Include="Reflection\Src\EntityPropertyList.cpp" />
     <ClCompile Include="Reflection\Src\StringConverter.cpp" />
     <ClCompile Include="Reflection\Src\XmlParser.cpp" />
+    <ClCompile Include="Rendering\Src\Buffers\ConstantBuffer.cpp" />
+    <ClCompile Include="Rendering\Src\Buffers\IndexBuffer.cpp" />
+    <ClCompile Include="Rendering\Src\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Rendering\Src\Containers\Colour.cpp" />
     <ClCompile Include="Rendering\Src\RenderCommand.cpp" />
     <ClCompile Include="Tests\Fixtures\DebugTests\LoggingTests.cpp" />
@@ -215,8 +221,11 @@
     <ClInclude Include="Core\Inc\Window.h" />
     <ClInclude Include="Core\WinCore.h" />
     <ClInclude Include="ECS\Inc\ComponentBase.h" />
+    <ClInclude Include="ECS\Inc\CoreComponents\CameraComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\EntityInfoComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreComponents\GraphicsComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\ModelComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreComponents\TransformComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem.h" />
     <ClInclude Include="ECS\Inc\ECSGlobals.h" />
     <ClInclude Include="ECS\Inc\SystemBase.h" />
@@ -241,6 +250,7 @@
     <ClInclude Include="Rendering\Inc\Buffers\VertexBuffer.h" />
     <ClInclude Include="Rendering\Inc\Containers\Colour.h" />
     <ClInclude Include="Rendering\Inc\DXObjects.h" />
+    <ClInclude Include="Rendering\Inc\Model\Mesh.h" />
     <ClInclude Include="Rendering\Inc\Model\Vertex.h" />
     <ClInclude Include="Rendering\Inc\RenderCommand.h" />
     <ClInclude Include="Rendering\Inc\Shaders\PixelShader.h" />

@@ -5,10 +5,18 @@
 
 namespace nabitest::Examples
 {
-	__interface IExample
+	class IExample abstract
 	{
-		bool Init(nabi::Context& context);
-		bool Update();
-		bool Render();
+	public:
+		virtual bool Init(nabi::Context& context)
+		{
+			m_Context = std::move(context);
+			return true;
+		}
+		virtual bool Update() { return false; }
+		virtual bool Render() { return false; }
+
+	private:
+		nabi::Context& m_Context; // basically an interface
 	};
 } // namespace nabitest::Examples

@@ -185,6 +185,9 @@
     <Filter Include="ECS\Src\CoreSystems">
       <UniqueIdentifier>{e19b30f1-11c9-4af0-ada8-e2574a79db81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Rendering\Src\Buffers">
+      <UniqueIdentifier>{53d4e827-6f78-4fd1-a5ff-4ccfd0c14dcd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -292,6 +295,24 @@
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp">
       <Filter>ECS\Src\CoreSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\TransformComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\CameraComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\GraphicsComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Src\Buffers\ConstantBuffer.cpp">
+      <Filter>Rendering\Src\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Src\Buffers\IndexBuffer.cpp">
+      <Filter>Rendering\Src\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Src\Buffers\VertexBuffer.cpp">
+      <Filter>Rendering\Src\Buffers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -484,6 +505,18 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem.h">
       <Filter>ECS\Inc\CoreSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\TransformComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\CameraComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\GraphicsComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Model\Mesh.h">
+      <Filter>Rendering\Inc\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

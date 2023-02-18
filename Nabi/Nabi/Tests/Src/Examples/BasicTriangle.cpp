@@ -7,8 +7,9 @@ namespace nabitest::Examples
 {
 	bool BasicTriangle::Init(nabi::Context& context)
 	{
-		// Create systems
-		// IExample should be an abstract class
+		__super::Init(context);
+
+
 
 		return false;
 	}

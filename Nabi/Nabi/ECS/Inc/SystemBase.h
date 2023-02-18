@@ -23,9 +23,10 @@ namespace nabi::ECS
 		[[nodiscard]] entt::hashed_string const& GetSystemId() const NABI_NOEXCEPT;
 		[[nodiscard]] entt::hashed_string const& GetSystemGroupId() const NABI_NOEXCEPT;
 
-	private:
+	protected:
 		nabi::Context& m_Context;
 
+	private:
 		entt::hashed_string const c_SystemId;
 		entt::hashed_string const c_SystemGroupId;
 	};

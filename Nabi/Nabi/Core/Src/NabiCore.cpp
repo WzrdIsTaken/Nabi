@@ -2,6 +2,8 @@
 
 #include "NabiCore.h"
 
+#include "CoreComponents\CameraComponent.h"
+#include "CoreComponents\GraphicsComponent.h"
 #include "InitSettings.h"
 #include "RenderCommand.h"
 
@@ -16,15 +18,15 @@ namespace nabi
 		, m_DXObjects(Rendering::dxObjectsDefaultSettings)
 
 		// Nabi
-		, m_Ctx{}
+		, m_Context{}
 	{
 		// --- Setup the Context ---
 		// Entity
-		m_Ctx.m_Registry = {};
-		m_Ctx.m_SingletonEntites.fill(entt::null);
+		m_Context.m_Registry = {};
+		m_Context.m_SingletonEntites.fill(entt::null);
 
 		// Rendering
-		m_Ctx.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Window.GetHWND(), initSettings.m_WindowSettings);
+		m_Context.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Window.GetHWND(), initSettings.m_WindowSettings);
 	}
 
 	NabiCore::~NabiCore()
@@ -34,7 +36,13 @@ namespace nabi
 
 	int NabiCore::Init() NABI_NOEXCEPT
 	{
-		return NABI_SUCCESS;
+		// Init core entities
+		bool initializationSuccessful = true;
+		initializationSuccessful &= InitGraphicsEntity();
+		initializationSuccessful &= InitInputEntity();
+
+		// Return result
+		return initializationSuccessful ? NABI_SUCCESS : NABI_FAIL;
 	}
 
 	int NabiCore::Run() NABI_NOEXCEPT
@@ -58,15 +66,55 @@ namespace nabi
 
 	inline Context const& NabiCore::GetContext() NABI_NOEXCEPT
 	{
-		return m_Ctx;
+		return m_Context;
 	}
 
 	void NabiCore::Render() NABI_NOEXCEPT
 	{
-		m_Ctx.m_RenderCommand->BeginFrame();
+		m_Context.m_RenderCommand->BeginFrame();
 
 		// Render code goes here
 
-		m_Ctx.m_RenderCommand->EndFrame();
+		m_Context.m_RenderCommand->EndFrame();
+	}
+
+	bool NabiCore::InitGraphicsEntity()
+	{
+		using namespace nabi::Rendering;
+
+		// --- Create the graphics entity ---
+		entt::entity const graphicsEntity =
+			m_Context.m_SingletonEntites.at(Context::SingletonEntities::Graphic) = m_Context.m_Registry.create();
+
+		// --- Create the camera ---
+		ecs::CameraComponent cameraComponent;
+
+		// --- Create the graphics component ---
+		ecs::GraphicsComponent graphicsComponent;
+
+		// Create the constant buffers
+		ConstantBufferLoader constantBufferLoader;
+
+		ConstantBuffer const perFrameConstantBuffer = constantBufferLoader(sizeof(PerFrame), m_Context);
+		ConstantBuffer const perMeshConstantBuffer = constantBufferLoader(sizeof(PerMesh), m_Context);
+
+		// Assign the constant buffers to the component
+		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerFrame) = perFrameConstantBuffer;
+		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerMesh) = perMeshConstantBuffer;
+
+		// --- Add the graphics components to the entity ---
+		m_Context.m_Registry.emplace<ecs::CameraComponent>(graphicsEntity, cameraComponent);
+		m_Context.m_Registry.emplace<ecs::GraphicsComponent>(graphicsEntity, graphicsComponent);
+
+		return true;
+	}
+
+	bool NabiCore::InitInputEntity()
+	{
+		// Create the input entity
+		entt::entity const inputEntity =
+			m_Context.m_SingletonEntites.at(Context::SingletonEntities::Input) = m_Context.m_Registry.create();
+
+		return true;
 	}
 } // namespace nabi

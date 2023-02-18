@@ -28,7 +28,7 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 	// Get argc + argv
 	int argc;
-	LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+	LPWSTR* argv = CommandLineToArgvW(lpCmdLine, &argc); // Prev used GetCommandLineW()
 
 	// --- Initial Nabi Setup ---
 

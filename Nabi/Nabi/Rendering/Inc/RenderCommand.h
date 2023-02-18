@@ -79,10 +79,10 @@ namespace nabi::Rendering
 		IndexBuffer CreateIndexBuffer(std::vector<UINT> const& triangles) const NABI_NOEXCEPT;
 		VertexBuffer CreateVertexBuffer(std::vector<Vertex> const& vertices) const NABI_NOEXCEPT;
 
-		PixelShader CreatePixelShader(LPCWSTR const filePath) const NABI_NOEXCEPT;
-		VertexShader CreateVertexShader(LPCWSTR const filePath, std::vector<D3D11_INPUT_ELEMENT_DESC> const& layout) const NABI_NOEXCEPT;
+		PixelShader CreatePixelShader(std::string const& filePath) const NABI_NOEXCEPT;
+		VertexShader CreateVertexShader(std::string const& filePath, std::vector<D3D11_INPUT_ELEMENT_DESC> const& layout) const NABI_NOEXCEPT;
 
-		Texture CreateTexture(LPCWSTR const filePath) const NABI_NOEXCEPT;
+		Texture CreateTexture(std::string const& filePath) const NABI_NOEXCEPT;
 		Sampler CreateSampler() const NABI_NOEXCEPT;
 
 		// --- Binding ---

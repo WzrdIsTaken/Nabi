@@ -12,6 +12,7 @@
 #include "DebugUtils.h"
 #include "DXObjects.h"
 #include "InitSettings.h"
+#include "StringUtils.h"
 
 namespace nabi::Rendering
 {
@@ -105,7 +106,7 @@ namespace nabi::Rendering
 
 		DX_ASSERT(m_DXObjects.m_Device->CreateDepthStencilView(depthStencil.Get(), &depthStencilViewDescriptor, &m_DXObjects.m_DepthStencilView));
 
-		// Set the primitive topology (D3D11_PRIMITIVE_TOPOLOGY_LINELIST useful for debugging)
+		// Set the primitive topology (D3D11_PRIMITIVE_TOPOLOGY_LINELIST is useful for debugging)
 		m_DXObjects.m_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		// Setup and bind viewport
@@ -151,22 +152,23 @@ namespace nabi::Rendering
 
 	ConstantBuffer RenderCommand::CreateConstantBuffer(UINT const byteWidth) const NABI_NOEXCEPT
 	{
-		ASSERT_FATAL(static_cast<float>(byteWidth) // Just in case... we want an assert not a crash!
-			/ 16.0f == 0, "Constant buffer's size must be divisible by 16!");
+		ASSERT_FATAL(std::fmodf(static_cast<float>(byteWidth), 16.0f) == 0, 
+			"Constant buffer's size must be divisible by 16! The buffers size was " << byteWidth);
 
-		D3D11_BUFFER_DESC bufferDescriptor = {};
-		bufferDescriptor.Usage = D3D11_USAGE_DYNAMIC;
-		bufferDescriptor.ByteWidth = byteWidth;
-		bufferDescriptor.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		bufferDescriptor.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		D3D11_BUFFER_DESC bufferDesc = {};
+		bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+		bufferDesc.ByteWidth = byteWidth;
+		bufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
 		ID3D11Buffer* buffer = nullptr;
-		DX_ASSERT(m_DXObjects.m_Device->CreateBuffer(&bufferDescriptor, nullptr, &buffer));
+		DX_ASSERT(m_DXObjects.m_Device->CreateBuffer(&bufferDesc, nullptr, &buffer));
 
 		ConstantBuffer constantBuffer = {};
 		constantBuffer.m_Buffer = buffer;
 		constantBuffer.m_ByteWidth = byteWidth;
 
+		LOG(LOG_PREP, LOG_INFO, "Created a constant buffer of size " << bufferDesc.ByteWidth << ENDLINE);
 		return constantBuffer;
 	}
 
@@ -189,6 +191,7 @@ namespace nabi::Rendering
 		IndexBuffer indexBuffer = {};
 		indexBuffer.m_Buffer = buffer;
 
+		LOG(LOG_PREP, LOG_INFO, "Created an index buffer of size " << bufferDesc.ByteWidth << ENDLINE);
 		return indexBuffer;
 	}
 
@@ -211,30 +214,39 @@ namespace nabi::Rendering
 		VertexBuffer vertexBuffer = {};
 		vertexBuffer.m_Buffer = buffer;
 		vertexBuffer.m_Stride = sizeof(Vertex);
+		vertexBuffer.m_Offset = 0u;
 
+		LOG(LOG_PREP, LOG_INFO, "Created a vertex buffer of size " << bufferDesc.ByteWidth << ENDLINE);
 		return vertexBuffer;
 	}
 
-	PixelShader RenderCommand::CreatePixelShader(LPCWSTR const filePath) const NABI_NOEXCEPT
+	PixelShader RenderCommand::CreatePixelShader(std::string const& filePath) const NABI_NOEXCEPT
 	{
 		ID3D11PixelShader* pixelShader = nullptr;
 		Microsoft::WRL::ComPtr<ID3DBlob> blob;
 
-		DX_ASSERT(D3DReadFileToBlob(filePath, &blob));
+		LPCWSTR filePathAsLpcwstr;
+		STRING_TO_LPCWSTR(filePath, filePathAsLpcwstr);
+
+		DX_ASSERT(D3DReadFileToBlob(filePathAsLpcwstr, &blob));
 		DX_ASSERT(m_DXObjects.m_Device->CreatePixelShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &pixelShader));
 
 		PixelShader shader = {};
 		shader.m_Shader = pixelShader;
 
+		LOG(LOG_PREP, LOG_INFO, "Created a pixel shader with path " << WRAP(filePath, "'") << ENDLINE);
 		return shader;
 	}
 
-	VertexShader RenderCommand::CreateVertexShader(LPCWSTR const filePath, std::vector<D3D11_INPUT_ELEMENT_DESC> const& layout) const NABI_NOEXCEPT
+	VertexShader RenderCommand::CreateVertexShader(std::string const& filePath, std::vector<D3D11_INPUT_ELEMENT_DESC> const& layout) const NABI_NOEXCEPT
 	{
 		ID3D11VertexShader* vertexShader = nullptr;
 		Microsoft::WRL::ComPtr<ID3DBlob> blob;
 
-		DX_ASSERT(D3DReadFileToBlob(filePath, &blob));
+		LPCWSTR filePathAsLpcwstr;
+		STRING_TO_LPCWSTR(filePath, filePathAsLpcwstr);
+
+		DX_ASSERT(D3DReadFileToBlob(filePathAsLpcwstr, &blob));
 		DX_ASSERT(m_DXObjects.m_Device->CreateVertexShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &vertexShader));
 
 		ID3D11InputLayout* inputLayout = nullptr;
@@ -244,18 +256,23 @@ namespace nabi::Rendering
 		shader.m_Shader = vertexShader;
 		shader.m_Layout = inputLayout;
 
+		LOG(LOG_PREP, LOG_INFO, "Created a vertex shader with path " << WRAP(filePath, "'") << ENDLINE);
 		return shader;
 	}
 
-	Texture RenderCommand::CreateTexture(LPCWSTR const filePath) const NABI_NOEXCEPT
+	Texture RenderCommand::CreateTexture(std::string const& filePath) const NABI_NOEXCEPT
 	{
+		LPCWSTR filePathAsLpcwstr;
+		STRING_TO_LPCWSTR(filePath, filePathAsLpcwstr);
+
 		wrl::ComPtr<ID3D11ShaderResourceView> shaderResourceView = nullptr;
-		DX_ASSERT(dx::CreateWICTextureFromFile(m_DXObjects.m_Device.Get(), filePath, NULL /*(texture view)*/, &shaderResourceView));
+		DX_ASSERT(dx::CreateWICTextureFromFile(m_DXObjects.m_Device.Get(), filePathAsLpcwstr, NULL /*(texture view)*/, &shaderResourceView));
 
 		Texture texture = {};
 		texture.m_Texture = shaderResourceView;
 		texture.m_Slot = 0u;
 
+		LOG(LOG_PREP, LOG_INFO, "Created a texture with path " << WRAP(filePath, "'") << ENDLINE);
 		return texture;
 	}
 
@@ -282,6 +299,7 @@ namespace nabi::Rendering
 		Sampler sampler = {};
 		sampler.m_Sampler = samplerState;
 
+		LOG(LOG_PREP, LOG_INFO, "Created a sampler" << ENDLINE);
 		return sampler;
 	}
 
@@ -350,12 +368,13 @@ namespace nabi::Rendering
 #endif // ifdef USE_RENDER_CACHE
 		{
 			m_Cache.m_LastBoundVertexBuffer = vertexBuffer.m_Buffer.Get();
+
 			m_DXObjects.m_Context->IASetVertexBuffers(
 				0u,                                   // Start Slot
 				1u,                                   // Num Buffers
 				vertexBuffer.m_Buffer.GetAddressOf(), // Vertex Buffer(s)
 				&vertexBuffer.m_Stride,               // Strides
-				&vertexBuffer.c_Offset                // Offset
+				&vertexBuffer.m_Offset                // Offset
 			);
 		}
 	}

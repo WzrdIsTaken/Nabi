@@ -8,6 +8,8 @@ Current:
 
 // --- High Priority ---
 
+- Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
+
 - Learn rendering! (im still torn between directx and opengl.. once get an answer from uni hopefully things will become clearer)
 - Direct X namespace as dx?
 - Make sure to include some good logging when the direct x render stuff is starting up / running
