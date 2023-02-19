@@ -13,14 +13,14 @@ namespace nabi::Rendering
 
 namespace nabi::Rendering
 {
-	struct VertexBuffer
+	struct VertexBuffer final
 	{
 		wrl::ComPtr<ID3D11Buffer> m_Buffer;
 		UINT m_Stride;
 		UINT m_Offset;
 	};
 
-	class VertexBufferLoader
+	class VertexBufferLoader final
 	{
 	public:
 		[[nodiscard]] VertexBuffer operator()(Mesh const& mesh, nabi::Context const& context) const NABI_NOEXCEPT;

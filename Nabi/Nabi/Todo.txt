@@ -9,6 +9,7 @@ Current:
 // --- High Priority ---
 
 - Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
+- Entity creator could also live in context? and not be a singleton
 
 - Learn rendering! (im still torn between directx and opengl.. once get an answer from uni hopefully things will become clearer)
 - Direct X namespace as dx?
@@ -19,7 +20,6 @@ Current:
 - Wincore above Enginecore?
 
 Structure Stuff
-- Entity creator could also live in context? and not be a singleton
 
 - Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
   (acc i think this is ok on the stack?)

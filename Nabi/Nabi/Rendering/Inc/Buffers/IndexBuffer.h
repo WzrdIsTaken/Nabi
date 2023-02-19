@@ -13,12 +13,12 @@ namespace nabi::Rendering
 
 namespace nabi::Rendering
 {
-	struct IndexBuffer
+	struct IndexBuffer final
 	{
 		wrl::ComPtr<ID3D11Buffer> m_Buffer;
 	};
 
-	class IndexBufferLoader
+	class IndexBufferLoader final
 	{
 	public:
 		[[nodiscard]] IndexBuffer operator()(Mesh const& mesh, nabi::Context const& context) const NABI_NOEXCEPT;

@@ -5,7 +5,7 @@
 
 namespace nabi::Rendering
 {
-	struct PixelShader
+	struct PixelShader final
 	{
 		wrl::ComPtr<ID3D11PixelShader> m_Shader;
 		std::vector<wrl::ComPtr<ID3D11Buffer>> m_ConstantBuffers;

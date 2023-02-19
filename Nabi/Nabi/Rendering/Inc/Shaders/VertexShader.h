@@ -5,7 +5,7 @@
 
 namespace nabi::Rendering
 {
-	struct VertexShader
+	struct VertexShader final
 	{
 		wrl::ComPtr<ID3D11VertexShader> m_Shader;
 		wrl::ComPtr<ID3D11InputLayout> m_Layout;
