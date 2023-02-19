@@ -34,6 +34,9 @@ namespace nabi
 		//virtual void Update(gametime) NABI_NOEXCEPT;
 		virtual void Render(/*gametime?*/) NABI_NOEXCEPT;
 
+		bool InitGraphicsEntity();
+		bool InitInputEntity();
+
 		// Windows
 		HINSTANCE const m_hInstance;
 		Window m_Window;
@@ -46,8 +49,5 @@ namespace nabi
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)
-
-		bool InitGraphicsEntity();
-		bool InitInputEntity();
 	};
 } // namespace nabi
