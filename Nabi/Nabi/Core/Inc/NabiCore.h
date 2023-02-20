@@ -8,6 +8,9 @@
 #include "DXObjects.h"
 #include "Window.h"
 
+// TEST
+#include "Examples\TestDraw.h"
+
 namespace nabi
 {
 	// Forward Declares
@@ -49,5 +52,7 @@ namespace nabi
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)
+
+		nabitest::Examples::TestDraw test_Draw;
 	};
 } // namespace nabi

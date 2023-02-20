@@ -188,6 +188,18 @@
     <Filter Include="Rendering\Src\Buffers">
       <UniqueIdentifier>{53d4e827-6f78-4fd1-a5ff-4ccfd0c14dcd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Rendering\Src\Model">
+      <UniqueIdentifier>{54fa5e2a-255e-464d-874e-789a573cfaf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Src\Shaders">
+      <UniqueIdentifier>{07af15e9-a155-435a-b716-d0cb906b2bbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Src\Textures">
+      <UniqueIdentifier>{03d35564-a2ae-4fa2-a335-efb2328f1696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Inc\OBJLoader">
+      <UniqueIdentifier>{bf6de238-2596-4852-b795-3d4053a44544}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -290,7 +302,7 @@
     <ClCompile Include="ECS\Src\CoreComponents\ModelComponent.cpp">
       <Filter>ECS\Src\CoreComponents</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\Src\Examples\BasicTriangle.cpp">
+    <ClCompile Include="Tests\Src\Examples\TestDraw.cpp">
       <Filter>Tests\Src\Examples</Filter>
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp">
@@ -313,6 +325,18 @@
     </ClCompile>
     <ClCompile Include="Rendering\Src\Buffers\VertexBuffer.cpp">
       <Filter>Rendering\Src\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Src\Model\Mesh.cpp">
+      <Filter>Rendering\Src\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Src\Textures\Texture.cpp">
+      <Filter>Rendering\Src\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Src\Shaders\PixelShader.cpp">
+      <Filter>Rendering\Src\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Src\Shaders\VertexShader.cpp">
+      <Filter>Rendering\Src\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -500,7 +524,7 @@
     <ClInclude Include="Tests\Inc\Examples\IExample.h">
       <Filter>Tests\Inc\Examples</Filter>
     </ClInclude>
-    <ClInclude Include="Tests\Inc\Examples\BasicTriangle.h">
+    <ClInclude Include="Tests\Inc\Examples\TestDraw.h">
       <Filter>Tests\Inc\Examples</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem.h">
@@ -517,6 +541,12 @@
     </ClInclude>
     <ClInclude Include="Rendering\Inc\Model\Mesh.h">
       <Filter>Rendering\Inc\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Inc\AssetBank.h">
+      <Filter>Resource\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Inc\OBJLoader\OBJLoader.h">
+      <Filter>Libraries\Inc\OBJLoader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

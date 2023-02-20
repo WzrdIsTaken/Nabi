@@ -75,14 +75,14 @@ namespace ecs
 						m_Context.m_RenderCommand->UpdateConstantBuffer(perMeshConstantBuffer, &perMeshConstantBufferData);
 					}
 
-					/*
 					using namespace nabi::Rendering;
 					using namespace nabi::Resource;
 
 					// Get the model data
 					std::shared_ptr<Mesh const> const meshResource = meshComponent.m_MeshResource.GetResource();
-					IndexBuffer const indexBuffer = {}; // meshResource.
-					VertexBuffer const vertexBuffer = {}; // meshResource.
+					IndexBuffer const& indexBuffer = meshResource->m_IndexBuffer;
+					VertexBuffer const& vertexBuffer = meshResource->m_VertexBuffer;
+					UINT const triangleCount = meshResource->m_Triangles.size();
 
 					// Get the shader data
 					std::shared_ptr<PixelShader const> const pixelShaderResource = shaderComponent.m_PixelShaderResource.GetResource();
@@ -94,13 +94,13 @@ namespace ecs
 					// Bind the resources to the pipeline
 					m_Context.m_RenderCommand->BindIndexBuffer(indexBuffer);
 					m_Context.m_RenderCommand->BindVertexBuffer(vertexBuffer);
-					m_Context.m_RenderCommand->BindPixelShader(&pixelShaderResource);
-					m_Context.m_RenderCommand->BindVertexShader(&vertexShaderResource);
-					m_Context.m_RenderCommand->BindTexture(&textureResource);
+
+					m_Context.m_RenderCommand->BindPixelShader(*pixelShaderResource);
+					m_Context.m_RenderCommand->BindVertexShader(*vertexShaderResource);
+					m_Context.m_RenderCommand->BindTexture(*textureResource);
 
 					// Draw!
-					//m_Context.m_RenderCommand->DrawIndexed
-					*/
+					m_Context.m_RenderCommand->DrawIndexed(triangleCount);
 				});
 	}
 } // namespace nabi

@@ -3,20 +3,16 @@
 
 // Examples are kinda like me testing stuff out, rather than an automated unit test ran on project startup
 
+#ifdef RUN_TESTS
+
 namespace nabitest::Examples
 {
-	class IExample abstract
+	__interface IExample
 	{
-	public:
-		virtual bool Init(nabi::Context& context)
-		{
-			m_Context = std::move(context);
-			return true;
-		}
-		virtual bool Update() { return false; }
-		virtual bool Render() { return false; }
-
-	private:
-		nabi::Context& m_Context; // basically an interface
+		bool Init()   { return false; }
+		bool Update() { return false; }
+		bool Render() { return false; }
 	};
 } // namespace nabitest::Examples
+
+#endif // ifdef RUN_TESTS

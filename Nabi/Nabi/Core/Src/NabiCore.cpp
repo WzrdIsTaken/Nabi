@@ -19,6 +19,9 @@ namespace nabi
 
 		// Nabi
 		, m_Context{}
+
+		// TEST
+		, test_Draw(m_Context)
 	{
 		// --- Setup the Context ---
 		// Entity
@@ -40,6 +43,9 @@ namespace nabi
 		bool initializationSuccessful = true;
 		initializationSuccessful &= InitGraphicsEntity();
 		initializationSuccessful &= InitInputEntity();
+
+		// TEST
+		test_Draw.Init();
 
 		// Return result
 		return initializationSuccessful ? NABI_SUCCESS : NABI_FAIL;
@@ -74,6 +80,9 @@ namespace nabi
 		m_Context.m_RenderCommand->BeginFrame();
 
 		// Render code goes here
+
+		// TEST
+		test_Draw.Render();
 
 		m_Context.m_RenderCommand->EndFrame();
 	}
