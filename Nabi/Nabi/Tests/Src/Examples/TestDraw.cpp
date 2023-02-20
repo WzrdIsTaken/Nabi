@@ -36,6 +36,7 @@ namespace nabitest::Examples
 
 		// --- Load all assets ---
 		//m_AssetBank->LoadAssets();
+		// HAVE TO ADD [[nodisard]] flags to mesh, pixel shader , vertex shader and texture resource loaders
 
 		return true;
 	}
