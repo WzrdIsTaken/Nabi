@@ -548,6 +548,7 @@
     <ClInclude Include="Libraries\Inc\OBJLoader\OBJLoader.h">
       <Filter>Libraries\Inc\OBJLoader</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -572,5 +573,18 @@
     <Xml Include="Tests\Data\Reflection\test_system_file.xml">
       <Filter>Tests\Data\Reflection</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Nabi.rc">
+      <Filter>Libraries</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Tests\Data\Rendering\PixelShader.hlsl">
+      <Filter>Tests\Data\Rendering</Filter>
+    </FxCompile>
+    <FxCompile Include="Tests\Data\Rendering\VertexShader.hlsl">
+      <Filter>Tests\Data\Rendering</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

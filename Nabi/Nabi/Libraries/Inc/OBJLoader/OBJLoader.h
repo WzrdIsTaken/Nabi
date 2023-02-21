@@ -496,7 +496,7 @@ namespace objl
 							<< "\t| texcoords > " << TCoords.size()
 							<< "\t| normals > " << Normals.size()
 							<< "\t| triangles > " << (Vertices.size() / 3)
-							<< (!MeshMatNames.empty() ? "\t| material: " + MeshMatNames.back() : "")/*<< ENDLINE*/);
+							<< (!MeshMatNames.empty() ? "\t| material: " + MeshMatNames.back() : "") << ENDLINE);
 					}
 				}
 #endif
@@ -550,7 +550,7 @@ namespace objl
 						}
 					}
 #ifdef OBJL_CONSOLE_OUTPUT
-					LOG(LOG_INFO, LOG_INFO, NEWLINE);
+					//LOG(LOG_INFO, LOG_INFO, NEWLINE);
 					outputIndicator = 0;
 #endif
 				}
@@ -678,7 +678,7 @@ namespace objl
 					pathtomat += algorithm::tail(curline);
 
 #ifdef OBJL_CONSOLE_OUTPUT
-					LOG(LOG_PREP, LOG_INFO, NEWLINE << "- find materials in: " << pathtomat << NEWLINE);
+					LOG(LOG_PREP, LOG_INFO, "Found materials in: " << pathtomat << NEWLINE);
 #endif
 
 					// Load Materials
@@ -687,7 +687,7 @@ namespace objl
 			}
 
 #ifdef OBJL_CONSOLE_OUTPUT
-			LOG(LOG_INFO, LOG_INFO, NEWLINE);
+			//LOG(LOG_INFO, LOG_INFO, NEWLINE);
 #endif
 
 			// Deal with last mesh

@@ -20,6 +20,6 @@ namespace nabi::Rendering
 	public:
 		typedef std::shared_ptr<Texture> ResourceType;
 
-		ResourceType operator()(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT;
+		[[nodiscard]] ResourceType operator()(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT;
 	};
 } // namespace nabi::Rendering

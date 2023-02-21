@@ -11,6 +11,12 @@
 #include "ResourceBank.h"
 #include "Textures\Texture.h"
 
+/*
+* Notes:
+* Remember to do this for all shaders: https://youtu.be/pfbWt1BnPIo?list=PLqCJpWy5Fohd3S7ICFXwUomYW0Wv67pDD&t=1550
+* And General->HLSL Compiler-> change the 'Shader Type' to the type of the shader
+*/
+
 #ifdef RUN_TESTS
 
 namespace nabitest::Examples

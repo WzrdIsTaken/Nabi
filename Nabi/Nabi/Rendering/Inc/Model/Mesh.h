@@ -8,7 +8,12 @@
 namespace nabi
 {
 	struct Context;
-}
+} // namespace nabi
+namespace objl
+{
+	struct Vector2;
+	struct Vector3;
+} // namespace objl
 
 namespace nabi::Rendering
 {
@@ -28,6 +33,10 @@ namespace nabi::Rendering
 	public:
 		typedef std::shared_ptr<Mesh> ResourceType;
 
-		ResourceType operator()(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT;
+		[[nodiscard]] ResourceType operator()(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT;
+
+	private:
+		[[nodiscard]] dx::XMFLOAT2 ObjlVector2ToDxFloat2(objl::Vector2 const& vector2) const NABI_NOEXCEPT;
+		[[nodiscard]] dx::XMFLOAT3 ObjlVector3ToDxFloat3(objl::Vector3 const& vector3) const NABI_NOEXCEPT;
 	};
 } // namespace nabi::Rendering

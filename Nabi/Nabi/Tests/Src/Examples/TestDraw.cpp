@@ -25,18 +25,17 @@ namespace nabitest::Examples
 
 		// Create a model component
 		ecs::ModelComponent modelComponent = {};
-		modelComponent.m_MeshPath = "Resources/ball.obj";
-		modelComponent.m_PixelShaderPath = "PixelShader.cso";
-		modelComponent.m_VertexShaderPath = "VertexShader.cso";
-		modelComponent.m_TexturePath = "Resources/ball.png";
+		modelComponent.m_MeshPath = "Tests/Data/Rendering/ball_model.obj";
+		modelComponent.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
+		modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader.cso";
+		modelComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader.cso";
 
 		// Add the model component and a transform to the entity
 		m_Context.m_Registry.emplace<ecs::ModelComponent>(testEntity, modelComponent);
 		m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity);
 
 		// --- Load all assets ---
-		//m_AssetBank->LoadAssets();
-		// HAVE TO ADD [[nodisard]] flags to mesh, pixel shader , vertex shader and texture resource loaders
+		m_AssetBank->LoadAssets();
 
 		return true;
 	}

@@ -262,6 +262,7 @@
     <ClInclude Include="Rendering\Inc\Shaders\VertexShader.h" />
     <ClInclude Include="Rendering\Inc\Textures\Sampler.h" />
     <ClInclude Include="Rendering\Inc\Textures\Texture.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Resource\Inc\AssetBank.h" />
     <ClInclude Include="Resource\Inc\Resource.h" />
     <ClInclude Include="Resource\Inc\ResourceBank.h" />
@@ -298,6 +299,31 @@
     <Xml Include="Tests\Data\Reflection\test_entity_template_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_route_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_system_file.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Nabi.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Tests\Data\Rendering\PixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Tests\Data\Rendering\VertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
