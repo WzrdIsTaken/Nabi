@@ -1,6 +1,14 @@
+Texture2D Texture : register(t0);
+SamplerState Sampler : register(s0);
 
-
-float4 main() : SV_TARGET
+struct PSInput
 {
-	return float4(1.0f, 1.0f, 1.0f, 1.0f);
+    float4 m_Position : SV_POSITION;
+    float2 m_Texture  : TEXCOORD;
+    float3 m_Normal   : NORMAL;
+};
+
+float4 main(PSInput psIn) : SV_TARGET
+{
+    return Texture.Sample(Sampler, psIn.m_Texture);
 }

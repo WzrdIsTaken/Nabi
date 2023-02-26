@@ -72,7 +72,7 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 	// Set the log level back to all
 #ifdef USE_DEBUG_UTILS
-	Logger::Instance()->SetLogLevel(LOG_LEVEL_ALL);
+	Logger::Instance()->SetLogLevel(LOG_INFO);
 #endif // #ifdef USE_DEBUG_UTILS
 #endif // #ifdef RUN_TESTS
 

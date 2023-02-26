@@ -2,10 +2,12 @@
 #include "EngineCore.h"
 #include "DirectXCore.h"
 
+#include "Buffers\ConstantBuffer.h" // TODO - Can we forward declare the enum?
+
 namespace nabi
 {
 	struct Context;
-}
+} // namespace nabi
 
 namespace nabi::Rendering
 {
@@ -21,5 +23,10 @@ namespace nabi::Rendering
 		typedef std::shared_ptr<PixelShader> ResourceType;
 
 		[[nodiscard]] ResourceType operator()(std::string const& resourcePath, nabi::Context const& context)  const NABI_NOEXCEPT;
+
+		void SetConstantBuffers(std::vector<ConstantBufferIndex::Enum> const& constantBuffers) NABI_NOEXCEPT;
+
+	private:
+		std::vector<ConstantBufferIndex::Enum> m_ConstantBuffers = {};
 	};
 } // namespace nabi::Rendering

@@ -2,7 +2,7 @@
 #include "Core.h"
 
 #include "Model\Mesh.h"
-#include "Resource.h"
+#include "ResourceWrappers.h"
 #include "Shaders\PixelShader.h"
 #include "Shaders\VertexShader.h"
 #include "Textures\Texture.h"

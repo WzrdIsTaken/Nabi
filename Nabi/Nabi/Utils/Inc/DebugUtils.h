@@ -82,8 +82,9 @@
 #define LEVEL_MESSAGE_DIVIDER ": "
 
 #define LOG_PREP SHORT_LOCATION SHORT_LOCATION_END(__LINE__) // Can add anything else on here if need be
+#define LOG_TRACE   "TRACE"
 #define LOG_INFO    "INFO"
-#define LOG_WARNING "WARNING"
+#define LOG_WARN    "WARNING"
 #define LOG_ERROR   "ERROR"
 #define LOG_FATAL   "FATAL ERROR"
 

@@ -43,7 +43,7 @@ namespace nabi::Reflection
 					// and will be default initialized. To override that default initialization, add the property data to the component data
 					if (propertyDataOverride == nullptr)
 					{
-						// If there is no set overide, create a new one
+						// If there is no set override, create a new one
 						PropertyData additionalPropertyData;
 						additionalPropertyData.m_Id = propertyId;
 						additionalPropertyData.m_Value = propertyValue;

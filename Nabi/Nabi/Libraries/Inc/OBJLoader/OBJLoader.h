@@ -490,7 +490,7 @@ namespace objl
 				{
 					if (!meshname.empty())
 					{
-						LOG(LOG_PREP, LOG_INFO, "" 
+						LOG(LOG_PREP, LOG_TRACE, "" 
 							<< "\r- " << meshname
 							<< "\t| vertices > " << Positions.size()
 							<< "\t| texcoords > " << TCoords.size()
@@ -550,7 +550,7 @@ namespace objl
 						}
 					}
 #ifdef OBJL_CONSOLE_OUTPUT
-					//LOG(LOG_INFO, LOG_INFO, NEWLINE);
+					//LOG(LOG_PREP, LOG_TRACE, NEWLINE);
 					outputIndicator = 0;
 #endif
 				}
@@ -678,7 +678,7 @@ namespace objl
 					pathtomat += algorithm::tail(curline);
 
 #ifdef OBJL_CONSOLE_OUTPUT
-					LOG(LOG_PREP, LOG_INFO, "Found materials in: " << pathtomat << NEWLINE);
+					LOG(LOG_PREP, LOG_TRACE, "Found materials in: " << pathtomat << NEWLINE);
 #endif
 
 					// Load Materials
@@ -687,7 +687,7 @@ namespace objl
 			}
 
 #ifdef OBJL_CONSOLE_OUTPUT
-			//LOG(LOG_INFO, LOG_INFO, NEWLINE);
+			//LOG(LOG_PREP, LOG_TRACE, NEWLINE);
 #endif
 
 			// Deal with last mesh

@@ -37,8 +37,9 @@ namespace nabi
 		//virtual void Update(gametime) NABI_NOEXCEPT;
 		virtual void Render(/*gametime?*/) NABI_NOEXCEPT;
 
-		bool InitGraphicsEntity();
-		bool InitInputEntity();
+		bool const InitGraphicsEntity();
+		bool const InitDxPipeline();
+		bool const InitInputEntity();
 
 		// Windows
 		HINSTANCE const m_hInstance;

@@ -56,7 +56,18 @@ namespace nabi::Rendering
 	class ConstantBufferLoader final
 	{
 	public:
+		enum class AddMode
+		{
+			ClearAndAdd,
+			Append,
+			ENUM_COUNT
+		};
+
 		[[nodiscard]] ConstantBuffer operator()(UINT const byteWidth, nabi::Context const& context) const NABI_NOEXCEPT;
+
+		static void AssignConstantBuffersToShader(
+			std::vector<Microsoft::WRL::ComPtr<ID3D11Buffer>>& shaderConstantBuffers, std::vector<ConstantBufferIndex::Enum> const& constantBuffersToAssign,
+			AddMode const addMode, nabi::Context const& context) NABI_NOEXCEPT;
 	};
 } // namespace nabi::Rendering
 

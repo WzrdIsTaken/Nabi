@@ -42,6 +42,7 @@ namespace nabi
 		// Init core entities
 		bool initializationSuccessful = true;
 		initializationSuccessful &= InitGraphicsEntity();
+		initializationSuccessful &= InitDxPipeline();
 		initializationSuccessful &= InitInputEntity();
 
 		// TEST
@@ -87,7 +88,7 @@ namespace nabi
 		m_Context.m_RenderCommand->EndFrame();
 	}
 
-	bool NabiCore::InitGraphicsEntity()
+	bool const NabiCore::InitGraphicsEntity()
 	{
 		using namespace nabi::Rendering;
 
@@ -97,6 +98,17 @@ namespace nabi
 
 		// --- Create the camera ---
 		ecs::CameraComponent cameraComponent;
+
+		// TEST BEGIN
+		dx::XMMATRIX projMat = dx::XMMatrixPerspectiveFovLH(dx::XM_PIDIV4, 800.0f / 600.0f, 0.1f, 100.0f);
+		dx::XMMATRIX viewMat = dx::XMMatrixTranslation(0, 0, 6);
+
+		dx::XMStoreFloat4x4(&cameraComponent.m_Projection, projMat);
+		dx::XMStoreFloat4x4(&cameraComponent.m_View, viewMat);
+
+		cameraComponent.m_Position = { 0, 0, 0 };
+		cameraComponent.m_Target   = { 0, 0, 1 };
+		// TEST END
 
 		// --- Create the graphics component ---
 		ecs::GraphicsComponent graphicsComponent;
@@ -118,7 +130,20 @@ namespace nabi
 		return true;
 	}
 
-	bool NabiCore::InitInputEntity()
+	bool const NabiCore::InitDxPipeline()
+	{
+		using namespace nabi::Rendering;
+
+		// Just create any other DirectX pipeline things here
+
+		// --- Create the sampler ---
+		Sampler sampler = m_Context.m_RenderCommand->CreateSampler();
+		m_Context.m_RenderCommand->BindSampler(sampler);
+
+		return true;
+	}
+
+	bool const NabiCore::InitInputEntity()
 	{
 		// Create the input entity
 		entt::entity const inputEntity =

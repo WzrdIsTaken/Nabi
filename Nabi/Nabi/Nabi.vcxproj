@@ -208,6 +208,7 @@
     <ClCompile Include="Tests\Src\MockObjects\MockGameCore.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockSystem.cpp" />
     <ClCompile Include="Utils\Src\Debug\DXException.cpp" />
+    <ClCompile Include="Utils\Src\DirectXUtils.cpp" />
     <ClCompile Include="Utils\Src\ECSUtils.cpp" />
     <ClCompile Include="Utils\Src\MathUtils.cpp" />
     <ClCompile Include="Utils\Src\StringUtils.cpp" />
@@ -264,7 +265,7 @@
     <ClInclude Include="Rendering\Inc\Textures\Texture.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resource\Inc\AssetBank.h" />
-    <ClInclude Include="Resource\Inc\Resource.h" />
+    <ClInclude Include="Resource\Inc\ResourceWrappers.h" />
     <ClInclude Include="Resource\Inc\ResourceBank.h" />
     <ClInclude Include="Tests\Inc\Examples\TestDraw.h" />
     <ClInclude Include="Tests\Inc\Examples\IExample.h" />
@@ -278,6 +279,7 @@
     <ClInclude Include="Utils\Inc\BuildUtils.h" />
     <ClInclude Include="Utils\Inc\DebugUtils.h" />
     <ClInclude Include="Utils\Inc\Debug\DXException.h" />
+    <ClInclude Include="Utils\Inc\DirectXUtils.h" />
     <ClInclude Include="Utils\Inc\ECSUtils.h" />
     <ClInclude Include="Utils\Inc\EngineUtils.h" />
     <ClInclude Include="Utils\Inc\MathUtils.h" />

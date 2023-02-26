@@ -3,7 +3,7 @@
 
 #include "Context.h"
 #include "DebugUtils.h"
-#include "Resource.h"
+#include "ResourceWrappers.h"
 
 namespace nabi::Resource
 {
@@ -199,6 +199,15 @@ namespace nabi::Resource
 		[[nodiscard]] size_t GetResourceCapacity() const NABI_NOEXCEPT
 		{
 			return m_Bank.max_size();
+		}
+
+		/// <summary>
+		/// Gets the resource loader (can be useful eg it needs to be configured specially)
+		/// </summary>
+		/// <returns>A reference to the resource loader in the bank</returns>
+		[[nodiscard]] TLoader& GetLoader() NABI_NOEXCEPT
+		{
+			return m_Loader;
 		}
 
 	private:

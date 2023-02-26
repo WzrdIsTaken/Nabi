@@ -338,6 +338,9 @@
     <ClCompile Include="Rendering\Src\Shaders\VertexShader.cpp">
       <Filter>Rendering\Src\Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Src\DirectXUtils.cpp">
+      <Filter>Utils\Src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -455,7 +458,7 @@
     <ClInclude Include="Core\EngineCore.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Resource\Inc\Resource.h">
+    <ClInclude Include="Resource\Inc\ResourceWrappers.h">
       <Filter>Resource\Inc</Filter>
     </ClInclude>
     <ClInclude Include="Resource\Inc\ResourceBank.h">
@@ -549,6 +552,9 @@
       <Filter>Libraries\Inc\OBJLoader</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Utils\Inc\DirectXUtils.h">
+      <Filter>Utils\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

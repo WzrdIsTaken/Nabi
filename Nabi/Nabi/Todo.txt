@@ -11,6 +11,14 @@ Current:
 - Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
 - Entity creator could also live in context? and not be a singleton
 
+- Fix all warnings / disable those we dont care about
+- Forward declare the enums (PixelShader, VertexShader) or switch to enum class
+
+- Add the catagory infront of all logging statements. Eg [Rendering] msg or [Reflection] msg - should this be a macro?
+- Comment up all rendering code
+- Write rendering tests
+- Get sam to review rendering code and see any improvements
+
 - Learn rendering! (im still torn between directx and opengl.. once get an answer from uni hopefully things will become clearer)
 - Direct X namespace as dx?
 - Make sure to include some good logging when the direct x render stuff is starting up / running
@@ -23,8 +31,6 @@ Structure Stuff
 
 - Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
   (acc i think this is ok on the stack?)
-
-- call assert inside the dx exception 
 
 // --- Low Priority ---
 
@@ -49,6 +55,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- call assert inside the dx exception 
 - Fix release mode (nvm that doesnt work..)
 - Make project structure more flat
 - Core should include standard libs like vec, array, map etc so dont have to include them everywhere

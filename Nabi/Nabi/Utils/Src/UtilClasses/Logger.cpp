@@ -17,10 +17,11 @@ namespace nabi::Utils::DebugUtils
 	Logger::Logger() NABI_NOEXCEPT
 		: m_LogLevels{
 			{ LOG_LEVEL_ALL,  -1},
-			{ LOG_INFO,       0 },
-			{ LOG_WARNING,    1 },
-			{ LOG_ERROR,      2 },
-			{ LOG_FATAL,      3 },
+			{ LOG_TRACE,      0 },
+			{ LOG_INFO,       1 },
+			{ LOG_WARN,       2 },
+			{ LOG_ERROR,      3 },
+			{ LOG_FATAL,      4 },
 			{ LOG_LEVEL_NONE, 99}
 		}
 		, m_LogLevel(m_LogLevels.at(LOG_LEVEL_ALL))
@@ -36,9 +37,11 @@ namespace nabi::Utils::DebugUtils
 			entt::hashed_string const severityHash = entt::hashed_string(severity.data());
 			switch (severityHash)
 			{
+			case entt::hashed_string(LOG_TRACE):
+				[[fallthrough]];
 			case entt::hashed_string(LOG_INFO):
 				[[fallthrough]];
-			case entt::hashed_string(LOG_WARNING):
+			case entt::hashed_string(LOG_WARN):
 				std::cout << logStream.str();
 				break;
 			case entt::hashed_string(LOG_ERROR):

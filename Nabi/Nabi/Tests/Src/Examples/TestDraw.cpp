@@ -30,9 +30,15 @@ namespace nabitest::Examples
 		modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader.cso";
 		modelComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader.cso";
 
+		// Create transform component
+		ecs::TransformComponent transformComponent = {};
+		transformComponent.m_Position = { 0, 0, 0 };
+		transformComponent.m_Rotation = { 0, 0, 0 };
+		transformComponent.m_Scale    = { 1, 1, 1 };
+
 		// Add the model component and a transform to the entity
 		m_Context.m_Registry.emplace<ecs::ModelComponent>(testEntity, modelComponent);
-		m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity);
+		m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
 
 		// --- Load all assets ---
 		m_AssetBank->LoadAssets();
@@ -66,6 +72,16 @@ namespace nabitest::Examples
 		, m_VertexShaderBank(context)
 		, m_TextureBank(context)
 	{
+		// Need to setup the vertex shader bank loader for meshes
+		nabi::Rendering::VertexShaderLoader& vertexShaderLoader = m_VertexShaderBank.GetLoader();
+		vertexShaderLoader.SetInputLayout(nabi::Rendering::Layouts::c_MeshInputLayout);
+		vertexShaderLoader.SetConstantBuffers({ nabi::Rendering::ConstantBufferIndex::PerFrame, nabi::Rendering::ConstantBufferIndex::PerMesh });
+
+		// TODO - Check over this^ / stuff you can see on github desktop changelist
+		// Use ConstantBufferLoader::AssignShaderConstnantBuffers to add the constant buffers to the vertex shader
+
+		// need a camera system
+		// the stuff in nabi core setting up the camera should go in there
 	}
 
 	TestDraw::TestAssetBank::~TestAssetBank()
@@ -95,7 +111,7 @@ namespace nabitest::Examples
 	{
 		// Iterate through all the entities with model components
 		m_Context.m_Registry.view<ecs::ModelComponent>()
-			.each([&](entt::entity entity, auto& modelComponent)
+			.each([&](entt::entity const entity, auto const& modelComponent)
 				{
 					// Namespaces for clarity
 					using namespace nabi::Rendering;

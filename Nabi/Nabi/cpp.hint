@@ -6,7 +6,8 @@
 #define NABI_FAIL
 
 #define NABI_NOEXCEPT
-
 #define DELETE_COPY_MOVE_CONSTRUCTORS(type) type(type&) = delete; type(type&&) = delete; type(type const&) = delete; type(type const&&) = delete;
+
+#define TSINGLETON_INSTANCE(_class)
 
 // I will add things to this file as I remember to click the vs prompt! :D

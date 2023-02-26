@@ -1,8 +1,8 @@
 #include "TestCore.h"
 
 #include "Context.h"
-#include "Resource.h"
 #include "ResourceBank.h"
+#include "ResourceWrappers.h"
 
 #ifdef RUN_TESTS
 
@@ -70,7 +70,7 @@ namespace nabitest::ResourceTests
 		resourceRef = resourceBank.LoadResource(mockPath, ResourceBankInsertionMode::Enum::FirstNullIndex);
 		resourceBank.Clear();
 
-		size_t const activeResourcesInBank = resourceBank.GetResourceCount();
+		int const activeResourcesInBank = static_cast<int>(resourceBank.GetResourceCount());
 		Comparison<int> const activeResources(0, activeResourcesInBank);
 		COMPAIR_EQ(activeResources);
 	}

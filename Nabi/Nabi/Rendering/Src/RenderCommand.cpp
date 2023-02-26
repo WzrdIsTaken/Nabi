@@ -64,6 +64,7 @@ namespace nabi::Rendering
 
 #ifdef USE_DEBUG_UTILS
 		DX_ASSERT(m_DXObjects.m_Device->QueryInterface(__uuidof(ID3D11Debug), reinterpret_cast<void**>(&m_DXObjects.m_DebugDevice)));
+		DX_ASSERT(m_DXObjects.m_DebugDevice->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL));
 #endif // ifdef USE_DEBUG_UTILS
 
 		// Gain access to texture subresource in swap chain (back buffer)

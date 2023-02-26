@@ -9,7 +9,14 @@ namespace nabi::Rendering
 {
 	PixelShaderLoader::ResourceType PixelShaderLoader::operator()(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT
 	{
-		PixelShader const pixelShader = context.m_RenderCommand->CreatePixelShader(resourcePath);
+		PixelShader pixelShader = context.m_RenderCommand->CreatePixelShader(resourcePath);
+		ConstantBufferLoader::AssignConstantBuffersToShader(pixelShader.m_ConstantBuffers, m_ConstantBuffers, ConstantBufferLoader::AddMode::ClearAndAdd, context);
+
 		return std::make_shared<PixelShader>(pixelShader);
+	}
+
+	void PixelShaderLoader::SetConstantBuffers(std::vector<ConstantBufferIndex::Enum> const& constantBuffers)
+	{
+		m_ConstantBuffers = constantBuffers;
 	}
 } // namespace nabi::Rendering
