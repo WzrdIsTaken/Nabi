@@ -149,7 +149,7 @@ namespace ecs
 		std::ostringstream logMessage;
 
 		logMessage <<
-			"[Rendering] The model on entity " << WRAP(entityName, "'") << " has a: "  << NEWLINE
+			"[Rendering] The model on entity " << WRAP(entityName, "'") << " has a: "     << NEWLINE
 			"Model Matrix of          : " << MatrixToString(m_DebugModelMatrix)           << NEWLINE
 			"View Matrix of           : " << MatrixToString(m_DebugViewMatrix)            << NEWLINE
 			"Projection Matrix of     : " << MatrixToString(m_DebugProjectionMatrix)      << NEWLINE
