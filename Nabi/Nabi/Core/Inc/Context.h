@@ -1,6 +1,8 @@
 #pragma once
 
 #include "entt.h"
+
+#include "EntityCreator.h"
 #include "RenderCommand.h"
 
 namespace nabi
@@ -20,6 +22,8 @@ namespace nabi
 		// Entities
 		entt::registry m_Registry;
 		std::array<entt::entity, SingletonEntities::ENUM_COUNT> m_SingletonEntites;
+
+		std::unique_ptr<nabi::Reflection::EntityCreator> m_EntityCreator;
 
 		// Graphic
 		std::unique_ptr<Rendering::RenderCommand> m_RenderCommand;

@@ -5,7 +5,6 @@
 
 #include "ECSGlobals.h"
 #include "MetaECSTypes.h"
-#include "Singleton.h"
 
 namespace nabi::Reflection
 {
@@ -94,7 +93,7 @@ namespace nabi::Reflection
 	/// 
 	/// Ngl a lot of things this class does don't seem very efficient... this might be a point of optimisation in the future
 	/// </summary>
-	class EntityCreator final : nabi::Templates::TSingleton<EntityCreator>
+	class EntityCreator final
 	{
 	public:
 		typedef std::unordered_map<std::string, EntityTemplateData> EntityTemplateStore; // (entity template name - template)
@@ -108,7 +107,8 @@ namespace nabi::Reflection
 			bool m_AppendUUID = true;
 		};
 
-		EntityCreator(entt::registry& registery, EntityTemplateStore const&& entityTemplateStore) NABI_NOEXCEPT;
+		EntityCreator(entt::registry& registery) NABI_NOEXCEPT;
+		void AssignEntityStore(EntityTemplateStore const&& entityTemplateStore) NABI_NOEXCEPT;
 
 		/// <summary>
 		/// Creates an entity based off the passed in EntityCreationSettings

@@ -29,7 +29,8 @@ namespace nabitest::ReflectionTests
 		std::pair<std::string, EntityTemplateData> entityTemplatePair(mockEntityTemplateData.m_Id.data(), mockEntityTemplateData);
 		entityStore.emplace(entityTemplatePair);
 
-		EntityCreator entityCreator(registry, std::move(entityStore));
+		EntityCreator entityCreator(registry);
+		entityCreator.AssignEntityStore(std::move(entityStore));
 
 		// --- Entity Creation ---
 

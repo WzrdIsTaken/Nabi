@@ -10,8 +10,6 @@
 #include "ReflectionHelpers.h"
 #include "StringConverter.h"
 
-TSINGLETON_INSTANCE(nabi::Reflection::EntityCreator)
-
 namespace nabi::Reflection
 {
 	// --- Free Functions (used in EntityCreator and XmlParser) ---
@@ -172,10 +170,14 @@ namespace nabi::Reflection
 
 	// --- Entity Creator ---
 
-	EntityCreator::EntityCreator(entt::registry& registery, EntityTemplateStore const&& entityTemplateStore) NABI_NOEXCEPT
+	EntityCreator::EntityCreator(entt::registry& registery) NABI_NOEXCEPT
 		: m_Registery(registery)
-		, m_EntityTemplateStore(entityTemplateStore)
 	{
+	}
+
+	void EntityCreator::AssignEntityStore(EntityTemplateStore const&& entityTemplateStore) NABI_NOEXCEPT
+	{
+		m_EntityTemplateStore = entityTemplateStore;
 	}
 
 	void EntityCreator::CreateEntity(EntityCreator::EntityCreationSettings const& entityCreationSettings) NABI_NOEXCEPT

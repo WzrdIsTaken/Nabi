@@ -4,6 +4,7 @@
 
 #include "CoreComponents\CameraComponent.h"
 #include "CoreComponents\GraphicsComponent.h"
+#include "EntityCreator.h"
 #include "InitSettings.h"
 #include "RenderCommand.h"
 
@@ -27,6 +28,8 @@ namespace nabi
 		// Entity
 		m_Context.m_Registry = {};
 		m_Context.m_SingletonEntites.fill(entt::null);
+
+		m_Context.m_EntityCreator = std::make_unique<Reflection::EntityCreator>(m_Context.m_Registry);
 
 		// Rendering
 		m_Context.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Window.GetHWND(), initSettings.m_WindowSettings);

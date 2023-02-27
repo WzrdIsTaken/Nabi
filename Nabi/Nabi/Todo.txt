@@ -9,7 +9,6 @@ Current:
 // --- High Priority ---
 
 - Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
-- Entity creator could also live in context? and not be a singleton
 
 - Fix all warnings / disable those we dont care about
 - Forward declare the enums (PixelShader, VertexShader) or switch to enum class
@@ -55,6 +54,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- Entity creator could also live in context? and not be a singleton
 - For the model, it doesnt need to contain all of the vectors. Just the index/vertex buffer and the triangle count.
 - This triangle count can either in the index buffer or the model (because of how I've done it, it might be easist to have it in the model)
 - Use ConstantBufferLoader::AssignShaderConstnantBuffers to add the constant buffers to the vertex shader
