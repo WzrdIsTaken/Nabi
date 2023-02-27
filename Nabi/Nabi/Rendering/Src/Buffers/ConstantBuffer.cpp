@@ -42,7 +42,7 @@ namespace nabi::Rendering
 			}
 			else
 			{
-				LOG(LOG_PREP, LOG_WARN, "Trying to add constant buffer of type " << constantBuffer << " to a shader when it already exists!");
+				LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_RENDERING << "Trying to add constant buffer of type " << constantBuffer << " to a shader when it already exists!");
 			}
 		}
 	}

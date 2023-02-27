@@ -79,7 +79,7 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	// --- Init Nabi ---
 
 	nabi::NabiCore app = nabi::NabiCore(hInstance, nabi::nabiCoreDefaultSettings);
-	LOG(NEWLINE << LOG_PREP, LOG_INFO, "Nabi has initialized successfully!" << ENDLINE);
+	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE << "Nabi has initialized successfully!" << ENDLINE);
 
 	int appRunResult = app.Init();
 	ASSERT(appRunResult == NABI_SUCCESS, "The app failed to initialize!");
@@ -94,6 +94,6 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	ReleaseConsole();
 #endif // #ifdef USE_DEBUG_UTILS
 
-	LOG(NEWLINE << LOG_PREP, LOG_INFO, "Shutting down Nabi with code " << appRunResult << ENDLINE);
+	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE << "Shutting down Nabi with code " << appRunResult << ENDLINE);
 	return appRunResult;
 }

@@ -169,7 +169,7 @@ namespace nabi::Rendering
 		constantBuffer.m_Buffer = buffer;
 		constantBuffer.m_ByteWidth = byteWidth;
 
-		LOG(LOG_PREP, LOG_INFO, "Created a constant buffer of size " << bufferDesc.ByteWidth << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a constant buffer of size " << bufferDesc.ByteWidth << ENDLINE);
 		return constantBuffer;
 	}
 
@@ -192,7 +192,7 @@ namespace nabi::Rendering
 		IndexBuffer indexBuffer = {};
 		indexBuffer.m_Buffer = buffer;
 
-		LOG(LOG_PREP, LOG_INFO, "Created an index buffer of size " << bufferDesc.ByteWidth << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created an index buffer of size " << bufferDesc.ByteWidth << ENDLINE);
 		return indexBuffer;
 	}
 
@@ -217,7 +217,7 @@ namespace nabi::Rendering
 		vertexBuffer.m_Stride = sizeof(Vertex);
 		vertexBuffer.m_Offset = 0u;
 
-		LOG(LOG_PREP, LOG_INFO, "Created a vertex buffer of size " << bufferDesc.ByteWidth << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a vertex buffer of size " << bufferDesc.ByteWidth << ENDLINE);
 		return vertexBuffer;
 	}
 
@@ -235,7 +235,7 @@ namespace nabi::Rendering
 		PixelShader shader = {};
 		shader.m_Shader = pixelShader;
 
-		LOG(LOG_PREP, LOG_INFO, "Created a pixel shader with path " << WRAP(filePath, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a pixel shader with path " << WRAP(filePath, "'") << ENDLINE);
 		return shader;
 	}
 
@@ -257,7 +257,7 @@ namespace nabi::Rendering
 		shader.m_Shader = vertexShader;
 		shader.m_Layout = inputLayout;
 
-		LOG(LOG_PREP, LOG_INFO, "Created a vertex shader with path " << WRAP(filePath, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a vertex shader with path " << WRAP(filePath, "'") << ENDLINE);
 		return shader;
 	}
 
@@ -273,7 +273,7 @@ namespace nabi::Rendering
 		texture.m_Texture = shaderResourceView;
 		texture.m_Slot = 0u;
 
-		LOG(LOG_PREP, LOG_INFO, "Created a texture with path " << WRAP(filePath, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a texture with path " << WRAP(filePath, "'") << ENDLINE);
 		return texture;
 	}
 
@@ -300,7 +300,7 @@ namespace nabi::Rendering
 		Sampler sampler = {};
 		sampler.m_Sampler = samplerState;
 
-		LOG(LOG_PREP, LOG_INFO, "Created a sampler" << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a sampler" << ENDLINE);
 		return sampler;
 	}
 

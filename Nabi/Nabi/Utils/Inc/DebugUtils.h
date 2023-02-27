@@ -96,3 +96,6 @@
 #define INDENT_1 3
 #define INDENT_2 6
 #define INDENT_3 9
+
+// A bunch more macros in here!
+#include "Debug\EngineLoggingCatagories.h"

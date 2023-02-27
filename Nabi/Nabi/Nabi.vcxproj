@@ -279,6 +279,7 @@
     <ClInclude Include="Utils\Inc\BuildUtils.h" />
     <ClInclude Include="Utils\Inc\DebugUtils.h" />
     <ClInclude Include="Utils\Inc\Debug\DXException.h" />
+    <ClInclude Include="Utils\Inc\Debug\EngineLoggingCatagories.h" />
     <ClInclude Include="Utils\Inc\DirectXUtils.h" />
     <ClInclude Include="Utils\Inc\ECSUtils.h" />
     <ClInclude Include="Utils\Inc\EngineUtils.h" />

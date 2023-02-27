@@ -64,8 +64,8 @@ namespace nabi::Reflection
 #ifdef USE_DEBUG_UTILS
 			if (g_XmlParserLog)
 			{
-				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << "Found a property node with id " << WRAP(propertyId.data(), "'") <<
-					" overriding a value on " << WRAP(propertyComponentRef.data(), "'") << " with value " << WRAP(propertyValue.data(), "'") << ENDLINE);
+				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << LOG_CATEGORY_REFLECTION << "Found a property node with id " << WRAP(propertyId.data(), "'") 
+					<< " overriding a value on " << WRAP(propertyComponentRef.data(), "'") << " with value " << WRAP(propertyValue.data(), "'") << ENDLINE);
 			}
 #endif // ifdef USE_DEBUG_UTILS
 			return; // Because without the preprocessor block code, this would be a lable then end of function
@@ -83,7 +83,7 @@ namespace nabi::Reflection
 #ifdef USE_DEBUG_UTILS
 				if (g_XmlParserLog)
 				{
-					LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << "Found a component on the entity with id " << WRAP(componentId, "'") << ENDLINE);
+					LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << LOG_CATEGORY_REFLECTION << "Found a component on the entity with id " << WRAP(componentId, "'") << ENDLINE);
 				}
 #endif // ifdef USE_DEBUG_UTILS
 
@@ -116,8 +116,8 @@ namespace nabi::Reflection
 #ifdef USE_DEBUG_UTILS
 				if (g_XmlParserLog)
 				{
-					LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << "Found a property with id " << WRAP(propertyId, "'") << 
-						" and value " << WRAP(propertyValue, "'") << ENDLINE);
+					LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << LOG_CATEGORY_REFLECTION << "Found a property with id " 
+						<< WRAP(propertyId, "'") << " and value " << WRAP(propertyValue, "'") << ENDLINE);
 				}
 #endif // ifdef USE_DEBUG_UTILS
 

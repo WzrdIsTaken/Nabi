@@ -555,6 +555,9 @@
     <ClInclude Include="Utils\Inc\DirectXUtils.h">
       <Filter>Utils\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\Inc\Debug\EngineLoggingCatagories.h">
+      <Filter>Utils\Inc\Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

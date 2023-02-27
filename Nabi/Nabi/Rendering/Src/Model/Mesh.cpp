@@ -47,7 +47,7 @@ namespace nabi::Rendering
 			}
 
 			// Log the successful load of the model
-			LOG(LOG_PREP, LOG_INFO, "Loaded a model with path " << WRAP(resourcePath, "'") << ". " <<
+			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Loaded a model with path " << WRAP(resourcePath, "'") << ". " <<
 				"Model has " << meshData.m_Vertices.size() << " vertices and " << meshData.m_Triangles.size() << " triangles." << ENDLINE);
 		}
 
