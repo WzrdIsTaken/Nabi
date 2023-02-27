@@ -19,9 +19,12 @@ namespace nabi::Rendering
 {
 	struct Mesh
 	{
-		IndexBuffer/*&?*/ m_IndexBuffer;
-		VertexBuffer/*&?*/ m_VertexBuffer;
+		IndexBuffer m_IndexBuffer;
+		VertexBuffer m_VertexBuffer;
+	};
 
+	struct MeshData
+	{
 		std::vector<dx::XMFLOAT3> m_Vertices;
 		std::vector<dx::XMFLOAT3> m_Normals;
 		std::vector<dx::XMFLOAT2> m_Uvs;

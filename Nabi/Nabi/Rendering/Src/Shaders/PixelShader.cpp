@@ -15,7 +15,7 @@ namespace nabi::Rendering
 		return std::make_shared<PixelShader>(pixelShader);
 	}
 
-	void PixelShaderLoader::SetConstantBuffers(std::vector<ConstantBufferIndex::Enum> const& constantBuffers)
+	void PixelShaderLoader::SetConstantBuffers(std::vector<ConstantBufferIndex::Enum> const& constantBuffers) NABI_NOEXCEPT
 	{
 		m_ConstantBuffers = constantBuffers;
 	}

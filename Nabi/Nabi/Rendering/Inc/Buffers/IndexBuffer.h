@@ -8,7 +8,7 @@ namespace nabi
 } // namespace nabi
 namespace nabi::Rendering
 {
-	struct Mesh;
+	struct MeshData;
 } // namespace nabi::Rending
 
 namespace nabi::Rendering
@@ -21,6 +21,6 @@ namespace nabi::Rendering
 	class IndexBufferLoader final
 	{
 	public:
-		[[nodiscard]] IndexBuffer operator()(Mesh const& mesh, nabi::Context const& context) const NABI_NOEXCEPT;
+		[[nodiscard]] IndexBuffer operator()(MeshData const& meshData, nabi::Context const& context) const NABI_NOEXCEPT;
 	};
 } // namespace nabi::Rendering

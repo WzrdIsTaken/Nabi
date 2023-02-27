@@ -5,7 +5,7 @@
 
 namespace ecs
 {
-	struct GraphicsComponent
+	struct GraphicsComponent final : public nabi::ECS::ComponentSettingsBase
 	{
 		std::array<nabi::Rendering::ConstantBuffer, nabi::Rendering::ConstantBufferIndex::ENUM_COUNT> m_ConstantBuffers;
 	};

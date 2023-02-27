@@ -47,7 +47,7 @@ namespace ecs
 			// Update the constant buffer
 			m_Context.m_RenderCommand->UpdateConstantBuffer(perFrameConstantBuffer, &perFrameConstantBufferData);
 
-			// Cache the values for debug
+			// Cache the matrixes for debug
 #ifdef USE_DEBUG_UTILS
 			m_DebugProjectionMatrix = projectionMatrix;
 			m_DebugViewMatrix = viewMatrix;
@@ -88,12 +88,7 @@ namespace ecs
 						// Update the constant buffer
 						m_Context.m_RenderCommand->UpdateConstantBuffer(perMeshConstantBuffer, &perMeshConstantBufferData);
 
-						// Lets go dude!
-						transformComponent.m_Rotation.x += 0.1f;
-						transformComponent.m_Rotation.y += 0.1f;
-						transformComponent.m_Rotation.z += 0.1f;
-
-						// Debug output
+						// Cache the matrix + debug output
 #ifdef USE_DEBUG_UTILS
 						m_DebugModelMatrix = modelMatrix;
 						DebugTraceOutput(entity);
@@ -107,7 +102,7 @@ namespace ecs
 					std::shared_ptr<Mesh const> const meshResource = meshComponent.m_MeshResource.GetResource();
 					IndexBuffer const& indexBuffer = meshResource->m_IndexBuffer;
 					VertexBuffer const& vertexBuffer = meshResource->m_VertexBuffer;
-					UINT const triangleCount = meshResource->m_Triangles.size();
+					UINT const triangleCount = m_Context.m_RenderCommand->ExtractTriangleCountFromIndexBuffer(indexBuffer);
 
 					// Get the shader data
 					std::shared_ptr<PixelShader const> const pixelShaderResource = shaderComponent.m_PixelShaderResource.GetResource();
@@ -149,10 +144,10 @@ namespace ecs
 		std::ostringstream logMessage;
 
 		logMessage <<
-			"[Rendering] The model on entity " << WRAP(entityName, "'") << " has a: "     << NEWLINE
-			"Model Matrix of          : " << MatrixToString(m_DebugModelMatrix)           << NEWLINE
-			"View Matrix of           : " << MatrixToString(m_DebugViewMatrix)            << NEWLINE
-			"Projection Matrix of     : " << MatrixToString(m_DebugProjectionMatrix)      << NEWLINE
+			"[Rendering] The model on entity " << WRAP(entityName, "'") << " has a: " << NEWLINE
+			"Model Matrix of          : " << MatrixToString(m_DebugModelMatrix)       << NEWLINE
+			"View Matrix of           : " << MatrixToString(m_DebugViewMatrix)        << NEWLINE
+			"Projection Matrix of     : " << MatrixToString(m_DebugProjectionMatrix)  << NEWLINE
 			"And a resultant matrix of: " << MatrixToString(result);
 
 		// Log

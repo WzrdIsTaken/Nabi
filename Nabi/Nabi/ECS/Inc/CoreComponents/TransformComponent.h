@@ -3,7 +3,7 @@
 
 namespace ecs
 {
-	struct TransformComponent : public nabi::ECS::ComponentBase
+	struct TransformComponent final : public nabi::ECS::ComponentBase
 	{
 		dx::XMFLOAT3 m_Position;
 		dx::XMFLOAT3 m_Rotation; // Stored as euler, converted to quanterion in RenderSystem / wherever else its needed

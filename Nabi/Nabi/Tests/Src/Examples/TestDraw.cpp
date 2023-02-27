@@ -48,7 +48,15 @@ namespace nabitest::Examples
 
 	bool TestDraw::Update()
 	{
-		return false;
+		m_Context.m_Registry.view<ecs::TransformComponent, ecs::MeshComponent>()
+			.each([&](entt::entity const entity, auto& transformComponent, auto const& modelComponent)
+				{
+					transformComponent.m_Rotation.x += 0.1f;
+					transformComponent.m_Rotation.y += 0.1f;
+					transformComponent.m_Rotation.z += 0.1f;
+				});
+
+		return true;
 	}
 
 	bool TestDraw::Render()
@@ -77,11 +85,10 @@ namespace nabitest::Examples
 		vertexShaderLoader.SetInputLayout(nabi::Rendering::Layouts::c_MeshInputLayout);
 		vertexShaderLoader.SetConstantBuffers({ nabi::Rendering::ConstantBufferIndex::PerFrame, nabi::Rendering::ConstantBufferIndex::PerMesh });
 
-		// TODO - Check over this^ / stuff you can see on github desktop changelist
-		// Use ConstantBufferLoader::AssignShaderConstnantBuffers to add the constant buffers to the vertex shader
-
 		// need a camera system
 		// the stuff in nabi core setting up the camera should go in there
+
+		// TODO lighting, screen res, moving the model eg pos.x = 500? reszing the screen
 	}
 
 	TestDraw::TestAssetBank::~TestAssetBank()

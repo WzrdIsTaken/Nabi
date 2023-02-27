@@ -444,6 +444,19 @@ namespace nabi::Rendering
 		);
 	}
 
+	UINT RenderCommand::ExtractTriangleCountFromIndexBuffer(IndexBuffer const& indexBuffer) const NABI_NOEXCEPT
+	{
+		D3D11_BUFFER_DESC bufferDesc;
+		indexBuffer.m_Buffer.Get()->GetDesc(&bufferDesc);
+
+		ASSERT_FATAL((bufferDesc.BindFlags & D3D11_BIND_INDEX_BUFFER), 
+			"Index buffer must have D3D11_BIND_INDEX_BUFFER flags to be read!");
+
+		UINT constexpr stride = sizeof(UINT);
+		UINT const numberOfIndices = bufferDesc.ByteWidth / stride;
+		return numberOfIndices;
+	}
+
 	RenderCommandCache const& RenderCommand::GetCache() const NABI_NOEXCEPT
 	{
 		return m_Cache;

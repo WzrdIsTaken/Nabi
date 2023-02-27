@@ -55,6 +55,9 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- For the model, it doesnt need to contain all of the vectors. Just the index/vertex buffer and the triangle count.
+- This triangle count can either in the index buffer or the model (because of how I've done it, it might be easist to have it in the model)
+- Use ConstantBufferLoader::AssignShaderConstnantBuffers to add the constant buffers to the vertex shader
 - call assert inside the dx exception 
 - Fix release mode (nvm that doesnt work..)
 - Make project structure more flat

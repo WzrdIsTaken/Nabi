@@ -34,8 +34,8 @@ namespace nabi
 		[[nodiscard]] inline Context const& GetContext() NABI_NOEXCEPT;
 
 	protected:
-		//virtual void Update(gametime) NABI_NOEXCEPT;
-		virtual void Render(/*gametime?*/) NABI_NOEXCEPT;
+		virtual void Update(/*gametime?*/) /*const?*/ NABI_NOEXCEPT;
+		virtual void Render(/*gametime?*/) /*const?*/ NABI_NOEXCEPT;
 
 		bool const InitGraphicsEntity();
 		bool const InitDxPipeline();

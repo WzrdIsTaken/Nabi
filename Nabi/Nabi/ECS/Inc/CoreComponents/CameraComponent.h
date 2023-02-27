@@ -3,7 +3,7 @@
 
 namespace ecs
 {
-	struct CameraComponent
+	struct CameraComponent final : public nabi::ECS::ComponentSettingsBase
 	{
 		dx::XMFLOAT4X4 m_View;
 		dx::XMFLOAT4X4 m_Projection;

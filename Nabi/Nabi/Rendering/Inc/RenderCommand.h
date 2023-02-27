@@ -105,6 +105,8 @@ namespace nabi::Rendering
 		void Draw(UINT const indexCount) const NABI_NOEXCEPT;
 		void DrawIndexed(UINT const indexCount) const NABI_NOEXCEPT;
 
+		[[nodiscard]] UINT ExtractTriangleCountFromIndexBuffer(IndexBuffer const& indexBuffer) const NABI_NOEXCEPT;
+
 		// --- Getters ---
 
 		[[nodiscard]] RenderCommandCache const& GetCache() const NABI_NOEXCEPT;

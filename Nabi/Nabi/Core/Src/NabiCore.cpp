@@ -63,7 +63,7 @@ namespace nabi
 				return errorCode.value();
 			}
 
-			// Update();
+			Update();
 			Render();
 		}
 
@@ -74,6 +74,11 @@ namespace nabi
 	inline Context const& NabiCore::GetContext() NABI_NOEXCEPT
 	{
 		return m_Context;
+	}
+
+	void NabiCore::Update() NABI_NOEXCEPT
+	{
+		test_Draw.Update();
 	}
 
 	void NabiCore::Render() NABI_NOEXCEPT
