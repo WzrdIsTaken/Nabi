@@ -2,6 +2,7 @@ cbuffer PerFrame : register(b0)
 {
     float4x4 m_ViewMatrix;
     float4x4 m_ProjectionMatrix;
+    float3 m_CameraPosition;
 };
 
 cbuffer PerMesh : register(b1)
@@ -21,6 +22,9 @@ struct VSOutput
     float4 m_Position : SV_POSITION;
     float2 m_Texture  : TEXCOORD;
     float3 m_Normal   : NORMAL;
+    
+    float3 m_CameraWorldPosition : POSITION0;
+    float3 m_WorldPosition : POSITION1;
 };
 
 VSOutput main(VSInput vsIn)
@@ -34,9 +38,16 @@ VSOutput main(VSInput vsIn)
     vertexPosition = mul(vertexPosition, m_ProjectionMatrix);
     vsOut.m_Position = vertexPosition;
     
-    // Set the texture and normal
+    // Set the texture
     vsOut.m_Texture = vsIn.m_Texture;
-    //vsOut.m_Normal = ??
+    
+    // Work out stuff for lighting magic
+    float4 vertexNormal = float4(vsIn.m_Normal, 0.0f);
+    vsOut.m_Normal = mul(vertexNormal, m_ModelMatrix).xyz;
    
+    float4 worldPosition = float4(vsIn.m_Position, 1.0f);
+    vsOut.m_WorldPosition = mul(worldPosition, m_ModelMatrix).xyz;
+    vsOut.m_CameraWorldPosition = m_CameraPosition;
+    
     return vsOut;
 }

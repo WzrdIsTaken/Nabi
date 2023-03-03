@@ -154,4 +154,4 @@ namespace ecs
 		LOG(LOG_PREP, LOG_TRACE, logMessage.str() << ENDLINE);
 	}
 #endif // USE_DEBUG_UTILS
-} // namespace nabi
+} // namespace ecs

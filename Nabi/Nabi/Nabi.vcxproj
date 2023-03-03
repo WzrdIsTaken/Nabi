@@ -172,8 +172,11 @@
     <ClCompile Include="ECS\Src\CoreComponents\CameraComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\EntityInfoComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\GraphicsComponent.cpp" />
+    <ClCompile Include="ECS\Src\CoreComponents\LightComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\ModelComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\TransformComponent.cpp" />
+    <ClCompile Include="ECS\Src\CoreSingletonComponents\LightStateComponent.cpp" />
+    <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp" />
     <ClCompile Include="ECS\Src\SystemBase.cpp" />
     <ClCompile Include="Libraries\Src\pugixml\pugixml.cpp" />
@@ -229,8 +232,11 @@
     <ClInclude Include="ECS\Inc\CoreComponents\CameraComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\EntityInfoComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\GraphicsComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreComponents\LightComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\ModelComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\TransformComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreSingletonComponents\LightStateComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreSystems\LightingSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem.h" />
     <ClInclude Include="ECS\Inc\ECSGlobals.h" />
     <ClInclude Include="ECS\Inc\SystemBase.h" />

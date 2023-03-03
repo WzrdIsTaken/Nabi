@@ -8,6 +8,15 @@ Current:
 
 // --- High Priority ---
 
+- Add new 'CoreSingletonComponents' folder/filter for graphics/io components. delete the cpp's of these components and the src folder/filter if not needed
+- namespace ecs::SingletonComponents ?
+- 'reflect' spelt wrong with 'reflect system property' macro - rename!
+- see like the playground proj can have a 'common' hlsl file with buffers etc.
+
+- need a camera system
+- the stuff in nabi core setting up the camera should go in there
+- TODO lighting, screen res, moving the model eg pos.x = 500? reszing the screen
+
 - Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
 
 - Fix all warnings / disable those we dont care about

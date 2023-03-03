@@ -21,4 +21,4 @@ namespace ecs
 		dx::XMMATRIX m_DebugModelMatrix;
 #endif // USE_DEBUG_UTILS
 	};
-} // namespace nabi
+} // namespace ecs

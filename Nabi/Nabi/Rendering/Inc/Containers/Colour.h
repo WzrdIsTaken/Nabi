@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineCore.h"
+#include "DirectXCore.h"
 
 namespace nabi::Rendering
 {
@@ -26,6 +27,11 @@ namespace nabi::Rendering
 		Colour(float const r, float const g, float const b, float const a);
 		Colour(unsigned char const r, unsigned char const g, unsigned char const b);
 		Colour(unsigned char const r, unsigned char const g, unsigned char const b, unsigned char const a);
+
+		/// <summary>
+		/// Convenience method for colour -> float3 
+		/// </summary>
+		[[nodiscard]] explicit operator dx::XMFLOAT3() const;
 
 		/// <summary>
 		/// Converts the colour to an array (eg, useful for direct x)

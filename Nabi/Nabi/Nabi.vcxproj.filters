@@ -200,6 +200,12 @@
     <Filter Include="Libraries\Inc\OBJLoader">
       <UniqueIdentifier>{bf6de238-2596-4852-b795-3d4053a44544}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ECS\Inc\CoreSingletonComponents">
+      <UniqueIdentifier>{6422b455-b88f-41c2-8fdd-3d08c30fb191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Src\CoreSingletonComponents">
+      <UniqueIdentifier>{e15dfebe-17fc-4de0-bd4a-6d1d05050f4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -340,6 +346,15 @@
     </ClCompile>
     <ClCompile Include="Utils\Src\DirectXUtils.cpp">
       <Filter>Utils\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\LightComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp">
+      <Filter>ECS\Src\CoreSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreSingletonComponents\LightStateComponent.cpp">
+      <Filter>ECS\Src\CoreSingletonComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -557,6 +572,15 @@
     </ClInclude>
     <ClInclude Include="Utils\Inc\Debug\EngineLoggingCatagories.h">
       <Filter>Utils\Inc\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\LightComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSystems\LightingSystem.h">
+      <Filter>ECS\Inc\CoreSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSingletonComponents\LightStateComponent.h">
+      <Filter>ECS\Inc\CoreSingletonComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

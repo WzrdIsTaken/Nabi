@@ -4,6 +4,7 @@
 
 #include "CoreComponents\CameraComponent.h"
 #include "CoreComponents\GraphicsComponent.h"
+#include "CoreSingletonComponents\LightStateComponent.h"
 #include "EntityCreator.h"
 #include "InitSettings.h"
 #include "RenderCommand.h"
@@ -37,6 +38,7 @@ namespace nabi
 
 	NabiCore::~NabiCore()
 	{
+		m_Context.m_Registry.clear();
 		m_DXObjects.m_Context->ClearState();
 	}
 
@@ -126,14 +128,30 @@ namespace nabi
 
 		ConstantBuffer const perFrameConstantBuffer = constantBufferLoader(sizeof(PerFrame), m_Context);
 		ConstantBuffer const perMeshConstantBuffer = constantBufferLoader(sizeof(PerMesh), m_Context);
+		ConstantBuffer const perLightChangeConstantBuffer = constantBufferLoader(sizeof(PerLightChange), m_Context);
+		ConstantBuffer const perGlobaLightingChangeConstantBuffer = constantBufferLoader(sizeof(PerGlobalLightingChange), m_Context);
 
 		// Assign the constant buffers to the component
 		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerFrame) = perFrameConstantBuffer;
 		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerMesh) = perMeshConstantBuffer;
+		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerLightChange) = perLightChangeConstantBuffer;
+		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerGlobalLightingChange) = perGlobaLightingChangeConstantBuffer;
+
+		// --- Create the light state component ---
+		ecs::LightStateComponent lightStateComponent;
+		lightStateComponent.m_LightCount = 1; // TEST for testing only. should be '0'
+		lightStateComponent.m_UpdateLights = true; // TEST for testing only. should be 'false'
+		lightStateComponent.m_UpdateGlobalLightProperties = true; // This wants to be ticked and updated by the LightingSystem immediately 
+
+		lightStateComponent.m_AmbientIntensity = 1.0f;
+		lightStateComponent.m_DiffuseIntensity = 1.0f;
+		lightStateComponent.m_SpecularAttenuation = 1.0f;
+		lightStateComponent.m_SpecularIntensity = 20.0f;
 
 		// --- Add the graphics components to the entity ---
 		m_Context.m_Registry.emplace<ecs::CameraComponent>(graphicsEntity, cameraComponent);
 		m_Context.m_Registry.emplace<ecs::GraphicsComponent>(graphicsEntity, graphicsComponent);
+		m_Context.m_Registry.emplace<ecs::LightStateComponent>(graphicsEntity, lightStateComponent);
 
 		return true;
 	}

@@ -59,4 +59,14 @@ namespace nabi::Rendering
 		, m_A(a)
 	{
 	}
+
+	Colour::operator dx::XMFLOAT3() const
+	{
+		dx::XMFLOAT3 float3;
+		float3.x = static_cast<float>(m_R / 100);
+		float3.y = static_cast<float>(m_G / 100);
+		float3.z = static_cast<float>(m_B / 100);
+
+		return float3;
+	}
 } // namespace nabi::Rendering

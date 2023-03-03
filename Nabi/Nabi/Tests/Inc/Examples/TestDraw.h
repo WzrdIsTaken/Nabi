@@ -5,6 +5,7 @@
 
 #include "AssetBank.h"
 #include "CoreSystems\RenderSystem.h"
+#include "CoreSystems\LightingSystem.h"
 #include "Model\Mesh.h"
 #include "Shaders\PixelShader.h"
 #include "Shaders\VertexShader.h"
@@ -51,6 +52,7 @@ namespace nabitest::Examples
 
 		nabi::Context& m_Context;
 		ecs::RenderSystem m_RenderSystem;
+		ecs::LightingSystem m_LightingSystem;
 
 		std::unique_ptr<TestAssetBank> m_AssetBank;
 	};

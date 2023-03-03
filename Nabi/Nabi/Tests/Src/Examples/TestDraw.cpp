@@ -2,6 +2,8 @@
 
 #include "Examples\TestDraw.h"
 
+#include "Containers\Colour.h"
+#include "CoreComponents\LightComponent.h"
 #include "CoreComponents\ModelComponent.h"
 #include "CoreComponents\TransformComponent.h"
 
@@ -13,7 +15,8 @@ namespace nabitest::Examples
 
 	TestDraw::TestDraw(nabi::Context& context)
 		: m_Context(context)
-		, m_RenderSystem(context, "Id"_hs, "GroupId"_hs)
+		, m_RenderSystem(context, "RenderId"_hs, "GroupId"_hs)
+		, m_LightingSystem(context, "LightingId"_hs, "GroupId"_hs)
 		, m_AssetBank(std::make_unique<TestAssetBank>(context))
 	{
 	}
@@ -40,6 +43,22 @@ namespace nabitest::Examples
 		m_Context.m_Registry.emplace<ecs::ModelComponent>(testEntity, modelComponent);
 		m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
 
+		// --- Create a light ---
+		entt::entity lightEntity = m_Context.m_Registry.create();
+
+		// Reuse the transform component
+		transformComponent.m_Position = { 0, 1, 0 };
+
+		// Create the light
+		ecs::DirectionalLightComponent lightComponent;
+		lightComponent.m_Colour = static_cast<dx::XMFLOAT3>(nabi::Rendering::Colours::White);
+		lightComponent.m_Direction = { -10, 0, -20 };
+		lightComponent.m_Intensity = 1.0f;
+
+		// Add the light and transform component to the entity
+		m_Context.m_Registry.emplace<ecs::DirectionalLightComponent>(lightEntity, lightComponent);
+		m_Context.m_Registry.emplace<ecs::TransformComponent>(lightEntity, transformComponent);
+
 		// --- Load all assets ---
 		m_AssetBank->LoadAssets();
 
@@ -48,12 +67,20 @@ namespace nabitest::Examples
 
 	bool TestDraw::Update()
 	{
+		/*
+		m_Context.m_Registry.view<ecs::TransformComponent, ecs::DirectionalLightComponent>()
+			.each([&](entt::entity const entity, auto& transformComponent, auto& directionalLightComponent)
+		{
+		});
+		*/
+
 		m_Context.m_Registry.view<ecs::TransformComponent, ecs::MeshComponent>()
 			.each([&](entt::entity const entity, auto& transformComponent, auto const& modelComponent)
 				{
-					transformComponent.m_Rotation.x += 0.1f;
-					transformComponent.m_Rotation.y += 0.1f;
-					transformComponent.m_Rotation.z += 0.1f;
+					float constexpr speed = 0.001f;
+					transformComponent.m_Rotation.x += speed;
+					transformComponent.m_Rotation.y += speed;
+					transformComponent.m_Rotation.z += speed;
 				});
 
 		return true;
@@ -61,6 +88,7 @@ namespace nabitest::Examples
 
 	bool TestDraw::Render()
 	{
+		m_LightingSystem.Render();
 		m_RenderSystem.Render();
 
 		return true;
@@ -80,15 +108,16 @@ namespace nabitest::Examples
 		, m_VertexShaderBank(context)
 		, m_TextureBank(context)
 	{
+		using namespace nabi::Rendering;
+
 		// Need to setup the vertex shader bank loader for meshes
-		nabi::Rendering::VertexShaderLoader& vertexShaderLoader = m_VertexShaderBank.GetLoader();
-		vertexShaderLoader.SetInputLayout(nabi::Rendering::Layouts::c_MeshInputLayout);
-		vertexShaderLoader.SetConstantBuffers({ nabi::Rendering::ConstantBufferIndex::PerFrame, nabi::Rendering::ConstantBufferIndex::PerMesh });
+		VertexShaderLoader& vertexShaderLoader = m_VertexShaderBank.GetLoader();
+		vertexShaderLoader.SetInputLayout(Layouts::c_MeshInputLayout);
+		vertexShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerFrame, ConstantBufferIndex::PerMesh });
 
-		// need a camera system
-		// the stuff in nabi core setting up the camera should go in there
-
-		// TODO lighting, screen res, moving the model eg pos.x = 500? reszing the screen
+		// And the pixel shader for lighting
+		PixelShaderLoader& pixelShaderLoader = m_PixelShaderBank.GetLoader();
+		pixelShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerLightChange, ConstantBufferIndex::PerGlobalLightingChange });
 	}
 
 	TestDraw::TestAssetBank::~TestAssetBank()

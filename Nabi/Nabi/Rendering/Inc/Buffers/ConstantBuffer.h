@@ -24,6 +24,25 @@ namespace nabi::Rendering
 	{
 		dx::XMFLOAT4X4 m_ModelMatrix;
 	};
+
+	struct PerLightChange final
+	{
+		dx::XMFLOAT3 m_Position;
+		dx::XMFLOAT3 m_Direction;
+		dx::XMFLOAT3 m_Colour;
+
+		float m_Intensity;
+		float m_SpotAngle;
+		float m_AttenuationRadius;
+	};
+
+	struct PerGlobalLightingChange final
+	{
+		float m_AmbientIntensity;
+		float m_DiffuseIntensity;
+		float m_SpecularAttenuation;
+		float m_SpecularIntensity;
+	};
 } // namespace nabi::Rendering
 
 namespace nabi::Rendering
@@ -37,6 +56,8 @@ namespace nabi::Rendering
 		{
 			PerFrame = 0u,
 			PerMesh,
+			PerLightChange,
+			PerGlobalLightingChange,
 			ENUM_COUNT
 		};
 	};
