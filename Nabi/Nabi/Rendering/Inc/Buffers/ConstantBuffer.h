@@ -34,10 +34,7 @@ namespace nabi::Rendering
 		float m_Intensity;
 		float m_SpotAngle;
 		float m_AttenuationRadius;
-	};
 
-	struct PerGlobalLightingChange final
-	{
 		float m_AmbientIntensity;
 		float m_DiffuseIntensity;
 		float m_SpecularAttenuation;
@@ -57,7 +54,6 @@ namespace nabi::Rendering
 			PerFrame = 0u,
 			PerMesh,
 			PerLightChange,
-			PerGlobalLightingChange,
 			ENUM_COUNT
 		};
 	};

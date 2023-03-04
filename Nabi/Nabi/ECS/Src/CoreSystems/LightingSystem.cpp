@@ -27,7 +27,6 @@ namespace ecs
 		
 		//m_Context.m_Registry.emplace<DirectionalLightComponent>(m_Context.m_Registry.create());
 		
-
 		//m_Context.m_Registry.emplace<ecs::DirectionalLightComponent>(m_Context.m_Registry.create());
 		// CURRENT TODO - work out why this listeners arent being called
 		// Also, the update event needs to be for either the *light or transform* component was changed
@@ -49,32 +48,15 @@ namespace ecs
 		// Get the graphics entity. This stores the camera, constant buffers, etc
 		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
 
-		// Cache the light state and graphics components
+		// Cache the light state component
 		LightStateComponent& lightStateComponent = m_Context.m_Registry.get<LightStateComponent>(graphicEntity);
-		GraphicsComponent& graphicsComponent = m_Context.m_Registry.get<GraphicsComponent>(graphicEntity);
-
-		// Check if the global light properties need to be updated
-		if (lightStateComponent.m_UpdateGlobalLightProperties)
-		{
-			// Get the global light properties constant buffer
-			nabi::Rendering::ConstantBuffer const globalLightPropertiesConstantBuffer =
-				graphicsComponent.m_ConstantBuffers.at(nabi::Rendering::ConstantBufferIndex::PerGlobalLightingChange);
-			nabi::Rendering::PerGlobalLightingChange perGlobalLightChangeConstantBufferData;
-
-			// Grab the data
-			perGlobalLightChangeConstantBufferData.m_AmbientIntensity = lightStateComponent.m_AmbientIntensity;
-			perGlobalLightChangeConstantBufferData.m_DiffuseIntensity = lightStateComponent.m_DiffuseIntensity;
-			perGlobalLightChangeConstantBufferData.m_SpecularAttenuation = lightStateComponent.m_SpecularAttenuation;
-			perGlobalLightChangeConstantBufferData.m_SpecularIntensity = lightStateComponent.m_SpecularIntensity;
-
-			// Update the constant buffer
-			m_Context.m_RenderCommand->UpdateConstantBuffer(globalLightPropertiesConstantBuffer, &perGlobalLightChangeConstantBufferData);
-			lightStateComponent.m_UpdateGlobalLightProperties = false;
-		}
 
 		// Check if the lights need to be updated
 		if (lightStateComponent.m_UpdateLights)
 		{
+			// Cache the graphics component
+			GraphicsComponent& graphicsComponent = m_Context.m_Registry.get<GraphicsComponent>(graphicEntity);
+
 			// Get the light constant buffer
 			nabi::Rendering::ConstantBuffer const lightConstantBuffer = 
 				graphicsComponent.m_ConstantBuffers.at(nabi::Rendering::ConstantBufferIndex::PerLightChange);
@@ -92,13 +74,19 @@ namespace ecs
 				.each([&](auto const& transformComponent, auto const& directionalLightComponent)
 					{
 						nabi::Rendering::PerLightChange& light = lightConstantBufferData.at(currentLightCount);
+
+						// Directional light
 						light.m_Position = transformComponent.m_Position;
 						light.m_Direction = directionalLightComponent.m_Direction;
 						light.m_Colour = directionalLightComponent.m_Colour;
 						light.m_Intensity = directionalLightComponent.m_Intensity;
 
+						// Defaults (things a DirectionalLight doesn't have but are in the PerLightChange constant buffer)
 						light.m_AttenuationRadius = 1.0f;
 						light.m_SpotAngle = 1.0f;
+
+						// Light properties
+						AssignLightingProperties(light, directionalLightComponent);
 						
 						++currentLightCount;
 					});
@@ -128,6 +116,14 @@ namespace ecs
 			m_Context.m_RenderCommand->UpdateConstantBuffer(lightConstantBuffer, lightConstantBufferData.data());
 			lightStateComponent.m_UpdateLights = false;
 		}
+	}
+
+	void LightingSystem::AssignLightingProperties(nabi::Rendering::PerLightChange& perLightChangeConstantBuffer, LightingProperties const& lightProperties) const
+	{
+		perLightChangeConstantBuffer.m_AmbientIntensity = lightProperties.m_AmbientIntensity;
+		perLightChangeConstantBuffer.m_DiffuseIntensity = lightProperties.m_DiffuseIntensity;
+		perLightChangeConstantBuffer.m_SpecularAttenuation = lightProperties.m_SpecularAttenuation;
+		perLightChangeConstantBuffer.m_SpecularIntensity = lightProperties.m_SpecularIntensity;
 	}
 
 	void LightingSystem::OnLightCreated(entt::registry& /*registry*/, entt::entity /*entity*/) const

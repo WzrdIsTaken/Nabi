@@ -6,7 +6,12 @@ namespace ecs
 	struct LightStateComponent;
 
 	struct DirectionalLightComponent;
+	struct LightingProperties;
 } // namespace ecs
+namespace nabi::Rendering
+{
+	struct PerLightChange;
+} // namespace nabi::Rendering
 
 namespace ecs
 {
@@ -20,6 +25,8 @@ namespace ecs
 
 	private:
 		REFLECT_PRIVATES(LightingSystem)
+
+		void AssignLightingProperties(nabi::Rendering::PerLightChange& perLightChangeConstantBuffer, LightingProperties const& lightProperties) const;
 
 		void OnLightCreated(entt::registry& registry, entt::entity entity) const;
 		void OnLightUpdated(entt::registry& registry, entt::entity entity) const;

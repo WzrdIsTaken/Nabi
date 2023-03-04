@@ -55,6 +55,11 @@ namespace nabitest::Examples
 		lightComponent.m_Direction = { -10, 0, -20 };
 		lightComponent.m_Intensity = 1.0f;
 
+		lightComponent.m_AmbientIntensity = 1.0f;
+		lightComponent.m_DiffuseIntensity = 1.0f;
+		lightComponent.m_SpecularAttenuation = 1.0f;
+		lightComponent.m_SpecularIntensity = 1.0f;
+
 		// Add the light and transform component to the entity
 		m_Context.m_Registry.emplace<ecs::DirectionalLightComponent>(lightEntity, lightComponent);
 		m_Context.m_Registry.emplace<ecs::TransformComponent>(lightEntity, transformComponent);
@@ -117,7 +122,7 @@ namespace nabitest::Examples
 
 		// And the pixel shader for lighting
 		PixelShaderLoader& pixelShaderLoader = m_PixelShaderBank.GetLoader();
-		pixelShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerLightChange, ConstantBufferIndex::PerGlobalLightingChange });
+		pixelShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerLightChange });
 	}
 
 	TestDraw::TestAssetBank::~TestAssetBank()

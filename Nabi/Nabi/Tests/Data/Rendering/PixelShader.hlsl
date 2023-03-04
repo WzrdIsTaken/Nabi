@@ -10,19 +10,16 @@ struct Light
     float m_Intensity;
     float m_SpotAngle;
     float m_AttenuationRadius;
+    
+    float m_AmbientIntensity;
+    float m_DiffuseIntensity;
+    float m_SpecularAttenuation;
+    float m_SpecularIntensity;
 };
 
 cbuffer PerLightChange : register(b0)
 {
     Light m_DirectionalLight;
-};
-
-cbuffer PerGlobalLightingPropertyChange : register(b1)
-{
-    float m_AmbientIntensity;
-    float m_DiffuseIntensity;
-    float m_SpecularAttenuation;
-    float m_SpecularIntensity;
 };
 
 struct PSInput
@@ -42,13 +39,13 @@ float4 main(PSInput psIn) : SV_TARGET
     
     // Ambient
     const float ambientStrength = 0.1f;
-    float3 ambientLight = m_DirectionalLight.m_Colour * ambientStrength * m_AmbientIntensity;
+    float3 ambientLight = m_DirectionalLight.m_Colour * ambientStrength * m_DirectionalLight.m_AmbientIntensity;
     
      // Diffuse
     float diffuseFactor = dot(normalize(psIn.m_Normal), -m_DirectionalLight.m_Direction);
     if (diffuseFactor > 0)
     {
-        diffuseLight = m_DirectionalLight.m_Colour * diffuseFactor * m_DiffuseIntensity;
+        diffuseLight = m_DirectionalLight.m_Colour * diffuseFactor * m_DirectionalLight.m_DiffuseIntensity;
 
 		// Specular
         float3 vertexToCamera = normalize(psIn.m_CameraWorldPosition - psIn.m_WorldPosition);
@@ -57,8 +54,8 @@ float4 main(PSInput psIn) : SV_TARGET
 
         if (specularFactor > 0)
         {
-            specularFactor = pow(specularFactor, m_SpecularAttenuation);
-            specularLight = m_DirectionalLight.m_Colour * specularFactor * m_SpecularIntensity;
+            specularFactor = pow(specularFactor, m_DirectionalLight.m_SpecularAttenuation);
+            specularLight = m_DirectionalLight.m_Colour * specularFactor * m_DirectionalLight.m_SpecularIntensity;
         }
     }
     
