@@ -203,9 +203,6 @@
     <Filter Include="ECS\Inc\CoreSingletonComponents">
       <UniqueIdentifier>{6422b455-b88f-41c2-8fdd-3d08c30fb191}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ECS\Src\CoreSingletonComponents">
-      <UniqueIdentifier>{e15dfebe-17fc-4de0-bd4a-6d1d05050f4c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -320,9 +317,6 @@
     <ClCompile Include="ECS\Src\CoreComponents\CameraComponent.cpp">
       <Filter>ECS\Src\CoreComponents</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Src\CoreComponents\GraphicsComponent.cpp">
-      <Filter>ECS\Src\CoreComponents</Filter>
-    </ClCompile>
     <ClCompile Include="Rendering\Src\Buffers\ConstantBuffer.cpp">
       <Filter>Rendering\Src\Buffers</Filter>
     </ClCompile>
@@ -352,9 +346,6 @@
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp">
       <Filter>ECS\Src\CoreSystems</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\Src\CoreSingletonComponents\LightStateComponent.cpp">
-      <Filter>ECS\Src\CoreSingletonComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -554,9 +545,6 @@
     <ClInclude Include="ECS\Inc\CoreComponents\CameraComponent.h">
       <Filter>ECS\Inc\CoreComponents</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\Inc\CoreComponents\GraphicsComponent.h">
-      <Filter>ECS\Inc\CoreComponents</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\Inc\Model\Mesh.h">
       <Filter>Rendering\Inc\Model</Filter>
     </ClInclude>
@@ -580,6 +568,9 @@
       <Filter>ECS\Inc\CoreSystems</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\LightStateComponent.h">
+      <Filter>ECS\Inc\CoreSingletonComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h">
       <Filter>ECS\Inc\CoreSingletonComponents</Filter>
     </ClInclude>
   </ItemGroup>

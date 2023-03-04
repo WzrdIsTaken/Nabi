@@ -3,8 +3,8 @@
 #include "CoreSystems\LightingSystem.h"
 
 #include "CoreComponents\LightComponent.h"
-#include "CoreComponents\GraphicsComponent.h"
 #include "CoreComponents\TransformComponent.h"
+#include "CoreSingletonComponents\GraphicsComponent.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
 
 namespace ecs

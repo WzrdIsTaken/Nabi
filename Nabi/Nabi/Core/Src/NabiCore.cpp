@@ -3,7 +3,7 @@
 #include "NabiCore.h"
 
 #include "CoreComponents\CameraComponent.h"
-#include "CoreComponents\GraphicsComponent.h"
+#include "CoreSingletonComponents\GraphicsComponent.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
 #include "EntityCreator.h"
 #include "InitSettings.h"

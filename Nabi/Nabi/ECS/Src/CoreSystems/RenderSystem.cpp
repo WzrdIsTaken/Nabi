@@ -4,9 +4,9 @@
 
 #include "CoreComponents\CameraComponent.h"
 #include "CoreComponents\EntityInfoComponent.h"
-#include "CoreComponents\GraphicsComponent.h"
 #include "CoreComponents\ModelComponent.h"
 #include "CoreComponents\TransformComponent.h"
+#include "CoreSingletonComponents\GraphicsComponent.h"
 #include "DirectXUtils.h"
 #include "ResourceWrappers.h"
 

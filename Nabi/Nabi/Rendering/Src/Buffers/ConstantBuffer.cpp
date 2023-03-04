@@ -4,7 +4,7 @@
 #include "Buffers\ConstantBuffer.h"
 
 #include "Context.h"
-#include "CoreComponents\GraphicsComponent.h"
+#include "CoreSingletonComponents\GraphicsComponent.h"
 
 namespace nabi::Rendering
 {
