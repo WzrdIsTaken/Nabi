@@ -24,15 +24,6 @@ namespace ecs
 		MANAGE_LIGHT_LISTENERS(on_construct, connect, LightingSystem::OnLightCreated);
 		MANAGE_LIGHT_LISTENERS(on_update, connect, LightingSystem::OnLightUpdated);
 		MANAGE_LIGHT_LISTENERS(on_destroy, connect, LightingSystem::OnLightDestroyed);
-		
-		//m_Context.m_Registry.emplace<DirectionalLightComponent>(m_Context.m_Registry.create());
-		
-		//m_Context.m_Registry.emplace<ecs::DirectionalLightComponent>(m_Context.m_Registry.create());
-		// CURRENT TODO - work out why this listeners arent being called
-		// Also, the update event needs to be for either the *light or transform* component was changed
-		// ^^ ASKED THIS IN QUESTION 
-
-		// stuff in TestDraw
 	}
 
 	LightingSystem::~LightingSystem()

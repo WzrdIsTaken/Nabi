@@ -7,7 +7,7 @@
 namespace nabitest::ECS
 {
 	REFLECT_SYSTEM_BEGIN(MockSystem, "MockSystem")
-		RELFECT_SYSTEM_PROPERTY(MockSystem::m_MockSystemData, "MockSystemData")
+		REFLECT_SYSTEM_PROPERTY(MockSystem::m_MockSystemData, "MockSystemData")
 	RELFECT_SYSTEM_END(MockSystem)
 } // namespace nabitest::ECS
 

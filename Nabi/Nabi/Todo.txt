@@ -8,10 +8,17 @@ Current:
 
 // --- High Priority ---
 
-- Add new 'CoreSingletonComponents' folder/filter for graphics/io components. delete the cpp's of these components and the src folder/filter if not needed
-- namespace ecs::SingletonComponents ?
 - 'reflect' spelt wrong with 'reflect system property' macro - rename!
 - see like the playground proj can have a 'common' hlsl file with buffers etc.
+
+//m_Context.m_Registry.emplace<DirectionalLightComponent>(m_Context.m_Registry.create());
+		
+		//m_Context.m_Registry.emplace<ecs::DirectionalLightComponent>(m_Context.m_Registry.create());
+		// CURRENT TODO - work out why this listeners arent being called
+		// Also, the update event needs to be for either the *light or transform* component was changed
+		// ^^ ASKED THIS IN QUESTION 
+
+		// stuff in TestDraw
 
 - need a camera system
 - the stuff in nabi core setting up the camera should go in there
@@ -34,6 +41,7 @@ Current:
 
 Structure Stuff
 
+- namespace ecs::SingletonComponents ?
 - Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
   (acc i think this is ok on the stack?)
 
@@ -60,6 +68,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- Add new 'CoreSingletonComponents' folder/filter for graphics/io components. delete the cpp's of these components and the src folder/filter if not needed
 - Add the catagory infront of all logging statements. Eg [Rendering] msg or [Reflection] msg - should this be a macro?
 - Learn rendering! (im still torn between directx and opengl.. once get an answer from uni hopefully things will become clearer)
 - Direct X namespace as dx?

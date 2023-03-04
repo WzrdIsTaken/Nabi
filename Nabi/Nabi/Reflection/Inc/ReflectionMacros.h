@@ -133,10 +133,10 @@
 			.func<&method>(entt::hashed_string(reflectedName))
 
 // Properties
-#define RELFECT_SYSTEM_PROPERTY_DEFAULT(member) \
+#define REFLECT_SYSTEM_PROPERTY_DEFAULT(member) \
 			.data<&member>(entt::hashed_string(#member))
 
-#define RELFECT_SYSTEM_PROPERTY(member, reflectedName) \
+#define REFLECT_SYSTEM_PROPERTY(member, reflectedName) \
 			.data<&member>(entt::hashed_string(reflectedName))
 
 // End
