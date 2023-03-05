@@ -109,16 +109,10 @@ namespace nabi
 		// --- Create the camera ---
 		ecs::CameraComponent cameraComponent;
 
-		// TEST BEGIN
-		dx::XMMATRIX projMat = dx::XMMatrixPerspectiveFovLH(dx::XM_PIDIV4, 800.0f / 600.0f, 0.1f, 100.0f);
-		dx::XMMATRIX viewMat = dx::XMMatrixTranslation(0, 0, 6);
-
-		dx::XMStoreFloat4x4(&cameraComponent.m_Projection, projMat);
-		dx::XMStoreFloat4x4(&cameraComponent.m_View, viewMat);
-
-		cameraComponent.m_Position = { 0, 0, 0 };
-		cameraComponent.m_Target   = { 0, 0, 1 };
-		// TEST END
+		ecs::CameraHelpers::DefaultCameraValuesSettings defaultCameraSettings;
+		defaultCameraSettings.m_WindowWidth  = static_cast<float>(m_DXObjects.m_Viewport.Width);
+		defaultCameraSettings.m_WindowHeight = static_cast<float>(m_DXObjects.m_Viewport.Height);
+		ecs::CameraHelpers::DefaultCameraValues(cameraComponent, defaultCameraSettings);
 
 		// --- Create the graphics component ---
 		ecs::GraphicsComponent graphicsComponent;

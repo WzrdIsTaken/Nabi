@@ -8,7 +8,9 @@ Current:
 
 // --- High Priority ---
 
-- 'reflect' spelt wrong with 'reflect system property' macro - rename!
+- actually pixel shader might need to take in an array of lights..? what happens if we have two lights?
+	- two lights is acc fine. ngl in all off my projects i wont want complex lighting, so i think what we've got is ok
+
 - see like the playground proj can have a 'common' hlsl file with buffers etc.
 
 //m_Context.m_Registry.emplace<DirectionalLightComponent>(m_Context.m_Registry.create());
@@ -29,7 +31,7 @@ Current:
 - Fix all warnings / disable those we dont care about
 - Forward declare the enums (PixelShader, VertexShader) or switch to enum class
 
-- Comment up all rendering code
+- Comment up all rendering code (also switch over all comment style - doxygen? im not really a big fan of the xml now i know i can change it)
 - Write rendering tests
 - Get sam to review rendering code and see any improvements
 
@@ -68,6 +70,8 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- storing the init settings is kinda dumb. work out a better solution with getting hwnd
+- 'reflect' spelt wrong with 'reflect system property' macro - rename!
 - Add new 'CoreSingletonComponents' folder/filter for graphics/io components. delete the cpp's of these components and the src folder/filter if not needed
 - Add the catagory infront of all logging statements. Eg [Rendering] msg or [Reflection] msg - should this be a macro?
 - Learn rendering! (im still torn between directx and opengl.. once get an answer from uni hopefully things will become clearer)
