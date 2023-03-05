@@ -17,13 +17,13 @@ namespace objl
 
 namespace nabi::Rendering
 {
-	struct Mesh
+	struct Mesh final
 	{
 		IndexBuffer m_IndexBuffer;
 		VertexBuffer m_VertexBuffer;
 	};
 
-	struct MeshData
+	struct MeshData final
 	{
 		std::vector<dx::XMFLOAT3> m_Vertices;
 		std::vector<dx::XMFLOAT3> m_Normals;

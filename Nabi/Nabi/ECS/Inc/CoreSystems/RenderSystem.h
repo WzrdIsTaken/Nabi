@@ -3,15 +3,16 @@
 
 namespace ecs
 {
-	class RenderSystem3D final : public nabi::ECS::SystemBase
+	class RenderSystem final : public nabi::ECS::SystemBase
 	{
 	public:
 		using SystemBase::SystemBase;
 
-		void Render(/*TODO - game time?*/);
+		void Render3D(/*TODO - game time?*/);
+		void Render2D(/*TODO - game time?*/);
 
 	private:
-		REFLECT_PRIVATES(RenderSystem3D)
+		REFLECT_PRIVATES(RenderSystem)
 
 #ifdef USE_DEBUG_UTILS
 		void DebugTraceOutput(entt::entity const entity) const;

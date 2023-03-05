@@ -92,7 +92,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\stb;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -114,7 +114,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\stb;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -135,7 +135,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\stb;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -154,7 +154,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\stb;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -176,8 +176,7 @@
     <ClCompile Include="ECS\Src\CoreComponents\SpriteComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\TransformComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp" />
-    <ClCompile Include="ECS\Src\CoreSystems\RenderSystem3D.cpp" />
-    <ClCompile Include="ECS\Src\CoreSystems\RenderSystem2D.cpp" />
+    <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp" />
     <ClCompile Include="ECS\Src\SystemBase.cpp" />
     <ClCompile Include="Libraries\Src\pugixml\pugixml.cpp" />
     <ClCompile Include="Libraries\Src\WICTextureLoader\WICTextureLoader.cpp" />
@@ -196,6 +195,7 @@
     <ClCompile Include="Rendering\Src\RenderCommand.cpp" />
     <ClCompile Include="Rendering\Src\Shaders\PixelShader.cpp" />
     <ClCompile Include="Rendering\Src\Shaders\VertexShader.cpp" />
+    <ClCompile Include="Rendering\Src\Sprite\Sprite.cpp" />
     <ClCompile Include="Rendering\Src\Textures\Texture.cpp" />
     <ClCompile Include="Tests\Fixtures\DebugTests\LoggingTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp" />
@@ -238,14 +238,14 @@
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\LightStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\LightingSystem.h" />
-    <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem3D.h" />
-    <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem2D.h" />
+    <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem.h" />
     <ClInclude Include="ECS\Inc\ECSGlobals.h" />
     <ClInclude Include="ECS\Inc\SystemBase.h" />
     <ClInclude Include="Libraries\Inc\entt\entt.h" />
     <ClInclude Include="Libraries\Inc\OBJLoader\OBJLoader.h" />
     <ClInclude Include="Libraries\Inc\pugixml\pugiconfig.hpp" />
     <ClInclude Include="Libraries\Inc\pugixml\pugixml.hpp" />
+    <ClInclude Include="Libraries\Inc\stb\stb_image.h" />
     <ClInclude Include="Libraries\Inc\WICTextureLoader\WICTextureLoader.h" />
     <ClInclude Include="Patterns\Inc\Singleton.h" />
     <ClInclude Include="Reflection\Inc\BaseTypeReflection.h" />
@@ -269,6 +269,7 @@
     <ClInclude Include="Rendering\Inc\RenderCommand.h" />
     <ClInclude Include="Rendering\Inc\Shaders\PixelShader.h" />
     <ClInclude Include="Rendering\Inc\Shaders\VertexShader.h" />
+    <ClInclude Include="Rendering\Inc\Sprite\Sprite.h" />
     <ClInclude Include="Rendering\Inc\Textures\Sampler.h" />
     <ClInclude Include="Rendering\Inc\Textures\Texture.h" />
     <ClInclude Include="resource.h" />
@@ -315,7 +316,7 @@
     <ResourceCompile Include="Nabi.rc" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Tests\Data\Rendering\PixelShader.hlsl">
+    <FxCompile Include="Tests\Data\Rendering\PixelShader3D.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -325,7 +326,27 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="Tests\Data\Rendering\VertexShader.hlsl">
+    <FxCompile Include="Tests\Data\Rendering\PixelShader2D.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Tests\Data\Rendering\VertexShader3D.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Tests\Data\Rendering\VertexShader2D.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>

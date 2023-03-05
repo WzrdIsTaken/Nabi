@@ -8,8 +8,15 @@ Current:
 
 // --- High Priority ---
 
+- see notebook. got some refacting do to for a nice 2d system. 
+- do we need stb image? did we use if? if not, can remove
+
 - actually pixel shader might need to take in an array of lights..? what happens if we have two lights?
 	- two lights is acc fine. ngl in all off my projects i wont want complex lighting, so i think what we've got is ok
+
+- should the authoring data for sprites / text be "SpriteCompoent" and "TextComponent", because they will both be images under the hood?
+
+- need a skybox
 
 - see like the playground proj can have a 'common' hlsl file with buffers etc.
 
@@ -31,7 +38,7 @@ Current:
 - Fix all warnings / disable those we dont care about
 - Forward declare the enums (PixelShader, VertexShader) or switch to enum class
 
-- Comment up all rendering code (also switch over all comment style - doxygen? im not really a big fan of the xml now i know i can change it)
+- Comment up all rendering code (also switch over all comment style - doxygen? im not really a big fan of the xml now i know i can change it) (also can xmlparser methods be const?)
 - Write rendering tests
 - Get sam to review rendering code and see any improvements
 

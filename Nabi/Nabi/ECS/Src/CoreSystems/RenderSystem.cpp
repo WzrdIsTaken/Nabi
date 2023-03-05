@@ -1,6 +1,6 @@
 #include "Core.h"
 
-#include "CoreSystems\RenderSystem3D.h"
+#include "CoreSystems\RenderSystem.h"
 
 #include "CoreComponents\CameraComponent.h"
 #include "CoreComponents\EntityInfoComponent.h"
@@ -12,10 +12,10 @@
 
 namespace ecs
 {
-	REFLECT_SYSTEM_BEGIN_DEFAULT(RenderSystem3D)
-	RELFECT_SYSTEM_END(RenderSystem3D)
+	REFLECT_SYSTEM_BEGIN_DEFAULT(RenderSystem)
+	RELFECT_SYSTEM_END(RenderSystem)
 
-	void RenderSystem3D::Render()
+	void RenderSystem::Render3D()
 	{
 		// Get the graphics entity. This stores the camera, constant buffers, etc
 		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
@@ -65,7 +65,7 @@ namespace ecs
 #ifdef USE_DEBUG_UTILS	
 				entt::entity const entity,
 #endif // USE_DEBUG_UTILS
-				auto& transformComponent, auto const& meshComponent, auto const& shaderComponent, auto const& textureComponent)
+				auto const& transformComponent, auto const& meshComponent, auto const& shaderComponent, auto const& textureComponent)
 				{
 					// Update the per mesh constant buffer
 					{
@@ -124,8 +124,19 @@ namespace ecs
 				});
 	}
 
+	void RenderSystem::Render2D()
+	{
+		/*
+		m_Context.m_Registry.view<ecs::TransformComponent, ecs::SpriteComponent, ecs::ShaderComponent, ecs::TextureComponent>()
+			.each([&](auto const & transformComponent, auto const& spriteComponent, auto const& shaderComponent, auto const& textureComponent)
+				{
+
+				});
+		*/
+	}
+
 #ifdef USE_DEBUG_UTILS
-	void RenderSystem3D::DebugTraceOutput(entt::entity const entity) const
+	void RenderSystem::DebugTraceOutput(entt::entity const entity) const
 	{
 		// Work out what the resultant matrix should be
 		dx::XMMATRIX result;
