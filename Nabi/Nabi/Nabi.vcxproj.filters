@@ -308,7 +308,7 @@
     <ClCompile Include="Tests\Src\Examples\TestDraw.cpp">
       <Filter>Tests\Src\Examples</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp">
+    <ClCompile Include="ECS\Src\CoreSystems\RenderSystem3D.cpp">
       <Filter>ECS\Src\CoreSystems</Filter>
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreComponents\TransformComponent.cpp">
@@ -345,6 +345,12 @@
       <Filter>ECS\Src\CoreComponents</Filter>
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp">
+      <Filter>ECS\Src\CoreSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\SpriteComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreSystems\RenderSystem2D.cpp">
       <Filter>ECS\Src\CoreSystems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -536,7 +542,7 @@
     <ClInclude Include="Tests\Inc\Examples\TestDraw.h">
       <Filter>Tests\Inc\Examples</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem.h">
+    <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem3D.h">
       <Filter>ECS\Inc\CoreSystems</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreComponents\TransformComponent.h">
@@ -572,6 +578,12 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h">
       <Filter>ECS\Inc\CoreSingletonComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\SpriteComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem2D.h">
+      <Filter>ECS\Inc\CoreSystems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

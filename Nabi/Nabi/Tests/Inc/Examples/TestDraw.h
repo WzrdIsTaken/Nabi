@@ -4,7 +4,8 @@
 #include "IExample.h"
 
 #include "AssetBank.h"
-#include "CoreSystems\RenderSystem.h"
+#include "CoreSystems\RenderSystem3D.h"
+#include "CoreSystems\RenderSystem2D.h"
 #include "CoreSystems\LightingSystem.h"
 #include "Model\Mesh.h"
 #include "Shaders\PixelShader.h"
@@ -51,7 +52,8 @@ namespace nabitest::Examples
 		};
 
 		nabi::Context& m_Context;
-		ecs::RenderSystem m_RenderSystem;
+		ecs::RenderSystem3D m_RenderSystem3D;
+		ecs::RenderSystem2D m_RenderSystem2D;
 		ecs::LightingSystem m_LightingSystem;
 
 		std::unique_ptr<TestAssetBank> m_AssetBank;

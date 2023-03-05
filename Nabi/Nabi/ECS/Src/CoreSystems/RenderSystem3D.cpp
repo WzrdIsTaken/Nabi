@@ -1,6 +1,6 @@
 #include "Core.h"
 
-#include "CoreSystems\RenderSystem.h"
+#include "CoreSystems\RenderSystem3D.h"
 
 #include "CoreComponents\CameraComponent.h"
 #include "CoreComponents\EntityInfoComponent.h"
@@ -12,10 +12,10 @@
 
 namespace ecs
 {
-	REFLECT_SYSTEM_BEGIN_DEFAULT(RenderSystem)
-	RELFECT_SYSTEM_END(RenderSystem)
+	REFLECT_SYSTEM_BEGIN_DEFAULT(RenderSystem3D)
+	RELFECT_SYSTEM_END(RenderSystem3D)
 
-	void RenderSystem::Render()
+	void RenderSystem3D::Render()
 	{
 		// Get the graphics entity. This stores the camera, constant buffers, etc
 		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
@@ -125,7 +125,7 @@ namespace ecs
 	}
 
 #ifdef USE_DEBUG_UTILS
-	void RenderSystem::DebugTraceOutput(entt::entity const entity) const
+	void RenderSystem3D::DebugTraceOutput(entt::entity const entity) const
 	{
 		// Work out what the resultant matrix should be
 		dx::XMMATRIX result;

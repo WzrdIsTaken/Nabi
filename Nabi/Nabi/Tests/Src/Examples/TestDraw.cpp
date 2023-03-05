@@ -15,7 +15,8 @@ namespace nabitest::Examples
 
 	TestDraw::TestDraw(nabi::Context& context)
 		: m_Context(context)
-		, m_RenderSystem(context, "RenderId"_hs, "GroupId"_hs)
+		, m_RenderSystem3D(context, "Render3DId"_hs, "GroupId"_hs)
+		, m_RenderSystem2D(context, "Render2DId"_hs, "GroupId"_hs)
 		, m_LightingSystem(context, "LightingId"_hs, "GroupId"_hs)
 		, m_AssetBank(std::make_unique<TestAssetBank>(context))
 	{
@@ -94,7 +95,8 @@ namespace nabitest::Examples
 	bool TestDraw::Render()
 	{
 		m_LightingSystem.Render();
-		m_RenderSystem.Render();
+		m_RenderSystem3D.Render();
+		m_RenderSystem2D.Render();
 
 		return true;
 	}
