@@ -9,7 +9,6 @@ Current:
 // --- High Priority ---
 
 - see notebook. got some refacting do to for a nice 2d system. 
-- do we need stb image? did we use if? if not, can remove
 
 - actually pixel shader might need to take in an array of lights..? what happens if we have two lights?
 	- two lights is acc fine. ngl in all off my projects i wont want complex lighting, so i think what we've got is ok
@@ -40,7 +39,7 @@ Current:
 
 - Comment up all rendering code (also switch over all comment style - doxygen? im not really a big fan of the xml now i know i can change it) (also can xmlparser methods be const?)
 - Write rendering tests
-- Get sam to review rendering code and see any improvements
+- Get sam to review rendering code and see any improvements / make sure everything is clean
 
 - Make sure to include some good logging when the direct x render stuff is starting up / running
 
@@ -77,6 +76,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- do we need stb image? did we use if? if not, can remove
 - fix that direct x warning spamming the console (asked sam)
 - storing the init settings is kinda dumb. work out a better solution with getting hwnd
 - 'reflect' spelt wrong with 'reflect system property' macro - rename!

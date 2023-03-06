@@ -197,9 +197,6 @@
     <Filter Include="ECS\Inc\CoreSingletonComponents">
       <UniqueIdentifier>{6422b455-b88f-41c2-8fdd-3d08c30fb191}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Libraries\Inc\stb">
-      <UniqueIdentifier>{0dbb8c3c-5478-4901-a99c-d780d09b4bd8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Rendering\Inc\Drawables">
       <UniqueIdentifier>{420b26df-c250-4cab-b87b-d83c053d0458}</UniqueIdentifier>
     </Filter>
@@ -569,9 +566,6 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h">
       <Filter>ECS\Inc\CoreSingletonComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Libraries\Inc\stb\stb_image.h">
-      <Filter>Libraries\Inc\stb</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\Inc\Drawables\RenderBuffers.h">
       <Filter>Rendering\Inc\Drawables</Filter>
