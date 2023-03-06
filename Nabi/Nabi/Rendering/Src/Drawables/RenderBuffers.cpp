@@ -1,7 +1,7 @@
 #include "EngineCore.h"
 #include "WinCore.h"
 
-#include "Model\Mesh.h"
+#include "Drawables\RenderBuffers.h"
 
 #include "OBJLoader.h"
 
@@ -12,7 +12,37 @@
 
 namespace nabi::Rendering
 {
-	MeshLoader::ResourceType MeshLoader::operator()(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT
+	RenderBufferLoader::ResourceType RenderBufferLoader::operator()(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT
+	{
+		ResourceType result = nullptr;
+
+		switch (m_LoadMode)
+		{
+		case LoadMode::_3D:
+			result = Load3DMesh(resourcePath, context);
+			break;
+		case LoadMode::_2D:
+			result = Load2DSprite(resourcePath, context);
+			break;
+		case LoadMode::Undefined:
+			LOG(LOG_PREP, LOG_ERROR, LOG_CATEGORY_RENDERING << "LoadMode is undefined! Did you forget to set it?" << ENDLINE);
+			[[fallthrough]];
+		default:
+			ASSERT_FAIL("Unspecified LoadMode!");
+			break;
+		}
+
+		return result;
+	}
+
+	void RenderBufferLoader::SetLoadMode(LoadMode const loadMode) NABI_NOEXCEPT
+	{
+		m_LoadMode = loadMode;
+	}
+
+#pragma region 3D
+
+	std::shared_ptr<Mesh> RenderBufferLoader::Load3DMesh(std::string const& resourcePath, nabi::Context const& context) const
 	{
 		ResourceType mesh = std::make_shared<Mesh>();
 		MeshData meshData;
@@ -32,8 +62,8 @@ namespace nabi::Rendering
 			for (objl::Vertex const& vertex : loader.LoadedVertices)
 			{
 				dx::XMFLOAT3 const vertice = ObjlVector3ToDxFloat3(vertex.Position);
-				dx::XMFLOAT2 const uv      = dx::XMFLOAT2(vertex.TextureCoordinate.X, 1.0f - vertex.TextureCoordinate.Y);
-				dx::XMFLOAT3 const normal  = ObjlVector3ToDxFloat3(vertex.Normal);
+				dx::XMFLOAT2 const uv = dx::XMFLOAT2(vertex.TextureCoordinate.X, 1.0f - vertex.TextureCoordinate.Y);
+				dx::XMFLOAT3 const normal = ObjlVector3ToDxFloat3(vertex.Normal);
 
 				meshData.m_Vertices.push_back(vertice);
 				meshData.m_Uvs.push_back(uv);
@@ -62,15 +92,26 @@ namespace nabi::Rendering
 		return mesh;
 	}
 
-	dx::XMFLOAT2 MeshLoader::ObjlVector2ToDxFloat2(objl::Vector2 const& vector2) const NABI_NOEXCEPT
+	dx::XMFLOAT2 RenderBufferLoader::ObjlVector2ToDxFloat2(objl::Vector2 const& vector2) const NABI_NOEXCEPT
 	{
 		dx::XMFLOAT2 const float2 = dx::XMFLOAT2(vector2.X, vector2.Y);
 		return float2;
 	}
 
-	dx::XMFLOAT3 MeshLoader::ObjlVector3ToDxFloat3(objl::Vector3 const& vector3) const NABI_NOEXCEPT
+	dx::XMFLOAT3 RenderBufferLoader::ObjlVector3ToDxFloat3(objl::Vector3 const& vector3) const NABI_NOEXCEPT
 	{
 		dx::XMFLOAT3 const float3 = dx::XMFLOAT3(vector3.X, vector3.Y, vector3.Z);
 		return float3;
 	}
+
+#pragma endregion
+
+#pragma region 2D
+
+	std::shared_ptr<Sprite> RenderBufferLoader::Load2DSprite(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT
+	{
+		return std::shared_ptr<Sprite>();
+	}
+
+#pragma endregion
 } // namespace nabi::Rendering

@@ -3,9 +3,8 @@
 #include "Examples\TestDraw.h"
 
 #include "Containers\Colour.h"
+#include "CoreComponents\DrawableComponents.h"
 #include "CoreComponents\LightComponent.h"
-#include "CoreComponents\ModelComponent.h"
-#include "CoreComponents\SpriteComponent.h"
 #include "CoreComponents\TransformComponent.h"
 
 #ifdef RUN_TESTS
@@ -74,20 +73,21 @@ namespace nabitest::Examples
 			// --- Create the test entity ---
 			entt::entity testEntity = m_Context.m_Registry.create();
 
+			// Create a sprite component
+			ecs::SpriteComponent spriteComponent = {};
+			spriteComponent.m_ImagePath = "Tests/Data/Rendering/ball_model.obj";
+			spriteComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
+			spriteComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
+
 			// Create transform component
 			ecs::TransformComponent transformComponent = {};
 			transformComponent.m_Position = { 0, 0, 0 };
 			transformComponent.m_Rotation = { 0, 0, 0 };
-			transformComponent.m_Scale    = { 1, 1, 1 };
+			transformComponent.m_Scale = { 1, 1, 1 };
 
-			// Add an image to the test entity
-			ecs::ImageComponent imageComponent = {};
-			imageComponent.m_ImagePath = "Tests/Data/Rendering/ball_texture.png";
-			imageComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
-			imageComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
-
+			// Add the model component and a transform to the entity
+			m_Context.m_Registry.emplace<ecs::SpriteComponent>(testEntity, spriteComponent);
 			m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
-			m_Context.m_Registry.emplace<ecs::ImageComponent>(testEntity, imageComponent);
 		}
 #pragma endregion
 
@@ -99,14 +99,7 @@ namespace nabitest::Examples
 
 	bool TestDraw::Update()
 	{
-		/*
-		m_Context.m_Registry.view<ecs::TransformComponent, ecs::DirectionalLightComponent>()
-			.each([&](entt::entity const entity, auto& transformComponent, auto& directionalLightComponent)
-		{
-		});
-		*/
-
-		m_Context.m_Registry.view<ecs::TransformComponent, ecs::MeshComponent>()
+		m_Context.m_Registry.view<ecs::TransformComponent, ecs::BufferComponent>()
 			.each([&](entt::entity const entity, auto& transformComponent, auto const& modelComponent)
 				{
 					float constexpr speed = 0.001f;
@@ -136,7 +129,7 @@ namespace nabitest::Examples
 		: AssetBank(context)
 
 		// Banks
-		, m_MeshBank(context)
+		, m_RenderBufferBank(context)
 		, m_PixelShaderBank(context)
 		, m_VertexShaderBank(context)
 		, m_TextureBank(context)
@@ -151,33 +144,7 @@ namespace nabitest::Examples
 	bool TestDraw::TestAssetBank::LoadAssets()
 	{
 		bool loadingSuccess = true;
-
-		using namespace nabi::Rendering;
-		VertexShaderLoader& vertexShaderLoader = m_VertexShaderBank.GetLoader();
-		PixelShaderLoader& pixelShaderLoader = m_PixelShaderBank.GetLoader();
-
-		// --- 3D --- 
-
-		// Need to setup the vertex shader bank loader for meshes
-		vertexShaderLoader.SetInputLayout(Layouts::c_MeshInputLayout);
-		vertexShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerFrame, ConstantBufferIndex::PerMesh });
-
-		// And the pixel shader for lighting
-		pixelShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerLightChange });
-
-		// Now load the models
 		loadingSuccess &= Load3DModels();
-
-		// --- 2D ---
-
-		// Set the vertex shader loader for sprites
-		vertexShaderLoader.SetInputLayout(Layouts::c_SpriteInputLayout);
-
-		// No constant buffers needed
-		vertexShaderLoader.SetConstantBuffers({});
-		pixelShaderLoader.SetConstantBuffers({});
-
-		// Load the sprites
 		loadingSuccess &= Load2DSprites();
 
 		return loadingSuccess;
@@ -185,7 +152,7 @@ namespace nabitest::Examples
 
 	bool TestDraw::TestAssetBank::UnloadAssets()
 	{
-		m_MeshBank.Clear();
+		m_RenderBufferBank.Clear();
 		m_PixelShaderBank.Clear();
 		m_VertexShaderBank.Clear();
 		m_TextureBank.Clear();
@@ -195,19 +162,30 @@ namespace nabitest::Examples
 
 	bool TestDraw::TestAssetBank::Load3DModels()
 	{
+		// Namespaces for clarity
+		using namespace nabi::Rendering;
+		using namespace nabi::Resource;
+
+		// Set the banks for meshes
+		VertexShaderLoader& vertexShaderLoader = m_VertexShaderBank.GetLoader();
+		vertexShaderLoader.SetInputLayout(Layouts::c_MeshInputLayout);
+		vertexShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerFrame, ConstantBufferIndex::PerMesh });
+
+		PixelShaderLoader& pixelShaderLoader = m_PixelShaderBank.GetLoader();
+		pixelShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerLightChange });
+
+		RenderBufferLoader& renderBufferLoader = m_RenderBufferBank.GetLoader();
+		renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_3D);
+
 		// Iterate through all the entities with model components
 		m_Context.m_Registry.view<ecs::ModelComponent>()
 			.each([&](entt::entity const entity, auto const& modelComponent)
 				{
-					// Namespaces for clarity
-					using namespace nabi::Rendering;
-					using namespace nabi::Resource;
-
 					// Mesh
-					ResourceRef<Mesh> const meshResource = m_MeshBank.LoadResource(modelComponent.m_MeshPath);
+					ResourceRef<Mesh> const meshResource = m_RenderBufferBank.LoadResource(modelComponent.m_MeshPath);
 
-					ecs::MeshComponent meshComponent = {};
-					meshComponent.m_MeshResource = meshResource;
+					ecs::BufferComponent meshComponent = {};
+					meshComponent.m_BufferResource = meshResource;
 
 					// Shaders
 					ResourceRef<PixelShader> const pixelShaderResource = m_PixelShaderBank.LoadResource(modelComponent.m_PixelShaderPath);
@@ -224,7 +202,7 @@ namespace nabitest::Examples
 					textureComponent.m_TextureResource = textureResource;
 
 					// Assign the components to the registery
-					m_Context.m_Registry.emplace_or_replace<ecs::MeshComponent>(entity, meshComponent);
+					m_Context.m_Registry.emplace_or_replace<ecs::BufferComponent>(entity, meshComponent);
 					m_Context.m_Registry.emplace_or_replace<ecs::ShaderComponent>(entity, shaderComponent);
 					m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
 				});
@@ -234,36 +212,24 @@ namespace nabitest::Examples
 
 	bool TestDraw::TestAssetBank::Load2DSprites()
 	{
-		// Iterate through all entities with sprite components
-		m_Context.m_Registry.view<ecs::ImageComponent>()
-			.each([&](entt::entity const entity, auto const& imageComponent)
+		// Set the banks for loading 2D sprites
+		using namespace nabi::Rendering;
+		
+		VertexShaderLoader& vertexShaderLoader = m_VertexShaderBank.GetLoader();
+		vertexShaderLoader.SetInputLayout(Layouts::c_SpriteInputLayout);
+		vertexShaderLoader.SetConstantBuffers({});
+
+		PixelShaderLoader& pixelShaderLoader = m_PixelShaderBank.GetLoader();
+		pixelShaderLoader.SetConstantBuffers({});
+
+		RenderBufferLoader& renderBufferLoader = m_RenderBufferBank.GetLoader();
+		renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_2D);
+
+		// Iterate through all the entities with sprite components
+		m_Context.m_Registry.view<ecs::SpriteComponent>()
+			.each([&](entt::entity const entity, auto const& spriteComponent)
 				{
-					// Namespaces for clarity
-					using namespace nabi::Rendering;
-					using namespace nabi::Resource;
-
-					// Sprite
-					ecs::SpriteComponent spriteComponent;
-					// nothing here just yet, but its needed as a tag
-
-					// Shaders
-					ResourceRef<PixelShader> const pixelShaderResource = m_PixelShaderBank.LoadResource(imageComponent.m_PixelShaderPath);
-					ResourceRef<VertexShader> const vertexShaderResource = m_VertexShaderBank.LoadResource(imageComponent.m_VertexShaderPath);
-
-					ecs::ShaderComponent shaderComponent = {};
-					shaderComponent.m_PixelShaderResource = pixelShaderResource;
-					shaderComponent.m_VertexShaderResource = vertexShaderResource;
-
-					// Texture
-					ResourceRef<Texture> const textureResource = m_TextureBank.LoadResource(imageComponent.m_ImagePath);
-
-					ecs::TextureComponent textureComponent = {};
-					textureComponent.m_TextureResource = textureResource;
-
-					// Assign the component to the registery
-					m_Context.m_Registry.emplace_or_replace<ecs::SpriteComponent>(entity, spriteComponent);
-					m_Context.m_Registry.emplace_or_replace<ecs::ShaderComponent>(entity, shaderComponent);
-					m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
+					// Next todo: load the sprites. come on ben, you got this
 				});
 
 		return true;

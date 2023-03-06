@@ -6,7 +6,7 @@
 #include "AssetBank.h"
 #include "CoreSystems\RenderSystem.h"
 #include "CoreSystems\LightingSystem.h"
-#include "Model\Mesh.h"
+#include "Drawables\RenderBuffers.h"
 #include "Shaders\PixelShader.h"
 #include "Shaders\VertexShader.h"
 #include "ResourceBank.h"
@@ -45,7 +45,7 @@ namespace nabitest::Examples
 			bool Load3DModels();
 			bool Load2DSprites();
 
-			nabi::Resource::ResourceBank<nabi::Rendering::Mesh, nabi::Rendering::MeshLoader, 1> m_MeshBank;
+			nabi::Resource::ResourceBank<nabi::Rendering::Mesh, nabi::Rendering::RenderBufferLoader, 1> m_RenderBufferBank;
 			nabi::Resource::ResourceBank<nabi::Rendering::PixelShader, nabi::Rendering::PixelShaderLoader, 2> m_PixelShaderBank;
 			nabi::Resource::ResourceBank<nabi::Rendering::VertexShader, nabi::Rendering::VertexShaderLoader, 2> m_VertexShaderBank;
 			nabi::Resource::ResourceBank<nabi::Rendering::Texture, nabi::Rendering::TextureLoader, 1> m_TextureBank;

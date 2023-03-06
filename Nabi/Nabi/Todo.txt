@@ -31,7 +31,7 @@ Current:
 
 - need a camera system
 - the stuff in nabi core setting up the camera should go in there
-- TODO lighting, screen res, moving the model eg pos.x = 500? reszing the screen
+- TODO lighting, screen res, moving the model eg pos.x = 500? reszing the screen (try o lighting)
 
 - Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
 
@@ -77,6 +77,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- fix that direct x warning spamming the console (asked sam)
 - storing the init settings is kinda dumb. work out a better solution with getting hwnd
 - 'reflect' spelt wrong with 'reflect system property' macro - rename!
 - Add new 'CoreSingletonComponents' folder/filter for graphics/io components. delete the cpp's of these components and the src folder/filter if not needed

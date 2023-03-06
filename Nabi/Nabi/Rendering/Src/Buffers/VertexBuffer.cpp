@@ -4,8 +4,8 @@
 #include "Buffers\VertexBuffer.h"
 
 #include "Context.h"
-#include "Model\Mesh.h"
-#include "Model\Vertex.h"
+#include "Drawables\RenderBuffers.h"
+#include "Drawables\Vertex.h"
 
 namespace nabi::Rendering
 {

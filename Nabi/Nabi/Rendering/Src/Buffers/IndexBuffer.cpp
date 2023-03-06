@@ -4,7 +4,7 @@
 #include "Buffers\IndexBuffer.h"
 
 #include "Context.h"
-#include "Model\Mesh.h"
+#include "Drawables\RenderBuffers.h"
 
 namespace nabi::Rendering
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include "Core.h"
 
-#include "Model\Mesh.h"
+#include "Drawables\RenderBuffers.h"
 #include "ResourceWrappers.h"
 #include "Shaders\PixelShader.h"
 #include "Shaders\VertexShader.h"
@@ -9,7 +9,7 @@
 
 namespace ecs
 {
-	// This component is assigned to entities in the xml (authoring data)
+	// These components are assigned to entities in the xml (authoring data)
 
 	struct ModelComponent final : public nabi::ECS::ComponentBase
 	{
@@ -27,14 +27,28 @@ namespace ecs
 		}
 	};
 
-	// It is then converted to these components (runtime data)
-
-	struct MeshComponent final : public nabi::ECS::ComponentBase
+	struct SpriteComponent final : public nabi::ECS::ComponentSettingsBase
 	{
-		nabi::Resource::ResourceRef<nabi::Rendering::Mesh> m_MeshResource;
+		std::string m_ImagePath;
+		std::string m_PixelShaderPath;
+		std::string m_VertexShaderPath;
 
-		MeshComponent()
-			: m_MeshResource{}
+		SpriteComponent()
+			: m_ImagePath("InvalidPath")
+			, m_PixelShaderPath("InvalidPath")
+			, m_VertexShaderPath("InvalidPath")
+		{
+		}
+	};
+
+	// They are then converted to these components (runtime data)
+
+	struct BufferComponent final : public nabi::ECS::ComponentBase
+	{
+		nabi::Resource::ResourceRef<nabi::Rendering::RenderBuffers> m_BufferResource;
+
+		BufferComponent()
+			: m_BufferResource{}
 		{
 		}
 	};

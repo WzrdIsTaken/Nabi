@@ -3,8 +3,8 @@
 #include "CoreSystems\RenderSystem.h"
 
 #include "CoreComponents\CameraComponent.h"
+#include "CoreComponents\DrawableComponents.h"
 #include "CoreComponents\EntityInfoComponent.h"
-#include "CoreComponents\ModelComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"
 #include "DirectXUtils.h"
@@ -60,12 +60,12 @@ namespace ecs
 		nabi::Rendering::PerMesh perMeshConstantBufferData;
 
 		// Loop through all the models
-		m_Context.m_Registry.view<TransformComponent, MeshComponent, ShaderComponent, TextureComponent>()
+		m_Context.m_Registry.view<TransformComponent, BufferComponent, ShaderComponent, TextureComponent>()
 			.each([&](
 #ifdef USE_DEBUG_UTILS	
 				entt::entity const entity,
 #endif // USE_DEBUG_UTILS
-				auto const& transformComponent, auto const& meshComponent, auto const& shaderComponent, auto const& textureComponent)
+				auto const& transformComponent, auto const& bufferComponent, auto const& shaderComponent, auto const& textureComponent)
 				{
 					// Update the per mesh constant buffer
 					{
@@ -99,7 +99,7 @@ namespace ecs
 					using namespace nabi::Resource;
 
 					// Get the model data
-					std::shared_ptr<Mesh const> const meshResource = meshComponent.m_MeshResource.GetResource();
+					std::shared_ptr<Mesh const> const meshResource = bufferComponent.m_BufferResource.GetResource();
 					IndexBuffer const& indexBuffer = meshResource->m_IndexBuffer;
 					VertexBuffer const& vertexBuffer = meshResource->m_VertexBuffer;
 					UINT const triangleCount = m_Context.m_RenderCommand->ExtractTriangleCountFromIndexBuffer(indexBuffer);
@@ -130,7 +130,31 @@ namespace ecs
 		m_Context.m_Registry.view<ecs::TransformComponent, ecs::SpriteComponent, ecs::ShaderComponent, ecs::TextureComponent>()
 			.each([&](auto const & transformComponent, auto const& spriteComponent, auto const& shaderComponent, auto const& textureComponent)
 				{
+					see notebook
+					im seeing a lot of overlap
+					going to have to refactor, but it will be worth it
+					get it working in isolation first thou
 
+					also going to have to go bak through entire project and make sure everything is cleaned up
+					ctrl f todo particaully in this 2d sprite stuff
+
+					--
+
+					could just have 1 render function, and then have a RenderableTypeComponent with an enum - Mesh, Sprite, Text(?)
+					the Render function switches off the type and eg calls the Set3DMatrixes function if the type is Mesh
+
+					also try ollies lighting
+
+					---
+
+					text idea a valid approach
+
+					this works internally but not if called from main??
+						void TestDraw::test()
+						{
+							entt::entity lightEntity = m_Context.m_Registry.create();
+							m_Context.m_Registry.emplace<ecs::DirectionalLightComponent>(lightEntity);
+						}
 				});
 		*/
 	}

@@ -39,6 +39,8 @@ namespace nabi::Rendering
 		float m_DiffuseIntensity;
 		float m_SpecularAttenuation;
 		float m_SpecularIntensity;
+
+		char /*const*/ c_Padding[16];
 	};
 } // namespace nabi::Rendering
 
