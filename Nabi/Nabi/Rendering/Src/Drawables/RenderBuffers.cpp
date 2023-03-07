@@ -108,9 +108,59 @@ namespace nabi::Rendering
 
 #pragma region 2D
 
-	std::shared_ptr<Sprite> RenderBufferLoader::Load2DSprite(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT
+	std::shared_ptr<Sprite> RenderBufferLoader::Load2DSprite(std::string const& /*resourcePath*/, nabi::Context const& context) const NABI_NOEXCEPT
 	{
-		return std::shared_ptr<Sprite>();
+		ResourceType sprite = std::make_shared<Sprite>();
+		SpriteData spriteData;
+
+		// For 2D, we don't need any special loading - we can just predefine the values
+
+		// Index
+		std::vector<UINT> const/*expr ):*/ indices2D =
+		{
+			// First triangle
+			0u, 1u, 2u,
+			// Second triangle
+			2u, 1u, 3u
+		};
+		spriteData.m_Triangles = indices2D;
+
+		// Vertices / uvs needed to be defined in counter-clockwise order
+		
+		// Vertex
+		std::vector<dx::XMFLOAT3> const/*expr :(*/ vertices2D =
+		{
+			// Bottom left
+			{ -1.0f, 1.0f, 0.0f  },
+			// Bottom right
+			{ 1.0f, 1.0f, 0.0f   },
+			// Top right
+			{ 1.0f, -1.0f, 0.0f  },
+			// Top left
+			{ -1.0f, -1.0f, 0.0f }		
+		};
+		std::vector<dx::XMFLOAT2> const/*expr ): :(*/ uvs2D =
+		{
+			// Bottom left
+			{ 0.0f, 1.0f },
+			// Bottom right
+			{ 1.0f, 1.0f },
+			// Top right
+			{ 1.0f, 0.0f },
+			// Top left
+			{ 0.0f, 0.0f }	
+		};
+		spriteData.m_Vertices = vertices2D;
+		spriteData.m_Uvs = uvs2D;
+
+		// Create the buffers
+		IndexBufferLoader const indexBufferLoader;
+		sprite->m_IndexBuffer = indexBufferLoader(spriteData, context);
+
+		VertexBufferLoader const vertexBufferLoader;
+		sprite->m_VertexBuffer = vertexBufferLoader(spriteData, context);
+
+		return sprite;
 	}
 
 #pragma endregion

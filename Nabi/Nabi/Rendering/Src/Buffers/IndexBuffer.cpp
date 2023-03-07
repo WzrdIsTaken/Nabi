@@ -8,7 +8,7 @@
 
 namespace nabi::Rendering
 {
-	IndexBuffer nabi::Rendering::IndexBufferLoader::operator()(MeshData const& meshData, nabi::Context const& context) const NABI_NOEXCEPT
+	IndexBuffer nabi::Rendering::IndexBufferLoader::operator()(RenderBufferData const& meshData, nabi::Context const& context) const NABI_NOEXCEPT
 	{
 		IndexBuffer const indexBuffer = context.m_RenderCommand->CreateIndexBuffer(meshData.m_Triangles);
 		return indexBuffer;

@@ -8,7 +8,7 @@ namespace nabi
 } // namespace nabi
 namespace nabi::Rendering
 {
-	struct MeshData;
+	struct RenderBufferData;
 } // namespace nabi::Rending
 
 namespace nabi::Rendering
@@ -23,6 +23,6 @@ namespace nabi::Rendering
 	class VertexBufferLoader final
 	{
 	public:
-		[[nodiscard]] VertexBuffer operator()(MeshData const& meshData, nabi::Context const& context) const NABI_NOEXCEPT;
+		[[nodiscard]] VertexBuffer operator()(RenderBufferData const& meshData, nabi::Context const& context) const NABI_NOEXCEPT;
 	};
 } // namespace nabi::Rendering

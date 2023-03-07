@@ -9,6 +9,8 @@ struct PSInput
 
 float4 main(PSInput psIn) : SV_TARGET
 {
-    float4 colour = Texture.Sample(Sampler, psIn.m_Texture);
-    return colour;
+    float4 pixelColour = Texture.Sample(Sampler, psIn.m_Texture);
+    clip(pixelColour.a < 0.1F ? -1 : 1); // Discard alpha pixels
+    
+    return pixelColour;
 }

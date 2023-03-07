@@ -116,6 +116,9 @@ namespace nabi::Resource
 			// Note a Resource<T> in the bank should never be null by default. Just the resource ptr in Resource<T> could be null
 			// This should probs return a ref instead
 
+			ASSERT_FATAL(index < m_Bank.size(), "The index (" << index << ") is larger than the bank! (" << m_Bank.size() << ")" 
+				<< " This assert is likely caused by trying to add a resource to a bank which is too small (see AddResource)");
+
 			Resource<TResource>* const resource = &m_Bank.at(index);
 			return resource;
 		}

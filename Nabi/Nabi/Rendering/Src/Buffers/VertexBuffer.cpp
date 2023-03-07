@@ -9,7 +9,7 @@
 
 namespace nabi::Rendering
 {
-	VertexBuffer nabi::Rendering::VertexBufferLoader::operator()(MeshData const& meshData, nabi::Context const& context) const NABI_NOEXCEPT
+	VertexBuffer nabi::Rendering::VertexBufferLoader::operator()(RenderBufferData const& meshData, nabi::Context const& context) const NABI_NOEXCEPT
 	{
 		std::vector<Vertex> vertices;
 		size_t const uvSize = meshData.m_Uvs.size();

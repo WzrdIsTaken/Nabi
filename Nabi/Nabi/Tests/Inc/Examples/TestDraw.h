@@ -45,10 +45,10 @@ namespace nabitest::Examples
 			bool Load3DModels();
 			bool Load2DSprites();
 
-			nabi::Resource::ResourceBank<nabi::Rendering::Mesh, nabi::Rendering::RenderBufferLoader, 1> m_RenderBufferBank;
+			nabi::Resource::ResourceBank<nabi::Rendering::Mesh, nabi::Rendering::RenderBufferLoader, 2> m_RenderBufferBank;
 			nabi::Resource::ResourceBank<nabi::Rendering::PixelShader, nabi::Rendering::PixelShaderLoader, 2> m_PixelShaderBank;
 			nabi::Resource::ResourceBank<nabi::Rendering::VertexShader, nabi::Rendering::VertexShaderLoader, 2> m_VertexShaderBank;
-			nabi::Resource::ResourceBank<nabi::Rendering::Texture, nabi::Rendering::TextureLoader, 1> m_TextureBank;
+			nabi::Resource::ResourceBank<nabi::Rendering::Texture, nabi::Rendering::TextureLoader, 2> m_TextureBank;
 		};
 
 		nabi::Context& m_Context;

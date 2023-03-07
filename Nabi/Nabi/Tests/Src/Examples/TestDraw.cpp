@@ -75,13 +75,13 @@ namespace nabitest::Examples
 
 			// Create a sprite component
 			ecs::SpriteComponent spriteComponent = {};
-			spriteComponent.m_ImagePath = "Tests/Data/Rendering/ball_model.obj";
+			spriteComponent.m_ImagePath = "Tests/Data/Rendering/sprite.png";
 			spriteComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
 			spriteComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
 
 			// Create transform component
 			ecs::TransformComponent transformComponent = {};
-			transformComponent.m_Position = { 0, 0, 0 };
+			transformComponent.m_Position = { -1, 0, 0 };
 			transformComponent.m_Rotation = { 0, 0, 0 };
 			transformComponent.m_Scale = { 1, 1, 1 };
 
@@ -103,9 +103,9 @@ namespace nabitest::Examples
 			.each([&](entt::entity const entity, auto& transformComponent, auto const& modelComponent)
 				{
 					float constexpr speed = 0.001f;
-					transformComponent.m_Rotation.x += speed;
-					transformComponent.m_Rotation.y += speed;
-					transformComponent.m_Rotation.z += speed;
+					//transformComponent.m_Rotation.x += speed;
+					//transformComponent.m_Rotation.y += speed;
+					//transformComponent.m_Rotation.z += speed;
 				});
 
 		return true;
@@ -214,6 +214,7 @@ namespace nabitest::Examples
 	{
 		// Set the banks for loading 2D sprites
 		using namespace nabi::Rendering;
+		using namespace nabi::Resource;
 		
 		VertexShaderLoader& vertexShaderLoader = m_VertexShaderBank.GetLoader();
 		vertexShaderLoader.SetInputLayout(Layouts::c_SpriteInputLayout);
@@ -229,7 +230,30 @@ namespace nabitest::Examples
 		m_Context.m_Registry.view<ecs::SpriteComponent>()
 			.each([&](entt::entity const entity, auto const& spriteComponent)
 				{
-					// Next todo: load the sprites. come on ben, you got this
+					// Sprite "Tests/Data/Rendering/ball_model.obj"
+					ResourceRef<Sprite> const spriteResource = m_RenderBufferBank.LoadResource(spriteComponent.m_ImagePath);
+
+					ecs::BufferComponent imageComponent = {};
+					imageComponent.m_BufferResource = spriteResource;
+
+					// Shaders
+					ResourceRef<PixelShader> const pixelShaderResource = m_PixelShaderBank.LoadResource(spriteComponent.m_PixelShaderPath);
+					ResourceRef<VertexShader> const vertexShaderResource = m_VertexShaderBank.LoadResource(spriteComponent.m_VertexShaderPath);
+
+					ecs::ShaderComponent shaderComponent = {};
+					shaderComponent.m_PixelShaderResource = pixelShaderResource;
+					shaderComponent.m_VertexShaderResource = vertexShaderResource;
+
+					// Texture
+					ResourceRef<Texture> const textureResource = m_TextureBank.LoadResource(spriteComponent.m_ImagePath);
+
+					ecs::TextureComponent textureComponent = {};
+					textureComponent.m_TextureResource = textureResource;
+
+					// Assign the components to the registery
+					m_Context.m_Registry.emplace_or_replace<ecs::BufferComponent>(entity, imageComponent);
+					m_Context.m_Registry.emplace_or_replace<ecs::ShaderComponent>(entity, shaderComponent);
+					m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
 				});
 
 		return true;
