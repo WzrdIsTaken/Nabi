@@ -225,8 +225,9 @@ namespace nabi::Reflection
 		// Spin through the entity components, resolve them and add all them all to the registery
 		Creation::ResolveEntityComponents(entityComponents, registery, entity);
 
-		// Add the EntityInfoComponent to the entity
+		// Add the EntityInfoComponent + SpatialHierarchyComponent to the entity
 		Creation::AddEntityInfoComponentToEntity(registery, entity, entityGroupIdHash, entityId);
+		Creation::AddSpatialHierarchyComponentToEntity(registery, entity);
 	}
 
 	void XmlParser::ResolveEntityComponents(std::vector<ComponentData>& componentData, pugi::xml_node const& propertyNode) NABI_NOEXCEPT

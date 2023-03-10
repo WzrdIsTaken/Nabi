@@ -79,6 +79,13 @@ namespace nabi::Reflection
 		void AddEntityInfoComponentToEntity(entt::registry& registey, entt::entity const entity, 
 			                                entt::hashed_string const& entityGroupHash, std::string_view const entityName) NABI_NOEXCEPT;
 		/// <summary>
+		/// Adds the SpatialHierarchyComponent to an entity. This component contains the component's parent and the entitie's children
+		/// </summary>
+		/// <param name="registey">- A reference to the registery</param>
+		/// <param name="entity">- The entity to assign the component to</param>
+		void AddSpatialHierarchyComponentToEntity(entt::registry& registey, entt::entity const entity) NABI_NOEXCEPT;
+
+		/// <summary>
 		/// Calls the Assign function on a component's Reflector, which emplaces the component to the entity
 		/// </summary>
 		/// <param name="metaComponent">- The component to assign to the entity</param>

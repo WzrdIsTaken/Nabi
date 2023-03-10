@@ -40,9 +40,17 @@ namespace nabi::Rendering
 		m_LoadMode = loadMode;
 	}
 
+	void RenderBufferLoader::SetSpriteSheetProperties(dx::XMFLOAT2 const u, dx::XMFLOAT2 const v)
+	{
+		m_SpriteUVs.m_U1 = u.x;
+		m_SpriteUVs.m_U2 = u.y;
+		m_SpriteUVs.m_V1 = v.x;
+		m_SpriteUVs.m_V2 = v.y;
+	}
+
 #pragma region 3D
 
-	std::shared_ptr<Mesh> RenderBufferLoader::Load3DMesh(std::string const& resourcePath, nabi::Context const& context) const
+	std::shared_ptr<Mesh> RenderBufferLoader::Load3DMesh(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT
 	{
 		ResourceType mesh = std::make_shared<Mesh>();
 		MeshData meshData;
@@ -92,13 +100,13 @@ namespace nabi::Rendering
 		return mesh;
 	}
 
-	dx::XMFLOAT2 RenderBufferLoader::ObjlVector2ToDxFloat2(objl::Vector2 const& vector2) const NABI_NOEXCEPT
+	dx::XMFLOAT2 RenderBufferLoader::ObjlVector2ToDxFloat2(objl::Vector2 const vector2) const NABI_NOEXCEPT
 	{
 		dx::XMFLOAT2 const float2 = dx::XMFLOAT2(vector2.X, vector2.Y);
 		return float2;
 	}
 
-	dx::XMFLOAT3 RenderBufferLoader::ObjlVector3ToDxFloat3(objl::Vector3 const& vector3) const NABI_NOEXCEPT
+	dx::XMFLOAT3 RenderBufferLoader::ObjlVector3ToDxFloat3(objl::Vector3 const vector3) const NABI_NOEXCEPT
 	{
 		dx::XMFLOAT3 const float3 = dx::XMFLOAT3(vector3.X, vector3.Y, vector3.Z);
 		return float3;
@@ -137,19 +145,24 @@ namespace nabi::Rendering
 			// Bottom left
 			{ 1.0f, -1.0f, 0.0f }
 		};
-		std::vector<dx::XMFLOAT2> const/*expr ): :(*/ uvs2D =
-		{
-			// Bottom left
-			{ 0.0f, 1.0f },
-			// Top Left
-			{ 0.0f, 0.0f },
-			// Top right
-			{ 1.0f, 0.0f },
-			// Bottom left
-			{ 1.0f, 1.0f }	
-		};
 		spriteData.m_Vertices = vertices2D;
+
+		// Uvs
+		std::vector<dx::XMFLOAT2> const uvs2D =
+			std::vector<dx::XMFLOAT2>
+			{
+				// Bottom left
+				{ m_SpriteUVs.m_V1, m_SpriteUVs.m_U2 },
+				// Top left
+				{ m_SpriteUVs.m_V1, m_SpriteUVs.m_V2 },
+				// Top right
+				{ m_SpriteUVs.m_U1, m_SpriteUVs.m_V2 },
+				// Bottom right
+				{ m_SpriteUVs.m_U1, m_SpriteUVs.m_U2 }
+			};
 		spriteData.m_Uvs = uvs2D;
+
+		// Currently in Nabi normals aren't used for 2d sprites
 
 		// Create the buffers
 		IndexBufferLoader const indexBufferLoader;

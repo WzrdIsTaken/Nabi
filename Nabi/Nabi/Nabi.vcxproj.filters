@@ -203,6 +203,12 @@
     <Filter Include="Rendering\Src\Drawables">
       <UniqueIdentifier>{54fa5e2a-255e-464d-874e-789a573cfaf7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ECS\CoreModules">
+      <UniqueIdentifier>{c8129404-7fac-4b52-a0ea-c11b45c23107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Src\CoreModules">
+      <UniqueIdentifier>{9ab6ba6c-bc56-44c8-8d6f-a51465cdbaee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -346,6 +352,15 @@
     </ClCompile>
     <ClCompile Include="Rendering\Src\Drawables\RenderBuffers.cpp">
       <Filter>Rendering\Src\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreModules\SpatialHierarchyModule.cpp">
+      <Filter>ECS\Src\CoreModules</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp">
+      <Filter>ECS\Src\CoreModules</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreModules\ResourceLoaderModule.cpp">
+      <Filter>ECS\Src\CoreModules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -572,6 +587,21 @@
     </ClInclude>
     <ClInclude Include="Rendering\Inc\Drawables\Vertex.h">
       <Filter>Rendering\Inc\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\SpatialHierarchyComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\SpatialHierarchyModule.h">
+      <Filter>ECS\CoreModules</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\TextModule.h">
+      <Filter>ECS\CoreModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Containers\UVs.h">
+      <Filter>Rendering\Inc\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\ResourceLoaderModule.h">
+      <Filter>ECS\CoreModules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

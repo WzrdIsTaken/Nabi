@@ -4,6 +4,7 @@
 
 #include "Buffers\IndexBuffer.h"
 #include "Buffers\VertexBuffer.h"
+#include "Containers\UVs.h"
 
 namespace nabi
 {
@@ -50,16 +51,19 @@ namespace nabi::Rendering
 
 		[[nodiscard]] ResourceType operator()(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT;
 		void SetLoadMode(LoadMode const loadMode) NABI_NOEXCEPT;
+		void SetSpriteSheetProperties(dx::XMFLOAT2 const u, dx::XMFLOAT2 const v) NABI_NOEXCEPT;
 
 	private:
 		// 3D
 		[[nodiscard]] std::shared_ptr<Mesh> Load3DMesh(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT;
-		[[nodiscard]] dx::XMFLOAT2 ObjlVector2ToDxFloat2(objl::Vector2 const& vector2) const NABI_NOEXCEPT;
-		[[nodiscard]] dx::XMFLOAT3 ObjlVector3ToDxFloat3(objl::Vector3 const& vector3) const NABI_NOEXCEPT;
+		[[nodiscard]] dx::XMFLOAT2 ObjlVector2ToDxFloat2(objl::Vector2 const vector2) const NABI_NOEXCEPT;
+		[[nodiscard]] dx::XMFLOAT3 ObjlVector3ToDxFloat3(objl::Vector3 const vector3) const NABI_NOEXCEPT;
 
 		// 2D
 		[[nodiscard]] std::shared_ptr<Sprite> Load2DSprite(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT;
+		UVs m_SpriteUVs = { 1.0f, 1.0f, 0.0f, 0.0f };
 
+		// General
 		LoadMode m_LoadMode = LoadMode::Undefined;
 	};
 } // namespace nabi::Rendering

@@ -44,6 +44,7 @@ namespace nabitest::Examples
 		private:
 			bool Load3DModels();
 			bool Load2DSprites();
+			bool LoadText();
 
 			nabi::Resource::ResourceBank<nabi::Rendering::Mesh, nabi::Rendering::RenderBufferLoader, 2> m_RenderBufferBank;
 			nabi::Resource::ResourceBank<nabi::Rendering::PixelShader, nabi::Rendering::PixelShaderLoader, 2> m_PixelShaderBank;

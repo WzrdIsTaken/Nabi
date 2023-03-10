@@ -6,6 +6,7 @@
 #include "CoreComponents\DrawableComponents.h"
 #include "CoreComponents\LightComponent.h"
 #include "CoreComponents\TransformComponent.h"
+#include "CoreModules\TextModule.h"
 
 #ifdef RUN_TESTS
 
@@ -75,15 +76,29 @@ namespace nabitest::Examples
 
 			// Create a sprite component
 			ecs::SpriteComponent spriteComponent = {};
-			spriteComponent.m_ImagePath = "Tests/Data/Rendering/sprite.png";
+			spriteComponent.m_ImagePath = "Tests/Data/Rendering/font.png"; // sprite.png
 			spriteComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
 			spriteComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
 
+			nabi::Rendering::UVs const textUvs = ecs::TextModule::CalculateCharacterUvs('b', 32, { 15, 8 });
+			spriteComponent.m_U = { textUvs.m_U1, textUvs.m_U2 };
+			spriteComponent.m_V = { textUvs.m_V1, textUvs.m_V2 };
+
+			// then skybox and scene coords! then.. done??
+
+			// rename model, sprite and text component to like modelresourcecomponent, spriteresourcecomponent etc
+			// dont use a buffer group component. need a generic spatialheriechy component instead
+			// then a text system, or some sort of text helper free functions, can take in a text component (which will efficietly just be a tag)
+			// find the child entities (which will basically be sprites - transform, buffercomponent, etc) and update there pos / content accordingly
+			// whatever these helper functions are, these should probs be used wherever the textloader creates the text as well for DRY
+
+			// Perhaps have a core resource loader module which can load modules/sprites/text
+			
 			// Create transform component
 			ecs::TransformComponent transformComponent = {};
 			transformComponent.m_Position = { -1, 0, 0 };
 			transformComponent.m_Rotation = { 0, 0, 0 };
-			transformComponent.m_Scale = { 1, 1, 1 };
+			transformComponent.m_Scale = { 0.5, 0.5, 0.5 };
 
 			// Add the model component and a transform to the entity
 			m_Context.m_Registry.emplace<ecs::SpriteComponent>(testEntity, spriteComponent);
@@ -230,7 +245,8 @@ namespace nabitest::Examples
 		m_Context.m_Registry.view<ecs::SpriteComponent>()
 			.each([&](entt::entity const entity, auto const& spriteComponent)
 				{
-					// Sprite "Tests/Data/Rendering/ball_model.obj"
+					// Sprite
+					renderBufferLoader.SetSpriteSheetProperties(spriteComponent.m_U, spriteComponent.m_V);
 					ResourceRef<Sprite> const spriteResource = m_RenderBufferBank.LoadResource(spriteComponent.m_ImagePath);
 
 					ecs::BufferComponent imageComponent = {};
@@ -254,6 +270,17 @@ namespace nabitest::Examples
 					m_Context.m_Registry.emplace_or_replace<ecs::BufferComponent>(entity, imageComponent);
 					m_Context.m_Registry.emplace_or_replace<ecs::ShaderComponent>(entity, shaderComponent);
 					m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
+				});
+
+		return true;
+	}
+
+	bool TestDraw::TestAssetBank::LoadText()
+	{
+		m_Context.m_Registry.view<ecs::TextComponent>()
+			.each([&](entt::entity const entity, auto const& textComponent)
+				{
+
 				});
 
 		return true;

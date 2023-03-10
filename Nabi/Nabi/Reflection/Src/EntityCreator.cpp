@@ -3,6 +3,7 @@
 #include "EntityCreator.h"
 
 #include "CoreComponents/EntityInfoComponent.h"
+#include "CoreComponents/SpatialHierarchyComponent.h"
 #include "DebugUtils.h"
 #include "ECSUtils.h"
 #include "EntityPropertyList.h"
@@ -154,6 +155,15 @@ namespace nabi::Reflection
 			registey.emplace<ecs::EntityInfoComponent>(entity, entityInfoComponentSettings);
 		}
 
+		void nabi::Reflection::Creation::AddSpatialHierarchyComponentToEntity(entt::registry& registey, entt::entity const entity) NABI_NOEXCEPT
+		{
+			ecs::SpatialHierarchyComponent spatialHierarchyComponent;
+			spatialHierarchyComponent.m_Parent = entity;
+			spatialHierarchyComponent.m_Children = {};
+
+			registey.emplace<ecs::SpatialHierarchyComponent>(entity, spatialHierarchyComponent);
+		}
+
 		void AssignComponentToRegistery(entt::meta_any& metaComponent, entt::registry& registery, entt::entity const entity) NABI_NOEXCEPT
 		{
 			// Find the assign function and call it on the specified entity
@@ -203,6 +213,7 @@ namespace nabi::Reflection
 
 		Creation::ResolveEntityComponents(entityTemplate.m_Components, m_Registery, entity);
 		Creation::AddEntityInfoComponentToEntity(m_Registery, entity, entityCreationSettings.m_EntityGroup, entityName);
+		Creation::AddSpatialHierarchyComponentToEntity(m_Registery, entity);
 	}
 
 	size_t EntityCreator::GetEntityStoreSize() const NABI_NOEXCEPT
