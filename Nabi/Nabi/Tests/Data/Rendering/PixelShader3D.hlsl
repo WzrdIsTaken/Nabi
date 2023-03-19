@@ -59,6 +59,7 @@ float4 main(PSInput psIn) : SV_TARGET
         }
     }
     
+    // Final
     float4 lighting = float4(ambientLight + diffuseLight + specularLight, 1.0f) * m_DirectionalLight.m_Intensity;
     return Texture.Sample(Sampler, psIn.m_UV) * lighting;
 }
