@@ -13,13 +13,13 @@ cbuffer PerMesh : register(b1)
 struct VSInput
 {
     float3 m_Position : POSITION;
-    float2 m_Texture  : TEXCOORD;
+    float2 m_UV       : TEXCOORD;
 };
 
 struct VSOutput
 {
     float4 m_Position : SV_POSITION;
-    float2 m_Texture  : TEXCOORD;
+    float2 m_UV       : TEXCOORD;
 };
 
 VSOutput main(VSInput vsIn)
@@ -34,7 +34,7 @@ VSOutput main(VSInput vsIn)
     vsOut.m_Position = vertexPosition;
     
     // Set the texture
-    vsOut.m_Texture = vsIn.m_Texture;
+    vsOut.m_UV = vsIn.m_UV;
     
     return vsOut;
 }

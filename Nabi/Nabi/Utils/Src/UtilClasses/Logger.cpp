@@ -66,8 +66,15 @@ namespace nabi::Utils::DebugUtils
 
 	void Logger::SetLogLevel(std::string_view const logLevel) NABI_NOEXCEPT
 	{
-		ASSERT_FATAL(m_LogLevels.find(logLevel) != m_LogLevels.end(), "The log level is not defined!");
-		m_LogLevel = m_LogLevels.at(logLevel);
+		if (m_LogLevels.find(logLevel) != m_LogLevels.end())
+		{
+			m_LogLevel = m_LogLevels.at(logLevel);
+		}
+		else 
+		{
+			ASSERT_FAIL("The log level " << WRAP(logLevel, "'") << " is not defined! Reverting to log level " << WRAP(LOG_LEVEL_ALL, "'"));
+			m_LogLevel = m_LogLevels.at(LOG_LEVEL_ALL);
+		}
 	}
 
 	Logger::LogCount Logger::GetLogCount() const NABI_NOEXCEPT

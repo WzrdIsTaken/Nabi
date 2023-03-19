@@ -17,14 +17,15 @@
 namespace nabi
 {
 	struct WindowSettings;
-}
+} // namespace nabi
+namespace nabi::Rendering
+{
+	struct ConstantBuffer;
+	struct DXObjects;
+} // namespace nabi::Rendering
 
 namespace nabi::Rendering
 {
-	// (more!) Forward Declares
-	struct ConstantBuffer;
-	struct DXObjects;
-
 	/// <summary>
 	/// A basic cache so we don't bind unnecessary
 	/// Its usage can be toggled on/off with USE_RENDER_CACHE (defined in the cpp)
@@ -85,6 +86,8 @@ namespace nabi::Rendering
 		[[nodiscard]] Texture CreateTexture(std::string const& filePath) const NABI_NOEXCEPT;
 		[[nodiscard]] Sampler CreateSampler() const NABI_NOEXCEPT;
 
+		[[nodiscard]] wrl::ComPtr<ID3D11Buffer> CreateStagingResource(UINT const* const byteWidth, UINT const* const structureByteStride) const NABI_NOEXCEPT;
+
 		// --- Binding ---
 
 		void BindPixelShader(PixelShader const& pixelShader) NABI_NOEXCEPT;
@@ -99,6 +102,11 @@ namespace nabi::Rendering
 		// --- Updating ---
 
 		void UpdateConstantBuffer(ConstantBuffer const& constantBuffer, void const* const data) const NABI_NOEXCEPT;
+
+		void UpdateBuffer(wrl::ComPtr<ID3D11Buffer> const buffer, UINT const bufferDataSize, std::function<void(D3D11_MAPPED_SUBRESOURCE&)> const& action) const NABI_NOEXCEPT;
+		void UpdateBuffer(wrl::ComPtr<ID3D11Buffer> const buffer, D3D11_MAP const mapType, std::function<void(D3D11_MAPPED_SUBRESOURCE&)> const& action) const NABI_NOEXCEPT;
+
+		void CopyBufferResource(wrl::ComPtr<ID3D11Buffer> const destination, wrl::ComPtr<ID3D11Buffer> const source) const NABI_NOEXCEPT;
 
 		// --- Drawing ---
 
@@ -118,6 +126,9 @@ namespace nabi::Rendering
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(RenderCommand)
+
+		[[nodiscard]] D3D11_MAPPED_SUBRESOURCE MapBuffer(wrl::ComPtr<ID3D11Buffer> const buffer, D3D11_MAP const mapType) const NABI_NOEXCEPT;
+		void UnmapBuffer(wrl::ComPtr<ID3D11Buffer> const buffer) const NABI_NOEXCEPT;
 
 		DXObjects& m_DXObjects;
 		RenderCommandCache m_Cache;

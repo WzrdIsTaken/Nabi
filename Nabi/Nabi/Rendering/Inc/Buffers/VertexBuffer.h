@@ -16,6 +16,7 @@ namespace nabi::Rendering
 	struct VertexBuffer final
 	{
 		wrl::ComPtr<ID3D11Buffer> m_Buffer;
+		UINT m_ByteWidth;
 		UINT m_Stride;
 		UINT m_Offset;
 	};

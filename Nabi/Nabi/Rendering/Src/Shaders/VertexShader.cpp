@@ -12,7 +12,7 @@ namespace nabi::Rendering
 		VertexShader vertexShader = context.m_RenderCommand->CreateVertexShader(resourcePath, m_InputLayout);
 		ConstantBufferLoader::AssignConstantBuffersToShader(vertexShader.m_ConstantBuffers, m_ConstantBuffers, ConstantBufferLoader::AddMode::ClearAndAdd, context);
 
-		return std::make_unique<VertexShader>(vertexShader);
+		return std::make_shared<VertexShader>(vertexShader);
 	}
 
 	void VertexShaderLoader::SetInputLayout(std::vector<D3D11_INPUT_ELEMENT_DESC> const& inputLayout) NABI_NOEXCEPT

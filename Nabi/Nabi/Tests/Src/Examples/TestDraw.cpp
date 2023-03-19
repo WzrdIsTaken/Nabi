@@ -5,6 +5,7 @@
 #include "Containers\Colour.h"
 #include "CoreComponents\DrawableComponents.h"
 #include "CoreComponents\LightComponent.h"
+#include "CoreComponents\SpatialHierarchyComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\TextModule.h"
 
@@ -30,7 +31,7 @@ namespace nabitest::Examples
 			entt::entity testEntity = m_Context.m_Registry.create();
 
 			// Create a model component
-			ecs::ModelComponent modelComponent = {};
+			ecs::ModelResourceComponent modelComponent = {};
 			modelComponent.m_MeshPath = "Tests/Data/Rendering/ball_model.obj";
 			modelComponent.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
 			modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader3D.cso";
@@ -43,7 +44,7 @@ namespace nabitest::Examples
 			transformComponent.m_Scale = { 1, 1, 1 };
 
 			// Add the model component and a transform to the entity
-			m_Context.m_Registry.emplace<ecs::ModelComponent>(testEntity, modelComponent);
+			m_Context.m_Registry.emplace<ecs::ModelResourceComponent>(testEntity, modelComponent);
 			m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
 
 			// --- Create a light ---
@@ -75,14 +76,14 @@ namespace nabitest::Examples
 			entt::entity testEntity = m_Context.m_Registry.create();
 
 			// Create a sprite component
-			ecs::SpriteComponent spriteComponent = {};
-			spriteComponent.m_ImagePath = "Tests/Data/Rendering/font.png"; // sprite.png
+			ecs::SpriteResourceComponent spriteComponent = {};
+			spriteComponent.m_ImagePath = "Tests/Data/Rendering/sprite.png"; // font.png
 			spriteComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
 			spriteComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
 
-			nabi::Rendering::UVs const textUvs = ecs::TextModule::CalculateCharacterUvs('b', 32, { 15, 8 });
-			spriteComponent.m_U = { textUvs.m_U1, textUvs.m_U2 };
-			spriteComponent.m_V = { textUvs.m_V1, textUvs.m_V2 };
+			//nabi::Rendering::UVs const textUvs = ecs::TextModule::CalculateCharacterUvs('!', 32, { 15, 8 });
+			//spriteComponent.m_U = { textUvs.m_U1, textUvs.m_U2 };
+			//spriteComponent.m_V = { textUvs.m_V1, textUvs.m_V2 };
 
 			// then skybox and scene coords! then.. done??
 
@@ -100,8 +101,36 @@ namespace nabitest::Examples
 			transformComponent.m_Rotation = { 0, 0, 0 };
 			transformComponent.m_Scale = { 0.5, 0.5, 0.5 };
 
-			// Add the model component and a transform to the entity
-			m_Context.m_Registry.emplace<ecs::SpriteComponent>(testEntity, spriteComponent);
+			// Add the sprite component and a transform to the entity
+			m_Context.m_Registry.emplace<ecs::SpriteResourceComponent>(testEntity, spriteComponent);
+			m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
+		}
+#pragma endregion
+
+#pragma region Text
+		{
+			// --- Create the test entity ---
+			entt::entity testEntity = m_Context.m_EntityCreator->CreateEntity(nullptr);
+
+			// Create the text component
+			ecs::TextResourceComponent textComponent;
+			textComponent.m_FontPath = "Tests/Data/Rendering/font.png";
+			textComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
+			textComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
+
+			textComponent.m_Content = "blue";
+			textComponent.m_CharacterSpace = { 0.38f, 0 };
+			textComponent.m_AsciiShift = 32;
+			textComponent.m_TextureAtlas = { 15, 8 };
+
+			// Create transform component
+			ecs::TransformComponent transformComponent = {};
+			transformComponent.m_Position = { 0, 1, 0 };
+			transformComponent.m_Rotation = { 0, 0, 0 };
+			transformComponent.m_Scale = { 0.2f, 0.2f, 0.2f };
+
+			// Add the text component and a transform to the entity
+			m_Context.m_Registry.emplace<ecs::TextResourceComponent>(testEntity, textComponent);
 			m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
 		}
 #pragma endregion
@@ -129,8 +158,7 @@ namespace nabitest::Examples
 	bool TestDraw::Render()
 	{
 		m_LightingSystem.Render();
-		m_RenderSystem.Render3D();
-		m_RenderSystem.Render2D();
+		m_RenderSystem.Render();
 
 		return true;
 	}
@@ -161,6 +189,7 @@ namespace nabitest::Examples
 		bool loadingSuccess = true;
 		loadingSuccess &= Load3DModels();
 		loadingSuccess &= Load2DSprites();
+		loadingSuccess &= LoadText();
 
 		return loadingSuccess;
 	}
@@ -177,7 +206,6 @@ namespace nabitest::Examples
 
 	bool TestDraw::TestAssetBank::Load3DModels()
 	{
-		// Namespaces for clarity
 		using namespace nabi::Rendering;
 		using namespace nabi::Resource;
 
@@ -193,25 +221,25 @@ namespace nabitest::Examples
 		renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_3D);
 
 		// Iterate through all the entities with model components
-		m_Context.m_Registry.view<ecs::ModelComponent>()
-			.each([&](entt::entity const entity, auto const& modelComponent)
+		m_Context.m_Registry.view<ecs::ModelResourceComponent>()
+			.each([&](entt::entity const entity, auto const& modelResourceComponent)
 				{
 					// Mesh
-					ResourceRef<Mesh> const meshResource = m_RenderBufferBank.LoadResource(modelComponent.m_MeshPath);
+					ResourceRef<Mesh> const meshResource = m_RenderBufferBank.LoadResource(modelResourceComponent.m_MeshPath);
 
 					ecs::BufferComponent meshComponent = {};
 					meshComponent.m_BufferResource = meshResource;
 
 					// Shaders
-					ResourceRef<PixelShader> const pixelShaderResource = m_PixelShaderBank.LoadResource(modelComponent.m_PixelShaderPath);
-					ResourceRef<VertexShader> const vertexShaderResource = m_VertexShaderBank.LoadResource(modelComponent.m_VertexShaderPath);
+					ResourceRef<PixelShader> const pixelShaderResource = m_PixelShaderBank.LoadResource(modelResourceComponent.m_PixelShaderPath);
+					ResourceRef<VertexShader> const vertexShaderResource = m_VertexShaderBank.LoadResource(modelResourceComponent.m_VertexShaderPath);
 
 					ecs::ShaderComponent shaderComponent = {};
 					shaderComponent.m_PixelShaderResource = pixelShaderResource;
 					shaderComponent.m_VertexShaderResource = vertexShaderResource;
 
 					// Texture
-					ResourceRef<Texture> const textureResource = m_TextureBank.LoadResource(modelComponent.m_TexturePath);
+					ResourceRef<Texture> const textureResource = m_TextureBank.LoadResource(modelResourceComponent.m_TexturePath);
 
 					ecs::TextureComponent textureComponent = {};
 					textureComponent.m_TextureResource = textureResource;
@@ -227,10 +255,10 @@ namespace nabitest::Examples
 
 	bool TestDraw::TestAssetBank::Load2DSprites()
 	{
-		// Set the banks for loading 2D sprites
 		using namespace nabi::Rendering;
 		using namespace nabi::Resource;
-		
+
+		// Set the banks for loading 2D sprites
 		VertexShaderLoader& vertexShaderLoader = m_VertexShaderBank.GetLoader();
 		vertexShaderLoader.SetInputLayout(Layouts::c_SpriteInputLayout);
 		vertexShaderLoader.SetConstantBuffers({});
@@ -242,32 +270,32 @@ namespace nabitest::Examples
 		renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_2D);
 
 		// Iterate through all the entities with sprite components
-		m_Context.m_Registry.view<ecs::SpriteComponent>()
-			.each([&](entt::entity const entity, auto const& spriteComponent)
+		m_Context.m_Registry.view<ecs::SpriteResourceComponent>()
+			.each([&](entt::entity const entity, auto const& spriteResourceComponent)
 				{
 					// Sprite
-					renderBufferLoader.SetSpriteSheetProperties(spriteComponent.m_U, spriteComponent.m_V);
-					ResourceRef<Sprite> const spriteResource = m_RenderBufferBank.LoadResource(spriteComponent.m_ImagePath);
+					renderBufferLoader.SetSpriteSheetProperties(spriteResourceComponent.m_UVs); // TODO - Do what text does with CreateSpriteSheetResourceName
+					ResourceRef<Sprite> const spriteResource = m_RenderBufferBank.LoadResource(spriteResourceComponent.m_ImagePath);
 
-					ecs::BufferComponent imageComponent = {};
-					imageComponent.m_BufferResource = spriteResource;
+					ecs::BufferComponent spriteComponent = {};
+					spriteComponent.m_BufferResource = spriteResource;
 
 					// Shaders
-					ResourceRef<PixelShader> const pixelShaderResource = m_PixelShaderBank.LoadResource(spriteComponent.m_PixelShaderPath);
-					ResourceRef<VertexShader> const vertexShaderResource = m_VertexShaderBank.LoadResource(spriteComponent.m_VertexShaderPath);
+					ResourceRef<PixelShader> const pixelShaderResource = m_PixelShaderBank.LoadResource(spriteResourceComponent.m_PixelShaderPath);
+					ResourceRef<VertexShader> const vertexShaderResource = m_VertexShaderBank.LoadResource(spriteResourceComponent.m_VertexShaderPath);
 
 					ecs::ShaderComponent shaderComponent = {};
 					shaderComponent.m_PixelShaderResource = pixelShaderResource;
 					shaderComponent.m_VertexShaderResource = vertexShaderResource;
 
 					// Texture
-					ResourceRef<Texture> const textureResource = m_TextureBank.LoadResource(spriteComponent.m_ImagePath);
+					ResourceRef<Texture> const textureResource = m_TextureBank.LoadResource(spriteResourceComponent.m_ImagePath);
 
 					ecs::TextureComponent textureComponent = {};
 					textureComponent.m_TextureResource = textureResource;
 
 					// Assign the components to the registery
-					m_Context.m_Registry.emplace_or_replace<ecs::BufferComponent>(entity, imageComponent);
+					m_Context.m_Registry.emplace_or_replace<ecs::BufferComponent>(entity, spriteComponent);
 					m_Context.m_Registry.emplace_or_replace<ecs::ShaderComponent>(entity, shaderComponent);
 					m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
 				});
@@ -277,13 +305,113 @@ namespace nabitest::Examples
 
 	bool TestDraw::TestAssetBank::LoadText()
 	{
-		m_Context.m_Registry.view<ecs::TextComponent>()
-			.each([&](entt::entity const entity, auto const& textComponent)
-				{
+		using namespace nabi::Rendering;
+		using namespace nabi::Resource;
 
+		// Set the banks for loading 2D sprites
+		VertexShaderLoader& vertexShaderLoader = m_VertexShaderBank.GetLoader();
+		vertexShaderLoader.SetInputLayout(Layouts::c_SpriteInputLayout);
+		vertexShaderLoader.SetConstantBuffers({});
+
+		PixelShaderLoader& pixelShaderLoader = m_PixelShaderBank.GetLoader();
+		pixelShaderLoader.SetConstantBuffers({});
+
+		RenderBufferLoader& renderBufferLoader = m_RenderBufferBank.GetLoader();
+		renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_2D);
+
+		m_Context.m_Registry.view<ecs::TransformComponent, ecs::TextResourceComponent>()
+			.each([&](entt::entity const entity, auto const& transformComponent, auto const& textResourceComponent)
+				{
+					int const textPoolSize = 16;
+					int const textContentLength = textResourceComponent.m_Content.length();
+
+					// Add the text component to the base entity
+					ecs::TextComponent textComponentData = {};
+					textComponentData.m_Content = entt::hashed_string(textResourceComponent.m_Content.c_str());
+					textComponentData.m_Characters.reserve(static_cast<size_t>(textContentLength));
+					textComponentData.m_CharacterSpace = textResourceComponent.m_CharacterSpace;
+					textComponentData.m_AsciiShift = textResourceComponent.m_AsciiShift;
+					textComponentData.m_TextureAtlas = textResourceComponent.m_TextureAtlas;
+					textComponentData.m_CharacterPoolSize = textResourceComponent.m_CharacterPoolSize;
+					textComponentData.m_ActiveInPool = textContentLength;
+
+					ecs::TextComponent& textComponent = m_Context.m_Registry.emplace_or_replace<ecs::TextComponent>(entity, textComponentData);
+
+					// Iterate through each character and load the sprite
+					for (int i = 0; i < textPoolSize; ++i)
+					{
+						// Create the character creation settings if the character is used
+						ResourceCreationSettings characterResourceCreationSettings = c_CreateUniqueDefaultCreationSettings;
+						UVs characterUVs = {};
+						char character = ' ';
+
+						if (i < textContentLength)
+						{	
+							characterResourceCreationSettings = c_DefaultResourceCreationSettings;
+							character = textResourceComponent.m_Content[i];	
+						}
+
+						// Load the character buffer
+						characterUVs = ecs::TextModule::CalculateCharacterUvs(character, textResourceComponent.m_AsciiShift, textResourceComponent.m_TextureAtlas);
+						renderBufferLoader.SetSpriteSheetProperties(characterUVs);
+						
+						std::string resourceName = CreateSpriteSheetResourceName(textResourceComponent.m_FontPath, std::string(1, character));
+						ResourceRef<Sprite> const characterResource = m_RenderBufferBank.LoadResource(resourceName, characterResourceCreationSettings);
+
+						ecs::BufferComponent characterComponent = {};
+						characterComponent.m_BufferResource = characterResource;
+
+						// Grab the shader...
+						ResourceRef<PixelShader> const pixelShaderResource = m_PixelShaderBank.LoadResource(textResourceComponent.m_PixelShaderPath);
+						ResourceRef<VertexShader> const vertexShaderResource = m_VertexShaderBank.LoadResource(textResourceComponent.m_VertexShaderPath);
+
+						ecs::ShaderComponent shaderComponent = {};
+						shaderComponent.m_PixelShaderResource = pixelShaderResource;
+						shaderComponent.m_VertexShaderResource = vertexShaderResource;
+
+						// ...and the texture
+						ResourceRef<Texture> const textureResource = m_TextureBank.LoadResource(textResourceComponent.m_FontPath);
+
+						ecs::TextureComponent textureComponent = {};
+						textureComponent.m_TextureResource = textureResource;
+
+						// Create the character entity and assign the components to it
+						entt::entity characterEntity = m_Context.m_EntityCreator->CreateEntity(nullptr);
+
+						ecs::TransformComponent characterTransformComponent = transformComponent;
+						characterTransformComponent.m_Position.x += textResourceComponent.m_CharacterSpace.x * static_cast<float>(i);
+						characterTransformComponent.m_Position.y += textResourceComponent.m_CharacterSpace.y * static_cast<float>(i); 
+						m_Context.m_Registry.emplace_or_replace<ecs::TransformComponent>(characterEntity, characterTransformComponent);
+						m_Context.m_Registry.emplace_or_replace<ecs::BufferComponent>(characterEntity, characterComponent);
+						m_Context.m_Registry.emplace_or_replace<ecs::ShaderComponent>(characterEntity, shaderComponent);
+						m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(characterEntity, textureComponent);
+
+						textComponent.m_Characters.push_back(characterEntity);
+					}
+
+					ecs::TextModule::UpdateTextContent(m_Context, entity, "lets go dude");
+					dx::XMFLOAT3 pos = { 0, 2, 0 };
+					ecs::TextModule::CenterText(m_Context, entity, &pos);
+
+					entt::entity d = m_Context.m_EntityCreator->CreateEntity(nullptr);
+					m_Context.m_EntityCreator->CloneEntity(entity);
 				});
 
 		return true;
+	}
+
+	std::string TestDraw::TestAssetBank::CreateSpriteSheetResourceName(std::string_view const filePath, std::string_view const resourceName) const
+	{
+		// This is because since resources are cached by name, if a multiple sprites pulled from a sprite sheet use the same filepath,
+		// then the resource will never be different as its just pulled from cache. This is important because the vertex buffer will 
+		// be created with different UVs for each sprite.
+
+		std::string spriteSheetResourceName;
+		spriteSheetResourceName += filePath;
+		spriteSheetResourceName += "_";
+		spriteSheetResourceName += resourceName;
+
+		return spriteSheetResourceName;
 	}
 
 #pragma endregion

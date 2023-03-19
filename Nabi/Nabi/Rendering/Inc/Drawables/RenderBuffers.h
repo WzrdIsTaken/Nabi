@@ -51,7 +51,7 @@ namespace nabi::Rendering
 
 		[[nodiscard]] ResourceType operator()(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT;
 		void SetLoadMode(LoadMode const loadMode) NABI_NOEXCEPT;
-		void SetSpriteSheetProperties(dx::XMFLOAT2 const u, dx::XMFLOAT2 const v) NABI_NOEXCEPT;
+		void SetSpriteSheetProperties(UVs const uvs) NABI_NOEXCEPT;
 
 	private:
 		// 3D

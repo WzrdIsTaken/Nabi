@@ -13,14 +13,14 @@ cbuffer PerMesh : register(b1)
 struct VSInput
 {
     float3 m_Position : POSITION;
-    float2 m_Texture  : TEXCOORD;
+    float2 m_UV       : TEXCOORD;
     float3 m_Normal   : NORMAL;
 };
 
 struct VSOutput
 {
     float4 m_Position : SV_POSITION;
-    float2 m_Texture  : TEXCOORD;
+    float2 m_UV       : TEXCOORD;
     float3 m_Normal   : NORMAL;
     
     float3 m_CameraWorldPosition : POSITION0;
@@ -39,7 +39,7 @@ VSOutput main(VSInput vsIn)
     vsOut.m_Position = vertexPosition;
     
     // Set the texture
-    vsOut.m_Texture = vsIn.m_Texture;
+    vsOut.m_UV = vsIn.m_UV;
     
     // Work out stuff for lighting magic
     float4 vertexNormal = float4(vsIn.m_Normal, 0.0f);

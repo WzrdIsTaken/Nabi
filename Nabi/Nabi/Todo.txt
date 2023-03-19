@@ -7,9 +7,15 @@ Current:
 // --- Critical Priority ---
 
 // --- High Priority ---
-- text
+- if not batch rendering commit render system change and strip out the render 2d func . else ... research batch rendering!
+- [[nodiscard]] tag in game code?
 - 'Vertex' into 'Containers' and 'RenderBuffers' can be on the same level as the RenderCommand?
 - rename PerMesh constant buffer to PerRenderable? if its used for 2d as well..
+
+- resizing the window
+- loading resources for the icon (currently its just commented out. needs to be customisable in NabiSettings I recon)
+
+- shader stuff can go into a "Common" file and be included / have the prefix g_. Eg: g_ModelMatrix
 
 - actually pixel shader might need to take in an array of lights..? what happens if we have two lights?
 	- two lights is acc fine. ngl in all off my projects i wont want complex lighting, so i think what we've got is ok
@@ -62,6 +68,8 @@ Structure Stuff
 
 - Have all entity groups / event calls etc as constexpr in a file
 
+- The entity clone appending of "_clone" to the entity name might be broken somehow. This isnt super high prio though as the entity group looks ok, and thats more important
+
 - Inline string converter From[Type] functions?
 
 - It might be possible to make Singleton's use a static constructor to init themselves as well? But when I did a quick attempt I got a lot of scary linker errors
@@ -81,6 +89,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- text. lets go dude
 - see notebook. got some refacting do to for a nice 2d system. 
 - do we need stb image? did we use if? if not, can remove
 - fix that direct x warning spamming the console (asked sam)

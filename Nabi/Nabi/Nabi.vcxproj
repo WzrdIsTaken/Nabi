@@ -174,7 +174,6 @@
     <ClCompile Include="ECS\Src\CoreComponents\LightComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\DrawableComponents.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\TransformComponent.cpp" />
-    <ClCompile Include="ECS\Src\CoreModules\ResourceLoaderModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\SpatialHierarchyModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp" />
@@ -236,7 +235,6 @@
     <ClInclude Include="ECS\Inc\CoreComponents\DrawableComponents.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\SpatialHierarchyComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\TransformComponent.h" />
-    <ClInclude Include="ECS\Inc\CoreModules\ResourceLoaderModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\SpatialHierarchyModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\TextModule.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h" />

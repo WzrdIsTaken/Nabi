@@ -155,13 +155,13 @@ namespace nabi::Reflection
 			registey.emplace<ecs::EntityInfoComponent>(entity, entityInfoComponentSettings);
 		}
 
-		void nabi::Reflection::Creation::AddSpatialHierarchyComponentToEntity(entt::registry& registey, entt::entity const entity) NABI_NOEXCEPT
+		void nabi::Reflection::Creation::AddSpatialHierarchyComponentToEntity(entt::registry& registey, entt::entity const parent) NABI_NOEXCEPT
 		{
 			ecs::SpatialHierarchyComponent spatialHierarchyComponent;
-			spatialHierarchyComponent.m_Parent = entity;
+			spatialHierarchyComponent.m_Parent = parent;
 			spatialHierarchyComponent.m_Children = {};
 
-			registey.emplace<ecs::SpatialHierarchyComponent>(entity, spatialHierarchyComponent);
+			registey.emplace<ecs::SpatialHierarchyComponent>(parent, spatialHierarchyComponent);
 		}
 
 		void AssignComponentToRegistery(entt::meta_any& metaComponent, entt::registry& registery, entt::entity const entity) NABI_NOEXCEPT
@@ -181,7 +181,7 @@ namespace nabi::Reflection
 	// --- Entity Creator ---
 
 	EntityCreator::EntityCreator(entt::registry& registery) NABI_NOEXCEPT
-		: m_Registery(registery)
+		: m_Registry(registery)
 	{
 	}
 
@@ -190,15 +190,24 @@ namespace nabi::Reflection
 		m_EntityTemplateStore = entityTemplateStore;
 	}
 
-	void EntityCreator::CreateEntity(EntityCreator::EntityCreationSettings const& entityCreationSettings) NABI_NOEXCEPT
+	entt::entity EntityCreator::CreateEntity(EntityCreator::EntityCreationSettings const* const entityCreationSettingsPtr) NABI_NOEXCEPT
 	{
-		std::string const& entityTemplateName = entityCreationSettings.m_EntityTemplateName;
-		ASSERT(m_EntityTemplateStore.find(entityTemplateName) != m_EntityTemplateStore.end(),
-			"Trying to create an entity, " << WRAP(entityTemplateName, "'") << ", which doesn't exist in the entity store!");
+		EntityCreationSettings entityCreationSettings = {};
+		EntityTemplateData* entityTemplate = nullptr;
 
-		EntityTemplateData entityTemplate = m_EntityTemplateStore.at(entityTemplateName.data()); // kinda annoying this can't be a ref (i don't think..?)
+		if (entityCreationSettingsPtr != nullptr)
+		{
+			entityCreationSettings = *entityCreationSettingsPtr;
+
+			std::string const& entityTemplateName = entityCreationSettings.m_EntityTemplateName;
+			ASSERT_FATAL(m_EntityTemplateStore.find(entityTemplateName) != m_EntityTemplateStore.end(),
+				"Trying to create an entity, " << WRAP(entityTemplateName, "'") << ", which doesn't exist in the entity store!");
+
+			entityTemplate = &m_EntityTemplateStore.at(entityTemplateName.data());
+		}
+
 		std::string& entityName = entityCreationSettings.m_EntityName;
-		entt::entity const entity = m_Registery.create();
+		entt::entity const entity = m_Registry.create();
 
 		if (entityCreationSettings.m_AppendUUID)
 		{
@@ -208,12 +217,39 @@ namespace nabi::Reflection
 		if (entityCreationSettings.m_EntityOverriddenProperties != nullptr)
 		{
 			EntityPropertyList const& overridenProperties = *entityCreationSettings.m_EntityOverriddenProperties;
-			ResolveEntityTemplateComponents(entityTemplate, overridenProperties);
+			ASSERT_FATAL(entityTemplate, "Trying to override an entity's component's properties but the entityTemplate is null!");
+			ResolveEntityTemplateComponents(*entityTemplate, overridenProperties);
 		}
 
-		Creation::ResolveEntityComponents(entityTemplate.m_Components, m_Registery, entity);
-		Creation::AddEntityInfoComponentToEntity(m_Registery, entity, entityCreationSettings.m_EntityGroup, entityName);
-		Creation::AddSpatialHierarchyComponentToEntity(m_Registery, entity);
+		if (entityTemplate != nullptr)
+		{
+			Creation::ResolveEntityComponents(entityTemplate->m_Components, m_Registry, entity);
+		}
+		Creation::AddEntityInfoComponentToEntity(m_Registry, entity, entityCreationSettings.m_EntityGroup, entityName);
+		Creation::AddSpatialHierarchyComponentToEntity(m_Registry, entity);
+
+		return entity;
+	}
+
+	entt::entity EntityCreator::CloneEntity(entt::entity const entityToClone) NABI_NOEXCEPT
+	{
+		// Again, note the warning in the header file! May cause unexpected behaviour when dealing with pointers and the like.
+
+		entt::entity const clone = m_Registry.create();
+
+		for (auto&& currentStorage : m_Registry.storage()) 
+		{ 
+			if (auto& storage = currentStorage.second; storage.contains(entityToClone)) 
+			{
+				storage.emplace(clone, storage.get(entityToClone));
+			}
+		}
+
+		ecs::EntityInfoComponent entityInfoComponent = m_Registry.get<ecs::EntityInfoComponent>(clone);
+		std::string const clonedName = std::string(entityInfoComponent.m_EntityName.data()) + std::string("_clone");
+		entityInfoComponent.m_EntityName = entt::hashed_string(clonedName.c_str());
+
+		return clone;
 	}
 
 	size_t EntityCreator::GetEntityStoreSize() const NABI_NOEXCEPT

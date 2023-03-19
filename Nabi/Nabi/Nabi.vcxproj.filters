@@ -359,9 +359,6 @@
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp">
       <Filter>ECS\Src\CoreModules</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Src\CoreModules\ResourceLoaderModule.cpp">
-      <Filter>ECS\Src\CoreModules</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -599,9 +596,6 @@
     </ClInclude>
     <ClInclude Include="Rendering\Inc\Containers\UVs.h">
       <Filter>Rendering\Inc\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\Inc\CoreModules\ResourceLoaderModule.h">
-      <Filter>ECS\CoreModules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

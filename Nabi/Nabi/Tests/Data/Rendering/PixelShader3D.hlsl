@@ -25,7 +25,7 @@ cbuffer PerLightChange : register(b0)
 struct PSInput
 {
     float4 m_Position : SV_POSITION;
-    float2 m_Texture  : TEXCOORD;
+    float2 m_UV       : TEXCOORD;
     float3 m_Normal   : NORMAL;
     
     float3 m_CameraWorldPosition : POSITION0;
@@ -60,5 +60,5 @@ float4 main(PSInput psIn) : SV_TARGET
     }
     
     float4 lighting = float4(ambientLight + diffuseLight + specularLight, 1.0f) * m_DirectionalLight.m_Intensity;
-    return Texture.Sample(Sampler, psIn.m_Texture) * lighting;
+    return Texture.Sample(Sampler, psIn.m_UV) * lighting;
 }

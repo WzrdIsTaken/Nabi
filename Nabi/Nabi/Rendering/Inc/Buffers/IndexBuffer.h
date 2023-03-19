@@ -16,6 +16,7 @@ namespace nabi::Rendering
 	struct IndexBuffer final
 	{
 		wrl::ComPtr<ID3D11Buffer> m_Buffer;
+		UINT m_ByteWidth;
 	};
 
 	class IndexBufferLoader final

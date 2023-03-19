@@ -69,6 +69,7 @@ namespace nabi::Reflection
 		/// <param name="propertyName">- The name of the property</param>
 		/// <param name="propertyValue">- The value of the property</param>
 		void ResolveProperty(entt::meta_any& metaObject, std::string_view const propertyName, std::string_view const propertyValue) NABI_NOEXCEPT;
+
 		/// <summary>
 		/// Adds the EntityInfoComponent to an entity. This component contains some basic data about the entity.
 		/// </summary>
@@ -83,7 +84,7 @@ namespace nabi::Reflection
 		/// </summary>
 		/// <param name="registey">- A reference to the registery</param>
 		/// <param name="entity">- The entity to assign the component to</param>
-		void AddSpatialHierarchyComponentToEntity(entt::registry& registey, entt::entity const entity) NABI_NOEXCEPT;
+		void AddSpatialHierarchyComponentToEntity(entt::registry& registey, entt::entity const parent) NABI_NOEXCEPT;
 
 		/// <summary>
 		/// Calls the Assign function on a component's Reflector, which emplaces the component to the entity
@@ -120,8 +121,16 @@ namespace nabi::Reflection
 		/// <summary>
 		/// Creates an entity based off the passed in EntityCreationSettings
 		/// </summary>
-		/// <param name="entityCreationSettings">- The settings defining how to create the entity</param>
-		void CreateEntity(EntityCreationSettings const& entityCreationSettings) NABI_NOEXCEPT;
+		/// <param name="entityCreationSettingsPtr">- The settings defining how to create the entity. Pass in nullptr for default settings</param>
+		entt::entity CreateEntity(EntityCreationSettings const* const entityCreationSettingsPtr = nullptr) NABI_NOEXCEPT;
+		/// <summary>
+		/// Copies all of the components from one entity to another. 
+		/// WARNING: If any of the components contain pointers, for example a BufferComponent, they will be copied as well and then point at the same thing!
+		/// </summary>
+		/// <param name="entityToClone">The entities whos components will be copied</param>
+		/// <returns></returns>
+		entt::entity CloneEntity(entt::entity const entityToClone) NABI_NOEXCEPT;
+
 		/// <summary>
 		/// Returns how many entity templates exist in m_EntityTemplateStore
 		/// </summary>
@@ -140,6 +149,6 @@ namespace nabi::Reflection
 		void ResolveEntityTemplateComponents(EntityTemplateData& entityTemplateData, EntityPropertyList const& entityOverriddenProperties) NABI_NOEXCEPT;
 
 		EntityTemplateStore m_EntityTemplateStore;
-		entt::registry& m_Registery;
+		entt::registry& m_Registry;
 	};
 } // namespace nabi::Reflection

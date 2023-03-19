@@ -178,7 +178,7 @@ namespace nabi::Rendering
 		D3D11_BUFFER_DESC bufferDesc = {};
 		bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		bufferDesc.Usage = D3D11_USAGE_DEFAULT;
-		bufferDesc.CPUAccessFlags = 0u; // CPU doesn't need to access the buffer (yet!)
+		bufferDesc.CPUAccessFlags = 0u;
 		bufferDesc.MiscFlags = 0u;
 		bufferDesc.ByteWidth = static_cast<UINT>(triangles.size() * sizeof(UINT));
 		bufferDesc.StructureByteStride = sizeof(UINT);
@@ -191,6 +191,7 @@ namespace nabi::Rendering
 
 		IndexBuffer indexBuffer = {};
 		indexBuffer.m_Buffer = buffer;
+		indexBuffer.m_ByteWidth = bufferDesc.ByteWidth;
 
 		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created an index buffer of size " << bufferDesc.ByteWidth << ENDLINE);
 		return indexBuffer;
@@ -207,13 +208,14 @@ namespace nabi::Rendering
 		bufferDesc.StructureByteStride = sizeof(Vertex);
 
 		D3D11_SUBRESOURCE_DATA subresourceData = {};
-		subresourceData.pSysMem = vertices.data(); // Vertices to use
+		subresourceData.pSysMem = vertices.data();
 
 		ID3D11Buffer* buffer = nullptr;
 		DX_ASSERT(m_DXObjects.m_Device->CreateBuffer(&bufferDesc, &subresourceData, &buffer));
 
 		VertexBuffer vertexBuffer = {};
 		vertexBuffer.m_Buffer = buffer;
+		vertexBuffer.m_ByteWidth = bufferDesc.ByteWidth;
 		vertexBuffer.m_Stride = sizeof(Vertex);
 		vertexBuffer.m_Offset = 0u;
 
@@ -302,6 +304,22 @@ namespace nabi::Rendering
 
 		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a sampler" << ENDLINE);
 		return sampler;
+	}
+
+	wrl::ComPtr<ID3D11Buffer> RenderCommand::CreateStagingResource(UINT const* const byteWidth, UINT const* const structureByteStride) const NABI_NOEXCEPT
+	{
+		D3D11_BUFFER_DESC stagingBufferDesc = {};
+		stagingBufferDesc.BindFlags = 0u;
+		stagingBufferDesc.Usage = D3D11_USAGE_STAGING;
+		stagingBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ | D3D11_CPU_ACCESS_WRITE;
+		stagingBufferDesc.MiscFlags = 0u;
+		stagingBufferDesc.ByteWidth = byteWidth ? *byteWidth : 0u;
+		stagingBufferDesc.StructureByteStride = structureByteStride ? *structureByteStride : 0u;
+		
+		ID3D11Buffer* stagingBuffer = nullptr;
+		DX_ASSERT(m_DXObjects.m_Device->CreateBuffer(&stagingBufferDesc, nullptr, &stagingBuffer));
+
+		return stagingBuffer;
 	}
 
 	void RenderCommand::BindPixelShader(PixelShader const& pixelShader) NABI_NOEXCEPT
@@ -411,20 +429,32 @@ namespace nabi::Rendering
 
 	void RenderCommand::UpdateConstantBuffer(ConstantBuffer const& constantBuffer, void const* const data) const NABI_NOEXCEPT
 	{
-		D3D11_MAPPED_SUBRESOURCE subresource;
-		DX_ASSERT(m_DXObjects.m_Context->Map(
-			constantBuffer.m_Buffer.Get(), // Resource
-			0u,                            // Subresource
-			D3D11_MAP_WRITE_DISCARD,       // Map type
-			0u,                            // Map Flags
-			&subresource                   // Mapped Resource
-		));
-
+		D3D11_MAPPED_SUBRESOURCE subresource = MapBuffer(constantBuffer.m_Buffer, D3D11_MAP_WRITE_DISCARD);
 		memcpy(subresource.pData, data, constantBuffer.m_ByteWidth);
-		m_DXObjects.m_Context->Unmap(
-			constantBuffer.m_Buffer.Get(), // Resource
-			0u                             // Subresource
-		);
+
+		UnmapBuffer(constantBuffer.m_Buffer);
+	}
+
+	void RenderCommand::UpdateBuffer(wrl::ComPtr<ID3D11Buffer> const buffer, UINT const bufferDataSize, std::function<void(D3D11_MAPPED_SUBRESOURCE&)> const& action) const
+	{
+		wrl::ComPtr<ID3D11Buffer> const stagingBuffer = CreateStagingResource(&bufferDataSize, nullptr);
+		CopyBufferResource(stagingBuffer, buffer);
+
+		UpdateBuffer(stagingBuffer, D3D11_MAP_READ, action);
+		CopyBufferResource(buffer, stagingBuffer);
+	}
+
+	void RenderCommand::UpdateBuffer(wrl::ComPtr<ID3D11Buffer> const buffer, D3D11_MAP const mapType, std::function<void(D3D11_MAPPED_SUBRESOURCE&)> const& action) const NABI_NOEXCEPT
+	{
+		D3D11_MAPPED_SUBRESOURCE subresource = MapBuffer(buffer, mapType);
+		action(subresource);
+
+		UnmapBuffer(buffer);
+	}
+
+	void RenderCommand::CopyBufferResource(wrl::ComPtr<ID3D11Buffer> const destination, wrl::ComPtr<ID3D11Buffer> const source) const NABI_NOEXCEPT
+	{
+		m_DXObjects.m_Context->CopyResource(destination.Get(), source.Get());
 	}
 
 	void RenderCommand::Draw(UINT const indexCount) const NABI_NOEXCEPT
@@ -449,9 +479,6 @@ namespace nabi::Rendering
 		D3D11_BUFFER_DESC bufferDesc;
 		indexBuffer.m_Buffer.Get()->GetDesc(&bufferDesc);
 
-		ASSERT_FATAL((bufferDesc.BindFlags & D3D11_BIND_INDEX_BUFFER), 
-			"Index buffer must have D3D11_BIND_INDEX_BUFFER flags to be read!");
-
 		UINT constexpr stride = sizeof(UINT);
 		UINT const numberOfIndices = bufferDesc.ByteWidth / stride;
 		return numberOfIndices;
@@ -470,5 +497,27 @@ namespace nabi::Rendering
 	void RenderCommand::SetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY const primitiveTopology) NABI_NOEXCEPT
 	{
 		m_DXObjects.m_Context->IASetPrimitiveTopology(primitiveTopology);
+	}
+
+	D3D11_MAPPED_SUBRESOURCE RenderCommand::MapBuffer(wrl::ComPtr<ID3D11Buffer> const buffer, D3D11_MAP const mapType) const NABI_NOEXCEPT
+	{
+		D3D11_MAPPED_SUBRESOURCE subresource = {};
+		DX_ASSERT(m_DXObjects.m_Context->Map(
+			buffer.Get(), // Resource
+			0u,           // Subresource
+			mapType,      // Map type
+			0u,           // Map Flags
+			&subresource  // Mapped Resource
+		));
+
+		return subresource;
+	}
+
+	void RenderCommand::UnmapBuffer(wrl::ComPtr<ID3D11Buffer> const buffer) const NABI_NOEXCEPT
+	{
+		m_DXObjects.m_Context->Unmap(
+			buffer.Get(), // Resource
+			0u            // Subresource
+		);
 	}
 } // namespace nabi::Rendering

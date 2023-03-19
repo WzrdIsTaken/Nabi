@@ -7,15 +7,29 @@
 
 namespace nabi::Resource
 {
-	// So we don't have to do like ResourceBank<LongResourceName, LongLoaderName, SizeWeMightNotRemember>::InsertionMode
-	struct ResourceBankInsertionMode
+	// So we don't have to do like ResourceBank<LongResourceName, LongLoaderName, SizeWeMightNotRemember>::ResourceCreationSettings
+	struct ResourceCreationSettings
 	{
-		enum Enum
+		enum class ResourceInsertionMode : int
 		{
 			Linear,         // At m_CurrentBankIndex (incremented with each resource that is added)
 			FirstNullIndex, // At the first null index
 			ENUM_COUNT
 		};
+
+		ResourceInsertionMode m_ResourceInsertionMode;
+		bool m_CreateUnique; // A hacky way to ensure we don't have a problem when two resource ref's reference the same resource, we can still change each individually. A todo is to find a better solution for this
+	};
+
+	ResourceCreationSettings const c_DefaultResourceCreationSettings
+	{
+		.m_ResourceInsertionMode = ResourceCreationSettings::ResourceInsertionMode::Linear,
+		.m_CreateUnique = false
+	};
+	ResourceCreationSettings const c_CreateUniqueDefaultCreationSettings
+	{
+		.m_ResourceInsertionMode = ResourceCreationSettings::ResourceInsertionMode::Linear,
+		.m_CreateUnique = true
 	};
 
 	/// <summary>
@@ -52,16 +66,22 @@ namespace nabi::Resource
 		/// <param name="resourcePath">- The disk path of the resource to load</param>
 		/// <param name="insertionMode">- How to insert the resource into the bank</param>
 		/// <returns>A resource ref to the loaded resource</returns>
-		[[nodiscard]] ResourceRef<TResource> LoadResource(std::string const& resourcePath, ResourceBankInsertionMode::Enum const insertionMode = ResourceBankInsertionMode::Enum::Linear) NABI_NOEXCEPT
+		[[nodiscard]] ResourceRef<TResource> LoadResource(std::string const& resourcePath, 
+			ResourceCreationSettings const resourceCreationSettings = c_DefaultResourceCreationSettings) NABI_NOEXCEPT
 		{
 			entt::hashed_string const hashedResourcePath = entt::hashed_string(resourcePath.c_str());
 			ResourceRef<TResource> resourceRef = {};
 
-			bool const resourceExists = FindResource(hashedResourcePath, &resourceRef);
-			if (!resourceExists)
+			bool attemptToFindExistingCache = !resourceCreationSettings.m_CreateUnique;
+			if (attemptToFindExistingCache)
+			{
+				attemptToFindExistingCache = FindResource(hashedResourcePath, &resourceRef);
+			}
+			
+			if (!attemptToFindExistingCache)
 			{
 				std::shared_ptr<TResource> const resourcePtr = m_Loader(resourcePath, m_Context);
-				resourceRef = AddResource(hashedResourcePath, resourcePtr, insertionMode);
+				resourceRef = AddResource(hashedResourcePath, resourcePtr, resourceCreationSettings.m_ResourceInsertionMode);
 			}
 
 			return resourceRef;
@@ -74,15 +94,16 @@ namespace nabi::Resource
 		/// <param name="resourcePtr">- The pointer to the resource</param>
 		/// <param name="insertionMode">- How to insert the resource into the bank</param>
 		/// <returns>A resource ref to the added resource</returns>
-		[[nodiscard]] ResourceRef<TResource> AddResource(entt::hashed_string const resourcePath, std::shared_ptr<TResource> const& resourcePtr, ResourceBankInsertionMode::Enum const insertionMode) NABI_NOEXCEPT
+		[[nodiscard]] ResourceRef<TResource> AddResource(entt::hashed_string const resourcePath, std::shared_ptr<TResource> const& resourcePtr,
+			ResourceCreationSettings::ResourceInsertionMode const insertionMode) NABI_NOEXCEPT
 		{
 			size_t insertionIndex = SIZE_MAX;
 			switch (insertionMode)
 			{
-			case ResourceBankInsertionMode::Enum::Linear:
+			case ResourceCreationSettings::ResourceInsertionMode::Linear:
 				insertionIndex = m_CurrentBankIndex;
 				break;
-			case ResourceBankInsertionMode::Enum::FirstNullIndex:
+			case ResourceCreationSettings::ResourceInsertionMode::FirstNullIndex:
 				insertionIndex = FindFirstNullIndex();
 				break;
 			default:

@@ -40,12 +40,9 @@ namespace nabi::Rendering
 		m_LoadMode = loadMode;
 	}
 
-	void RenderBufferLoader::SetSpriteSheetProperties(dx::XMFLOAT2 const u, dx::XMFLOAT2 const v)
+	void RenderBufferLoader::SetSpriteSheetProperties(UVs const uvs)
 	{
-		m_SpriteUVs.m_U1 = u.x;
-		m_SpriteUVs.m_U2 = u.y;
-		m_SpriteUVs.m_V1 = v.x;
-		m_SpriteUVs.m_V2 = v.y;
+		m_SpriteUVs = uvs;
 	}
 
 #pragma region 3D
@@ -116,7 +113,7 @@ namespace nabi::Rendering
 
 #pragma region 2D
 
-	std::shared_ptr<Sprite> RenderBufferLoader::Load2DSprite(std::string const& /*resourcePath*/, nabi::Context const& context) const NABI_NOEXCEPT
+	std::shared_ptr<Sprite> RenderBufferLoader::Load2DSprite(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT
 	{
 		ResourceType sprite = std::make_shared<Sprite>();
 		SpriteData spriteData;
@@ -148,21 +145,12 @@ namespace nabi::Rendering
 		spriteData.m_Vertices = vertices2D;
 
 		// Uvs
-		std::vector<dx::XMFLOAT2> const uvs2D =
-			std::vector<dx::XMFLOAT2>
-			{
-				// Bottom left
-				{ m_SpriteUVs.m_V1, m_SpriteUVs.m_U2 },
-				// Top left
-				{ m_SpriteUVs.m_V1, m_SpriteUVs.m_V2 },
-				// Top right
-				{ m_SpriteUVs.m_U1, m_SpriteUVs.m_V2 },
-				// Bottom right
-				{ m_SpriteUVs.m_U1, m_SpriteUVs.m_U2 }
-			};
+		std::vector<dx::XMFLOAT2> const uvs2D = UV::CreateSpriteUVs(m_SpriteUVs);
 		spriteData.m_Uvs = uvs2D;
 
 		// Currently in Nabi normals aren't used for 2d sprites
+
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Loaded a sprite with path " << WRAP(resourcePath, "'") << ENDLINE);
 
 		// Create the buffers
 		IndexBufferLoader const indexBufferLoader;

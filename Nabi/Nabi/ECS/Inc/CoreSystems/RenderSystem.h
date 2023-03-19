@@ -8,8 +8,7 @@ namespace ecs
 	public:
 		using SystemBase::SystemBase;
 
-		void Render3D(/*TODO - game time?*/);
-		void Render2D(/*TODO - game time?*/);
+		void Render(/*TODO - game time?*/);
 
 	private:
 		REFLECT_PRIVATES(RenderSystem)

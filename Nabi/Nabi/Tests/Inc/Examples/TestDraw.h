@@ -46,10 +46,12 @@ namespace nabitest::Examples
 			bool Load2DSprites();
 			bool LoadText();
 
-			nabi::Resource::ResourceBank<nabi::Rendering::Mesh, nabi::Rendering::RenderBufferLoader, 2> m_RenderBufferBank;
-			nabi::Resource::ResourceBank<nabi::Rendering::PixelShader, nabi::Rendering::PixelShaderLoader, 2> m_PixelShaderBank;
-			nabi::Resource::ResourceBank<nabi::Rendering::VertexShader, nabi::Rendering::VertexShaderLoader, 2> m_VertexShaderBank;
-			nabi::Resource::ResourceBank<nabi::Rendering::Texture, nabi::Rendering::TextureLoader, 2> m_TextureBank;
+			std::string CreateSpriteSheetResourceName(std::string_view const filePath, std::string_view const resourceName) const;
+
+			nabi::Resource::ResourceBank<nabi::Rendering::Mesh, nabi::Rendering::RenderBufferLoader, 20> m_RenderBufferBank;
+			nabi::Resource::ResourceBank<nabi::Rendering::PixelShader, nabi::Rendering::PixelShaderLoader, 20> m_PixelShaderBank;
+			nabi::Resource::ResourceBank<nabi::Rendering::VertexShader, nabi::Rendering::VertexShaderLoader, 20> m_VertexShaderBank;
+			nabi::Resource::ResourceBank<nabi::Rendering::Texture, nabi::Rendering::TextureLoader, 20> m_TextureBank;
 		};
 
 		nabi::Context& m_Context;

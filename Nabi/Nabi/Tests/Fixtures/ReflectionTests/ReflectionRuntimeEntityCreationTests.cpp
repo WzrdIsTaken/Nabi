@@ -37,14 +37,14 @@ namespace nabitest::ReflectionTests
 		// Create an entity! (fingers crossed...)
 		EntityCreator::EntityCreationSettings entityCreationSettings1;
 		entityCreationSettings1.m_EntityTemplateName = "MockEntityTemplate";
-		entityCreator.CreateEntity(entityCreationSettings1);
+		entityCreator.CreateEntity(&entityCreationSettings1);
 
 		// Create an entity with a custom name
 		EntityCreator::EntityCreationSettings entityCreationSettings2;
 		entityCreationSettings2.m_EntityTemplateName = "MockEntityTemplate";
 		entityCreationSettings2.m_EntityName = "EntityWithCustomName";
 		entityCreationSettings2.m_AppendUUID = false;
-		entityCreator.CreateEntity(entityCreationSettings2);
+		entityCreator.CreateEntity(&entityCreationSettings2);
 
 		// Create another entity, this time with a property override
 		EntityCreator::EntityCreationSettings entityCreationSettings3;
@@ -56,7 +56,7 @@ namespace nabitest::ReflectionTests
 		entityCreationSettings3.m_EntityOverriddenProperties = &propertyList;
 		entityCreationSettings3.m_AppendUUID = false;
 
-		entityCreator.CreateEntity(entityCreationSettings3);
+		entityCreator.CreateEntity(&entityCreationSettings3);
 
 		// --- Tests ---
 
