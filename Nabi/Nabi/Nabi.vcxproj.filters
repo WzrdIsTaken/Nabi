@@ -359,6 +359,9 @@
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp">
       <Filter>ECS\Src\CoreModules</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\CoreModules\RenderModule.cpp">
+      <Filter>ECS\Src\CoreModules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -597,6 +600,9 @@
     <ClInclude Include="Rendering\Inc\Containers\UVs.h">
       <Filter>Rendering\Inc\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\RenderModule.h">
+      <Filter>ECS\CoreModules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -638,6 +644,12 @@
       <Filter>Tests\Data\Rendering</Filter>
     </FxCompile>
     <FxCompile Include="Tests\Data\Rendering\VertexShader2D.hlsl">
+      <Filter>Tests\Data\Rendering</Filter>
+    </FxCompile>
+    <FxCompile Include="Tests\Data\Rendering\PixelShaderSkybox.hlsl">
+      <Filter>Tests\Data\Rendering</Filter>
+    </FxCompile>
+    <FxCompile Include="Tests\Data\Rendering\VertexShaderSkybox.hlsl">
       <Filter>Tests\Data\Rendering</Filter>
     </FxCompile>
   </ItemGroup>

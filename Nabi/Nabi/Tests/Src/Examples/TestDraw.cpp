@@ -81,20 +81,6 @@ namespace nabitest::Examples
 			spriteComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
 			spriteComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
 
-			//nabi::Rendering::UVs const textUvs = ecs::TextModule::CalculateCharacterUvs('!', 32, { 15, 8 });
-			//spriteComponent.m_U = { textUvs.m_U1, textUvs.m_U2 };
-			//spriteComponent.m_V = { textUvs.m_V1, textUvs.m_V2 };
-
-			// then skybox and scene coords! then.. done??
-
-			// rename model, sprite and text component to like modelresourcecomponent, spriteresourcecomponent etc
-			// dont use a buffer group component. need a generic spatialheriechy component instead
-			// then a text system, or some sort of text helper free functions, can take in a text component (which will efficietly just be a tag)
-			// find the child entities (which will basically be sprites - transform, buffercomponent, etc) and update there pos / content accordingly
-			// whatever these helper functions are, these should probs be used wherever the textloader creates the text as well for DRY
-
-			// Perhaps have a core resource loader module which can load modules/sprites/text
-			
 			// Create transform component
 			ecs::TransformComponent transformComponent = {};
 			transformComponent.m_Position = { -1, 0, 0 };
@@ -134,6 +120,30 @@ namespace nabitest::Examples
 			m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
 		}
 #pragma endregion
+
+#pragma region Skybox
+		// --- Create the test entity ---
+		entt::entity testEntity = m_Context.m_Registry.create();
+
+		// Create a model component
+		ecs::ModelResourceComponent modelComponent = {};
+		modelComponent.m_MeshPath = "PrimativeCube=15x15x15";
+		modelComponent.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
+		modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShaderSkybox.cso";
+		modelComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShaderSkybox.cso";
+
+		// Create transform component
+		ecs::TransformComponent transformComponent = {};
+		transformComponent.m_Position = { 0, 0, 0 }; //{ 1, -0.5f, 0 };
+		transformComponent.m_Rotation = { 0, 0, 0 };
+		transformComponent.m_Scale = { 0.25f, 0.25f, 0.25f }; // { 0.25f, 0.25f, 0.25f };
+
+		// Add the model component and a transform to the entity
+		m_Context.m_Registry.emplace<ecs::ModelResourceComponent>(testEntity, modelComponent);
+		m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
+#pragma endregion
+
+		// Now.. just scene units..?
 
 		// --- Load all assets ---
 		m_AssetBank->LoadAssets();

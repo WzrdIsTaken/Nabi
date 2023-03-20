@@ -8,6 +8,7 @@
 #include "Buffers\IndexBuffer.h"
 #include "Buffers\VertexBuffer.h"
 #include "Context.h"
+#include "CoreModules\RenderModule.h"
 #include "DebugUtils.h"
 
 namespace nabi::Rendering
@@ -18,18 +19,21 @@ namespace nabi::Rendering
 
 		switch (m_LoadMode)
 		{
-		case LoadMode::_3D:
-			result = Load3DMesh(resourcePath, context);
-			break;
-		case LoadMode::_2D:
-			result = Load2DSprite(resourcePath, context);
-			break;
-		case LoadMode::Undefined:
-			LOG(LOG_PREP, LOG_ERROR, LOG_CATEGORY_RENDERING << "LoadMode is undefined! Did you forget to set it?" << ENDLINE);
-			[[fallthrough]];
-		default:
-			ASSERT_FAIL("Unspecified LoadMode!");
-			break;
+			case LoadMode::_3D:
+			{
+				ResourceType primativeBuffers = CheckAndLoadPrimative(context, resourcePath);
+				result = primativeBuffers != nullptr ? primativeBuffers : Load3DMesh(resourcePath, context);
+				break;
+			}		
+			case LoadMode::_2D:
+				result = Load2DSprite(resourcePath, context);
+				break;
+			case LoadMode::Undefined:
+				LOG(LOG_PREP, LOG_ERROR, LOG_CATEGORY_RENDERING << "LoadMode is undefined! Did you forget to set it?" << ENDLINE);
+				[[fallthrough]];
+			default:
+				ASSERT_FAIL("Unspecified LoadMode!");
+				break;
 		}
 
 		return result;
@@ -95,6 +99,99 @@ namespace nabi::Rendering
 
 		// Return the resource
 		return mesh;
+	}
+
+	RenderBufferLoader::ResourceType RenderBufferLoader::CheckAndLoadPrimative(nabi::Context const& context, std::string const& resourcePath) const NABI_NOEXCEPT
+	{
+		// Extract the primatives dimensions
+		// Format: PrimativeName=dim1xdim2xetc
+		auto extractDimensionsFromPrimative =
+			[](std::string const& primative) -> std::optional<std::vector<int>>
+			{
+				std::optional<std::vector<int>> primativeDimensionsReturn = {};
+				std::vector<int> primativeDimensions = {};
+			
+				size_t const equals = primative.find_last_of("=") + 1u;
+				if (equals != std::string::npos)
+				{
+					size_t lastDivider = equals;
+					while (lastDivider != std::string::npos)
+					{
+						size_t const divider = primative.find_first_of("x", lastDivider);
+						std::string dimensionAsStr;
+
+						if (divider != std::string::npos)
+						{
+							dimensionAsStr = primative.substr(equals, divider - equals);
+							lastDivider = divider + 1u;
+						}
+						else
+						{
+							dimensionAsStr = primative.substr(lastDivider);
+							lastDivider = std::string::npos;
+						}
+
+						int const dimension = std::stoi(dimensionAsStr);
+						primativeDimensions.push_back(dimension);
+						
+					}
+				}
+
+				if (primativeDimensions.size() != 0u)
+				{
+					primativeDimensionsReturn = primativeDimensions;
+				}
+
+				return primativeDimensionsReturn;
+			};
+
+		entt::hashed_string constexpr primativeSphere = "PrimativeSphere";
+		entt::hashed_string constexpr primativeCube = "PrimativeCube";
+		std::array<std::string_view, 2> constexpr primatives = { primativeSphere.data(), primativeCube.data() };
+
+		ResourceType buffers = nullptr;
+
+		for (std::string_view const primative : primatives)
+		{
+			if (resourcePath.find(primative) != std::string::npos)
+			{
+				entt::hashed_string const primativeNameHash = entt::hashed_string(primative.data());
+				std::optional<std::vector<int>> const primativeDimensions = extractDimensionsFromPrimative(resourcePath);
+
+				if (primativeDimensions.has_value())
+				{
+					std::vector<int> const& dimensions = primativeDimensions.value();
+
+					switch (primativeNameHash)
+					{
+						case primativeSphere:
+						{
+							RenderBuffers const sphereBuffers = ecs::RenderModule::CreatePrimativeSphere(context, dimensions.at(0), dimensions.at(1));
+							buffers = std::make_shared<Mesh>(sphereBuffers);
+							break;
+						}
+						case primativeCube:
+						{
+							RenderBuffers const cubeBuffers = ecs::RenderModule::CreatePrimativeCube(
+								context, 
+								static_cast<float>(dimensions.at(0)),
+								static_cast<float>(dimensions.at(1)),
+								static_cast<float>(dimensions.at(2))
+							);
+							buffers = std::make_shared<Mesh>(cubeBuffers);
+							break;
+						}
+						default:
+							ASSERT_FAIL("Undefined primative name!");
+							break;
+					}
+				}
+
+				break;
+			}
+		}
+
+		return buffers;
 	}
 
 	dx::XMFLOAT2 RenderBufferLoader::ObjlVector2ToDxFloat2(objl::Vector2 const vector2) const NABI_NOEXCEPT

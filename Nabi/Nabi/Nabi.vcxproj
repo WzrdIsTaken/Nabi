@@ -174,6 +174,7 @@
     <ClCompile Include="ECS\Src\CoreComponents\LightComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\DrawableComponents.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\TransformComponent.cpp" />
+    <ClCompile Include="ECS\Src\CoreModules\RenderModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\SpatialHierarchyModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp" />
@@ -235,6 +236,7 @@
     <ClInclude Include="ECS\Inc\CoreComponents\DrawableComponents.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\SpatialHierarchyComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\TransformComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreModules\RenderModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\SpatialHierarchyModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\TextModule.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h" />
@@ -337,6 +339,16 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <FxCompile Include="Tests\Data\Rendering\PixelShaderSkybox.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="Tests\Data\Rendering\VertexShader3D.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
@@ -348,6 +360,16 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Tests\Data\Rendering\VertexShader2D.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)/Tests/Data/Rendering/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Tests\Data\Rendering\VertexShaderSkybox.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>

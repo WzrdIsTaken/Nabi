@@ -61,6 +61,8 @@ Current:
 Structure Stuff
 
 - namespace ecs::SingletonComponents ?
+- nabi::Utils::[UtilName] -> nabi::[UtilName]? have eg ecs::[ModuleName] not ecs::Modules::[ModuleName] ?
+
 - Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
   (acc i think this is ok on the stack?)
 

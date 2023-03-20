@@ -56,6 +56,8 @@ namespace nabi::Rendering
 	private:
 		// 3D
 		[[nodiscard]] std::shared_ptr<Mesh> Load3DMesh(std::string const& resourcePath, nabi::Context const& context) const NABI_NOEXCEPT;
+		[[nodiscard]] ResourceType CheckAndLoadPrimative(nabi::Context const& context, std::string const& resourcePath) const NABI_NOEXCEPT;
+
 		[[nodiscard]] dx::XMFLOAT2 ObjlVector2ToDxFloat2(objl::Vector2 const vector2) const NABI_NOEXCEPT;
 		[[nodiscard]] dx::XMFLOAT3 ObjlVector3ToDxFloat3(objl::Vector3 const vector3) const NABI_NOEXCEPT;
 
