@@ -10,6 +10,7 @@
 #include "Context.h"
 #include "CoreModules\RenderModule.h"
 #include "DebugUtils.h"
+#include "StringUtils.h"
 
 namespace nabi::Rendering
 {
@@ -103,43 +104,28 @@ namespace nabi::Rendering
 
 	RenderBufferLoader::ResourceType RenderBufferLoader::CheckAndLoadPrimative(nabi::Context const& context, std::string const& resourcePath) const NABI_NOEXCEPT
 	{
+		typedef int DimensionType;
+
 		// Extract the primatives dimensions
 		// Format: PrimativeName=dim1xdim2xetc
 		auto extractDimensionsFromPrimative =
-			[](std::string const& primative) -> std::optional<std::vector<int>>
+			[](std::string const& primative, size_t const expectedValues) -> std::optional<std::vector<DimensionType>>
 			{
-				std::optional<std::vector<int>> primativeDimensionsReturn = {};
-				std::vector<int> primativeDimensions = {};
+				std::optional<std::vector<DimensionType>> primativeDimensionsReturn = {};
+				std::vector<std::string_view> const primativeDimensions = nabi::Utils::StringUtils::SplitString(primative, '=', 'x', expectedValues);
 			
-				size_t const equals = primative.find_last_of("=") + 1u;
-				if (equals != std::string::npos)
+				if (!primativeDimensions.empty())
 				{
-					size_t lastDivider = equals;
-					while (lastDivider != std::string::npos)
+					std::vector<DimensionType> dimensions;
+					dimensions.reserve(primativeDimensions.size());
+
+					for (std::string_view const dimension : primativeDimensions)
 					{
-						size_t const divider = primative.find_first_of("x", lastDivider);
-						std::string dimensionAsStr;
-
-						if (divider != std::string::npos)
-						{
-							dimensionAsStr = primative.substr(equals, divider - equals);
-							lastDivider = divider + 1u;
-						}
-						else
-						{
-							dimensionAsStr = primative.substr(lastDivider);
-							lastDivider = std::string::npos;
-						}
-
-						int const dimension = std::stoi(dimensionAsStr);
-						primativeDimensions.push_back(dimension);
-						
+						DimensionType const dimensionAsType = std::stoi(dimension.data());
+						dimensions.push_back(dimensionAsType);
 					}
-				}
 
-				if (primativeDimensions.size() != 0u)
-				{
-					primativeDimensionsReturn = primativeDimensions;
+					primativeDimensionsReturn = dimensions;
 				}
 
 				return primativeDimensionsReturn;
@@ -147,44 +133,48 @@ namespace nabi::Rendering
 
 		entt::hashed_string constexpr primativeSphere = "PrimativeSphere";
 		entt::hashed_string constexpr primativeCube = "PrimativeCube";
-		std::array<std::string_view, 2> constexpr primatives = { primativeSphere.data(), primativeCube.data() };
+		std::array<entt::hashed_string, 2> constexpr primatives = { primativeSphere, primativeCube };
 
 		ResourceType buffers = nullptr;
 
-		for (std::string_view const primative : primatives)
+		for (entt::hashed_string const& primative : primatives)
 		{
-			if (resourcePath.find(primative) != std::string::npos)
+			if (resourcePath.find(primative.data()) != std::string::npos)
 			{
-				entt::hashed_string const primativeNameHash = entt::hashed_string(primative.data());
-				std::optional<std::vector<int>> const primativeDimensions = extractDimensionsFromPrimative(resourcePath);
-
-				if (primativeDimensions.has_value())
+				switch (primative)
 				{
-					std::vector<int> const& dimensions = primativeDimensions.value();
-
-					switch (primativeNameHash)
+					case primativeSphere:
 					{
-						case primativeSphere:
+						if (std::optional<std::vector<DimensionType>> const dimensions = extractDimensionsFromPrimative(resourcePath, 2u); dimensions.has_value())
 						{
-							RenderBuffers const sphereBuffers = ecs::RenderModule::CreatePrimativeSphere(context, dimensions.at(0), dimensions.at(1));
+							RenderBuffers const sphereBuffers = ecs::RenderModule::CreatePrimativeSphere(
+								context, 
+								static_cast<int>(dimensions->at(0)), 
+								static_cast<int>(dimensions->at(1))
+							);
 							buffers = std::make_shared<Mesh>(sphereBuffers);
-							break;
-						}
-						case primativeCube:
+						}		
+						break;
+					}
+					case primativeCube:
+					{
+						if (std::optional<std::vector<DimensionType>> const dimensions = extractDimensionsFromPrimative(resourcePath, 3u); dimensions.has_value())
 						{
 							RenderBuffers const cubeBuffers = ecs::RenderModule::CreatePrimativeCube(
-								context, 
-								static_cast<float>(dimensions.at(0)),
-								static_cast<float>(dimensions.at(1)),
-								static_cast<float>(dimensions.at(2))
+								context,
+								static_cast<float>(dimensions->at(0)),
+								static_cast<float>(dimensions->at(1)),
+								static_cast<float>(dimensions->at(2))
 							);
 							buffers = std::make_shared<Mesh>(cubeBuffers);
-							break;
 						}
-						default:
-							ASSERT_FAIL("Undefined primative name!");
-							break;
+						break;
 					}
+					default:
+					{
+						ASSERT_FAIL("Undefined primative name!");
+						break;
+					}	
 				}
 
 				break;

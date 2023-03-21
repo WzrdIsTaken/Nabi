@@ -15,6 +15,8 @@ namespace nabi::Utils::StringUtils
 	// A LPCSTR is just a typedef'ed WCHAR
 #define STRING_TO_WCHAR(string, wchar) STRING_TO_LPCWSTR(string, wchar)
 
+	// Splits a string via a delimiter, after a character
+	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, char const after, char const delimiter, size_t const expectedValues = SIZE_MAX) NABI_NOEXCEPT;
 	// Splits a string via a delimiter. Fatal assert if expectedValues is not equal to the resultant split
 	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, char const delimiter, size_t const expectedValues = SIZE_MAX) NABI_NOEXCEPT;
-} // nabi::Utils::StringUtils
+} // namespace nabi::Utils::StringUtils
