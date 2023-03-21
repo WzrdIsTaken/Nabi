@@ -5,8 +5,12 @@ Goals:
 Current:
 
 // --- Critical Priority ---
+- screen resizing
+- if the camera is moved, does the ui move?
 
 // --- High Priority ---
+- look at notebook. do rendering stuff or start on input. probs the later, i am very done with rendering. remember - have already tested this all out in "learning rendering" proj i think
+
 - if not batch rendering commit render system change and strip out the render 2d func . else ... research batch rendering!
 - [[nodiscard]] tag in game code?
 - 'Vertex' into 'Containers' and 'RenderBuffers' can be on the same level as the RenderCommand?
