@@ -209,6 +209,15 @@
     <Filter Include="ECS\Src\CoreModules">
       <UniqueIdentifier>{9ab6ba6c-bc56-44c8-8d6f-a51465cdbaee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{d3252b10-1fda-433e-9183-9cc2e127201d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory\Inc">
+      <UniqueIdentifier>{97f014df-2e45-411e-96a6-42eec3d8fd4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory\Src">
+      <UniqueIdentifier>{49e81952-64dd-4e96-98c5-feda24242f31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -361,6 +370,9 @@
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreModules\RenderModule.cpp">
       <Filter>ECS\Src\CoreModules</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\Src\Allocator.cpp">
+      <Filter>Memory\Src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -602,6 +614,9 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\RenderModule.h">
       <Filter>ECS\CoreModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\Inc\Allocator.h">
+      <Filter>Memory\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

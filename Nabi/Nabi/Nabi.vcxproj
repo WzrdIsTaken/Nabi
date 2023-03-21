@@ -92,7 +92,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -114,7 +114,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -135,7 +135,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -154,7 +154,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -183,6 +183,7 @@
     <ClCompile Include="Libraries\Src\pugixml\pugixml.cpp" />
     <ClCompile Include="Libraries\Src\WICTextureLoader\WICTextureLoader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Memory\Src\Allocator.cpp" />
     <ClCompile Include="Patterns\Src\Singleton.cpp" />
     <ClCompile Include="Reflection\Src\BaseTypeReflection.cpp" />
     <ClCompile Include="Reflection\Src\EntityCreator.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="Libraries\Inc\pugixml\pugiconfig.hpp" />
     <ClInclude Include="Libraries\Inc\pugixml\pugixml.hpp" />
     <ClInclude Include="Libraries\Inc\WICTextureLoader\WICTextureLoader.h" />
+    <ClInclude Include="Memory\Inc\Allocator.h" />
     <ClInclude Include="Patterns\Inc\Singleton.h" />
     <ClInclude Include="Reflection\Inc\BaseTypeReflection.h" />
     <ClInclude Include="Reflection\Inc\EntityCreator.h" />

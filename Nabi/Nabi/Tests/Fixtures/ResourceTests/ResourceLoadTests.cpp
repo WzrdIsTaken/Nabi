@@ -67,7 +67,10 @@ namespace nabitest::ResourceTests
 		COMPAIR_EQ(resourceExists);
 		
 		// Clear (remove all resources)
-		resourceRef = resourceBank.LoadResource(mockPath, ResourceBankInsertionMode::Enum::FirstNullIndex);
+		ResourceCreationSettings resourceCreationSettings = c_DefaultResourceCreationSettings;
+		resourceCreationSettings.m_ResourceInsertionMode = ResourceCreationSettings::ResourceInsertionMode::FirstNullIndex;
+
+		resourceRef = resourceBank.LoadResource(mockPath, resourceCreationSettings);
 		resourceBank.Clear();
 
 		int const activeResourcesInBank = static_cast<int>(resourceBank.GetResourceCount());
