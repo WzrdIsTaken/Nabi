@@ -3,6 +3,7 @@
 #include "NabiCore.h"
 
 #include "CoreComponents\CameraComponent.h"
+#include "CoreModules\CameraModule.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
 #include "EntityCreator.h"
@@ -109,10 +110,10 @@ namespace nabi
 		// --- Create the camera ---
 		ecs::CameraComponent cameraComponent;
 
-		ecs::CameraHelpers::DefaultCameraValuesSettings defaultCameraSettings;
+		ecs::CameraModule::DefaultCameraValuesSettings defaultCameraSettings;
 		defaultCameraSettings.m_WindowWidth  = static_cast<float>(m_DXObjects.m_Viewport.Width);
 		defaultCameraSettings.m_WindowHeight = static_cast<float>(m_DXObjects.m_Viewport.Height);
-		ecs::CameraHelpers::DefaultCameraValues(cameraComponent, defaultCameraSettings);
+		ecs::CameraModule::DefaultCameraValues(cameraComponent, defaultCameraSettings);
 
 		// --- Create the graphics component ---
 		ecs::GraphicsComponent graphicsComponent;

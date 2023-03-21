@@ -374,6 +374,9 @@
     <ClCompile Include="Memory\Src\Allocator.cpp">
       <Filter>Memory\Src</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\CoreModules\CameraModule.cpp">
+      <Filter>ECS\Src\CoreModules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -617,6 +620,9 @@
     </ClInclude>
     <ClInclude Include="Memory\Inc\Allocator.h">
       <Filter>Memory\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\CameraModule.h">
+      <Filter>ECS\CoreModules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
