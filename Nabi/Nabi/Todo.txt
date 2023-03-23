@@ -48,7 +48,7 @@ Current:
 - clean up the entity info component. doesnt need cpp or the settings i dont think
 
 - Fix all warnings / disable those we dont care about
-- Forward declare the enums (PixelShader, VertexShader) or switch to enum class
+- Forward declare the enums (PixelShader, VertexShader) or switch to enum class (actually cant use enum class in all cases. disable the warning about unscoped enum)
 
 - Comment up all rendering code (also switch over all comment style - doxygen? im not really a big fan of the xml now i know i can change it) (also can xmlparser methods be const?)
 - Write rendering tests

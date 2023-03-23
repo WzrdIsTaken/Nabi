@@ -258,6 +258,9 @@ namespace nabitest::Examples
 					m_Context.m_Registry.emplace_or_replace<ecs::BufferComponent>(entity, meshComponent);
 					m_Context.m_Registry.emplace_or_replace<ecs::ShaderComponent>(entity, shaderComponent);
 					m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
+
+					// Tag
+					m_Context.m_Registry.emplace_or_replace<ecs::Tags::DrawPerspective>(entity);
 				});
 
 		return true;
@@ -308,6 +311,9 @@ namespace nabitest::Examples
 					m_Context.m_Registry.emplace_or_replace<ecs::BufferComponent>(entity, spriteComponent);
 					m_Context.m_Registry.emplace_or_replace<ecs::ShaderComponent>(entity, shaderComponent);
 					m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
+
+					// Tag
+					m_Context.m_Registry.emplace_or_replace<ecs::Tags::DrawOrthographic>(entity);
 				});
 
 		return true;
@@ -395,6 +401,9 @@ namespace nabitest::Examples
 						m_Context.m_Registry.emplace_or_replace<ecs::BufferComponent>(characterEntity, characterComponent);
 						m_Context.m_Registry.emplace_or_replace<ecs::ShaderComponent>(characterEntity, shaderComponent);
 						m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(characterEntity, textureComponent);
+
+						// Tag
+						m_Context.m_Registry.emplace_or_replace<ecs::Tags::DrawOrthographic>(characterEntity);
 
 						textComponent.m_Characters.push_back(characterEntity);
 					}

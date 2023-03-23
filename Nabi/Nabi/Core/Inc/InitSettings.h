@@ -13,8 +13,8 @@ namespace nabi
 	};
 
 	WindowSettings const windowDefaultSettings = {
-		.m_Width = 800l,
-		.m_Height = 600l,
+		.m_Width = 1280l,
+		.m_Height = 720l,
 		.m_WindowName = L"Nabi",
 		.m_ClassName = L"Butterfly"
 	};

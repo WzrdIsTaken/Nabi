@@ -108,12 +108,16 @@ namespace nabi
 			m_Context.m_SingletonEntites.at(Context::SingletonEntities::Graphic) = m_Context.m_Registry.create();
 
 		// --- Create the camera ---
-		ecs::CameraComponent cameraComponent;
+		ecs::CameraGroupComponent cameraComponent = {};
 
 		ecs::CameraModule::DefaultCameraValuesSettings defaultCameraSettings;
 		defaultCameraSettings.m_WindowWidth  = static_cast<float>(m_DXObjects.m_Viewport.Width);
 		defaultCameraSettings.m_WindowHeight = static_cast<float>(m_DXObjects.m_Viewport.Height);
-		ecs::CameraModule::DefaultCameraValues(cameraComponent, defaultCameraSettings);
+
+		ecs::CameraComponent& perspectiveCamera = cameraComponent.m_Cameras.at(ecs::CameraIndex::Perspective);
+		ecs::CameraComponent& orthographicCamera = cameraComponent.m_Cameras.at(ecs::CameraIndex::Orthographic);
+		ecs::CameraModule::DefaultCameraValues(perspectiveCamera, defaultCameraSettings);
+		ecs::CameraModule::DefaultCameraValues(orthographicCamera, defaultCameraSettings);
 
 		// --- Create the graphics component ---
 		ecs::GraphicsComponent graphicsComponent;
@@ -136,7 +140,7 @@ namespace nabi
 		lightStateComponent.m_UpdateLights = true; // TEST for testing only. should be 'false'
 
 		// --- Add the graphics components to the entity ---
-		m_Context.m_Registry.emplace<ecs::CameraComponent>(graphicsEntity, cameraComponent);
+		m_Context.m_Registry.emplace<ecs::CameraGroupComponent>(graphicsEntity, cameraComponent);
 		m_Context.m_Registry.emplace<ecs::GraphicsComponent>(graphicsEntity, graphicsComponent);
 		m_Context.m_Registry.emplace<ecs::LightStateComponent>(graphicsEntity, lightStateComponent);
 

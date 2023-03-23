@@ -75,6 +75,12 @@ namespace ecs
 	// They are then converted to these components (runtime data)
 
 	// Core 
+	namespace Tags
+	{
+		struct DrawPerspective  {};
+		struct DrawOrthographic {};
+	}
+
 	struct BufferComponent final : public nabi::ECS::ComponentBase
 	{
 		nabi::Resource::ResourceRef<nabi::Rendering::RenderBuffers> m_BufferResource;
@@ -104,19 +110,4 @@ namespace ecs
 		int m_CharacterPoolSize;
 		int m_ActiveInPool;
 	};
-
-	// Ideas? 
-	/*
-		Could add this to every drawable if needed to identify their types one day
-		struct DrawableComponent final : public nabi::ECS::ComponentBase
-		{
-			enum class DrawableType : int
-			{
-				Mesh,
-				Sprite
-			};
-
-			DrawableType m_DrawableType;
-		};
-	*/
 } // namespace ecs
