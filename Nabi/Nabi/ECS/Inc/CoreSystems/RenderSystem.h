@@ -22,8 +22,6 @@ namespace ecs
 		void RenderOrthographic(GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent);
 
 	private:
-		REFLECT_PRIVATES(RenderSystem)
-
 		// What actually does the rendering
 		template<typename RenderableTag>
 		void RenderInternal(GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameras, CameraIndex::Enum const cameraType)
@@ -136,5 +134,7 @@ namespace ecs
 		dx::XMMATRIX m_DebugViewMatrix;
 		dx::XMMATRIX m_DebugModelMatrix;
 #endif // USE_DEBUG_UTILS
+
+		REFLECT_PRIVATES(RenderSystem)
 	};
 } // namespace ecs

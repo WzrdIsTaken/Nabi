@@ -24,13 +24,13 @@ namespace ecs
 		void Render(/*TODO - game time?*/);
 
 	private:
-		REFLECT_PRIVATES(LightingSystem)
-
 		void AssignLightingProperties(nabi::Rendering::PerLightChange& perLightChangeConstantBuffer, LightingProperties const& lightProperties) const;
 
 		void OnLightCreated(entt::registry& registry, entt::entity entity) const;
 		void OnLightUpdated(entt::registry& registry, entt::entity entity) const;
 		void OnLightDestroyed(entt::registry& registry, entt::entity entity) const;
 		LightStateComponent& GetLightStateComponent() const;
+
+		REFLECT_PRIVATES(LightingSystem)
 	};
 } // namespace ecs
