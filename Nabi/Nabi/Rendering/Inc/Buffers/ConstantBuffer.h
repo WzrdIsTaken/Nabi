@@ -20,7 +20,7 @@ namespace nabi::Rendering
 		char /*const*/ c_Padding[4];
 	};
 
-	struct PerMesh final
+	struct PerRenderable final
 	{
 		dx::XMFLOAT4X4 m_ModelMatrix;
 	};
@@ -54,7 +54,7 @@ namespace nabi::Rendering
 		enum Enum
 		{
 			PerFrame = 0u,
-			PerMesh,
+			PerRenderable,
 			PerLightChange,
 			ENUM_COUNT
 		};

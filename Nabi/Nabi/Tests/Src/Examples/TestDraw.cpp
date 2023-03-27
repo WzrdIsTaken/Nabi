@@ -222,7 +222,7 @@ namespace nabitest::Examples
 		// Set the banks for meshes
 		VertexShaderLoader& vertexShaderLoader = m_VertexShaderBank.GetLoader();
 		vertexShaderLoader.SetInputLayout(Layouts::c_MeshInputLayout);
-		vertexShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerFrame, ConstantBufferIndex::PerMesh });
+		vertexShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerFrame, ConstantBufferIndex::PerRenderable });
 
 		PixelShaderLoader& pixelShaderLoader = m_PixelShaderBank.GetLoader();
 		pixelShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerLightChange });

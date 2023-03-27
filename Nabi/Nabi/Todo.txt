@@ -12,8 +12,6 @@ Current:
 - need a way to load/ unload entity groups - does this exist already?
 	- when entities are parsed they should be cached in the groups the are in, like they are put in the entity template map. then then can be fast loaded/unloaded 
 
-- rename PerMesh constant buffer to PerRenderable? if its used for 2d as well..
-
 - loading resources for the icon (currently its just commented out. needs to be customisable in NabiSettings I recon)
 
 - shader stuff can go into a "Common" file and be included / have the prefix g_. Eg: g_ModelMatrix
@@ -73,6 +71,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- rename PerMesh constant buffer to PerRenderable? if its used for 2d as well..
 - 'Vertex' into 'Containers' and 'RenderBuffers' can be on the same level as the RenderCommand?
 - Get sam to review rendering code and see any improvements / make sure everything is clean
 - Make sure to include some good logging when the direct x render stuff is starting up / running

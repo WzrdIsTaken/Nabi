@@ -61,9 +61,9 @@ namespace ecs
 			}
 
 			// Cache the per mesh contant buffer 
-			nabi::Rendering::ConstantBuffer const perMeshConstantBuffer
-				= graphicsComponent.m_ConstantBuffers.at(nabi::Rendering::ConstantBufferIndex::PerMesh);
-			nabi::Rendering::PerMesh perMeshConstantBufferData;
+			nabi::Rendering::ConstantBuffer const perRenderableConstantBuffer
+				= graphicsComponent.m_ConstantBuffers.at(nabi::Rendering::ConstantBufferIndex::PerRenderable);
+			nabi::Rendering::PerRenderable perRenderableConstantBufferData;
 
 			// Loop through all the models
 			m_Context.m_Registry.view<TransformComponent, RenderableTag, BufferComponent, ShaderComponent, TextureComponent>()
@@ -89,10 +89,10 @@ namespace ecs
 							modelMatrix = dx::XMMatrixTranspose(modelMatrix);
 
 							// Store the matrix data in the constant buffer
-							dx::XMStoreFloat4x4(&perMeshConstantBufferData.m_ModelMatrix, modelMatrix);
+							dx::XMStoreFloat4x4(&perRenderableConstantBufferData.m_ModelMatrix, modelMatrix);
 
 							// Update the constant buffer
-							m_Context.m_RenderCommand->UpdateConstantBuffer(perMeshConstantBuffer, &perMeshConstantBufferData);
+							m_Context.m_RenderCommand->UpdateConstantBuffer(perRenderableConstantBuffer, &perRenderableConstantBufferData);
 
 							// Cache the matrix + debug output
 #ifdef USE_DEBUG_UTILS

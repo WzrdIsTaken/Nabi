@@ -133,12 +133,12 @@ namespace nabi
 		ConstantBufferLoader constantBufferLoader;
 
 		ConstantBuffer const perFrameConstantBuffer = constantBufferLoader(sizeof(PerFrame), m_Context);
-		ConstantBuffer const perMeshConstantBuffer = constantBufferLoader(sizeof(PerMesh), m_Context);
+		ConstantBuffer const perMeshConstantBuffer = constantBufferLoader(sizeof(PerRenderable), m_Context);
 		ConstantBuffer const perLightChangeConstantBuffer = constantBufferLoader(sizeof(PerLightChange), m_Context);
 
 		// Assign the constant buffers to the component
 		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerFrame) = perFrameConstantBuffer;
-		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerMesh) = perMeshConstantBuffer;
+		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerRenderable) = perMeshConstantBuffer;
 		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerLightChange) = perLightChangeConstantBuffer;
 
 		// --- Create the light state component ---
