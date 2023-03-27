@@ -17,7 +17,7 @@
 		sink.disconnect<&subscriber>(this); \
 	}
 #define REGISTER_UNREGISTER_WINDOWS_EVENT_HELPER(msg) \
-	Window::WindowsMessage& sigh = m_Context.m_Window->GetOrAddEvent(msg); \
+	Window::WindowsMsg& sigh = m_Context.m_Window->GetOrAddEvent(msg); \
 	entt::sink sink{ sigh };
 
 namespace nabi
@@ -25,12 +25,12 @@ namespace nabi
 	class Window final
 	{
 	public:
-		typedef entt::sigh<void(WPARAM, LPARAM)> WindowsMessage; 
+		typedef entt::sigh<void(WPARAM, LPARAM)> WindowsMsg; 
 
 		Window(HINSTANCE const hInstance, WindowSettings const& settings) NABI_NOEXCEPT;
 		~Window();
 
-		WindowsMessage& GetOrAddEvent(UINT const messageId) NABI_NOEXCEPT;
+		WindowsMsg& GetOrAddEvent(UINT const messageId) NABI_NOEXCEPT;
 		bool RemoveEvent(UINT const messageId) NABI_NOEXCEPT;
 
 		/// <summary>
@@ -48,13 +48,13 @@ namespace nabi
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(Window)
 
-		struct WindowsMessagePair;
-		typedef std::vector<WindowsMessagePair>::iterator WindowMsgItr;
+		struct WindowsMsgPair;
+		typedef std::vector<WindowsMsgPair>::iterator WindowMsgItr;
 
-		struct WindowsMessagePair
+		struct WindowsMsgPair
 		{
 			UINT m_Msg;
-			WindowsMessage m_Event;
+			WindowsMsg m_Event;
 		};
 
 		enum class FindMode : int
@@ -72,7 +72,7 @@ namespace nabi
 		bool IsMsgItrValid(WindowMsgItr const itr) const NABI_NOEXCEPT;
 
 		HWND m_hWnd;
-		std::vector<WindowsMessagePair> m_WindowsEvents;
+		std::vector<WindowsMsgPair> m_WindowsEvents;
 
 		HINSTANCE const c_hInstance;
 		LPCWSTR const c_WindowClassName;

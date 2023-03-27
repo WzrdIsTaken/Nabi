@@ -212,6 +212,9 @@
     <Filter Include="Memory\Src">
       <UniqueIdentifier>{49e81952-64dd-4e96-98c5-feda24242f31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Icon">
+      <UniqueIdentifier>{57b04350-6f7e-4b5c-9159-8c1bc487bce8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -673,5 +676,10 @@
     <FxCompile Include="Tests\Data\Rendering\VertexShaderSkybox.hlsl">
       <Filter>Tests\Data\Rendering</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Icon\icon.ico">
+      <Filter>Icon</Filter>
+    </Image>
   </ItemGroup>
 </Project>

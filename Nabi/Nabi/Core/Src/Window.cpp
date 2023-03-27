@@ -2,6 +2,8 @@
 
 #include "Window.h"
 
+#include "resource.h"
+
 #include "DebugUtils.h"
 
 namespace nabi
@@ -20,12 +22,17 @@ namespace nabi
 		window.cbClsExtra = 0;
 		window.cbWndExtra = 0;
 		window.hInstance = hInstance;
-		//window.hIcon = static_cast<HICON>(LoadImage(hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 128, 128, 0)); TODO - add the cool icon
-		//window.hIconSm = static_cast<HICON>(LoadImage(hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, 0)); https://youtu.be/QYGLXhulvVQ?list=PLqCJpWy5Fohd3S7ICFXwUomYW0Wv67pDD&t=1098
 		window.hCursor = nullptr;
 		window.hbrBackground = nullptr;
 		window.lpszMenuName = nullptr;
 		window.lpszClassName = c_WindowClassName;
+
+		if (settings.m_UseApplicationIcon)
+		{
+			// See Nabi\Icon\Icons!.txt for how to update the icon
+			window.hIcon = static_cast<HICON>(LoadImage(hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 128, 128, 0));
+			window.hIconSm = static_cast<HICON>(LoadImage(hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, 0));
+		}
 
 		// Register the window instance
 		DX_ASSERT(RegisterClassEx(&window));
@@ -72,7 +79,7 @@ namespace nabi
 		DX_ASSERT(UnregisterClass(c_WindowClassName, c_hInstance));
 	}
 
-	Window::WindowsMessage& Window::GetOrAddEvent(UINT const messageId) NABI_NOEXCEPT
+	Window::WindowsMsg& Window::GetOrAddEvent(UINT const messageId) NABI_NOEXCEPT
 	{
 		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_WINDOWS << "Registering a new windows event listener with message id " << messageId << ENDLINE);
 
@@ -82,11 +89,11 @@ namespace nabi
 		}
 		else
 		{
-			WindowsMessagePair newMessagePair;
+			WindowsMsgPair newMessagePair;
 			newMessagePair.m_Msg = messageId;
 			newMessagePair.m_Event = {};
 
-			WindowsMessagePair& messagePair = m_WindowsEvents.emplace_back(newMessagePair);
+			WindowsMsgPair& messagePair = m_WindowsEvents.emplace_back(newMessagePair);
 			return messagePair.m_Event;
 		}
 	}
@@ -187,7 +194,7 @@ namespace nabi
 	{
 		// this function could be entry in simon's book worthy
 
-		auto const find = [messageId](WindowsMessagePair const& messagePair) -> bool { return messageId == messagePair.m_Msg; };
+		auto const find = [messageId](WindowsMsgPair const& messagePair) -> bool { return messageId == messagePair.m_Msg; };
 		auto const messageSubscribersItr = findMode == FindMode::Find ? std::find_if  (m_WindowsEvents.begin(), m_WindowsEvents.end(), find)
 												        /* Remove  */ : std::remove_if(m_WindowsEvents.begin(), m_WindowsEvents.end(), find);
 									                    /* Default */   ASSERT(findMode == FindMode::Find || findMode == FindMode::Remove, "yeah dont do that pls tyty");

@@ -16,6 +16,7 @@ namespace nabi
 		LPCWSTR m_ClassName;
 
 		bool m_AllowResizing;
+		bool m_UseApplicationIcon;
 		size_t m_StartingEventsSize;
 	};
 
@@ -30,6 +31,7 @@ namespace nabi
 		.m_ClassName = L"Butterfly",
 
 		.m_AllowResizing = true,
+		.m_UseApplicationIcon = true,
 		.m_StartingEventsSize = 10u
 	};
 
