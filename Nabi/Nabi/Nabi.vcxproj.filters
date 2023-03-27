@@ -197,12 +197,6 @@
     <Filter Include="ECS\Inc\CoreSingletonComponents">
       <UniqueIdentifier>{6422b455-b88f-41c2-8fdd-3d08c30fb191}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Rendering\Inc\Drawables">
-      <UniqueIdentifier>{420b26df-c250-4cab-b87b-d83c053d0458}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Src\Drawables">
-      <UniqueIdentifier>{54fa5e2a-255e-464d-874e-789a573cfaf7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ECS\CoreModules">
       <UniqueIdentifier>{c8129404-7fac-4b52-a0ea-c11b45c23107}</UniqueIdentifier>
     </Filter>
@@ -359,9 +353,6 @@
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp">
       <Filter>ECS\Src\CoreSystems</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\Src\Drawables\RenderBuffers.cpp">
-      <Filter>Rendering\Src\Drawables</Filter>
-    </ClCompile>
     <ClCompile Include="ECS\Src\CoreModules\SpatialHierarchyModule.cpp">
       <Filter>ECS\Src\CoreModules</Filter>
     </ClCompile>
@@ -379,6 +370,9 @@
     </ClCompile>
     <ClCompile Include="Core\Src\WindowEventsListener.cpp">
       <Filter>Core\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Src\Buffers\RenderBuffers.cpp">
+      <Filter>Rendering\Src\Buffers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -600,12 +594,6 @@
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h">
       <Filter>ECS\Inc\CoreSingletonComponents</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\Inc\Drawables\RenderBuffers.h">
-      <Filter>Rendering\Inc\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\Inc\Drawables\Vertex.h">
-      <Filter>Rendering\Inc\Drawables</Filter>
-    </ClInclude>
     <ClInclude Include="ECS\Inc\CoreComponents\SpatialHierarchyComponent.h">
       <Filter>ECS\Inc\CoreComponents</Filter>
     </ClInclude>
@@ -629,6 +617,12 @@
     </ClInclude>
     <ClInclude Include="Core\Inc\WindowEventsListener.h">
       <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Containers\Vertex.h">
+      <Filter>Rendering\Inc\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Inc\Buffers\RenderBuffers.h">
+      <Filter>Rendering\Inc\Buffers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

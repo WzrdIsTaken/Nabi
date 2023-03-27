@@ -1,7 +1,7 @@
 #include "EngineCore.h"
 #include "WinCore.h"
 
-#include "Drawables\RenderBuffers.h"
+#include "Buffers\RenderBuffers.h"
 
 #include "OBJLoader.h"
 

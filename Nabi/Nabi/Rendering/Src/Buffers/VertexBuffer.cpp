@@ -3,9 +3,9 @@
 
 #include "Buffers\VertexBuffer.h"
 
+#include "Buffers\RenderBuffers.h"
+#include "Containers\Vertex.h"
 #include "Context.h"
-#include "Drawables\RenderBuffers.h"
-#include "Drawables\Vertex.h"
 
 namespace nabi::Rendering
 {

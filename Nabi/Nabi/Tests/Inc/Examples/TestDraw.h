@@ -4,9 +4,9 @@
 #include "IExample.h"
 
 #include "AssetBank.h"
+#include "Buffers\RenderBuffers.h"
 #include "CoreSystems\RenderSystem.h"
 #include "CoreSystems\LightingSystem.h"
-#include "Drawables\RenderBuffers.h"
 #include "Shaders\PixelShader.h"
 #include "Shaders\VertexShader.h"
 #include "ResourceBank.h"

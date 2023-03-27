@@ -2,7 +2,7 @@
 
 #include "CoreModules\RenderModule.h"
 
-#include "Drawables\Vertex.h"
+#include "Containers\Vertex.h"
 #include "RenderCommand.h"
 
 namespace ecs::RenderModule

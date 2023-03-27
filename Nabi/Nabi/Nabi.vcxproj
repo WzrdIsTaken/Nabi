@@ -194,9 +194,9 @@
     <ClCompile Include="Reflection\Src\XmlParser.cpp" />
     <ClCompile Include="Rendering\Src\Buffers\ConstantBuffer.cpp" />
     <ClCompile Include="Rendering\Src\Buffers\IndexBuffer.cpp" />
+    <ClCompile Include="Rendering\Src\Buffers\RenderBuffers.cpp" />
     <ClCompile Include="Rendering\Src\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Rendering\Src\Containers\Colour.cpp" />
-    <ClCompile Include="Rendering\Src\Drawables\RenderBuffers.cpp" />
     <ClCompile Include="Rendering\Src\RenderCommand.cpp" />
     <ClCompile Include="Rendering\Src\Shaders\PixelShader.cpp" />
     <ClCompile Include="Rendering\Src\Shaders\VertexShader.cpp" />
@@ -270,11 +270,11 @@
     <ClInclude Include="Reflection\Inc\XmlParser.h" />
     <ClInclude Include="Rendering\Inc\Buffers\ConstantBuffer.h" />
     <ClInclude Include="Rendering\Inc\Buffers\IndexBuffer.h" />
+    <ClInclude Include="Rendering\Inc\Buffers\RenderBuffers.h" />
     <ClInclude Include="Rendering\Inc\Buffers\VertexBuffer.h" />
     <ClInclude Include="Rendering\Inc\Containers\Colour.h" />
     <ClInclude Include="Rendering\Inc\Containers\UVs.h" />
-    <ClInclude Include="Rendering\Inc\Drawables\RenderBuffers.h" />
-    <ClInclude Include="Rendering\Inc\Drawables\Vertex.h" />
+    <ClInclude Include="Rendering\Inc\Containers\Vertex.h" />
     <ClInclude Include="Rendering\Inc\DXObjects.h" />
     <ClInclude Include="Rendering\Inc\RenderCommand.h" />
     <ClInclude Include="Rendering\Inc\Shaders\PixelShader.h" />

@@ -2,7 +2,7 @@
 #include "Core.h"
 
 #include "Containers\UVs.h"
-#include "Drawables\RenderBuffers.h"
+#include "Buffers\RenderBuffers.h"
 #include "ResourceWrappers.h"
 #include "Shaders\PixelShader.h"
 #include "Shaders\VertexShader.h"

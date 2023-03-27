@@ -1,7 +1,7 @@
 #pragma once
 #include "Core.h"
 
-#include "Drawables\RenderBuffers.h"
+#include "Buffers\RenderBuffers.h"
 
 namespace ecs::RenderModule
 {

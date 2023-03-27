@@ -7,7 +7,7 @@
 #include "Buffers/IndexBuffer.h"
 #include "Buffers/VertexBuffer.h"
 #include "Containers/Colour.h"
-#include "Drawables/Vertex.h"
+#include "Containers/Vertex.h"
 #include "Shaders/PixelShader.h"
 #include "Shaders/VertexShader.h"
 #include "Textures/Sampler.h"
