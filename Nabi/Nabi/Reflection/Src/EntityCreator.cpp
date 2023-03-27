@@ -157,11 +157,11 @@ namespace nabi::Reflection
 
 		void nabi::Reflection::Creation::AddSpatialHierarchyComponentToEntity(entt::registry& registey, entt::entity const parent) NABI_NOEXCEPT
 		{
-			ecs::SpatialHierarchyComponent spatialHierarchyComponent;
-			spatialHierarchyComponent.m_Parent = parent;
-			spatialHierarchyComponent.m_Children = {};
+			auto spatialHierarchyComponentSettings = ecs::spatialHierarchyComponentDefaultSettings;
+			spatialHierarchyComponentSettings.m_Parent = parent;
+			spatialHierarchyComponentSettings.m_Children = {};
 
-			registey.emplace<ecs::SpatialHierarchyComponent>(parent, spatialHierarchyComponent);
+			registey.emplace<ecs::SpatialHierarchyComponent>(parent, spatialHierarchyComponentSettings);
 		}
 
 		void AssignComponentToRegistery(entt::meta_any& metaComponent, entt::registry& registery, entt::entity const entity) NABI_NOEXCEPT

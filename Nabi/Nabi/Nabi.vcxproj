@@ -171,7 +171,6 @@
     <ClCompile Include="Core\Src\Window.cpp" />
     <ClCompile Include="Core\Src\WindowEventsListener.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\CameraComponent.cpp" />
-    <ClCompile Include="ECS\Src\CoreComponents\EntityInfoComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\LightComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\DrawableComponents.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\TransformComponent.cpp" />

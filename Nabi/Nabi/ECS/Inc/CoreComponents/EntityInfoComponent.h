@@ -14,7 +14,7 @@
   in one place - but you can see how it would be useful in an ecs without a backend reflection system.
 
   This component, and any other core ecs blueprints, live in the 'ecs' namespace to make them more closely linked to the game's
-  (eventual) 'ecs' namespace.
+  (eventual) 'ecs' code.
 */
 
 namespace ecs
@@ -36,8 +36,14 @@ namespace ecs
 	// Component
 	struct EntityInfoComponent final : public nabi::ECS::ComponentBase
 	{
-		EntityInfoComponent();
-		explicit EntityInfoComponent(EntityInfoComponentSettings const& settings);
+		EntityInfoComponent()
+			: m_EntityGroup(entt::hashed_string())
+			, m_EntityName(entt::hashed_string())
+		{}
+		explicit EntityInfoComponent(EntityInfoComponentSettings const& settings)
+			: m_EntityGroup(settings.m_EntityGroup)
+			, m_EntityName(settings.m_EntityName)
+		{}
 
 		entt::hashed_string m_EntityGroup;
 		entt::hashed_string m_EntityName;

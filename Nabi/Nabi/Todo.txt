@@ -16,8 +16,6 @@ Current:
 
 - Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
 
-- clean up the entity info component. doesnt need cpp or the settings i dont think
-
 - Fix all warnings / disable those we dont care about
 - Forward declare the enums (PixelShader, VertexShader) or switch to enum class (actually cant use enum class in all cases. disable the warning about unscoped enum)
 
@@ -36,6 +34,7 @@ Current:
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
+- Have all entity groups / event calls etc as constexpr in a file
 
 - namespace ecs::SingletonComponents ?
 - nabi::Utils::[UtilName] -> nabi::[UtilName]? have eg ecs::[ModuleName] not ecs::Modules::[ModuleName] ?
@@ -47,8 +46,6 @@ Structure Stuff
 
 - Pixel shader might need to take in an array of lights..? what happens if we have two lights?
 	- two lights is acc fine. ngl in all off my projects i wont want complex lighting, so i think what we've got is ok
-
-- Have all entity groups / event calls etc as constexpr in a file
 
 - The entity clone appending of "_clone" to the entity name might be broken somehow. This isnt super high prio though as the entity group looks ok, and thats more important
 
@@ -67,6 +64,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- clean up the entity info component. doesnt need cpp or the settings i dont think
 - shader stuff can go into a "Common" file and be included / have the prefix g_. Eg: g_ModelMatrix
 - loading resources for the icon (currently its just commented out. needs to be customisable in NabiSettings I recon)
 - rename PerMesh constant buffer to PerRenderable? if its used for 2d as well..

@@ -251,9 +251,6 @@
     <ClCompile Include="ECS\Src\SystemBase.cpp">
       <Filter>ECS\Src</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Src\CoreComponents\EntityInfoComponent.cpp">
-      <Filter>ECS\Src\CoreComponents</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Src\NabiCore.cpp">
       <Filter>Core\Src</Filter>
     </ClCompile>
