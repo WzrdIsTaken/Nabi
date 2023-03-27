@@ -12,10 +12,6 @@ Current:
 - need a way to load/ unload entity groups - does this exist already?
 	- when entities are parsed they should be cached in the groups the are in, like they are put in the entity template map. then then can be fast loaded/unloaded 
 
-- loading resources for the icon (currently its just commented out. needs to be customisable in NabiSettings I recon)
-
-- shader stuff can go into a "Common" file and be included / have the prefix g_. Eg: g_ModelMatrix
-
 - work how why listeners arent being called for the lighting system. also needs to be either the light or transform component changed
 
 - Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
@@ -71,6 +67,8 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- shader stuff can go into a "Common" file and be included / have the prefix g_. Eg: g_ModelMatrix
+- loading resources for the icon (currently its just commented out. needs to be customisable in NabiSettings I recon)
 - rename PerMesh constant buffer to PerRenderable? if its used for 2d as well..
 - 'Vertex' into 'Containers' and 'RenderBuffers' can be on the same level as the RenderCommand?
 - Get sam to review rendering code and see any improvements / make sure everything is clean
