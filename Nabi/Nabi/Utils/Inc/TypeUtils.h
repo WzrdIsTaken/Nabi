@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 #include "Defines.h"
 
 #ifndef USE_DEBUG_UTILS
@@ -19,6 +21,26 @@
 #define DELETE_MOVE_CONSTRUCTORS(type) \
     type(type&&) = delete; \
     type(type const&&) = delete;
+
+namespace nabi::Utils::TypeUtils
+{
+    // Note - this has some flaws / limitations
+    // See https://stackoverflow.com/questions/20833453/comparing-stdfunctions-for-equality
+
+    template<typename T, typename... U>
+    bool CompairStdFunctionEquality(std::function<T(U...)> lhs, std::function<T(U...)> rhs)
+    {
+        bool const equal = GetAddress(lhs) == GetAddress(rhs);
+        return equal;
+    }
+
+    template<typename T, typename... U>
+    size_t GetAddress(std::function<T(U...)> function) {
+        typedef T(FunctionType)(U...);
+        FunctionType** functionPointer = function.template target<FunctionType*>();
+        return (size_t)*functionPointer;
+    }
+}
 
 //#define interface __interface
 

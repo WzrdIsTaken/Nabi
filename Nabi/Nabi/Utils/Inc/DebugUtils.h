@@ -17,6 +17,7 @@
 	#define ASSERT_FAIL_FATAL(message) NOT_DEFINED
 	#define ASSERT_FAIL(message) NOT_DEFINED
 
+	#define ASSERT_CODE(code) NOT_DEFINED
 	#define DX_ASSERT(logic) logic
 
 	#define STATIC_ASSERT(...) NOT_DEFINED
@@ -32,6 +33,7 @@
 #define ASSERT_FAIL_FATAL(message) ASSERT_FATAL(false, message)
 #define ASSERT_FAIL(message) ASSERT(false, message)
 
+#define ASSERT_CODE(code) code
 #define DX_ASSERT(result) nabi::DirectX::ThrowIfFailed(__FILE__, __LINE__, result); // Compiler is not guaranteed to inline so pass in __LINE__ and __FILE__ here
 
 #define STATIC_ASSERT(...) static_assert(__VA_ARGS__);
@@ -52,7 +54,14 @@
 				LOG_RAW(debugStream); \
 			} \
 		}
+#define CONDITIONAL_LOG(condition, prep, severity, message) \
+	if ((condition)) \
+	{ \
+		LOG(prep, severity, message); \
+	}
+
 #define LOG_RAW(message) nabi::Utils::DebugUtils::Logger::LogRaw(message);
+#define FAST_LOG(message) LOG(LOG_PREP, LOG_INFO, message << ENDLINE); // for when you just want to quickly write a log message to check something. deliberately not accounted for in release
 
 #define FUNCTION_NOT_IMPLEMENTED ASSERT_FAIL("The function " << __FUNCTION__  << " is not implemented!");
 #endif // ifndef USE_DEBUG_UTILS

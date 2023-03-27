@@ -2,18 +2,36 @@
 #include "EngineCore.h"
 #include "WinCore.h"
 
+#include "entt.h"
+
 #include "InitSettings.h"
+
+#define REGISTER_WINDOWS_EVENT_SUBSCRIBER(msg, subscriber) \
+	{ \
+		REGISTER_UNREGISTER_WINDOWS_EVENT_HELPER(msg) \
+		sink.connect<&subscriber>(this); \
+	}
+#define UNREGISTER_WINDOWS_EVENT_SUBSCRIBER(msg, subscriber) \
+	{ \
+		REGISTER_UNREGISTER_WINDOWS_EVENT_HELPER(msg) \
+		sink.disconnect<&subscriber>(this); \
+	}
+#define REGISTER_UNREGISTER_WINDOWS_EVENT_HELPER(msg) \
+	Window::WindowsMessage& sigh = m_Context.m_Window->GetOrAddEvent(msg); \
+	entt::sink sink{ sigh };
 
 namespace nabi
 {
 	class Window final
 	{
 	public:
+		typedef entt::sigh<void(WPARAM, LPARAM)> WindowsMessage; 
+
 		Window(HINSTANCE const hInstance, WindowSettings const& settings) NABI_NOEXCEPT;
 		~Window();
 
-		void AddMessageSubscriber(UINT const messageId, std::function<void(WPARAM, LPARAM)> const subscriber) NABI_NOEXCEPT;
-		void RemoveMessageSubscriber(UINT const messageId, std::function<void(WPARAM, LPARAM)> const subscriber) NABI_NOEXCEPT;
+		WindowsMessage& GetOrAddEvent(UINT const messageId) NABI_NOEXCEPT;
+		bool RemoveEvent(UINT const messageId) NABI_NOEXCEPT;
 
 		/// <summary>
 		/// TODO - Note how this func is static because it should process messages for all windows
@@ -30,12 +48,31 @@ namespace nabi
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(Window)
 
+		struct WindowsMessagePair;
+		typedef std::vector<WindowsMessagePair>::iterator WindowMsgItr;
+
+		struct WindowsMessagePair
+		{
+			UINT m_Msg;
+			WindowsMessage m_Event;
+		};
+
+		enum class FindMode : int
+		{
+			Find,
+			Remove,
+			ENUM_COUNT
+		};
+
 		static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) NABI_NOEXCEPT;
 		static LRESULT CALLBACK HandleMsgProxy(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) NABI_NOEXCEPT;
 		LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) NABI_NOEXCEPT;
 
-		std::vector<std::pair<UINT, std::function<void(WPARAM, LPARAM)>>> m_MessageSubscribers;
+		WindowMsgItr FindMsgItr(UINT const messageId, FindMode const findMode) NABI_NOEXCEPT;
+		bool IsMsgItrValid(WindowMsgItr const itr) const NABI_NOEXCEPT;
+
 		HWND m_hWnd;
+		std::vector<WindowsMessagePair> m_WindowsEvents;
 
 		HINSTANCE const c_hInstance;
 		LPCWSTR const c_WindowClassName;

@@ -169,6 +169,7 @@
     <ClCompile Include="Core\Src\Console.cpp" />
     <ClCompile Include="Core\Src\NabiCore.cpp" />
     <ClCompile Include="Core\Src\Window.cpp" />
+    <ClCompile Include="Core\Src\WindowEventsListener.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\CameraComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\EntityInfoComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\LightComponent.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Core\Inc\InitSettings.h" />
     <ClInclude Include="Core\Inc\NabiCore.h" />
     <ClInclude Include="Core\Inc\Window.h" />
+    <ClInclude Include="Core\Inc\WindowEventsListener.h" />
     <ClInclude Include="Core\WinCore.h" />
     <ClInclude Include="ECS\Inc\ComponentBase.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\CameraComponent.h" />

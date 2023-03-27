@@ -8,6 +8,7 @@ namespace nabi
 {
 	Window::Window(HINSTANCE const hInstance, WindowSettings const& settings) NABI_NOEXCEPT
 		: m_hWnd(nullptr)
+		, m_WindowsEvents{}
 		, c_hInstance(hInstance)
 		, c_WindowClassName(settings.m_ClassName)
 	{
@@ -33,10 +34,17 @@ namespace nabi
 		RECT windowRect{ 0, 0, settings.m_Width, settings.m_Height };
 		DX_ASSERT(AdjustWindowRect(&windowRect, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE));
 
+		// Create the window style
+		LONG windowStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
+		if (settings.m_AllowResizing)
+		{
+			windowStyle |= WS_THICKFRAME | WS_MAXIMIZEBOX;
+		}
+
 		m_hWnd = CreateWindow(
-			c_WindowClassName,                        // Window class
-			settings.m_WindowName,                    // Window text
-			WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, // Window style
+			c_WindowClassName,     // Window class
+			settings.m_WindowName, // Window text
+			windowStyle,           // Window style
 
 			// Size and position
 			CW_USEDEFAULT, CW_USEDEFAULT,
@@ -51,32 +59,52 @@ namespace nabi
 
 		// Finally, show the window!
 		DX_ASSERT(ShowWindow(m_hWnd, SW_SHOW));
+
+		// Reserve some space for window's events
+		m_WindowsEvents.reserve(settings.m_StartingEventsSize);
 	}
 
 	Window::~Window()
 	{
 		DX_ASSERT(DestroyWindow(m_hWnd));
+		m_WindowsEvents.clear();
+
 		DX_ASSERT(UnregisterClass(c_WindowClassName, c_hInstance));
 	}
 
-	void Window::AddMessageSubscriber(UINT const messageId, std::function<void(WPARAM, LPARAM)> const subscriber) NABI_NOEXCEPT
+	Window::WindowsMessage& Window::GetOrAddEvent(UINT const messageId) NABI_NOEXCEPT
 	{
-		// TODO - ASSERT IF MESSAGE - SUBSCRIBER PAIR ALREADY EXISTS
-		m_MessageSubscribers.emplace_back(messageId, subscriber);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_WINDOWS << "Registering a new windows event listener with message id " << messageId << ENDLINE);
+
+		if (auto const messageEvent = FindMsgItr(messageId, FindMode::Find); IsMsgItrValid(messageEvent))
+		{
+			return messageEvent->m_Event;
+		}
+		else
+		{
+			WindowsMessagePair newMessagePair;
+			newMessagePair.m_Msg = messageId;
+			newMessagePair.m_Event = {};
+
+			WindowsMessagePair& messagePair = m_WindowsEvents.emplace_back(newMessagePair);
+			return messagePair.m_Event;
+		}
 	}
 
-	void Window::RemoveMessageSubscriber(UINT const messageId, std::function<void(WPARAM, LPARAM)> const subscriber) NABI_NOEXCEPT
+	bool Window::RemoveEvent(UINT const messageId) NABI_NOEXCEPT
 	{
-		// TODO - ASSERT IF MESSAGE - SUBSCRIBER PAIR DOESN'T EXIST
-		// TOOD - ACC WRITE THIS FUNCTION
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_WINDOWS << "Unregistering a windows event listener with message id " << messageId << ENDLINE);
 
-		// TODO - I think the event system can be replaced with Entts. So do this when intergrating
-		// https://github.com/skypjack/entt/wiki/Crash-Course:-events,-signals-and-everything-in-between#signals
-		// Then might acc be able to write this function
-
-		//auto const subscriberPair = std::make_pair(messageId, subscriber);
-		//auto const it = std::find(m_MessageSubscribers.begin(), m_MessageSubscribers.end(), subscriberPair);
-		//m_MessageSubscribers.erase(it);
+		if (auto const messageEvent = FindMsgItr(messageId, FindMode::Remove); IsMsgItrValid(messageEvent))
+		{
+			m_WindowsEvents.erase(messageEvent);
+			return true;
+		}
+		else
+		{
+			ASSERT_FAIL("Trying to unregister a windows event which doesn't exist! Id " << messageId);
+			return false;
+		}
 	}
 
 	std::optional<int> Window::ProcessMessages() NABI_NOEXCEPT
@@ -134,15 +162,15 @@ namespace nabi
 
 	LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) NABI_NOEXCEPT
 	{
-		// Iterate through the subscribers, and notify them of any messages
-		for (auto [message, subscriber] : m_MessageSubscribers)
+		// Notify subscribers of any messages
+		if (auto const messageEvent = FindMsgItr(msg, FindMode::Find); IsMsgItrValid(messageEvent))
 		{
-			if (message == msg)
-			{
-				subscriber(wParam, lParam);
-			}
-		}
+			LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_WINDOWS << "Publishing a message with id " << msg << 
+				". wParam: " << wParam << " lParam: " << lParam << ENDLINE);
 
+			messageEvent->m_Event.publish(wParam, lParam);
+		}
+		
 		// If the message is WM_CLOSE, quit
 		if (msg == WM_CLOSE)
 		{
@@ -153,5 +181,21 @@ namespace nabi
 
 		// Else, return the default handling for windows messages
 		return DefWindowProc(hWnd, msg, wParam, lParam);
+	}
+
+	Window::WindowMsgItr Window::FindMsgItr(UINT const messageId, FindMode const findMode) NABI_NOEXCEPT
+	{
+		// this function could be entry in simon's book worthy
+
+		auto const find = [messageId](WindowsMessagePair const& messagePair) -> bool { return messageId == messagePair.m_Msg; };
+		auto const messageSubscribersItr = findMode == FindMode::Find ? std::find_if  (m_WindowsEvents.begin(), m_WindowsEvents.end(), find)
+												        /* Remove  */ : std::remove_if(m_WindowsEvents.begin(), m_WindowsEvents.end(), find);
+									                    /* Default */   ASSERT(findMode == FindMode::Find || findMode == FindMode::Remove, "yeah dont do that pls tyty");
+		return messageSubscribersItr;
+	}
+
+	bool Window::IsMsgItrValid(WindowMsgItr const itr) const NABI_NOEXCEPT
+	{
+		return itr != m_WindowsEvents.end();
 	}
 } // namespace nabi

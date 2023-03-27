@@ -5,10 +5,17 @@ Goals:
 Current:
 
 // --- Critical Priority ---
+- Next TODO:
+	- work out why we get all of those direct x warnings in the console
+	- go through change list with a fresh pair of eyes and commit. then.. input???!!
+
 - screen resizing
 - if the camera is moved, does the ui move?
 
 // --- High Priority ---
+- need a way to load/ unload entity groups - does this exist already?
+	- when entities are parsed they should be cached in the groups the are in, like they are put in the entity template map. then then can be fast loaded/unloaded 
+
 - look at notebook. do rendering stuff or start on input. probs the later, i am very done with rendering. remember - have already tested this all out in "learning rendering" proj i think
 
 - if not batch rendering commit render system change and strip out the render 2d func . else ... research batch rendering!
@@ -61,6 +68,8 @@ Current:
 - Core should be pch
 - Sort out pch. - core in pch. testcore as well?
 - Wincore above Enginecore?
+
+- When we make a GameCore, can use m_WindowEventsListener to stop the game rendering when its minimised. might still want it to update thou? idk
 
 Structure Stuff
 

@@ -377,6 +377,9 @@
     <ClCompile Include="ECS\Src\CoreModules\CameraModule.cpp">
       <Filter>ECS\Src\CoreModules</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Src\WindowEventsListener.cpp">
+      <Filter>Core\Src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -623,6 +626,9 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\CameraModule.h">
       <Filter>ECS\CoreModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Inc\WindowEventsListener.h">
+      <Filter>Core\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,7 @@
 
 #include "Containers\Colour.h"
 #include "DebugUtils.h"
+#include "DirectXUtils.h"
 #include "DXObjects.h"
 #include "InitSettings.h"
 #include "StringUtils.h"
@@ -69,7 +70,7 @@ namespace nabi::Rendering
 
 		// Gain access to texture subresource in swap chain (back buffer)
 		wrl::ComPtr<ID3D11Resource> backBuffer;
-		DX_ASSERT(m_DXObjects.m_SwapChain->GetBuffer(0, __uuidof(ID3D11Resource), &backBuffer));
+		DX_ASSERT(m_DXObjects.m_SwapChain->GetBuffer(0u, __uuidof(ID3D11Resource), &backBuffer));
 		DX_ASSERT(m_DXObjects.m_Device->CreateRenderTargetView(backBuffer.Get(), nullptr, &m_DXObjects.m_RenderTargetView));
 
 		// Create the depth stencil state
@@ -122,6 +123,11 @@ namespace nabi::Rendering
 
 		// Set the background colour. Only right its cornflower blue...
 		SetBackgroundColour(Colours::CornflowerBlue);
+	}
+
+	RenderCommand::~RenderCommand() NABI_NOEXCEPT
+	{
+		SAFE_RELEASE(m_DXObjects.m_RenderTargetView);
 	}
 
 	void RenderCommand::BeginFrame() const NABI_NOEXCEPT
@@ -457,6 +463,75 @@ namespace nabi::Rendering
 		m_DXObjects.m_Context->CopyResource(destination.Get(), source.Get());
 	}
 
+	bool RenderCommand::UpdateWindowSize(UINT const newWidth, UINT const newHeight) const NABI_NOEXCEPT
+	{
+		// Context:
+		// The tl;dr of this is that window resizing is not needed for an mvp of nabi. This is a uni project, I don't have time to make everything 
+		// perfect and I need to prioritize getting everything working to a basic level before diving in deeper and adding more functionality.
+		// Also, I am very tired of rendering... it was well hard to get to this point
+
+		// I have left my first attept at window resizing below. It works, but there are a couple of DirectX warnings.
+		// Note that also if this wants to be implemented in the future, then the camera's matrices must also be updated with the new width/height
+
+		LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_RENDERING << "Note! Full window resizing functionality it not currently implemented" << ENDLINE);
+		return false;
+
+		/*
+		Resources:
+			- https://stackoverflow.com/questions/28406919/redraw-window-using-directx-during-move-resize
+			- https://learn.microsoft.com/en-gb/windows/win32/direct3ddxgi/d3d10-graphics-programming-guide-dxgi?redirectedfrom=MSDN#Handling_Window_Resizing
+		
+		bool success = false;
+
+		if (m_DXObjects.m_SwapChain)
+		{
+			// Release all outstanding references to the swap chain's buffers
+			m_DXObjects.m_Context->OMSetRenderTargets(
+				0u,      // Number of views
+				nullptr, // Render target view
+				nullptr  // Depth stencil view
+			);
+
+			SAFE_RELEASE(m_DXObjects.m_RenderTargetView);
+			// m_DepthStencilView is a com ptr so will release itself
+
+			m_DXObjects.m_Context->Flush();
+
+			// Preserve the existing buffer count and format
+			DXGI_SWAP_CHAIN_DESC swapChainDescriptor = {};
+			m_DXObjects.m_SwapChain->GetDesc(&swapChainDescriptor);
+
+			DX_ASSERT(m_DXObjects.m_SwapChain->ResizeBuffers(
+				swapChainDescriptor.BufferCount,
+				newWidth,
+				newHeight,
+				swapChainDescriptor.BufferDesc.Format,
+				swapChainDescriptor.Flags 
+			));
+
+			// Get buffer and create a render-target-view
+			wrl::ComPtr<ID3D11Texture2D> depthStencil = nullptr;
+			DX_ASSERT(m_DXObjects.m_SwapChain->GetBuffer(0u, __uuidof(ID3D11Texture2D), &depthStencil));
+		
+			DX_ASSERT(m_DXObjects.m_Device->CreateRenderTargetView(depthStencil.Get(), nullptr, &m_DXObjects.m_RenderTargetView));
+			m_DXObjects.m_Context->OMSetRenderTargets(1u, &m_DXObjects.m_RenderTargetView, m_DXObjects.m_DepthStencilView.Get());
+
+			// Resize the viewport
+			D3D11_VIEWPORT& viewport = m_DXObjects.m_Viewport;
+			viewport.Width =  static_cast<FLOAT>(newWidth);
+			viewport.Height = static_cast<FLOAT>(newHeight);
+
+			m_DXObjects.m_Context->RSSetViewports(1u, &m_DXObjects.m_Viewport);
+
+			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Resized the window with a new size of " << newWidth << "x" << newHeight << ENDLINE);
+			success = true;
+		}
+
+		ASSERT(success, "Window couldn't be resized - the swapchain is invalid!");
+		return success;
+		*/
+	}
+
 	void RenderCommand::Draw(UINT const indexCount) const NABI_NOEXCEPT
 	{
 		m_DXObjects.m_Context->Draw(
@@ -494,7 +569,7 @@ namespace nabi::Rendering
 		return Colour::FromArray(m_BackgroundColour);
 	}
 
-	void RenderCommand::SetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY const primitiveTopology) NABI_NOEXCEPT
+	void RenderCommand::SetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY const primitiveTopology) const NABI_NOEXCEPT
 	{
 		m_DXObjects.m_Context->IASetPrimitiveTopology(primitiveTopology);
 	}

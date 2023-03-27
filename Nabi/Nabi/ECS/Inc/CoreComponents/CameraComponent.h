@@ -1,6 +1,11 @@
 #pragma once
 #include "Core.h"
 
+// Just a note for future Ben - for some reason the camera x/y movement is inverted. Past Ben was too tired of rendering to work out why (sorry about that..)
+// So you can either debug it, or just bear this in mind when creating your games camera system! 
+
+// I am very done with rendering right now
+
 namespace ecs
 {
 	struct CameraIndex final

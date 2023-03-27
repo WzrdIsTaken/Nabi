@@ -62,6 +62,7 @@ namespace nabi::Rendering
 		// --- Initialization ---
 
 		RenderCommand(DXObjects& dxObjects, HWND const hWnd, WindowSettings const& settings) NABI_NOEXCEPT;
+		~RenderCommand() NABI_NOEXCEPT;
 
 		// --- Frame ---
 
@@ -108,6 +109,8 @@ namespace nabi::Rendering
 
 		void CopyBufferResource(wrl::ComPtr<ID3D11Buffer> const destination, wrl::ComPtr<ID3D11Buffer> const source) const NABI_NOEXCEPT;
 
+		bool UpdateWindowSize(UINT const newWidth, UINT const newHeight) const NABI_NOEXCEPT;
+
 		// --- Drawing ---
 
 		void Draw(UINT const indexCount) const NABI_NOEXCEPT;
@@ -122,7 +125,7 @@ namespace nabi::Rendering
 
 		// --- Setters ---
 
-		void SetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY const primitiveTopology) NABI_NOEXCEPT;
+		void SetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY const primitiveTopology) const NABI_NOEXCEPT;
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(RenderCommand)

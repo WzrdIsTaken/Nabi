@@ -74,12 +74,14 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 #ifdef USE_DEBUG_UTILS
 	Logger::Instance()->SetLogLevel(LOG_INFO);
 #endif // #ifdef USE_DEBUG_UTILS
+
+	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE << "All tests run. Initializing Nabi..." << NEWLINE << ENDLINE);
 #endif // #ifdef RUN_TESTS
 
 	// --- Init Nabi ---
 
 	nabi::NabiCore app = nabi::NabiCore(hInstance, nabi::nabiCoreDefaultSettings);
-	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE << "Nabi has initialized successfully!" << ENDLINE);
+	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE << "Nabi has initialized successfully!" << NEWLINE << ENDLINE);
 
 	int appRunResult = app.Init();
 	ASSERT(appRunResult == NABI_SUCCESS, "The app failed to initialize!");

@@ -23,7 +23,10 @@ namespace ecs
 
 	private:
 		// What actually does the rendering
-		template<typename RenderableTag>
+		template<typename T>
+		using ValidTags = typename std::enable_if<std::is_same<T, Tags::DrawPerspective>::value || std::is_same<T, Tags::DrawOrthographic>::value>::type;
+
+		template<typename RenderableTag, typename = ValidTags<RenderableTag>>
 		void RenderInternal(GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameras, CameraIndex::Enum const cameraType)
 		{
 			// Update the per frame constant buffer

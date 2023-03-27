@@ -15,7 +15,7 @@ namespace nabi
 	NabiCore::NabiCore(HINSTANCE const hInstance, NabiCoreSettings const& initSettings) NABI_NOEXCEPT
 		// Windows
 		: m_hInstance(hInstance)
-		, m_Window(m_hInstance, initSettings.m_WindowSettings)
+		, m_WindowEventsListener(m_Context, initSettings.m_WindowSettings)
 
 		// Direct X
 		, m_DXObjects(Rendering::dxObjectsDefaultSettings)
@@ -27,6 +27,9 @@ namespace nabi
 		, test_Draw(m_Context)
 	{
 		// --- Setup the Context ---
+		// Core
+		m_Context.m_Window = std::make_unique<Window>(m_hInstance, initSettings.m_WindowSettings);
+
 		// Entity
 		m_Context.m_Registry = {};
 		m_Context.m_SingletonEntites.fill(entt::null);
@@ -34,13 +37,17 @@ namespace nabi
 		m_Context.m_EntityCreator = std::make_unique<Reflection::EntityCreator>(m_Context.m_Registry);
 
 		// Rendering
-		m_Context.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Window.GetHWND(), initSettings.m_WindowSettings);
+		m_Context.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Context.m_Window->GetHWND(), initSettings.m_WindowSettings);
+
+		// --- Setup windows events ---
+		m_WindowEventsListener.RegisterEvents();
 	}
 
 	NabiCore::~NabiCore()
 	{
 		m_Context.m_Registry.clear();
 		m_DXObjects.m_Context->ClearState();
+		m_WindowEventsListener.UnRegisterEvents();
 	}
 
 	int NabiCore::Init() NABI_NOEXCEPT

@@ -5,6 +5,9 @@
 
 #include "TypeUtils.h"
 
+#define SAFE_RELEASE(obj) if ( (obj) != NULL    ) { (obj)->Release(); (obj) = NULL;    }
+#define SAFE_DELETE(obj)  if ( (obj) != nullptr ) { delete (obj);     (obj) = nullptr; }
+
 namespace nabi::Utils::DirectXUtils
 {
 	[[nodiscard]] std::string MatrixToString(dx::XMMATRIX const& matrix) NABI_NOEXCEPT;

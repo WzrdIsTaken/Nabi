@@ -6,7 +6,7 @@
 
 #include "Context.h"
 #include "DXObjects.h"
-#include "Window.h"
+#include "WindowEventsListener.h"
 
 // TEST
 #include "Examples\TestDraw.h"
@@ -43,7 +43,7 @@ namespace nabi
 
 		// Windows
 		HINSTANCE const m_hInstance;
-		Window m_Window;
+		WindowEventsListener m_WindowEventsListener;
 
 		// DirectX
 		Rendering::DXObjects m_DXObjects;
