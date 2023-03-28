@@ -196,6 +196,7 @@
     <ClCompile Include="Rendering\Src\Buffers\RenderBuffers.cpp" />
     <ClCompile Include="Rendering\Src\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="Rendering\Src\Containers\Colour.cpp" />
+    <ClCompile Include="Rendering\Src\Containers\UVs.cpp" />
     <ClCompile Include="Rendering\Src\RenderCommand.cpp" />
     <ClCompile Include="Rendering\Src\Shaders\PixelShader.cpp" />
     <ClCompile Include="Rendering\Src\Shaders\VertexShader.cpp" />
@@ -262,6 +263,7 @@
     <ClInclude Include="Reflection\Inc\EnumConverter.h" />
     <ClInclude Include="Reflection\Inc\MetaECSTypes.h" />
     <ClInclude Include="Reflection\Inc\MetaObjectLookup.h" />
+    <ClInclude Include="Reflection\Inc\ReflectionCore.h" />
     <ClInclude Include="Reflection\Inc\ReflectionGlobals.h" />
     <ClInclude Include="Reflection\Inc\ReflectionHelpers.h" />
     <ClInclude Include="Reflection\Inc\ReflectionMacros.h" />
@@ -316,6 +318,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Tests\Data\Reflection\test_debug_entity_file.xml" />
+    <Xml Include="Tests\Data\Reflection\test_library_entity_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_entity_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_entity_template_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_route_file.xml" />

@@ -9,7 +9,7 @@
 namespace nabitest::ReflectionTests
 {
 	// Check creating a runtime entity works as expected
-	TEST(RelfectionTests, CreateEntityAtRuntime)
+	TEST(ReflectionTests, CreateEntityAtRuntime)
 	{
 		// --- Setup ---
 

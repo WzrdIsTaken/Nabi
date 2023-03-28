@@ -16,4 +16,6 @@
 #include "Defines.h"
 
 #include "EngineUtils.h"
+#include "StringUtils.h"
 #include "TypeUtils.h"
+

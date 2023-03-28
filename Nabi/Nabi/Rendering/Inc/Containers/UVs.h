@@ -11,13 +11,15 @@ namespace nabi::Rendering
 		float m_U2;
 		float m_V1;
 		float m_V2;
+
+		static UVs FromString(std::string const& string) NABI_NOEXCEPT;
 	};
 
 	namespace UV
 	{
 		UVs constexpr c_DefaultSpriteUVs = UVs{ 1.0f, 1.0f, 0.0f, 0.0f };
 
-		std::vector<dx::XMFLOAT2> constexpr CreateSpriteUVs(UVs const uvs)
+		[[nodiscard]] std::vector<dx::XMFLOAT2> constexpr CreateSpriteUVs(UVs const uvs) NABI_NOEXCEPT
 		{
 			return std::vector<dx::XMFLOAT2>
 			{

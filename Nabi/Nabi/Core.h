@@ -39,4 +39,5 @@ using namespace entt::literals;
 // Utils
 #include "DebugUtils.h" // (includes Logger)
 #include "MathUtils.h"
+#include "StringUtils.h"
 #include "TypeUtils.h"

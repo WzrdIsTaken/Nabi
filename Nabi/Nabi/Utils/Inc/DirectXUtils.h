@@ -13,6 +13,15 @@ namespace nabi::Utils::DirectXUtils
 	[[nodiscard]] std::string MatrixToString(dx::XMMATRIX const& matrix) NABI_NOEXCEPT;
 
 	// am i being dumb or do these not exist in dx?? probs the former...
+	[[nodiscard]] inline bool Float2Equal(dx::XMFLOAT2 const float2Lhs, dx::XMFLOAT2 const& float2Rhs) NABI_NOEXCEPT
+	{ return dx::XMVector2Equal(dx::XMLoadFloat2(&float2Lhs), dx::XMLoadFloat2(&float2Rhs)); }
+	[[nodiscard]] inline bool Float3Equal(dx::XMFLOAT3 const float3Lhs, dx::XMFLOAT3 const& float3Rhs) NABI_NOEXCEPT
+	{ return dx::XMVector2Equal(dx::XMLoadFloat3(&float3Lhs), dx::XMLoadFloat3(&float3Rhs)); }
+	[[nodiscard]] inline bool Int2Equal(dx::XMINT2 const int2Lhs, dx::XMINT2 const& int2Rhs) NABI_NOEXCEPT
+	{ return int2Lhs.x == int2Rhs.x && int2Lhs.y == int2Rhs.y; }
+	[[nodiscard]] inline bool Int3Equal(dx::XMINT3 const int3Lhs, dx::XMINT3 const& int3Rhs) NABI_NOEXCEPT
+	{ return int3Lhs.x == int3Rhs.x && int3Lhs.y == int3Rhs.y && int3Lhs.z == int3Rhs.z; }
+
 	[[nodiscard]] inline dx::XMFLOAT2 Float2Add(dx::XMFLOAT2 const float2, float const scalar) NABI_NOEXCEPT
 	{ return dx::XMFLOAT2(float2.x + scalar, float2.y + scalar); };
 	[[nodiscard]] inline dx::XMFLOAT2 Float2Add(dx::XMFLOAT2 const float2Lhs, dx::XMFLOAT2 const& float2Rhs) NABI_NOEXCEPT

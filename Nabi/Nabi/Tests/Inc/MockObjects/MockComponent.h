@@ -26,6 +26,22 @@ namespace nabitest::ECS
 		MockCustomDataType m_CustomType;
 		MockEnum m_Enum;
 	};
+
+	struct MockComponentWithDirectXTypes final : public nabi::ECS::ComponentBase
+	{
+		MockComponentWithDirectXTypes()
+			: m_Float2(0.0f, 1.0f)
+			, m_Float3(2.0f, 3.0f, 4.0f)
+			, m_Int2(5, 6)
+			, m_Int3(7, 8, 9)
+		{
+		}
+
+		dx::XMFLOAT2 m_Float2;
+		dx::XMFLOAT3 m_Float3;
+		dx::XMINT2 m_Int2;
+		dx::XMINT3 m_Int3;
+	};
 } // namespace nabitest::ECS
 
 #endif // #ifdef RUN_TESTS

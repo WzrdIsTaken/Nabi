@@ -15,8 +15,8 @@ namespace nabitest
 
 		static MockCustomDataType FromString(std::string const& string)
 		{
-			char const delimiter = ',';
-			size_t const expectedValues = 2;
+			char constexpr delimiter = ',';
+			size_t constexpr expectedValues = 2;
 			std::vector<std::string_view> const splitString = nabi::Utils::StringUtils::SplitString(string, delimiter, expectedValues);
 
 			double const doubleType = nabi::Reflection::StringConverter::FromString<double>(splitString[0].data());

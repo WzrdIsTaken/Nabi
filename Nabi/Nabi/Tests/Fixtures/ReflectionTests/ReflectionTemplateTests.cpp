@@ -11,7 +11,7 @@
 namespace nabitest::ReflectionTests
 {
 	// Check entity template inheritance works correctly
-	TEST(RelfectionTests, ParseEntityTemplates)
+	TEST(ReflectionTests, ParseEntityTemplates)
 	{
 		// Mock objects
 		entt::registry registry;

@@ -1,7 +1,10 @@
 #include "TestCore.h"
 
+#include "pugixml.hpp"
+
 #include "Context.h"
 #include "CoreComponents/EntityInfoComponent.h"
+#include "DirectXUtils.h"
 #include "MetaObjectLookup.h"
 #include "XmlParser.h"
 
@@ -10,7 +13,7 @@
 namespace nabitest::ReflectionTests
 {
 	// Check system files can be loaded correctly
-	TEST(RelfectionTests, ParseSystemsFromRoute)
+	TEST(ReflectionTests, ParseSystemsFromRoute)
 	{
 		// Mock objects
 		nabi::Context context;
@@ -35,7 +38,7 @@ namespace nabitest::ReflectionTests
 	}
 
 	// Check entity files can be loaded correctly
-	TEST(RelfectionTests, ParseEntitiesFromRoute)
+	TEST(ReflectionTests, ParseEntitiesFromRoute)
 	{
 		// Mock objects
 		nabi::Context context;
@@ -90,6 +93,53 @@ namespace nabitest::ReflectionTests
 
 		COMPAIR_EQ(entityGroup);
 		COMPAIR_EQ(entityName);
+	}
+
+	TEST(ReflectionTests, ParseLibraryEntities)
+	{
+		// Mock objects
+		nabi::Context context;
+		context.m_Registry = {};
+
+		std::string const docPath = "Tests/Data/Reflection/test_library_entity_file.xml";
+		entt::registry& registry = context.m_Registry;
+
+		// Deserialize data files
+		nabi::Reflection::XmlParser xmlParser{};
+		pugi::xml_document const doc = xmlParser.LoadDocument(docPath);
+		xmlParser.ParseEntities(doc, context.m_Registry);
+
+		// Check that this is only one entity in the registry
+		Comparison<size_t> numberOfEntities(1, registry.alive());
+		COMPAIR_EQ(numberOfEntities);
+
+		// Iterate over the registery and check for MockComponentWithDirectXTypes
+		auto mockComponentView = registry.view<MockComponentWithDirectXTypes>();
+
+		Comparison<dx::XMFLOAT2> float2({ 10.0f, 10.0f });
+		Comparison<dx::XMFLOAT3> float3({ 450.0f, 31.0f, 4.0f });
+		Comparison<dx::XMINT2> int2({ -7, 4 });
+		Comparison<dx::XMINT3> int3({ 1, 1, 1 });
+
+		for (auto [entity, mockComponent] : mockComponentView.each())
+		{
+			float2.m_Actual = mockComponent.m_Float2;
+			float3.m_Actual = mockComponent.m_Float3;
+			int2.m_Actual = mockComponent.m_Int2;
+			int3.m_Actual = mockComponent.m_Int3;
+		}
+
+		// ;_;
+		using namespace nabi::Utils::DirectXUtils;
+		bool const float2Equal = Float2Equal(float2.m_Expected, float2.m_Actual);
+		bool const float3Equal = Float3Equal(float3.m_Expected, float3.m_Actual);
+		bool const int2Equal = Int2Equal(int2.m_Expected, int2.m_Actual);
+		bool const int3Equal = Int3Equal(int3.m_Expected, int3.m_Actual);
+
+		EXPECT_TRUE(float2Equal);
+		EXPECT_TRUE(float3Equal);
+		EXPECT_TRUE(int2Equal);
+		EXPECT_TRUE(int3Equal);
 	}
 } // namespace nabitest::ReflectionTests
 

@@ -5,7 +5,7 @@
 namespace nabitest::ReflectionTests
 {
 	// Check enums work as expected
-	TEST(RelfectionTests, ParseEnum)
+	TEST(ReflectionTests, ParseEnum)
 	{
 		// Enum -> String functionality is currently not needed, I will implement if it becomes needed!
 

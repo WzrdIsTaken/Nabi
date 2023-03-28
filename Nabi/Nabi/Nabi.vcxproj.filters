@@ -374,6 +374,9 @@
     <ClCompile Include="Rendering\Src\Buffers\RenderBuffers.cpp">
       <Filter>Rendering\Src\Buffers</Filter>
     </ClCompile>
+    <ClCompile Include="Rendering\Src\Containers\UVs.cpp">
+      <Filter>Rendering\Src\Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -624,6 +627,9 @@
     <ClInclude Include="Rendering\Inc\Buffers\RenderBuffers.h">
       <Filter>Rendering\Inc\Buffers</Filter>
     </ClInclude>
+    <ClInclude Include="Reflection\Inc\ReflectionCore.h">
+      <Filter>Reflection\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -649,6 +655,9 @@
       <Filter>Tests\Data\Reflection</Filter>
     </Xml>
     <Xml Include="Tests\Data\Reflection\test_system_file.xml">
+      <Filter>Tests\Data\Reflection</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Reflection\test_library_entity_file.xml">
       <Filter>Tests\Data\Reflection</Filter>
     </Xml>
   </ItemGroup>

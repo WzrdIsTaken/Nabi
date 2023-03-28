@@ -32,7 +32,7 @@ namespace nabi::Reflection::StringConverter
 		entt::meta_type const dataType = entt::resolve(propertyTypeHash);
 		if (entt::meta_func const fromString = dataType.func(ReflectionGlobals::c_FromStringFunctionName))
 		{
-			if (fromString.is_static())
+			if (fromString.is_static() /*|| .is_free()*/)
 			{
 				entt::meta_any const result = fromString.invoke(dataType, propertyValue);
 				metaMember.set(metaObject, result);

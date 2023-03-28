@@ -13,6 +13,13 @@ namespace nabitest::ECS
 		REFLECT_COMPONENT_PROPERTY(MockComponent::m_CustomType, "CustomType")
 		REFLECT_COMPONENT_PROPERTY(MockComponent::m_Enum, "Enum")
 	REFLECT_COMPONENT_END(MockComponent)
+
+	REFLECT_COMPONENT_BEGIN(MockComponentWithDirectXTypes, "MockComponentWithDirectXTypes")
+		REFLECT_COMPONENT_PROPERTY(MockComponentWithDirectXTypes::m_Float2, "Float2")
+		REFLECT_COMPONENT_PROPERTY(MockComponentWithDirectXTypes::m_Float3, "Float3")
+		REFLECT_COMPONENT_PROPERTY(MockComponentWithDirectXTypes::m_Int2, "Int2")
+		REFLECT_COMPONENT_PROPERTY(MockComponentWithDirectXTypes::m_Int3, "Int3")
+	REFLECT_COMPONENT_END(MockComponentWithDirectXTypes)
 } // namespace nabitest::ECS
 
 #endif // #ifdef RUN_TESTS

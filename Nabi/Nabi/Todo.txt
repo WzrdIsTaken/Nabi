@@ -14,8 +14,6 @@ Current:
 
 - work how why listeners arent being called for the lighting system. also needs to be either the light or transform component changed
 
-- Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
-
 - Fix all warnings / disable those we dont care about
 - Forward declare the enums (PixelShader, VertexShader) or switch to enum class (actually cant use enum class in all cases. disable the warning about unscoped enum)
 
@@ -24,6 +22,7 @@ Current:
 
 - make it so the debug/release folders vs creates arent in the solution itself
 
+- drawablecomponents->renderablecomponents?
 - remember can now close rendering/rendering2d branches. i am sooo looking forward to being done with rendering!!!
 
 - Core should be pch
@@ -64,6 +63,8 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
+    - oh, and remember to reflect the UVs struct 
 - clean up the entity info component. doesnt need cpp or the settings i dont think
 - shader stuff can go into a "Common" file and be included / have the prefix g_. Eg: g_ModelMatrix
 - loading resources for the icon (currently its just commented out. needs to be customisable in NabiSettings I recon)

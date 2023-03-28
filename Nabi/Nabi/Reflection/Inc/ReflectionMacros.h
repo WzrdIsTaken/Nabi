@@ -90,20 +90,24 @@
 // --- Data Type Reflection ---
 // Data type (/just normal structs and classes) reflection works a bit differently to systems and components. 
 // Their type just needs to be registered with the reflection system. However - note that all custom types need to define a FromString function.
+// This FromString functions can either be defined as static in the class/struct, or free for types in libraries such as DirectX's XMFLOAT2 
 
-#define REFLECT_DATA_TYPE_DEFAULT(dataType) \
+#define REFLECT_DATA_TYPE_DEFAULT(dataType) REFLECT_DATA_TYPE_CUSTOM_DEFAULT(dataType, dataType::FromString)
+#define REFLECT_DATA_TYPE(dataType, reflectedName) REFLECT_DATA_TYPE_CUSTOM(dataType, reflectedName, dataType::FromString)
+
+#define REFLECT_DATA_TYPE_CUSTOM_DEFAULT(dataType, fromStringFunction) \
 	CREATE_REFLECTOR_BEGIN(dataType) \
 	CREATE_INIT_REFLECTION_FUNCTION() \
 		entt::meta<dataType>().type(entt::hashed_string(#dataType)) \
-			.func<&dataType::FromString>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName); \
+			.func<&fromStringFunction>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName); \
 	} \
 	CREATE_REFLECTOR_END(dataType)
 
-#define REFLECT_DATA_TYPE(dataType, reflectedName) \
+#define REFLECT_DATA_TYPE_CUSTOM(dataType, reflectedName, fromStringFunction) \
 	CREATE_REFLECTOR_BEGIN(dataType) \
 	CREATE_INIT_REFLECTION_FUNCTION() \
 		entt::meta<dataType>().type(entt::hashed_string(reflectedName)) \
-			.func<&dataType::FromString>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName); \
+			.func<&fromStringFunction>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName); \
 	} \
 	CREATE_REFLECTOR_END(dataType)
 
@@ -171,9 +175,9 @@
 	; } \
 	CREATE_REFLECTOR_END(_enum)
 	
-// --- Base Type Reflection ---
-// A simple marcro to reflect base types. The ToString method for base types will always live on StringConverter.
+// --- Primitive Type Reflection ---
+// A simple marcro to reflect primitive types. The ToString method for base types will always live in StringConverter.
 
-#define REFLECT_BASE_TYPE(baseType) \
-	entt::meta<baseType>().type(entt::hashed_string(#baseType)) \
-		.func<&nabi::Reflection::StringConverter::FromString<baseType>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName);
+#define REFLECT_PRIMITIVE_TYPE(primitiveType) \
+	entt::meta<primitiveType>().type(entt::hashed_string(#primitiveType)) \
+		.func<&nabi::Reflection::StringConverter::FromString<primitiveType>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName);

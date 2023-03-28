@@ -80,9 +80,6 @@
 		} while (false)
 		// We use _RPTF0 because: It creates the dialogue box / makes the noise like assert, but allows us to add a custom message to the popup
 
-#define TOSTRING(thing) #thing
-#define CONCAT(A, B) A ## B
-
 #define FULL_LOCATION  __FILE__ << " " << __LINE__ << " "
 #define SHORT_LOCATION \
 	std::string(__FILE__).substr(std::string(__FILE__).find_last_of('\\') + 1, std::string(__FILE__).size()) << " " << __LINE__ <<

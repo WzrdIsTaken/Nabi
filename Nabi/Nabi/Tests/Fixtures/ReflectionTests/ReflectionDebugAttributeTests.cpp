@@ -12,7 +12,7 @@ namespace nabitest::ReflectionTests
 {
 #ifdef USE_DEBUG_UTILS
 	// Checks that debug attribute works as expected
-	TEST(RelfectionTests, ParseEntityWithDebugAttribute)
+	TEST(ReflectionTests, ParseEntityWithDebugAttribute)
 	{
 		BUILD_CONFIGURATION_CHANGE_BEGIN
 
