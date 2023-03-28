@@ -79,7 +79,7 @@ namespace nabi
 		info->ptMinTrackSize.y = m_WindowSettings.m_MinHeight;
 	}
 
-	void WindowEventsListener::ExtractNewSizeAndUpdateWindow(LPARAM const lParam) const
+	void WindowEventsListener::ExtractNewSizeAndUpdateWindow(LPARAM const lParam) const NABI_NOEXCEPT
 	{
 		UINT const newWidth  = LOWORD(lParam);
 		UINT const newHeight = HIWORD(lParam);

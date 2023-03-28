@@ -441,7 +441,7 @@ namespace nabi::Rendering
 		UnmapBuffer(constantBuffer.m_Buffer);
 	}
 
-	void RenderCommand::UpdateBuffer(wrl::ComPtr<ID3D11Buffer> const buffer, UINT const bufferDataSize, std::function<void(D3D11_MAPPED_SUBRESOURCE&)> const& action) const
+	void RenderCommand::UpdateBuffer(wrl::ComPtr<ID3D11Buffer> const buffer, UINT const bufferDataSize, std::function<void(D3D11_MAPPED_SUBRESOURCE&)> const& action) const NABI_NOEXCEPT
 	{
 		wrl::ComPtr<ID3D11Buffer> const stagingBuffer = CreateStagingResource(&bufferDataSize, nullptr);
 		CopyBufferResource(stagingBuffer, buffer);

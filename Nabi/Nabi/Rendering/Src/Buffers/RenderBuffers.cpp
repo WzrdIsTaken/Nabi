@@ -45,7 +45,7 @@ namespace nabi::Rendering
 		m_LoadMode = loadMode;
 	}
 
-	void RenderBufferLoader::SetSpriteSheetProperties(UVs const uvs)
+	void RenderBufferLoader::SetSpriteSheetProperties(UVs const uvs) NABI_NOEXCEPT
 	{
 		m_SpriteUVs = uvs;
 	}
