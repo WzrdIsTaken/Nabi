@@ -13,6 +13,9 @@ namespace nabi
 namespace nabi::Reflection
 {
 	class MetaObjectLookup;
+
+	typedef std::unordered_map<std::string, EntityTemplateData> EntityTemplateStore;
+	typedef std::unordered_map<std::string, std::vector<EntityData>> EntityGroupStore;
 } // namespace nabi::Reflection
 namespace pugi
 {
@@ -48,7 +51,13 @@ namespace nabi::Reflection
 		/// Should ideally be called once at the end of xml parsing and used to set up EntityCreator
 		/// </summary>
 		/// <returns>The entity template store</returns>
-		[[nodiscard]] std::unordered_map<std::string, EntityTemplateData>& GetEntityTemplateStore() NABI_NOEXCEPT;
+		[[nodiscard]] inline EntityTemplateStore const& GetEntityTemplateStore() { return m_EntityTemplates; }  NABI_NOEXCEPT;
+		/// <summary>
+		/// Gets the all of the entity groups that have been read.
+		/// Should ideally be called once at the end of xml parsing and used to set up EntityCreator
+		/// </summary>
+		/// <returns>The entity group store</returns>
+		[[nodiscard]] inline EntityGroupStore const& GetEntityGroupStore() { return m_EntityGroups; } NABI_NOEXCEPT;
 
 		/// <summary>
 		/// Parses a document containing singleton data. Note: Currently not implemented.
@@ -120,8 +129,16 @@ namespace nabi::Reflection
 		/// <returns>The created PropertyData</returns>
 		[[nodiscard]] PropertyData CreatePropertyData(pugi::xml_node const& node) NABI_NOEXCEPT;
 
+		/// <summary>
+		/// Checks to see if an entity group already exists in the store. If it does, add the entity data to it. Else first create a new group
+		/// </summary>
+		/// <param name="docGroup">- The name of the entity group to add the entityData to</param>
+		/// <param name="entityGroup">- Reflected data about an entity which will be used in its construction</param>
+		void AddEntityTemplateToEntityGroupStore(std::string const& docGroup, EntityData const& entityData) NABI_NOEXCEPT;
+
 		// Entity Template Stuff
-		std::unordered_map<std::string, EntityTemplateData> m_EntityTemplates; // (template name - template)
+		EntityTemplateStore m_EntityTemplates; // (template name - template)
+		EntityGroupStore m_EntityGroups; // (entity group name - vector of entity data)  
 
 		// File Specifiers 
 		std::string const c_RouteDocAttribute = "route";

@@ -9,9 +9,6 @@ Current:
 // --- High Priority ---
 - Input! (remember have tested this stuff in the 'learning rendering' proj) (also had that email from jake)
 
-- need a way to load/ unload entity groups - does this exist already?
-	- when entities are parsed they should be cached in the groups the are in, like they are put in the entity template map. then then can be fast loaded/unloaded 
-
 - work how why listeners arent being called for the lighting system. also needs to be either the light or transform component changed
 
 - Fix all warnings / disable those we dont care about
@@ -20,14 +17,14 @@ Current:
 - Comment up all rendering code (also switch over all comment style - doxygen? im not really a big fan of the xml now i know i can change it) (also can xmlparser methods be const?)
 - Write rendering tests
 
-- make it so the debug/release folders vs creates arent in the solution itself
-
 - drawablecomponents->renderablecomponents?
 - remember can now close rendering/rendering2d branches. i am sooo looking forward to being done with rendering!!!
 
 - Core should be pch
 - Sort out pch. - core in pch. testcore as well?
 - Wincore above Enginecore?
+
+- refactor entity group, entity property list and entity creator outside of reflection and into ecs?
 
 - When we make a GameCore, can use m_WindowEventsListener to stop the game rendering when its minimised. might still want it to update thou? idk
 
@@ -63,6 +60,9 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- need a way to load/ unload entity groups - does this exist already?
+	- when entities are parsed they should be cached in the groups the are in, like they are put in the entity template map. then then can be 'fast' loaded/unloaded 
+- make it so the debug/release folders vs creates arent in the solution itself
 - Reflect XMFloat3 and all of the other dx types (need to define there from string func and perhaps a new macro/string conventer change)
     - oh, and remember to reflect the UVs struct 
 - clean up the entity info component. doesnt need cpp or the settings i dont think

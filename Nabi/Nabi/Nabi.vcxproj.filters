@@ -630,6 +630,9 @@
     <ClInclude Include="Reflection\Inc\ReflectionCore.h">
       <Filter>Reflection\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Reflection\Inc\EntityGroup.h">
+      <Filter>Reflection\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

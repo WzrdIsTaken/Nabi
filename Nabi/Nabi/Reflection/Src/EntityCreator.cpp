@@ -190,6 +190,11 @@ namespace nabi::Reflection
 		m_EntityTemplateStore = entityTemplateStore;
 	}
 
+	void EntityCreator::AssignEntityGroupStore(EntityGroupStore const&& entityGroupStore) NABI_NOEXCEPT
+	{
+		m_EntityGroupStore = entityGroupStore;
+	}
+
 	entt::entity EntityCreator::CreateEntity(EntityCreator::EntityCreationSettings const* const entityCreationSettingsPtr) NABI_NOEXCEPT
 	{
 		EntityCreationSettings entityCreationSettings = {};
@@ -199,11 +204,14 @@ namespace nabi::Reflection
 		{
 			entityCreationSettings = *entityCreationSettingsPtr;
 
-			std::string const& entityTemplateName = entityCreationSettings.m_EntityTemplateName;
-			ASSERT_FATAL(m_EntityTemplateStore.find(entityTemplateName) != m_EntityTemplateStore.end(),
-				"Trying to create an entity, " << WRAP(entityTemplateName, "'") << ", which doesn't exist in the entity store!");
+			if (entityCreationSettingsPtr->m_EntityTemplateName != "")
+			{
+				std::string const& entityTemplateName = entityCreationSettings.m_EntityTemplateName;
+				ASSERT_FATAL(m_EntityTemplateStore.find(entityTemplateName) != m_EntityTemplateStore.end(),
+					"Trying to create an entity, " << WRAP(entityTemplateName, "'") << ", which doesn't exist in the entity store!");
 
-			entityTemplate = &m_EntityTemplateStore.at(entityTemplateName.data());
+				entityTemplate = &m_EntityTemplateStore.at(entityTemplateName.data());
+			}
 		}
 
 		std::string& entityName = entityCreationSettings.m_EntityName;
@@ -231,6 +239,22 @@ namespace nabi::Reflection
 		return entity;
 	}
 
+	bool EntityCreator::DestroyEntity(entt::entity const entity) NABI_NOEXCEPT
+	{
+		bool const entityExists = m_Registry.valid(entity);
+
+		if (entityExists)
+		{
+			m_Registry.destroy(entity);
+		}
+		else
+		{
+			ASSERT_FAIL("Trying to destroy an entity which isn't in the registry!");
+		}
+
+		return entityExists;
+	}
+
 	entt::entity EntityCreator::CloneEntity(entt::entity const entityToClone) NABI_NOEXCEPT
 	{
 		// Again, note the warning in the header file! May cause unexpected behaviour when dealing with pointers and the like.
@@ -252,9 +276,77 @@ namespace nabi::Reflection
 		return clone;
 	}
 
+	EntityGroup EntityCreator::CreateEntityGroup(std::string const& entityGroupName) NABI_NOEXCEPT
+	{
+		EntityGroup returnEntityGroup = {};
+
+		auto entityGroup = m_EntityGroupStore.find(entityGroupName);
+		if (entityGroup != m_EntityGroupStore.end())
+		{
+			std::vector<EntityData> const& entitiesInGroup = entityGroup->second;
+			returnEntityGroup.GetGroup().reserve(entitiesInGroup.size());
+
+			EntityCreationSettings entityCreationSettings = {};
+			// Could be useful to extract the entity's name one day?
+			entityCreationSettings.m_EntityGroup = entt::hashed_string(entityGroupName.c_str());
+
+			for (EntityData const& entityToCreate : entitiesInGroup)
+			{
+				entt::entity const entity = CreateEntity(&entityCreationSettings);
+				std::vector<ComponentData> const& entityComponents = entityToCreate.m_Components;
+				Creation::ResolveEntityComponents(entityToCreate.m_Components, m_Registry, entity);
+
+				returnEntityGroup.AddEntity(entity);
+			}
+		}
+		else
+		{
+			ASSERT_FAIL("Trying to create an entity group which doesn't exist!");
+		}
+
+		return returnEntityGroup;
+	}
+
+	void EntityCreator::CreateEntityGroup(EntityGroup const& /*entityGroup*/) NABI_NOEXCEPT
+	{
+		FUNCTION_NOT_IMPLEMENTED
+	}
+
+	bool EntityCreator::DestroyEntityGroup(std::string const& entityGroupName) NABI_NOEXCEPT
+	{
+		entt::hashed_string const hashedGroupName = entt::hashed_string(entityGroupName.c_str());
+		bool validGroup = false;
+
+		m_Registry.view<ecs::EntityInfoComponent>()
+			.each([&](entt::entity const entity, auto const& entityInfoComponent)
+				{
+					if (entityInfoComponent.m_EntityGroup == hashedGroupName)
+					{
+						DestroyEntity(entity);
+						validGroup = true;
+					}
+				});
+
+		if (!validGroup)
+		{
+			ASSERT_FAIL("Trying to destroy an entity group which has no entities or doesn't exist!");
+		}
+		return validGroup;
+	}
+
+	void EntityCreator::DestroyEntityGroup(EntityGroup& /*entityGroup*/) NABI_NOEXCEPT
+	{
+		FUNCTION_NOT_IMPLEMENTED
+	}
+
 	size_t EntityCreator::GetEntityStoreSize() const NABI_NOEXCEPT
 	{
 		return m_EntityTemplateStore.size();
+	}
+
+	size_t EntityCreator::GetEntityGroupStoreSize() const NABI_NOEXCEPT
+	{
+		return m_EntityGroupStore.size();
 	}
 
 	void EntityCreator::ResolveEntityTemplateComponents(EntityTemplateData& entityTemplateData, EntityPropertyList const& entityOverriddenProperties) NABI_NOEXCEPT

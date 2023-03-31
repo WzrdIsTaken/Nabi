@@ -4,6 +4,7 @@
 #include "entt.h"
 
 #include "ECSGlobals.h"
+#include "EntityGroup.h"
 #include "MetaECSTypes.h"
 
 namespace nabi::Reflection
@@ -104,7 +105,8 @@ namespace nabi::Reflection
 	class EntityCreator final
 	{
 	public:
-		typedef std::unordered_map<std::string, EntityTemplateData> EntityTemplateStore; // (entity template name - template)
+		typedef std::unordered_map<std::string, EntityTemplateData> EntityTemplateStore;   // (entity template name - template)
+		typedef std::unordered_map<std::string, std::vector<EntityData>> EntityGroupStore; // (entity group name - vector of entity templates)  
 
 		struct EntityCreationSettings final
 		{
@@ -117,12 +119,20 @@ namespace nabi::Reflection
 
 		EntityCreator(entt::registry& registery) NABI_NOEXCEPT;
 		void AssignEntityStore(EntityTemplateStore const&& entityTemplateStore) NABI_NOEXCEPT;
+		void AssignEntityGroupStore(EntityGroupStore const&& entityGroupStore) NABI_NOEXCEPT;
 
 		/// <summary>
 		/// Creates an entity based off the passed in EntityCreationSettings
 		/// </summary>
 		/// <param name="entityCreationSettingsPtr">- The settings defining how to create the entity. Pass in nullptr for default settings</param>
 		entt::entity CreateEntity(EntityCreationSettings const* const entityCreationSettingsPtr = nullptr) NABI_NOEXCEPT;
+		/// <summary>
+		/// Destroys an entity and recycles its identifier
+		/// </summary>
+		/// <param name="entity">- The entity to delete</param>
+		/// <returns>If the entity was successfully deleted</returns>
+		bool DestroyEntity(entt::entity const entity) NABI_NOEXCEPT;
+
 		/// <summary>
 		/// Copies all of the components from one entity to another. 
 		/// WARNING: If any of the components contain pointers, for example a BufferComponent, they will be copied as well and then point at the same thing!
@@ -132,10 +142,27 @@ namespace nabi::Reflection
 		entt::entity CloneEntity(entt::entity const entityToClone) NABI_NOEXCEPT;
 
 		/// <summary>
+		/// Creates an entity group based off the groups name
+		/// </summary>
+		EntityGroup CreateEntityGroup(std::string const& entityGroupName) NABI_NOEXCEPT;
+		void CreateEntityGroup(EntityGroup const& entityGroup) NABI_NOEXCEPT;
+
+		/// <summary>
+		/// Deletes an entity group based off the groups name
+		/// </summary>
+		bool DestroyEntityGroup(std::string const& entityGroupName) NABI_NOEXCEPT;
+		void DestroyEntityGroup(EntityGroup& entityGroup) NABI_NOEXCEPT;
+
+		/// <summary>
 		/// Returns how many entity templates exist in m_EntityTemplateStore
 		/// </summary>
 		/// <returns>(See the summary)</returns>
 		[[nodiscard]] size_t GetEntityStoreSize() const NABI_NOEXCEPT;
+		/// <summary>
+		/// Returns how many entity groups exist in m_EntityGroupStore
+		/// </summary>
+		/// <returns>(See the summary)</returns>
+		[[nodiscard]] size_t GetEntityGroupStoreSize() const NABI_NOEXCEPT;
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(EntityCreator)
@@ -149,6 +176,7 @@ namespace nabi::Reflection
 		void ResolveEntityTemplateComponents(EntityTemplateData& entityTemplateData, EntityPropertyList const& entityOverriddenProperties) NABI_NOEXCEPT;
 
 		EntityTemplateStore m_EntityTemplateStore;
+		EntityGroupStore m_EntityGroupStore;
 		entt::registry& m_Registry;
 	};
 } // namespace nabi::Reflection

@@ -78,11 +78,6 @@ namespace nabi::Reflection
 		return doc;
 	}
 
-	std::unordered_map<std::string, EntityTemplateData>& XmlParser::GetEntityTemplateStore() NABI_NOEXCEPT
-	{
-		return m_EntityTemplates;
-	}
-
 	void XmlParser::ParseSingletons(pugi::xml_document const& /*doc*/) NABI_NOEXCEPT
 	{
 		FUNCTION_NOT_IMPLEMENTED
@@ -161,6 +156,7 @@ namespace nabi::Reflection
 		// Get the entity template's name
 		std::string const entityTemplateName = entityTemplateNode.attribute(c_IdAttribute.c_str()).value();
 		LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << LOG_CATEGORY_REFLECTION << "Found an entity template with name " << WRAP(entityTemplateName, "'") << ENDLINE);
+		ASSERT(m_EntityTemplates.find(entityTemplateName) == m_EntityTemplates.end(), "Adding an entity template with an id which is currently in use!");
 
 		// Create an entry in m_EntityTemplates and get a reference to the templates components
 		EntityTemplateData entityTemplateData;
@@ -228,6 +224,14 @@ namespace nabi::Reflection
 		// Add the EntityInfoComponent + SpatialHierarchyComponent to the entity
 		Creation::AddEntityInfoComponentToEntity(registery, entity, entityGroupIdHash, entityId);
 		Creation::AddSpatialHierarchyComponentToEntity(registery, entity);
+
+		// Add the entity to a group so that they can later be created via EntityCreator::CreateEntityGroup
+		char const* entityGroupIdAsChar = entityGroupIdHash.data();
+		EntityData entityData = {};
+		entityData.m_Id = entt::hashed_string(entityId.data());
+		entityData.m_Components = entityComponents;
+
+		AddEntityTemplateToEntityGroupStore(entityGroupIdAsChar, entityData);
 	}
 
 	void XmlParser::ResolveEntityComponents(std::vector<ComponentData>& componentData, pugi::xml_node const& propertyNode) NABI_NOEXCEPT
@@ -330,5 +334,30 @@ namespace nabi::Reflection
 		propertyData.m_Value = entt::hashed_string(nodeValue.data());
 
 		return propertyData;
+	}
+
+	void nabi::Reflection::XmlParser::AddEntityTemplateToEntityGroupStore(std::string const& docGroup, EntityData const& entityData) NABI_NOEXCEPT
+	{
+		auto entityGroup = m_EntityGroups.find(docGroup);
+
+		// Entity group already exists in the map
+		if (entityGroup != m_EntityGroups.end())
+		{
+			std::vector<EntityData>& entitiesInGroup = entityGroup->second;
+			entitiesInGroup.push_back(entityData);
+		}
+		// Entity group needs to be added to the map
+		else
+		{
+			size_t constexpr entityTemplateGroupStartSize = 5u;
+
+			std::vector<EntityData> newEntityGroup;
+			newEntityGroup.reserve(entityTemplateGroupStartSize);
+
+			newEntityGroup.push_back(entityData);
+
+			auto newGroupTemplatePair = std::make_pair(docGroup, newEntityGroup);
+			m_EntityGroups.emplace(newGroupTemplatePair);
+		}
 	}
 } // namespace nabi::Reflection

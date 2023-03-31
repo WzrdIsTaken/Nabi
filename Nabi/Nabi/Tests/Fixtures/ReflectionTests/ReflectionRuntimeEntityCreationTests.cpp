@@ -1,8 +1,11 @@
 #include "TestCore.h"
 
+#include "pugixml.hpp"
+
 #include "CoreComponents/EntityInfoComponent.h"
 #include "EntityCreator.h"
 #include "EntityPropertyList.h"
+#include "XmlParser.h"
 
 #ifdef RUN_TESTS
 
@@ -98,6 +101,55 @@ namespace nabitest::ReflectionTests
 		COMPAIR_EQ(entityDefaultCreatedHasDefaultIntValue);
 		COMPAIR_EQ(entityWithCustomNameIsFound);
 		COMPAIR_EQ(entityWithOverridenPropertyHasUpdatedIntValue);
+	}
+
+	// Check creating / destroying an entity group works correctly
+	TEST(ReflectionTests, CreateEntityGroupAtRuntime)
+	{
+		// Just going to parse the entity template file here
+
+		// --- Setup ---
+
+		using namespace nabi::Reflection;
+
+		// Mock objects
+		entt::registry registry;
+		std::string const docPath = "Tests/Data/Reflection/test_entity_template_file.xml";
+
+		// Deserialize data files
+		nabi::Reflection::XmlParser xmlParser{};
+		pugi::xml_document doc = xmlParser.LoadDocument(docPath);
+
+		xmlParser.ParseEntities(doc, registry);
+
+		// Set up of the entity template / group store
+		EntityCreator::EntityTemplateStore entityTemplateStore;
+		entityTemplateStore = xmlParser.GetEntityTemplateStore();
+
+		EntityCreator::EntityGroupStore entityGroupStore;
+		entityGroupStore = xmlParser.GetEntityGroupStore();
+
+		EntityCreator entityCreator(registry);
+		entityCreator.AssignEntityStore(std::move(entityTemplateStore));
+		entityCreator.AssignEntityGroupStore(std::move(entityGroupStore));
+
+		// Create an entity group
+		entityCreator.CreateEntityGroup("TestTemplateGroup");
+
+		// Check that the entity group store size is 1
+		Comparison<size_t> entityGroupStoreSizeComparison(1u, entityCreator.GetEntityGroupStoreSize());
+		COMPAIR_EQ(entityGroupStoreSizeComparison);
+
+		// Check that there are 4 entities in the registery
+		Comparison<size_t> registrySizeComparison(8u, registry.size()); // 8 as 4 from ParseEntities, 4 from the new entity group
+		COMPAIR_EQ(registrySizeComparison);
+
+		// Delete an entity group
+		entityCreator.DestroyEntityGroup("TestTemplateGroup");
+
+		// Check that there are 0 entities in the registry
+		registrySizeComparison = { 0u, registry.alive() }; // 0 because all the entities in parse entities and here are in the same group (this will never be a problem in the real game)
+		COMPAIR_EQ(registrySizeComparison);
 	}
 } // namespace nabitest::ReflectionTests
 

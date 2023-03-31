@@ -267,6 +267,7 @@
     <ClInclude Include="Patterns\Inc\Singleton.h" />
     <ClInclude Include="Reflection\Inc\BaseTypeReflection.h" />
     <ClInclude Include="Reflection\Inc\EntityCreator.h" />
+    <ClInclude Include="Reflection\Inc\EntityGroup.h" />
     <ClInclude Include="Reflection\Inc\EntityPropertyList.h" />
     <ClInclude Include="Reflection\Inc\EnumConverter.h" />
     <ClInclude Include="Reflection\Inc\MetaECSTypes.h" />
