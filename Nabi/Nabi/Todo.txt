@@ -9,24 +9,7 @@ Current:
 // --- High Priority ---
 - Input! (remember have tested this stuff in the 'learning rendering' proj) (also had that email from jake)
 
-- work how why listeners arent being called for the lighting system. also needs to be either the light or transform component changed
-
-- Fix all warnings / disable those we dont care about
-- Forward declare the enums (PixelShader, VertexShader) or switch to enum class (actually cant use enum class in all cases. disable the warning about unscoped enum)
-
-- Comment up all rendering code (also switch over all comment style - doxygen? im not really a big fan of the xml now i know i can change it) (also can xmlparser methods be const?)
-- Write rendering tests
-
-- drawablecomponents->renderablecomponents?
 - remember can now close rendering/rendering2d branches. i am sooo looking forward to being done with rendering!!!
-
-- Core should be pch
-- Sort out pch. - core in pch. testcore as well?
-- Wincore above Enginecore?
-
-- refactor entity group, entity property list and entity creator outside of reflection and into ecs?
-
-- When we make a GameCore, can use m_WindowEventsListener to stop the game rendering when its minimised. might still want it to update thou? idk
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -38,7 +21,20 @@ Structure Stuff
 - Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
   (acc i think this is ok on the stack?)
 
+- Core should be pch
+- Wincore above Enginecore?
+
+- drawablecomponents->renderablecomponents?
+- use doxygen comment style?
+- refactor entity group, entity property list and entity creator outside of reflection and into ecs?
+
 // --- Low Priority ---
+
+- When we make a GameCore, can use m_WindowEventsListener to stop the game rendering when its minimised. might still want it to update thou? idk
+
+- Forward declare the enums (PixelShader, VertexShader) or switch to enum class (actually cant use enum class in all cases. disable the warning about unscoped enum)
+
+- work how why listeners arent being called for the lighting system. also needs to be either the light or transform component changed
 
 - Pixel shader might need to take in an array of lights..? what happens if we have two lights?
 	- two lights is acc fine. ngl in all off my projects i wont want complex lighting, so i think what we've got is ok
@@ -60,6 +56,9 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- Write rendering tests
+- Fix all warnings / disable those we dont care about
+- Comment up all rendering code (also switch over all comment style - doxygen? im not really a big fan of the xml now i know i can change it) (also can xmlparser methods be const?)
 - need a way to load/ unload entity groups - does this exist already?
 	- when entities are parsed they should be cached in the groups the are in, like they are put in the entity template map. then then can be 'fast' loaded/unloaded 
 - make it so the debug/release folders vs creates arent in the solution itself

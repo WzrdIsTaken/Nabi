@@ -215,6 +215,9 @@
     <Filter Include="Icon">
       <UniqueIdentifier>{57b04350-6f7e-4b5c-9159-8c1bc487bce8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Fixtures\RenderingTests">
+      <UniqueIdentifier>{9c9e2ca8-7bd9-497c-b016-54ab299e290e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -376,6 +379,9 @@
     </ClCompile>
     <ClCompile Include="Rendering\Src\Containers\UVs.cpp">
       <Filter>Rendering\Src\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\RenderingTests\RenderingCreationTests.cpp">
+      <Filter>Tests\Fixtures\RenderingTests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,7 @@ namespace objl
 
 namespace nabi::Rendering
 {
+	// What nabi uses for rendering. 
 	struct RenderBuffers final
 	{
 		IndexBuffer m_IndexBuffer;
@@ -26,6 +27,7 @@ namespace nabi::Rendering
 	typedef RenderBuffers Mesh;
 	typedef RenderBuffers Sprite;
 
+	// What nabi uses to load a model or sprite
 	struct RenderBufferData final
 	{
 		std::vector<dx::XMFLOAT3> m_Vertices;

@@ -44,33 +44,33 @@ namespace nabi::Reflection
 		/// </summary>
 		/// <param name="docPath">- The document to load</param>
 		/// <returns>The loaded xml document</returns>
-		[[nodiscard]] pugi::xml_document LoadDocument(std::string_view const docPath) NABI_NOEXCEPT;
+		[[nodiscard]] pugi::xml_document LoadDocument(std::string_view const docPath) const NABI_NOEXCEPT;
 
 		/// <summary>
 		/// Gets the all of the entity templates that have been read.
 		/// Should ideally be called once at the end of xml parsing and used to set up EntityCreator
 		/// </summary>
 		/// <returns>The entity template store</returns>
-		[[nodiscard]] inline EntityTemplateStore const& GetEntityTemplateStore() { return m_EntityTemplates; }  NABI_NOEXCEPT;
+		[[nodiscard]] inline EntityTemplateStore const& GetEntityTemplateStore() const { return m_EntityTemplates; } NABI_NOEXCEPT;
 		/// <summary>
 		/// Gets the all of the entity groups that have been read.
 		/// Should ideally be called once at the end of xml parsing and used to set up EntityCreator
 		/// </summary>
 		/// <returns>The entity group store</returns>
-		[[nodiscard]] inline EntityGroupStore const& GetEntityGroupStore() { return m_EntityGroups; } NABI_NOEXCEPT;
+		[[nodiscard]] inline EntityGroupStore const& GetEntityGroupStore() const { return m_EntityGroups; } NABI_NOEXCEPT;
 
 		/// <summary>
 		/// Parses a document containing singleton data. Note: Currently not implemented.
 		/// </summary>
 		/// <param name="doc">- The singleton data document</param>
-		void ParseSingletons(pugi::xml_document const& doc) NABI_NOEXCEPT;
+		void ParseSingletons(pugi::xml_document const& doc) const NABI_NOEXCEPT;
 		/// <summary>
 		/// Parses a document containing system data. System documents are designated by c_SystemGroupAttribute's value.
 		/// </summary>
 		/// <param name="doc">- The system data document</param>
 		/// <param name="registery">- A reference to the registery, required to initialise systems</param>
 		/// <param name="systemsLookup">- An optional MetaObjectLookup, which systems will be added to. Pass in nullptr if it is not required</param>
-		void ParseSystems(pugi::xml_document const& doc, nabi::Context& context, MetaObjectLookup* const systemsLookup) NABI_NOEXCEPT;
+		void ParseSystems(pugi::xml_document const& doc, nabi::Context& context, MetaObjectLookup* const systemsLookup) const NABI_NOEXCEPT;
 		/// <summary>
 		/// Parses a document containing entity data. Component documents are designated by c_EntityGroupAttribute's value.
 		/// </summary>
@@ -97,14 +97,14 @@ namespace nabi::Reflection
 		/// </summary>
 		/// <param name="componentData">- A vector of all the components on an entity or entity template</param>
 		/// <param name="propertyNode">- The xml node of a property</param>
-		void ResolveEntityComponents(std::vector<ComponentData>& componentData, pugi::xml_node const& propertyNode) NABI_NOEXCEPT;
+		void ResolveEntityComponents(std::vector<ComponentData>& componentData, pugi::xml_node const& propertyNode) const NABI_NOEXCEPT;
 		/// <summary>
 		/// Checks to see if a child nodes on an entity or entity template is a property or component and resolves it accordingly. 
 		/// ResolveEntityComponents is called for properties, for components they are just added to the entity or entity template
 		/// </summary>
 		/// <param name="entityNode">- The xml node of the entity</param>
 		/// <param name="entityComponents">- A reference to the entities or entity template's component data</param>
-		void ResolveComponentOrPropertyNode(pugi::xml_node const& entityNode, std::vector<ComponentData>& entityComponents) NABI_NOEXCEPT;
+		void ResolveComponentOrPropertyNode(pugi::xml_node const& entityNode, std::vector<ComponentData>& entityComponents) const NABI_NOEXCEPT;
 
 		/// <summary>
 		/// Checks if a node has the c_DebugAttribute attribute and its value is "true"
@@ -113,7 +113,7 @@ namespace nabi::Reflection
 		/// </summary>
 		/// <param name="node">- The node to check</param>
 		/// <returns>If the node has a debug attribute set to true</returns>
-		[[nodiscard]] bool CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(pugi::xml_node const& node) NABI_NOEXCEPT;
+		[[nodiscard]] bool CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(pugi::xml_node const& node) const NABI_NOEXCEPT;
 
 		/// <summary>
 		/// Creates a MetaECSTypeData from an xml node
@@ -121,13 +121,13 @@ namespace nabi::Reflection
 		/// </summary>
 		/// <param name="node">- The xml node of the system or component</param>
 		/// <returns>The created MetaECSTypeData</returns>
-		[[nodiscard]] MetaECSTypeData CreateECSTypeData(pugi::xml_node const& node) NABI_NOEXCEPT;
+		[[nodiscard]] MetaECSTypeData CreateECSTypeData(pugi::xml_node const& node) const NABI_NOEXCEPT;
 		/// <summary>
 		/// Creates a PropertyData from an xml node
 		/// </summary>
 		/// <param name="node">- The xml node of the property</param>
 		/// <returns>The created PropertyData</returns>
-		[[nodiscard]] PropertyData CreatePropertyData(pugi::xml_node const& node) NABI_NOEXCEPT;
+		[[nodiscard]] PropertyData CreatePropertyData(pugi::xml_node const& node) const NABI_NOEXCEPT;
 
 		/// <summary>
 		/// Checks to see if an entity group already exists in the store. If it does, add the entity data to it. Else first create a new group

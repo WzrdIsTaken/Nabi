@@ -69,7 +69,7 @@ namespace nabi::Reflection
 #endif // ifdef USE_DEBUG_UTILS
 	}
 
-	pugi::xml_document XmlParser::LoadDocument(std::string_view const docPath) NABI_NOEXCEPT
+	pugi::xml_document XmlParser::LoadDocument(std::string_view const docPath) const NABI_NOEXCEPT
 	{
 		pugi::xml_document doc;
 		pugi::xml_parse_result const result = doc.load_file(docPath.data());
@@ -78,7 +78,7 @@ namespace nabi::Reflection
 		return doc;
 	}
 
-	void XmlParser::ParseSingletons(pugi::xml_document const& /*doc*/) NABI_NOEXCEPT
+	void XmlParser::ParseSingletons(pugi::xml_document const& /*doc*/) const NABI_NOEXCEPT
 	{
 		FUNCTION_NOT_IMPLEMENTED
 
@@ -88,7 +88,7 @@ namespace nabi::Reflection
 		// - Else I will think about them when I actually need to 
 	}
 
-	void XmlParser::ParseSystems(pugi::xml_document const& doc, nabi::Context& context, MetaObjectLookup* const systemsLookup) NABI_NOEXCEPT
+	void XmlParser::ParseSystems(pugi::xml_document const& doc, nabi::Context& context, MetaObjectLookup* const systemsLookup) const NABI_NOEXCEPT
 	{
 		// Get the system group's id
 		std::string_view const systemGroupId = doc.first_child().attribute(c_IdAttribute.c_str()).value();
@@ -234,7 +234,7 @@ namespace nabi::Reflection
 		AddEntityTemplateToEntityGroupStore(entityGroupIdAsChar, entityData);
 	}
 
-	void XmlParser::ResolveEntityComponents(std::vector<ComponentData>& componentData, pugi::xml_node const& propertyNode) NABI_NOEXCEPT
+	void XmlParser::ResolveEntityComponents(std::vector<ComponentData>& componentData, pugi::xml_node const& propertyNode) const NABI_NOEXCEPT
 	{
 		ASSERT(propertyNode.attribute(c_ComponentAttribute.c_str()), "The property node doesn't have a component ref!");
 
@@ -252,7 +252,7 @@ namespace nabi::Reflection
 		);
 	}
 
-	void XmlParser::ResolveComponentOrPropertyNode(pugi::xml_node const& entityNode, std::vector<ComponentData>& entityComponents) NABI_NOEXCEPT
+	void XmlParser::ResolveComponentOrPropertyNode(pugi::xml_node const& entityNode, std::vector<ComponentData>& entityComponents) const NABI_NOEXCEPT
 	{
 		// Iterate through the entity node's children
 		for (pugi::xml_node const componentOrPropertyNode : entityNode.children())
@@ -284,7 +284,7 @@ namespace nabi::Reflection
 		}
 	}
 
-	bool XmlParser::CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(pugi::xml_node const& node) NABI_NOEXCEPT
+	bool XmlParser::CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(pugi::xml_node const& node) const NABI_NOEXCEPT
 	{
 		MAKE_LOGIC_TESTABLE // (test in ReflectionDebugAttributeTests.cpp)
 		{
@@ -302,7 +302,7 @@ namespace nabi::Reflection
 		return false;
 	}
 
-	MetaECSTypeData XmlParser::CreateECSTypeData(pugi::xml_node const& node) NABI_NOEXCEPT
+	MetaECSTypeData XmlParser::CreateECSTypeData(pugi::xml_node const& node) const NABI_NOEXCEPT
 	{
 		std::vector<PropertyData> componentProperties;
 		for (pugi::xml_node const propertyNode : node.children())
@@ -324,7 +324,7 @@ namespace nabi::Reflection
 		return ecsTypeData;
 	}
 
-	PropertyData XmlParser::CreatePropertyData(pugi::xml_node const& node) NABI_NOEXCEPT
+	PropertyData XmlParser::CreatePropertyData(pugi::xml_node const& node) const NABI_NOEXCEPT
 	{
 		std::string_view const nodeId = node.attribute(c_IdAttribute.c_str()).value();
 		std::string_view const nodeValue = node.attribute(c_ValueAttribute.c_str()).value();

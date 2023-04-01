@@ -215,6 +215,7 @@
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionInitTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionRuntimeEntityCreationTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\RenderingTests\RenderingCreationTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ResourceTests\ResourceLoadTests.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestDraw.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockComponent.cpp" />

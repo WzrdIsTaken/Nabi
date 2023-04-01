@@ -19,6 +19,7 @@ namespace nabi::Rendering
 	{
 		UVs constexpr c_DefaultSpriteUVs = UVs{ 1.0f, 1.0f, 0.0f, 0.0f };
 
+		// All sprite uvs in nabi follow the same pattern so can use this helper function
 		[[nodiscard]] std::vector<dx::XMFLOAT2> constexpr CreateSpriteUVs(UVs const uvs) NABI_NOEXCEPT
 		{
 			return std::vector<dx::XMFLOAT2>

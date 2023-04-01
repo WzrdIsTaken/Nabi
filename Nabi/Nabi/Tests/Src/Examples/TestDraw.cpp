@@ -8,6 +8,7 @@
 #include "CoreComponents\SpatialHierarchyComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\TextModule.h"
+#include "CoreSingletonComponents\LightStateComponent.h"
 
 #ifdef RUN_TESTS
 
@@ -27,6 +28,14 @@ namespace nabitest::Examples
 	{
 #pragma region 3D
 		{
+			ecs::LightStateComponent& lightStateComponent = m_Context.m_Registry.get<ecs::LightStateComponent>(
+				m_Context.m_SingletonEntites.at(nabi::Context::Graphic));
+			lightStateComponent.m_LightCount = 1u;
+			lightStateComponent.m_UpdateLights = true;
+			//auto thisMakesTheLightingSystemEventFire = ecs::LightingSystem{ m_Context, "LightingId"_hs, "GroupId"_hs };
+			// So the reason this event was never firing was because the context was invalid at the point it was setup, therefore the registry was as well.
+			// This should never be a problem in the actual game, as first NabiCore's constructor will create the context and then GameCore's init will create the systems.
+
 			// --- Create the test entity ---
 			entt::entity testEntity = m_Context.m_Registry.create();
 
