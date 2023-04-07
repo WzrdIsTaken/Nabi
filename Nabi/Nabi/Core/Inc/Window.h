@@ -19,7 +19,7 @@
 		sink.disconnect<&subscriber>(this); \
 	}
 #define REGISTER_UNREGISTER_WINDOWS_EVENT_HELPER(msg) \
-	Window::WindowsMsg& sigh = m_Context.m_Window->GetOrAddEvent(msg); \
+	nabi::Window::WindowsMsg& sigh = m_Context.m_Window->GetOrAddEvent(msg); \
 	entt::sink sink{ sigh };
 
 namespace nabi

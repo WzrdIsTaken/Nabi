@@ -212,11 +212,14 @@
     <Filter Include="Memory\Src">
       <UniqueIdentifier>{49e81952-64dd-4e96-98c5-feda24242f31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Icon">
-      <UniqueIdentifier>{57b04350-6f7e-4b5c-9159-8c1bc487bce8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tests\Fixtures\RenderingTests">
       <UniqueIdentifier>{9c9e2ca8-7bd9-497c-b016-54ab299e290e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Fixtures\InputTests">
+      <UniqueIdentifier>{c648e053-e4ab-4409-ac3e-6e7597a9875c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Miscellaneous">
+      <UniqueIdentifier>{57b04350-6f7e-4b5c-9159-8c1bc487bce8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -382,6 +385,18 @@
     </ClCompile>
     <ClCompile Include="Tests\Fixtures\RenderingTests\RenderingCreationTests.cpp">
       <Filter>Tests\Fixtures\RenderingTests</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreSystems\InputSystem.cpp">
+      <Filter>ECS\Src\CoreSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreModules\InputModule.cpp">
+      <Filter>ECS\Src\CoreModules</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Examples\TestInput.cpp">
+      <Filter>Tests\Src\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\InputTests\InputStateTests.cpp">
+      <Filter>Tests\Fixtures\InputTests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -639,6 +654,24 @@
     <ClInclude Include="Reflection\Inc\EntityGroup.h">
       <Filter>Reflection\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Input\Inc\InputState.h">
+      <Filter>Input\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSingletonComponents\InputStateComponent.h">
+      <Filter>ECS\Inc\CoreSingletonComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Inc\InputCodes.h">
+      <Filter>Input\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSystems\InputSystem.h">
+      <Filter>ECS\Inc\CoreSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\InputModule.h">
+      <Filter>ECS\CoreModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Examples\TestInput.h">
+      <Filter>Tests\Inc\Examples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -697,7 +730,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Icon\icon.ico">
-      <Filter>Icon</Filter>
+      <Filter>Miscellaneous</Filter>
     </Image>
   </ItemGroup>
 </Project>

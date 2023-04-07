@@ -9,7 +9,7 @@
 #include "WindowEventsListener.h"
 
 // TEST
-#include "Examples\TestDraw.h"
+#include "Examples\TestInput.h"
 
 namespace nabi
 {
@@ -54,6 +54,6 @@ namespace nabi
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)
 
-		nabitest::Examples::TestDraw test_Draw;
+		nabitest::Examples::TestInput test_Input;
 	};
 } // namespace nabi

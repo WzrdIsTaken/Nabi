@@ -5,6 +5,7 @@
 #include "CoreComponents\CameraComponent.h"
 #include "CoreModules\CameraModule.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"
+#include "CoreSingletonComponents\InputStateComponent.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
 #include "EntityCreator.h"
 #include "InitSettings.h"
@@ -24,7 +25,7 @@ namespace nabi
 		, m_Context{}
 
 		// TEST
-		, test_Draw(m_Context)
+		, test_Input(m_Context)
 	{
 		// --- Setup the Context ---
 		// Core
@@ -59,7 +60,7 @@ namespace nabi
 		initializationSuccessful &= InitInputEntity();
 
 		// TEST
-		test_Draw.Init();
+		test_Input.Init();
 
 		// Return result
 		return initializationSuccessful ? NABI_SUCCESS : NABI_FAIL;
@@ -91,7 +92,7 @@ namespace nabi
 
 	void NabiCore::Update() NABI_NOEXCEPT
 	{
-		test_Draw.Update();
+		test_Input.Update();
 	}
 
 	void NabiCore::Render() NABI_NOEXCEPT
@@ -101,7 +102,7 @@ namespace nabi
 		// Render code goes here
 
 		// TEST
-		test_Draw.Render();
+		test_Input.Render();
 
 		m_Context.m_RenderCommand->EndFrame();
 	}
@@ -172,6 +173,9 @@ namespace nabi
 		// Create the input entity
 		entt::entity const inputEntity =
 			m_Context.m_SingletonEntites.at(Context::SingletonEntities::Input) = m_Context.m_Registry.create();
+
+		// Add the input state component 
+		m_Context.m_Registry.emplace<ecs::InputStateComponent>(inputEntity);
 
 		return true;
 	}

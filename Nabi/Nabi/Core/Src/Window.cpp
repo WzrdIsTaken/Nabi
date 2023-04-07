@@ -29,7 +29,7 @@ namespace nabi
 
 		if (settings.m_UseApplicationIcon)
 		{
-			// See Nabi\Icon\Icons!.txt for how to update the icon
+			// See Nabi\Miscellaneous\Icons!.txt for how to update the icon
 			window.hIcon = static_cast<HICON>(LoadImage(hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 128, 128, 0));
 			window.hIconSm = static_cast<HICON>(LoadImage(hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, 0));
 		}
