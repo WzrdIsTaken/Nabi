@@ -1,8 +1,6 @@
 #pragma once
 #include "Core.h"
 
-#include "CoreSingletonComponents\InputStateComponent.h"
-
 namespace ecs
 {
 	class InputSystem final : public nabi::ECS::SystemBase
@@ -14,8 +12,6 @@ namespace ecs
 		void Update(/*TODO - game time?*/);
 
 	private:
-		REFLECT_PRIVATES(InputSystem)
-
 		void UpdateKeyboard() const;
 		void UpdateMouse() const;
 		void UpdateControllers() const;
@@ -30,5 +26,7 @@ namespace ecs
 		void OnMouseRightButtonDown(WPARAM const wParam, LPARAM const lParam) const;
 		void OnMouseRightButtonUp(WPARAM const wParam, LPARAM const lParam) const;
 		void OnMouseMove(WPARAM const wParam, LPARAM const lParam) const;
+
+		REFLECT_PRIVATES(InputSystem)
 	};
 } // namespace ecs

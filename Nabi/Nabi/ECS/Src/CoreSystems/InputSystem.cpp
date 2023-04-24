@@ -101,7 +101,7 @@ namespace ecs
 
 				// Triggers
 				float constexpr triggerConversion = ControllerState::c_TriggerConversion;
-				controller.m_Axis[4] = static_cast<float>(gamepad.bLeftTrigger) / triggerConversion;
+				controller.m_Axis[4] = static_cast<float>(gamepad.bLeftTrigger)  / triggerConversion;
 				controller.m_Axis[5] = static_cast<float>(gamepad.bRightTrigger) / triggerConversion;
 			}
 			else
@@ -126,30 +126,30 @@ namespace ecs
 
 	void InputSystem::OnMouseLeftButtonDown(WPARAM const /*wParam*/, LPARAM const /*lParam*/) const
 	{
-		InputModule::GetMouseState(m_Context).m_PendingButtonStates[Mouse::LeftButton] = true;
+		InputModule::GetMouseState(m_Context).m_PendingButtonStates[GetInputCode(InputCode::Mouse_LeftButton)] = true;
 	}
 
 	void InputSystem::OnMouseLeftButtonUp(WPARAM const /*wParam*/, LPARAM const /*lParam*/) const
 	{
-		InputModule::GetMouseState(m_Context).m_PendingButtonStates[Mouse::LeftButton] = false;
+		InputModule::GetMouseState(m_Context).m_PendingButtonStates[GetInputCode(InputCode::Mouse_LeftButton)] = false;
 	}
 
 	void InputSystem::OnMouseRightButtonDown(WPARAM const /*wParam*/, LPARAM const /*lParam*/) const
 	{
-		InputModule::GetMouseState(m_Context).m_PendingButtonStates[Mouse::RightButton] = true;
+		InputModule::GetMouseState(m_Context).m_PendingButtonStates[GetInputCode(InputCode::Mouse_RightButton)] = true;
 	}
 
 	void InputSystem::OnMouseRightButtonUp(WPARAM const /*wParam*/, LPARAM const /*lParam*/) const
 	{
-		InputModule::GetMouseState(m_Context).m_PendingButtonStates[Mouse::RightButton] = false;
+		InputModule::GetMouseState(m_Context).m_PendingButtonStates[GetInputCode(InputCode::Mouse_RightButton)] = false;
 	}
 
 	void InputSystem::OnMouseMove(WPARAM const /*wParam*/, LPARAM const lParam) const
 	{
-		POINTS mousePosition = MAKEPOINTS(lParam);
+		POINTS const mousePosition = MAKEPOINTS(lParam);
 		InputModule::GetMouseState(m_Context).m_MousePosition = dx::XMFLOAT2(
 			static_cast<SHORT>(mousePosition.x), 
-			static_cast<SHORT>(mousePosition.y
-		));
+			static_cast<SHORT>(mousePosition.y)
+		);
 	}
 } // namespace ecs

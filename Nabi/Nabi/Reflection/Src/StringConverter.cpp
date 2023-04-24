@@ -34,7 +34,7 @@ namespace nabi::Reflection::StringConverter
 		{
 			if (fromString.is_static() /*|| .is_free()*/)
 			{
-				entt::meta_any const result = fromString.invoke(dataType, propertyValue);
+				entt::meta_any const result = fromString.invoke(dataType, entt::forward_as_meta(propertyValue));
 				metaMember.set(metaObject, result);
 			}
 			else

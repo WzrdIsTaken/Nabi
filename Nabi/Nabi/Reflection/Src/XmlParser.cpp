@@ -276,9 +276,9 @@ namespace nabi::Reflection
 				ASSERT(std::find(entityComponents.begin(), entityComponents.end(), component) == entityComponents.end(),
 					"The entity already has a component of type " << WRAP(component.m_Id.data(), "'") << "!" << ENDLINE);
 
-				// Push back the created component into the entity templates component list
+				// Push back the created component into the entity's component list
 				entityComponents.push_back(component);
-				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << LOG_CATEGORY_REFLECTION << "Found a component on the entity template with id " 
+				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << LOG_CATEGORY_REFLECTION << "Found a component on the entity with id " 
 					<< WRAP(component.m_Id.data(), "'") << ENDLINE);
 			}
 		}

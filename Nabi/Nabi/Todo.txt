@@ -8,8 +8,14 @@ Current:
 
 // --- High Priority ---
 - Input! (remember have tested this stuff in the 'learning rendering' proj) (also had that email from jake)
+- CheckIfMouseOverElement function in UImodule
 
-- remember can now close rendering/rendering2d branches. i am sooo looking forward to being done with rendering!!!
+- Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? 
+- Should the components in the view be const, rather than the components in the lambda? I think so... and then can the components in the lambda just be auto? does that carry const?
+    - or just switch over to the for loop approach
+
+- should all systems modify the input components? eg like the asset bank does with the drawables? 
+- see notebook for reflection update idea
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -27,6 +33,10 @@ Structure Stuff
 - drawablecomponents->renderablecomponents?
 - use doxygen comment style?
 - refactor entity group, entity property list and entity creator outside of reflection and into ecs?
+
+- should all modules take in context first for style/consistency?
+
+-  for standard includes in core/enginecore/etc is it dumb to have like a standard.h file with all the standard includes i use? can include here and in enginecore*/
 
 // --- Low Priority ---
 
@@ -56,6 +66,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- ui
 - Write rendering tests
 - Fix all warnings / disable those we dont care about
 - Comment up all rendering code (also switch over all comment style - doxygen? im not really a big fan of the xml now i know i can change it) (also can xmlparser methods be const?)
@@ -190,6 +201,7 @@ To Read:
 - https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom
 - https://stackoverflow.com/questions/26152096/when-and-why-would-you-use-static-with-constexpr
 - https://learn.microsoft.com/en-us/cpp/cpp/property-cpp?view=msvc-170
+- http://www.gotw.ca/gotw/054.htm
 
 Remember:
 - Can't use ifdef inside __pragma

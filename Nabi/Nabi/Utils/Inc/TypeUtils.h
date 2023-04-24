@@ -35,10 +35,18 @@ namespace nabi::Utils::TypeUtils
     }
 
     template<typename T, typename... U>
-    size_t GetAddress(std::function<T(U...)> function) {
+    size_t GetAddress(std::function<T(U...)> function) 
+    {
         typedef T(FunctionType)(U...);
         FunctionType** functionPointer = function.template target<FunctionType*>();
         return (size_t)*functionPointer;
+    }
+
+    template <typename E>
+    constexpr typename std::underlying_type<E>::type ToUnderlying(E e) noexcept 
+    {
+        // Note - to_underlying will do this in cpp23
+        return static_cast<typename std::underlying_type<E>::type>(e);
     }
 }
 

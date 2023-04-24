@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- NOTE - Because of how the UISystem is implemented, UI scenes must be declared after their constituent components -->
+<!-- The alternative I guess is having to declare the scene below the components. Or have another system match things up after all the components are added. -->
+<!-- Is this annoying enough to fix? -->
+
+<entity_group id="UIGroup">
+  <!-- UI Scene One -->
+  
+  <entity id="UIElementOne">
+    <component id="ButtonComponent">
+      <property id="Scene" value="TestScene" />
+      <property id="Action" value="TestButtonResponseOne" />
+      <property id="InputType" value="Keyboard" />
+      <property id="ActivationKey" value="Key_H" />
+      <property id="AltInputType" value="Keyboard" />
+      <property id="AltActivationKey" value="Key_G" />
+    </component>
+  </entity>
+
+  <entity id="UIElementTwo">
+    <component id="ButtonComponent">
+      <property id="Scene" value="TestScene" />
+      <property id="Action" value="TestButtonResponseOne" />
+      <property id="InputType" value="Keyboard" />
+      <property id="ActivationKey" value="Key_J" />
+      <property id="AltInputType" value="Keyboard" />
+      <property id="AltActivationKey" value="Key_K" />
+    </component>
+  </entity>
+
+  <entity id="UISceneOne">
+    <component id="UISceneComponent">
+      <property id="SceneName" value="TestScene" />
+      <property id="SceneEntities" value="UIElementOne, UIElementTwo" />
+    </component>
+  </entity>
+  
+  <!-- UI Scene Two -->
+
+  <entity id="UIElementThree">
+    <component id="ButtonComponent">
+      <property id="Scene" value="TestScene" />
+      <property id="Action" value="TestButtonResponseTwo" />
+      <property id="InputType" value="Keyboard" />
+      <property id="ActivationKey" value="Key_V" />
+      <property id="AltInputType" value="Keyboard" />
+      <property id="AltActivationKey" value="Key_B" />
+    </component>
+  </entity>
+
+  <entity id="UIElementFour">
+    <component id="ButtonComponent">
+      <property id="Scene" value="TestScene" />
+      <property id="Action" value="TestButtonResponseTwo" />
+      <property id="InputType" value="Keyboard" />
+      <property id="ActivationKey" value="Key_N" />
+      <property id="AltInputType" value="Keyboard" />
+      <property id="AltActivationKey" value="Key_M" />
+    </component>
+  </entity>
+
+  <entity id="UISceneTwo">
+    <component id="UISceneComponent">
+      <property id="SceneName" value="TestScene" />
+      <property id="SceneEntities" value="UIElementThree, UIElementFour" />
+      <!-- <property id="Enabled" value="false" /> -->
+    </component>
+  </entity>
+
+</entity_group>

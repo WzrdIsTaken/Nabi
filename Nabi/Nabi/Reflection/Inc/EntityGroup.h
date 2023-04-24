@@ -51,6 +51,10 @@ namespace nabi::Reflection
 		{
 			return m_Entities;
 		}
+		inline Group const& GetGroup() const NABI_NOEXCEPT
+		{
+			return m_Entities;
+		}
 
 	private:
 		Group m_Entities;

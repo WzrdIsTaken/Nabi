@@ -22,4 +22,22 @@ namespace nabi::Utils::StringUtils
 	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, char const after, char const delimiter, size_t const expectedValues = SIZE_MAX) NABI_NOEXCEPT;
 	// Splits a string via a delimiter. Fatal assert if expectedValues is not equal to the resultant split
 	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, char const delimiter, size_t const expectedValues = SIZE_MAX) NABI_NOEXCEPT;
+
+	// Trims a string
+    static inline char const* c_WhiteSpace = " \t\n\r\f\v";
+
+	inline std::string& RightTrim(std::string& string, char const* trim = c_WhiteSpace)
+	{
+		string.erase(string.find_last_not_of(trim) + 1);
+		return string;
+	}
+	inline std::string& LeftTrim(std::string& string, char const* trim = c_WhiteSpace)
+	{
+		string.erase(0, string.find_first_not_of(trim));
+		return string;
+	}
+	inline std::string& Trim(std::string& string, char const* trim = c_WhiteSpace)
+	{
+		return LeftTrim(RightTrim(string, trim), trim);
+	}
 } // namespace nabi::Utils::StringUtils

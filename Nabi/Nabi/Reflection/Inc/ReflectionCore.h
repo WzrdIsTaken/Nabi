@@ -4,6 +4,7 @@
 
 #include "entt.h"
 
+#include "EnumConverter.h"
 #include "ReflectionGlobals.h"
 #include "ReflectionMacros.h"
 #include "StringConverter.h"

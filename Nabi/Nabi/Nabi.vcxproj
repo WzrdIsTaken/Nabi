@@ -178,11 +178,13 @@
     <ClCompile Include="Core\Src\NabiCore.cpp" />
     <ClCompile Include="Core\Src\Window.cpp" />
     <ClCompile Include="Core\Src\WindowEventsListener.cpp" />
+    <ClCompile Include="ECS\Src\CoreComponents\UIComponents.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\CameraComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\LightComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\DrawableComponents.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\TransformComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\CameraModule.cpp" />
+    <ClCompile Include="ECS\Src\CoreModules\EntityModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\InputModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\RenderModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\SpatialHierarchyModule.cpp" />
@@ -190,7 +192,9 @@
     <ClCompile Include="ECS\Src\CoreSystems\InputSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp" />
+    <ClCompile Include="ECS\Src\CoreSystems\UISystem.cpp" />
     <ClCompile Include="ECS\Src\SystemBase.cpp" />
+    <ClCompile Include="Input\Src\InputCodes.cpp" />
     <ClCompile Include="Libraries\Src\pugixml\pugixml.cpp" />
     <ClCompile Include="Libraries\Src\WICTextureLoader\WICTextureLoader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -247,6 +251,7 @@
     <ClInclude Include="Core\Inc\WindowEventsListener.h" />
     <ClInclude Include="Core\WinCore.h" />
     <ClInclude Include="ECS\Inc\ComponentBase.h" />
+    <ClInclude Include="ECS\Inc\CoreComponents\UIComponents.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\CameraComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\EntityInfoComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\LightComponent.h" />
@@ -254,16 +259,21 @@
     <ClInclude Include="ECS\Inc\CoreComponents\SpatialHierarchyComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\TransformComponent.h" />
     <ClInclude Include="ECS\Inc\CoreModules\CameraModule.h" />
+    <ClInclude Include="ECS\Inc\CoreModules\EntityModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\InputModule.h" />
+    <ClInclude Include="ECS\Inc\CoreModules\ReflectionModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\RenderModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\SpatialHierarchyModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\TextModule.h" />
+    <ClInclude Include="ECS\Inc\CoreModules\UIModule.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\InputStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\LightStateComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreSingletonComponents\UIStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\InputSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\LightingSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem.h" />
+    <ClInclude Include="ECS\Inc\CoreSystems\UISystem.h" />
     <ClInclude Include="ECS\Inc\ECSGlobals.h" />
     <ClInclude Include="ECS\Inc\SystemBase.h" />
     <ClInclude Include="Input\Inc\InputState.h" />
@@ -337,6 +347,8 @@
     <Text Include="Todo.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Tests\Data\Input\test_ui_entities.xml" />
+    <Xml Include="Tests\Data\Reflection\test_container_entity_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_debug_entity_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_library_entity_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_entity_file.xml" />

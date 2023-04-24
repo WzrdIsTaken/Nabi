@@ -181,3 +181,29 @@
 #define REFLECT_PRIMITIVE_TYPE(primitiveType) \
 	entt::meta<primitiveType>().type(entt::hashed_string(#primitiveType)) \
 		.func<&nabi::Reflection::StringConverter::FromString<primitiveType>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName);
+
+// --- UI Scene Reflection ---
+// UI scenes are a different different, as they are just all free functions. However, everything that is reflected in entt needs to be attached to a type.
+// This type is defined below
+
+namespace nabi::Reflection
+{
+	struct UIScene final
+	{
+	};
+} // namespace nabi::Reflection
+
+#define REFLECT_UI_SCENE_BEGIN(sceneName)\
+	CREATE_REFLECTOR_BEGIN(sceneName) \
+	CREATE_INIT_REFLECTION_FUNCTION() \
+		entt::meta<nabi::Reflection::UIScene>().type(entt::hashed_string(#sceneName))
+
+#define REFLECT_UI_SCENE_METHOD_DEFAULT(method) \
+		.func<&method>(entt::hashed_string(#method))
+
+#define REFLECT_UI_SCENE_METHOD(method, reflectedName) \
+		.func<&method>(entt::hashed_string(reflectedName))
+
+#define REFLECT_UI_SCENE_END(sceneName) \
+	; } \
+	CREATE_REFLECTOR_END(sceneName)

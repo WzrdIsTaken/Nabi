@@ -42,6 +42,18 @@ namespace nabitest::ECS
 		dx::XMINT2 m_Int2;
 		dx::XMINT3 m_Int3;
 	};
+
+	struct MockComponentWithContainers final : public nabi::ECS::ComponentBase
+	{
+		MockComponentWithContainers()
+			: m_IntVector{1, 2, 3}
+			, m_CustomTypeVector{{0.1, true}, {0.2, false}}
+		{
+		}
+
+		std::vector<int> m_IntVector;
+		std::vector<MockCustomDataType> m_CustomTypeVector;
+	};
 } // namespace nabitest::ECS
 
 #endif // #ifdef RUN_TESTS

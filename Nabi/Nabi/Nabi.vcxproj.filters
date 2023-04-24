@@ -197,9 +197,6 @@
     <Filter Include="ECS\Inc\CoreSingletonComponents">
       <UniqueIdentifier>{6422b455-b88f-41c2-8fdd-3d08c30fb191}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ECS\CoreModules">
-      <UniqueIdentifier>{c8129404-7fac-4b52-a0ea-c11b45c23107}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ECS\Src\CoreModules">
       <UniqueIdentifier>{9ab6ba6c-bc56-44c8-8d6f-a51465cdbaee}</UniqueIdentifier>
     </Filter>
@@ -220,6 +217,12 @@
     </Filter>
     <Filter Include="Miscellaneous">
       <UniqueIdentifier>{57b04350-6f7e-4b5c-9159-8c1bc487bce8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Inc\CoreModules">
+      <UniqueIdentifier>{c8129404-7fac-4b52-a0ea-c11b45c23107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Data\Input">
+      <UniqueIdentifier>{9507a751-5721-493c-b3a5-198c1b3ee7d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +400,18 @@
     </ClCompile>
     <ClCompile Include="Tests\Fixtures\InputTests\InputStateTests.cpp">
       <Filter>Tests\Fixtures\InputTests</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\UIComponents.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreSystems\UISystem.cpp">
+      <Filter>ECS\Src\CoreSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Src\InputCodes.cpp">
+      <Filter>Input\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreModules\EntityModule.cpp">
+      <Filter>ECS\Src\CoreModules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -622,22 +637,22 @@
       <Filter>ECS\Inc\CoreComponents</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\SpatialHierarchyModule.h">
-      <Filter>ECS\CoreModules</Filter>
+      <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\TextModule.h">
-      <Filter>ECS\CoreModules</Filter>
+      <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\Inc\Containers\UVs.h">
       <Filter>Rendering\Inc\Containers</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\RenderModule.h">
-      <Filter>ECS\CoreModules</Filter>
+      <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
     <ClInclude Include="Memory\Inc\Allocator.h">
       <Filter>Memory\Inc</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\CameraModule.h">
-      <Filter>ECS\CoreModules</Filter>
+      <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
     <ClInclude Include="Core\Inc\WindowEventsListener.h">
       <Filter>Core\Inc</Filter>
@@ -667,10 +682,28 @@
       <Filter>ECS\Inc\CoreSystems</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\InputModule.h">
-      <Filter>ECS\CoreModules</Filter>
+      <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
     <ClInclude Include="Tests\Inc\Examples\TestInput.h">
       <Filter>Tests\Inc\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\UIComponents.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSingletonComponents\UIStateComponent.h">
+      <Filter>ECS\Inc\CoreSingletonComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSystems\UISystem.h">
+      <Filter>ECS\Inc\CoreSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\UIModule.h">
+      <Filter>ECS\Inc\CoreModules</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\EntityModule.h">
+      <Filter>ECS\Inc\CoreModules</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\ReflectionModule.h">
+      <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -701,6 +734,12 @@
     </Xml>
     <Xml Include="Tests\Data\Reflection\test_library_entity_file.xml">
       <Filter>Tests\Data\Reflection</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Reflection\test_container_entity_file.xml">
+      <Filter>Tests\Data\Reflection</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Input\test_ui_entities.xml">
+      <Filter>Tests\Data\Input</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

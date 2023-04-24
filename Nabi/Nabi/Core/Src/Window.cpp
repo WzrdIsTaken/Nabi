@@ -197,7 +197,7 @@ namespace nabi
 		auto const find = [messageId](WindowsMsgPair const& messagePair) -> bool { return messageId == messagePair.m_Msg; };
 		auto const messageSubscribersItr = findMode == FindMode::Find ? std::find_if  (m_WindowsEvents.begin(), m_WindowsEvents.end(), find)
 												        /* Remove  */ : std::remove_if(m_WindowsEvents.begin(), m_WindowsEvents.end(), find);
-									                    /* Default */   ASSERT(findMode == FindMode::Find || findMode == FindMode::Remove, "yeah dont do that pls tyty");
+									                    /* Default */   ASSERT_FATAL(findMode == FindMode::Find || findMode == FindMode::Remove, "yeah dont do that pls tyty");
 		return messageSubscribersItr;
 	}
 

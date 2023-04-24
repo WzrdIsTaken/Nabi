@@ -13,6 +13,15 @@ namespace nabitest
 		AnotherEntry,
 		ENUM_COUNT
 	};
+
+	namespace NamespacedMockEnum
+	{
+		enum Enum : int
+		{
+			TestOne,
+			TestTwo
+		};
+	} // namespace NamespacedMockEnum
 } // namespace nabitest
 
 #endif // ifdef RUN_TESTS

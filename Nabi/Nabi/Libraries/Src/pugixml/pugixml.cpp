@@ -11,6 +11,13 @@
  * Copyright (C) 2003, by Kristen Wegner (kristen@tima.net)
  */
 
+#pragma warning( push ) // added by me 
+#pragma warning( disable : 26495 )
+#pragma warning( disable : 6054 )
+#pragma warning( disable : 28182 )
+#pragma warning( disable : 26451 )
+#pragma warning( disable : 26812 )
+
 #ifndef SOURCE_PUGIXML_CPP
 #define SOURCE_PUGIXML_CPP
 
@@ -13131,6 +13138,8 @@ namespace pugi
 #undef PUGI__CHECK_ERROR
 
 #endif
+
+#pragma warning( pop )
 
 /**
  * Copyright (c) 2006-2022 Arseny Kapoulkine

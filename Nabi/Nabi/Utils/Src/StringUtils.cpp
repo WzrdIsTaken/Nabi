@@ -25,7 +25,13 @@ namespace nabi::Utils::StringUtils
 			result.emplace_back(start, end);
 			if (end == string.end())
 			{
-				ASSERT(expectedValues != SIZE_MAX && result.size() == expectedValues, "Tried to split the string, but there wasn't the expected number of substrings!");
+				ASSERT_CODE
+				(
+					if (expectedValues != SIZE_MAX)
+					{
+						ASSERT(result.size() == expectedValues, "Tried to split the string, but there wasn't the expected number of substrings!");
+					}
+				)
 				return result;
 			}
 		}

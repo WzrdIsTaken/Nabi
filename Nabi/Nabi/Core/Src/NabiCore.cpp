@@ -6,6 +6,7 @@
 #include "CoreModules\CameraModule.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"
 #include "CoreSingletonComponents\InputStateComponent.h"
+#include "CoreSingletonComponents\UIStateComponent.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
 #include "EntityCreator.h"
 #include "InitSettings.h"
@@ -174,8 +175,11 @@ namespace nabi
 		entt::entity const inputEntity =
 			m_Context.m_SingletonEntites.at(Context::SingletonEntities::Input) = m_Context.m_Registry.create();
 
-		// Add the input state component 
+		// Add the input state component (tracks the state of keys/buttons)
 		m_Context.m_Registry.emplace<ecs::InputStateComponent>(inputEntity);
+
+		// Add the ui state component (tracks the hierachy of ui scenes)
+		m_Context.m_Registry.emplace<ecs::UIStateComponent>(inputEntity);
 
 		return true;
 	}

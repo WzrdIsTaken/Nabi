@@ -141,6 +141,50 @@ namespace nabitest::ReflectionTests
 		EXPECT_TRUE(int2Equal);
 		EXPECT_TRUE(int3Equal);
 	}
+
+	/*
+	Container support is currently not implemented in the reflection system.
+	I was doing this in the past, then realised I didn't actually need it. 
+	The way I was doing it was with a jank macro solution. This is not the play! Entt supports container reflection, we just have to use it.
+	https://github.com/skypjack/entt/wiki/Crash-Course:-runtime-reflection-system#container-support
+	I didn't want to use this originally because I think it would require rewriting some of the reflection system. However, the more I did
+	the macro approach the worse it got - so I if this is ever needed I think we'll just have to bite the bullet.
+	
+	TEST(ReflectionTests, ParseContainerEntities)
+	{
+		// Mock objects
+		nabi::Context context;
+		context.m_Registry = {};
+
+		std::string const docPath = "Tests/Data/Reflection/test_container_entity_file.xml";
+		entt::registry& registry = context.m_Registry;
+
+		// Deserialize data files
+		nabi::Reflection::XmlParser xmlParser{};
+		pugi::xml_document const doc = xmlParser.LoadDocument(docPath);
+		xmlParser.ParseEntities(doc, context.m_Registry);
+
+		// Check that this is only one entity in the registry
+		Comparison<size_t> numberOfEntities(1, registry.alive());
+		COMPAIR_EQ(numberOfEntities);
+
+		// Iterate over the registery and check for MockComponentWithDirectXTypes
+		auto mockComponentView = registry.view<MockComponentWithContainers>();
+
+		Comparison<std::vector<int>> intVector({ 2, 4, 8 });
+		Comparison<std::vector<MockCustomDataType>> customTypeVector({ { 10.0, false }, {11.0, true} });
+
+		for (auto [entity, mockComponent] : mockComponentView.each())
+		{
+			intVector.m_Actual = mockComponent.m_IntVector;
+			customTypeVector.m_Actual = mockComponent.m_CustomTypeVector;
+		}
+
+		// Test!
+		COMPAIR_EQ(intVector);
+		COMPAIR_EQ(customTypeVector);
+	}
+	*/
 } // namespace nabitest::ReflectionTests
 
 #endif // #ifdef RUN_TESTS

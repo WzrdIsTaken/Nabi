@@ -3,6 +3,8 @@
 #include "WinCore.h"
 #include "DirectXCore.h"
 
+#include "entt.h"
+
 namespace nabi::Reflection
 {
 	/// <summary>
@@ -51,3 +53,10 @@ namespace nabi::Reflection::DirectXTypes
 	} // namespace Int3
 } // namespace nabi::Reflection::DirectXTypes
 
+namespace nabi::Reflection::EnttTypes
+{
+	namespace HashedString
+	{
+		entt::hashed_string FromString(std::string const& source) NABI_NOEXCEPT;
+	} // namespace HashedString
+} // namespace nabi::Reflection::EnttTypes

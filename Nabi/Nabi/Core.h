@@ -4,9 +4,8 @@
 
 // --- Standard Lib ---
 #include <bitset>
+#include <stack>
 #include <string>
-/* more in the future i'm sure... 
-   is it dumb to have like a standard.h file with all the standard includes i use? can include here and in enginecore*/
 
 // --- Windows / DirectX ---
 #include "WinCore.h" // TODO (have to double check if this should go before or after standard)

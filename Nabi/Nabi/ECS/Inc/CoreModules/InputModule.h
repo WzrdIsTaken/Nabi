@@ -1,20 +1,21 @@
 #pragma once
 #include "Core.h"
 
+#include "InputCodes.h"
 #include "InputState.h"
 #include "CoreSingletonComponents\InputStateComponent.h"
 
 namespace ecs::InputModule
 {
 	// These functions query the InputStateComponent to check key/mouse/button state
-	nabi::Input::InputState GetKeyboardKey(nabi::Context const& context, int const key);
+	nabi::Input::InputState GetKeyboardKey(nabi::Context const& context, nabi::Input::InputCode const keyCode);
 
-	nabi::Input::InputState GetMouseButton(nabi::Context const& context, int const button);
+	nabi::Input::InputState GetMouseButton(nabi::Context const& context, nabi::Input::InputCode const buttonCode);
 	dx::XMFLOAT2 GetMousePosition(nabi::Context const& context);
 
-	nabi::Input::InputState GetControllerButton(nabi::Context const& context, unsigned int const controller, int const button);
-	float GetControllerAxis(nabi::Context const& context, unsigned int const controller, unsigned int const axis);
-	bool GetControllerConnected(nabi::Context const& context, unsigned int const controller);
+	nabi::Input::InputState GetControllerButton(nabi::Context const& context, nabi::Input::Controller const controllerCode, nabi::Input::InputCode const buttonCode);
+	float GetControllerAxis(nabi::Context const& context, nabi::Input::Controller const controllerCode, nabi::Input::InputCode const axis);
+	bool GetControllerConnected(nabi::Context const& context, nabi::Input::Controller const controllerCode);
 
 	// Input state getters
 	inline InputStateComponent const& GetInputStateComponent(nabi::Context const& context) {
