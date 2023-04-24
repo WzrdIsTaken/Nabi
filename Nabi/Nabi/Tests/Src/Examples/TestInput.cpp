@@ -32,10 +32,6 @@ namespace nabitest::Examples
 
 	bool TestInput::Init()
 	{
-		// THEN clean up this cl (careful review of all files added!!) and commit! come on, you can finish this before the end of this month
-		// make sure to test everything well
-		// got a lot of warnings to fix
-
 		// --- Systems ---
 		m_InputSystem = std::make_unique<ecs::InputSystem>(m_Context, "InputId"_hs, "GroupId"_hs);
 		m_UISystem = std::make_unique<ecs::UISystem>(m_Context, "UIId"_hs, "GroupId"_hs);
