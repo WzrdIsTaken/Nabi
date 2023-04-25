@@ -532,6 +532,25 @@ namespace nabi::Rendering
 		*/
 	}
 
+	dx::XMFLOAT2 RenderCommand::GetTextureDimensions(Texture const& texture) const NABI_NOEXCEPT
+	{
+		// Get the underlying texture resource
+		ID3D11Resource* resource;
+		texture.m_Texture->GetResource(&resource);
+		ID3D11Texture2D* texture2D = static_cast<ID3D11Texture2D*>(resource);
+
+		// Get the texture's description
+		D3D11_TEXTURE2D_DESC desc;
+		texture2D->GetDesc(&desc);
+
+		// Calculate the dimensions
+		dx::XMFLOAT2 dimensions;
+		dimensions.x = static_cast<FLOAT>(desc.Width);
+		dimensions.y = static_cast<FLOAT>(desc.Height);
+
+		return dimensions;
+	}
+
 	void RenderCommand::Draw(UINT const indexCount) const NABI_NOEXCEPT
 	{
 		m_DXObjects.m_Context->Draw(

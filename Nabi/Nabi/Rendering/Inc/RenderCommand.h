@@ -111,6 +111,10 @@ namespace nabi::Rendering
 
 		bool UpdateWindowSize(UINT const newWidth, UINT const newHeight) const NABI_NOEXCEPT;
 
+		// --- Access ---
+
+		dx::XMFLOAT2 GetTextureDimensions(Texture const& texture) const NABI_NOEXCEPT;
+
 		// --- Drawing ---
 
 		void Draw(UINT const indexCount) const NABI_NOEXCEPT;

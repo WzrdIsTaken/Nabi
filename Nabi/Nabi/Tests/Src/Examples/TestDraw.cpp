@@ -323,6 +323,12 @@ namespace nabitest::Examples
 
 					// Tag
 					m_Context.m_Registry.emplace_or_replace<ecs::Tags::DrawOrthographic>(entity);
+
+#pragma region Test get texture dims
+					{
+						dx::XMFLOAT2 const dims = m_Context.m_RenderCommand->GetTextureDimensions(*textureComponent.m_TextureResource.GetResource());
+					}
+#pragma endregion
 				});
 
 		return true;
@@ -423,6 +429,12 @@ namespace nabitest::Examples
 
 					entt::entity d = m_Context.m_EntityCreator->CreateEntity(nullptr);
 					m_Context.m_EntityCreator->CloneEntity(entity);
+
+#pragma region Test get text dims
+					{
+						dx::XMFLOAT2 const dims = ecs::TextModule::CalculateTextDimensions(m_Context, entity);
+					}
+#pragma endregion
 				});
 
 		return true;

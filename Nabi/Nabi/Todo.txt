@@ -7,7 +7,6 @@ Current:
 // --- Critical Priority ---
 
 // --- High Priority ---
-- Input! (remember have tested this stuff in the 'learning rendering' proj) (also had that email from jake)
 - Write some UI tests?
 - A UI storage w/stickys sort of thing?
 
@@ -69,6 +68,8 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- need a way to find sprite dims
+- Input! (remember have tested this stuff in the 'learning rendering' proj) (also had that email from jake)
 - CheckIfMouseOverElement function in UImodule
 - ui
 - Write rendering tests

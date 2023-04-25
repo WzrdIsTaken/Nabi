@@ -15,7 +15,7 @@ namespace ecs::TextModule
 		TextComponent* TryGetTextComponent(nabi::Context& context, entt::entity const textEntity)
 		{
 			TextComponent* textComponent = context.m_Registry.try_get<TextComponent>(textEntity);
-			ASSERT(textComponent != nullptr, "Trying to update text on an entity which doesn't have a text component!");
+			ASSERT(textComponent != nullptr, "Trying to do a text operation an entity which doesn't have a text component!");
 
 			return textComponent;
 		}
@@ -137,6 +137,46 @@ namespace ecs::TextModule
 			dx::XMFLOAT3 const newCharacterPosition = Float3Add(firstCharacterNewPosition, characterSpace);
 			transformComponent.m_Position = newCharacterPosition;
 		}
+	}
+
+	dx::XMFLOAT2 CalculateTextDimensions(nabi::Context& context, entt::entity const textEntity)
+	{
+		dx::XMFLOAT2 dimensions = { 0.0f, 0.0f };
+
+		if (TextComponent* const textComponent = TryGetTextComponent(context, textEntity))
+		{
+			dimensions = CalculateTextDimensions(context, *textComponent);
+		}
+
+		return dimensions;
+	}
+
+	dx::XMFLOAT2 CalculateTextDimensions(nabi::Context& context, TextComponent const& textComponent)
+	{
+		// NOTE - This function currently only works for horizontal text!
+		// I don't think there is enough infomation in the TextComponent right now to do anything else.
+
+		dx::XMFLOAT2 dimensions = { 0.0f, 0.0f };
+		dimensions.x = static_cast<FLOAT>(textComponent.m_TextureAtlas.x);
+		dimensions.y = static_cast<FLOAT>(textComponent.m_TextureAtlas.y) * textComponent.m_ActiveInPool;
+
+		/*
+		This was for the sprite sheet, dummy
+		SpatialHierarchyModule::ForeachEntityChild(context, textComponent.m_Characters,
+			[&](entt::entity const entity) -> bool
+			{
+				TextureComponent const& characterTextureComponent = context.m_Registry.get<TextureComponent>(entity);
+				std::shared_ptr<nabi::Rendering::Texture const> const characterTexture = characterTextureComponent.m_TextureResource.GetResource();
+
+				dx::XMFLOAT2 const charcterTextureDims = context.m_RenderCommand->GetTextureDimensions(*characterTexture);
+				dimensions.x =  charcterTextureDims.x;
+				dimensions.y += charcterTextureDims.y;
+
+				return true;
+			});
+		*/
+
+		return dimensions;
 	}
 
 	std::vector<nabi::Rendering::UVs> CalculateStringUvs(std::string const& string, int const asciiShift, dx::XMINT2 const textureAtlas)
