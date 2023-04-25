@@ -413,6 +413,9 @@
     <ClCompile Include="ECS\Src\CoreModules\EntityModule.cpp">
       <Filter>ECS\Src\CoreModules</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\CoreModules\UIModule.cpp">
+      <Filter>ECS\Src\CoreModules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />

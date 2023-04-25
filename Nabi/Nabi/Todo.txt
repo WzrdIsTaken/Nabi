@@ -8,7 +8,8 @@ Current:
 
 // --- High Priority ---
 - Input! (remember have tested this stuff in the 'learning rendering' proj) (also had that email from jake)
-- CheckIfMouseOverElement function in UImodule
+- Write some UI tests?
+- A UI storage w/stickys sort of thing?
 
 - Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? 
 - Should the components in the view be const, rather than the components in the lambda? I think so... and then can the components in the lambda just be auto? does that carry const?
@@ -16,6 +17,8 @@ Current:
 
 - should all systems modify the input components? eg like the asset bank does with the drawables? 
 - see notebook for reflection update idea
+
+- check everything that needs to be commented is
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -66,6 +69,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- CheckIfMouseOverElement function in UImodule
 - ui
 - Write rendering tests
 - Fix all warnings / disable those we dont care about

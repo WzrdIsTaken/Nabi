@@ -189,6 +189,7 @@
     <ClCompile Include="ECS\Src\CoreModules\RenderModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\SpatialHierarchyModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp" />
+    <ClCompile Include="ECS\Src\CoreModules\UIModule.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\InputSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp" />

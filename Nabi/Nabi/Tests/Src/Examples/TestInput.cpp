@@ -7,6 +7,7 @@
 #include "CoreComponents\EntityInfoComponent.h"
 #include "CoreComponents\UIComponents.h"
 #include "CoreModules\InputModule.h"
+#include "CoreModules\UIModule.h"
 #include "InputCodes.h"
 #include "InputState.h" 
 #include "XmlParser.h"
@@ -68,6 +69,21 @@ namespace nabitest::Examples
 
 	void TestInput::TestMouse() const
 	{
+		{
+			dx::XMFLOAT2 constexpr mockElementPosition = { 0.0f, 0.0f };
+			dx::XMFLOAT2 constexpr mockElementDims = { 100.0f, 100.0f };
+		
+			InputState const leftMouseButtonInputState = GetMouseButton(m_Context, InputCode::Mouse_LeftButton);
+			if (leftMouseButtonInputState == InputState::Pressed)
+			{
+				bool const clickInsideElement = ecs::UIModule::CheckIfMouseIsOverElement(m_Context, mockElementPosition, mockElementDims);
+				if (clickInsideElement)
+				{
+					LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST << "Click inside mock element!" << ENDLINE);
+				}
+			}
+		}
+
 		InputState const leftMouseButtonInputState = GetMouseButton(m_Context, InputCode::Mouse_LeftButton);
 		TestInputBase(leftMouseButtonInputState, "Left Mouse");
 	}
