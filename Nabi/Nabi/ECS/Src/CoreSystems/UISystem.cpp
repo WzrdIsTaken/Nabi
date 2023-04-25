@@ -91,7 +91,7 @@ namespace ecs
 					uiElementComponent.m_Selected = false;
 
 					ReflectionModule::Constraints constexpr* const constraints = nullptr;
-					ReflectionModule::CallReflectedFunction(uiElementComponent.m_Scene, uiElementComponent.m_Action, constraints, entt::forward_as_meta(m_Context), uiEntity);
+					ReflectionModule::CallReflectedFunction(m_Context, uiElementComponent.m_Scene, uiElementComponent.m_Action, constraints, entt::forward_as_meta(m_Context), uiEntity);
 				}
 			}
 		}

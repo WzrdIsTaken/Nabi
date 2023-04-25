@@ -5,7 +5,7 @@
 #include "CoreComponents\DrawableComponents.h"
 #include "CoreComponents\SpatialHierarchyComponent.h"
 #include "CoreComponents\TransformComponent.h"
-#include "CoreModules\SpatialHierarchyModule.h"
+#include "CoreModules\EntityModule.h"
 #include "DirectXUtils.h"
 
 namespace ecs::TextModule
@@ -47,7 +47,7 @@ namespace ecs::TextModule
 
 		// Update each character
 		int characterIndex = 0;
-		SpatialHierarchyModule::ForeachEntityChild(context.m_Registry, textComponent.m_Characters,
+		EntityModule::ForeachEntityChild(context, textComponent.m_Characters,
 			[&](entt::entity const entity) -> bool
 			{
 				using namespace nabi::Rendering;
@@ -63,7 +63,7 @@ namespace ecs::TextModule
 
 					if (newCharacter != oldCharacter)
 					{
-						UVs const characterUvs = CalculateCharacterUvs(newCharacter, textComponent.m_AsciiShift, textComponent.m_TextureAtlas);
+						UVs const characterUvs = CalculateCharacterUvs(context, newCharacter, textComponent.m_AsciiShift, textComponent.m_TextureAtlas);
 
 						ecs::BufferComponent const characterBufferComponent = context.m_Registry.get<ecs::BufferComponent>(entity);
 						std::shared_ptr<RenderBuffers const> const characterBuffers = characterBufferComponent.m_BufferResource.GetResource();
@@ -179,21 +179,21 @@ namespace ecs::TextModule
 		return dimensions;
 	}
 
-	std::vector<nabi::Rendering::UVs> CalculateStringUvs(std::string const& string, int const asciiShift, dx::XMINT2 const textureAtlas)
+	std::vector<nabi::Rendering::UVs> CalculateStringUvs(nabi::Context const& context, std::string const& string, int const asciiShift, dx::XMINT2 const textureAtlas)
 	{
 		std::vector<nabi::Rendering::UVs> stringUvs = {};
 		stringUvs.reserve(string.length());
 
 		for (char const character : string)
 		{
-			nabi::Rendering::UVs const characterUv = CalculateCharacterUvs(character, asciiShift, textureAtlas);
+			nabi::Rendering::UVs const characterUv = CalculateCharacterUvs(context, character, asciiShift, textureAtlas);
 			stringUvs.emplace_back(characterUv);
 		}
 
 		return stringUvs;
 	}
 
-	nabi::Rendering::UVs CalculateCharacterUvs(char const character, int const asciiShift, dx::XMINT2 const textureAtlas)
+	nabi::Rendering::UVs CalculateCharacterUvs(nabi::Context const& /*context*/, char const character, int const asciiShift, dx::XMINT2 const textureAtlas)
 	{
 		nabi::Rendering::UVs characterUvs = {};
 		dx::XMFLOAT2 u, v;

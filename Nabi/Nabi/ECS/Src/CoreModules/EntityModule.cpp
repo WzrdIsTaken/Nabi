@@ -3,6 +3,7 @@
 #include "CoreModules\EntityModule.h"
 
 #include "CoreComponents\EntityInfoComponent.h"
+#include "CoreComponents\SpatialHierarchyComponent.h"
 
 namespace ecs::EntityModule
 {
@@ -111,5 +112,23 @@ namespace ecs::EntityModule
 	{
 		FUNCTION_NOT_IMPLEMENTED
 		return EntityGroup();
+	}
+
+	void ForeachEntityChild(nabi::Context& context, entt::entity const entity, std::function<bool(entt::entity const)> const& action)
+	{
+		SpatialHierarchyComponent& spatialHierarchyComponent = context.m_Registry.get<SpatialHierarchyComponent>(entity);
+		ForeachEntityChild(context, spatialHierarchyComponent.m_Children, action);
+	}
+
+	void ForeachEntityChild(nabi::Context& /*context*/, std::vector<entt::entity> const& children, std::function<bool(entt::entity const)> const& action)
+	{
+		for (entt::entity child : children)
+		{
+			bool const continueLooping = action(child);
+			if (!continueLooping)
+			{
+				break;
+			}
+		}
 	}
 } // namespace ecs::EntityModule

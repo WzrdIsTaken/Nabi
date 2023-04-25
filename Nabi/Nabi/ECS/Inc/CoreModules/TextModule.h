@@ -20,6 +20,6 @@ namespace ecs::TextModule
 	dx::XMFLOAT2 CalculateTextDimensions(nabi::Context& context, entt::entity const textEntity);
 	dx::XMFLOAT2 CalculateTextDimensions(nabi::Context& context, TextComponent const& textComponent);
 
-	std::vector<nabi::Rendering::UVs> CalculateStringUvs(std::string const& string, int const asciiShift, dx::XMINT2 const textureAtlas);
-	nabi::Rendering::UVs CalculateCharacterUvs(char const character, int const asciiShift, dx::XMINT2 const textureAtlas);
+	std::vector<nabi::Rendering::UVs> CalculateStringUvs(nabi::Context const& context, std::string const& string, int const asciiShift, dx::XMINT2 const textureAtlas);
+	nabi::Rendering::UVs CalculateCharacterUvs(nabi::Context const& context, char const character, int const asciiShift, dx::XMINT2 const textureAtlas);
 } // namespace ecs::TextModule

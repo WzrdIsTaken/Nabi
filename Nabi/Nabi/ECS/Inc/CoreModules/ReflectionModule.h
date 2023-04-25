@@ -10,7 +10,8 @@ namespace ecs::ReflectionModule
 	};
 
 	template<typename... Args>
-	entt::meta_any CallReflectedFunction(entt::hashed_string const type, entt::hashed_string const function, Constraints const* const constraints, Args&&... args)
+	entt::meta_any CallReflectedFunction(nabi::Context const& /*context*/, 
+		entt::hashed_string const type, entt::hashed_string const function, Constraints const* const constraints, Args&&... args)
 	{
 		// TODO - Can StringConverter::ConvertFromString use this? The reason its not currently using this is because this logic was written a while after StringConverter.
 		// But... its also kinda good that the ecs/StringConverter are seperated. Doesn't make a big difference either way I guess.

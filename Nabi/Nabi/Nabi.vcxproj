@@ -187,7 +187,6 @@
     <ClCompile Include="ECS\Src\CoreModules\EntityModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\InputModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\RenderModule.cpp" />
-    <ClCompile Include="ECS\Src\CoreModules\SpatialHierarchyModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\UIModule.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\InputSystem.cpp" />
@@ -264,7 +263,6 @@
     <ClInclude Include="ECS\Inc\CoreModules\InputModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\ReflectionModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\RenderModule.h" />
-    <ClInclude Include="ECS\Inc\CoreModules\SpatialHierarchyModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\TextModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\UIModule.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h" />

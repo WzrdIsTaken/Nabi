@@ -6,7 +6,7 @@
 
 namespace ecs::CameraModule
 {
-	void DefaultCameraValues(ecs::CameraComponent& cameraComponent, DefaultCameraValuesSettings const& defaultSettings)
+	void DefaultCameraValues(nabi::Context const& /*context*/, ecs::CameraComponent& cameraComponent, DefaultCameraValuesSettings const& defaultSettings)
 	{
 		// The thought process here is that a camera system is kinda game specific, so I don't want to make a core one.
 		// However, the camera component is created in the default nabi initialization so this function can be used to default it.

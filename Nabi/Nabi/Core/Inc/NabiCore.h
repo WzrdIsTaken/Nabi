@@ -31,7 +31,7 @@ namespace nabi
 		[[nodiscard]] virtual int Init() NABI_NOEXCEPT;
 		[[nodiscard]] virtual int Run() NABI_NOEXCEPT;
 
-		[[nodiscard]] inline Context const& GetContext() NABI_NOEXCEPT;
+		[[nodiscard]] inline Context& GetContext() NABI_NOEXCEPT { return m_Context; }
 
 	protected:
 		virtual void Update(/*gametime?*/) /*const?*/ NABI_NOEXCEPT;

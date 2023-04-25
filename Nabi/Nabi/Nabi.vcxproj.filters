@@ -362,9 +362,6 @@
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp">
       <Filter>ECS\Src\CoreSystems</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Src\CoreModules\SpatialHierarchyModule.cpp">
-      <Filter>ECS\Src\CoreModules</Filter>
-    </ClCompile>
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp">
       <Filter>ECS\Src\CoreModules</Filter>
     </ClCompile>
@@ -638,9 +635,6 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreComponents\SpatialHierarchyComponent.h">
       <Filter>ECS\Inc\CoreComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\Inc\CoreModules\SpatialHierarchyModule.h">
-      <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\TextModule.h">
       <Filter>ECS\Inc\CoreModules</Filter>

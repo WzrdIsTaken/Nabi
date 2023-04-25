@@ -22,5 +22,5 @@ namespace ecs::CameraModule
 		dx::XMFLOAT3 m_CameraTarget = { 0, 0, 1 }; // Look forward
 	};
 
-	void DefaultCameraValues(CameraComponent& camera, DefaultCameraValuesSettings const& defaultSettings);
+	void DefaultCameraValues(nabi::Context const& context, CameraComponent& camera, DefaultCameraValuesSettings const& defaultSettings);
 } // namespace ecs::CameraModule

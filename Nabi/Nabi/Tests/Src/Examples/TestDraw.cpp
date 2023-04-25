@@ -383,7 +383,7 @@ namespace nabitest::Examples
 						}
 
 						// Load the character buffer
-						characterUVs = ecs::TextModule::CalculateCharacterUvs(character, textResourceComponent.m_AsciiShift, textResourceComponent.m_TextureAtlas);
+						characterUVs = ecs::TextModule::CalculateCharacterUvs(m_Context, character, textResourceComponent.m_AsciiShift, textResourceComponent.m_TextureAtlas);
 						renderBufferLoader.SetSpriteSheetProperties(characterUVs);
 						
 						std::string resourceName = CreateSpriteSheetResourceName(textResourceComponent.m_FontPath, std::string(1, character));

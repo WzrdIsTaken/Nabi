@@ -86,11 +86,6 @@ namespace nabi
 		return NABI_FAIL;
 	}
 
-	inline Context const& NabiCore::GetContext() NABI_NOEXCEPT
-	{
-		return m_Context;
-	}
-
 	void NabiCore::Update() NABI_NOEXCEPT
 	{
 		test_Input.Update();
@@ -125,8 +120,8 @@ namespace nabi
 
 		ecs::CameraComponent& perspectiveCamera = cameraComponent.m_Cameras.at(ecs::CameraIndex::Perspective);
 		ecs::CameraComponent& orthographicCamera = cameraComponent.m_Cameras.at(ecs::CameraIndex::Orthographic);
-		ecs::CameraModule::DefaultCameraValues(perspectiveCamera, defaultCameraSettings);
-		ecs::CameraModule::DefaultCameraValues(orthographicCamera, defaultCameraSettings);
+		ecs::CameraModule::DefaultCameraValues(m_Context, perspectiveCamera, defaultCameraSettings);
+		ecs::CameraModule::DefaultCameraValues(m_Context, orthographicCamera, defaultCameraSettings);
 
 		// --- Create the graphics component ---
 		ecs::GraphicsComponent graphicsComponent;
