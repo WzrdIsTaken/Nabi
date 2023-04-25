@@ -30,39 +30,7 @@ namespace ecs::UIModule
 
 		ENUM_COUNT
 	};
-	inline UISceneComponent::UISceneEntities const* const GetCurrentUISceneEntities(nabi::Context const& context, GetMode const getMode)
-	{
-		std::stack<UISceneComponent> const& uiScenes = GetUIStateComponent(context).m_UIScenes;
-		UISceneComponent::UISceneEntities const* currentUISceneEntities = nullptr;
-
-		if (!uiScenes.empty())
-		{
-			switch (getMode)
-			{
-				case GetMode::First:
-					currentUISceneEntities = &uiScenes.top().m_UISceneEntities;
-					break;
-				case GetMode::FirstEnabled:
-				{
-					std::deque<UISceneComponent> const& uiSceneDeque = uiScenes._Get_container(); // hmm
-					for (auto it = uiSceneDeque.rbegin(); it != uiSceneDeque.rend(); ++it)
-					{
-						if (it->m_Enabled)
-						{
-							currentUISceneEntities = &it->m_UISceneEntities;
-							break;
-						}
-					}
-					break;
-				}
-				default:
-					ASSERT_FAIL("Using an unexpected GetMode!");
-					break;
-			}
-		}
-
-		return currentUISceneEntities;
-	}
+	UISceneComponent::UISceneEntities const* const GetCurrentUISceneEntities(nabi::Context const& context, GetMode const getMode);
 	inline UISceneComponent::UISceneEntities* const GetCurrentUISceneEntities(nabi::Context& context, GetMode const getMode)
 	{
 		return const_cast<UISceneComponent::UISceneEntities* const>(GetCurrentUISceneEntities(const_cast<nabi::Context const&>(context), getMode));
