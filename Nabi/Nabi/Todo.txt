@@ -8,13 +8,13 @@ Current:
 
 // --- High Priority ---
 - Write some UI tests?
-- A UI storage w/stickys sort of thing?
+- A UI storage w/stickys sort of thing? (probs a good idea, as ui scenes are just free funcs)
 
-- Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? 
+- Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? (i think it does exist and im just dumb)
 - Should the components in the view be const, rather than the components in the lambda? I think so... and then can the components in the lambda just be auto? does that carry const?
     - or just switch over to the for loop approach
 
-- should all systems modify the input components? eg like the asset bank does with the drawables? 
+- should all systems modify the input components? eg like the asset bank does with the drawables? (probs not.. ui doesnt load any actual data, rendering does. should be seperate)
 - see notebook for reflection update idea (pros -> disable update | cons -> more branchs just to update)
 
 - check everything that needs to be commented is
@@ -35,8 +35,6 @@ Structure Stuff
 - drawablecomponents->renderablecomponents?
 - use doxygen comment style?
 - refactor entity group, entity property list and entity creator outside of reflection and into ecs?
-
-- should all modules take in context first for style/consistency?
 
 -  for standard includes in core/enginecore/etc is it dumb to have like a standard.h file with all the standard includes i use? can include here and in enginecore*/
 
@@ -68,6 +66,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive: 
+- should all modules take in context first for style/consistency?
 - need a way to find sprite dims
 - Input! (remember have tested this stuff in the 'learning rendering' proj) (also had that email from jake)
 - CheckIfMouseOverElement function in UImodule
