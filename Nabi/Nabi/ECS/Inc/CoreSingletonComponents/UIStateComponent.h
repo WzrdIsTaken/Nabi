@@ -9,4 +9,10 @@ namespace ecs
 	{
 		std::stack<UISceneComponent> m_UIScenes;
 	};
+
+	struct UIStorageComponent final : public nabi::ECS::ComponentBase
+	{
+		typedef unsigned int Sticky;
+		std::unordered_map<Sticky, std::any> m_Storage;
+	};
 } // namespace ecs

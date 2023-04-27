@@ -17,6 +17,7 @@
 	#define ASSERT_FAIL_FATAL(message) NOT_DEFINED
 	#define ASSERT_FAIL(message) NOT_DEFINED
 
+	#define FINAL_CODE(code) code
 	#define ASSERT_CODE(code) NOT_DEFINED
 	#define DX_ASSERT(logic) logic
 
@@ -33,6 +34,7 @@
 #define ASSERT_FAIL_FATAL(message) ASSERT_FATAL(false, message)
 #define ASSERT_FAIL(message) ASSERT(false, message)
 
+#define FINAL_CODE(code) NOT_DEFINED
 #define ASSERT_CODE(code) code
 #define DX_ASSERT(result) nabi::DirectX::ThrowIfFailed(__FILE__, __LINE__, result); // Compiler is not guaranteed to inline so pass in __LINE__ and __FILE__ here
 

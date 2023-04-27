@@ -176,6 +176,9 @@ namespace nabi
 		// Add the ui state component (tracks the hierachy of ui scenes)
 		m_Context.m_Registry.emplace<ecs::UIStateComponent>(inputEntity);
 
+		// Add the ui storage component (can be used to store data between ui scenes / function calls (as ui scenes are just free functions + wouldn't always exist anyway))
+		m_Context.m_Registry.emplace<ecs::UIStorageComponent>(inputEntity);
+
 		return true;
 	}
 } // namespace nabi

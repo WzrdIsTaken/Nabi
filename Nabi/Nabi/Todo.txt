@@ -8,13 +8,11 @@ Current:
 
 // --- High Priority ---
 - Write some UI tests?
-- A UI storage w/stickys sort of thing? (probs a good idea, as ui scenes are just free funcs, though the actual sticky keys will be a game side thing)
 
 - Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? (i think it does exist and im just dumb)
 - Should the components in the view be const, rather than the components in the lambda? I think so... and then can the components in the lambda just be auto? does that carry const?
     - or just switch over to the for loop approach
 
-- should all systems modify the input components? eg like the asset bank does with the drawables? (probs not.. ui doesnt load any actual data, rendering does. should be seperate)
 - see notebook for reflection update idea (pros -> disable update | cons -> more branchs just to update)
 
 - check everything that needs to be commented is
@@ -65,7 +63,10 @@ Structure Stuff
 - Log to file functionality for Logger
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
-Archive: 
+Archive:
+- A UI storage w/stickys sort of thing? (probs a good idea, as ui scenes are just free funcs, though the actual sticky keys will be a game side thing)
+- should all systems modify the input components? eg like the asset bank does with the drawables? (probs not.. ui doesnt load any actual data, rendering does. should be seperate)
+- delay_creation
 - should all modules take in context first for style/consistency?
 - need a way to find sprite dims
 - Input! (remember have tested this stuff in the 'learning rendering' proj) (also had that email from jake)
