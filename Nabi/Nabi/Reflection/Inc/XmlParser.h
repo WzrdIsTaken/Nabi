@@ -157,6 +157,7 @@ namespace nabi::Reflection
 
 		// Properties
 		std::string const c_TemplateAttribute = "template";
+		std::string const c_DelayCreationAttribute = "delay_creation";
 
 		std::string const c_IdAttribute = "id";
 		std::string const c_ValueAttribute = "value";

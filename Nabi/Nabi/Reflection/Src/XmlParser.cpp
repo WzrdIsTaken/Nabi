@@ -131,6 +131,9 @@ namespace nabi::Reflection
 		entt::hashed_string const entityGroupIdHash = entt::hashed_string(entityGroupId.data());
 		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION << "Found a entity group with id " << WRAP(entityGroupId, "'") << ENDLINE);
 
+		// Stores the entity node if it is marked for delayed creation
+		std::vector<pugi::xml_node> delayedCreationEntities; // i would like to make this a std::reference_wrapper, but something funcky is going on when i use it
+
 		// Loop through all of the entities in the group
 		for (pugi::xml_node entityNode : doc.child(c_EntityGroupAttribute.c_str()))
 		{
@@ -145,8 +148,33 @@ namespace nabi::Reflection
 				}
 				else
 				{
-					ResolveEntity(entityNode, entityGroupIdHash, registery);
+					// Check if the entity is marked for delayed creation
+					bool isEntityMarkedForDelayedCreation = false;
+					if (auto attribute = entityNode.attribute(c_DelayCreationAttribute.c_str()); 
+						attribute != nullptr && StringConverter::FromString<bool>(attribute.value()))
+					{
+						isEntityMarkedForDelayedCreation = true;
+					}
+
+					// Resolve the entity accordingly
+					if (isEntityMarkedForDelayedCreation)
+					{
+						delayedCreationEntities.push_back(entityNode);
+					}
+					else
+					{
+						ResolveEntity(entityNode, entityGroupIdHash, registery);
+					}
 				}
+			}
+		}
+
+		// Create any delayed creation entities
+		if (!delayedCreationEntities.empty())
+		{
+			for (pugi::xml_node entityNode : delayedCreationEntities)
+			{
+				ResolveEntity(entityNode, entityGroupIdHash, registery);
 			}
 		}
 	}
