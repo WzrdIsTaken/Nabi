@@ -61,8 +61,8 @@ namespace ecs
 			int currentLightCount = 0;
 
 			// Directional
-			m_Context.m_Registry.view<TransformComponent, DirectionalLightComponent>()
-				.each([&](auto const& transformComponent, auto const& directionalLightComponent)
+			m_Context.m_Registry.view<TransformComponent const, DirectionalLightComponent const>()
+				.each([&](auto& transformComponent, auto& directionalLightComponent)
 					{
 						nabi::Rendering::PerLightChange& light = lightConstantBufferData.at(currentLightCount);
 

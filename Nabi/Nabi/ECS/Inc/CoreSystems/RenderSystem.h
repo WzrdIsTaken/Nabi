@@ -66,12 +66,12 @@ namespace ecs
 			nabi::Rendering::PerRenderable perRenderableConstantBufferData;
 
 			// Loop through all the models
-			m_Context.m_Registry.view<TransformComponent, RenderableTag, BufferComponent, ShaderComponent, TextureComponent>()
+			m_Context.m_Registry.view<TransformComponent const, RenderableTag const, BufferComponent const, ShaderComponent const, TextureComponent const>()
 				.each([&](
 #ifdef USE_DEBUG_UTILS	
 					entt::entity const entity,
 #endif // USE_DEBUG_UTILS
-					auto const& transformComponent, auto const& bufferComponent, auto const& shaderComponent, auto const& textureComponent)
+					auto& transformComponent, auto& bufferComponent, auto& shaderComponent, auto& textureComponent)
 					{
 						// Update the per mesh constant buffer
 						{
