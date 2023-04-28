@@ -247,6 +247,7 @@
     <ClInclude Include="Core\Inc\Defines.h" />
     <ClInclude Include="Core\Inc\InitSettings.h" />
     <ClInclude Include="Core\Inc\NabiCore.h" />
+    <ClInclude Include="Core\Inc\NabiEventsManager.h" />
     <ClInclude Include="Core\Inc\Window.h" />
     <ClInclude Include="Core\Inc\WindowEventsListener.h" />
     <ClInclude Include="Core\WinCore.h" />

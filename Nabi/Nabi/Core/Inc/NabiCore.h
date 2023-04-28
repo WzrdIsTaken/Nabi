@@ -6,16 +6,15 @@
 
 #include "Context.h"
 #include "DXObjects.h"
+#include "InitSettings.h"
 #include "WindowEventsListener.h"
 
 // TEST
+#include "Examples\TestDraw.h"
 #include "Examples\TestInput.h"
 
 namespace nabi
 {
-	// Forward Declares
-	struct NabiCoreSettings;
-
 	/// <summary>
 	/// The base of all things Nabi. This is kinda big deal
 	/// </summary>
@@ -41,6 +40,8 @@ namespace nabi
 		bool const InitDxPipeline();
 		bool const InitInputEntity();
 
+		bool const ParseECSData(); // The user defined xml ecs data
+
 		// Windows
 		HINSTANCE const m_hInstance;
 		WindowEventsListener m_WindowEventsListener;
@@ -50,6 +51,10 @@ namespace nabi
 
 		// Nabi
 		Context m_Context;
+#ifdef USE_EVENT_SYSTEM_UPDATE
+		std::unordered_map<std::string, entt::meta_any> m_Systems;
+#endif // ifdef USE_EVENT_SYSTEM_UPDATE
+		NabiCoreSettings m_InitSettings;
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)

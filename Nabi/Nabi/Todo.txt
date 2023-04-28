@@ -9,19 +9,17 @@ Current:
 // --- High Priority ---
 - Write some UI tests?
 
-- Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? (i think it does exist and im just dumb)
-- Should the components in the view be const, rather than the components in the lambda? I think so... and then can the components in the lambda just be auto? does that carry const?
-    - or just switch over to the for loop approach
 
-- see notebook for reflection update idea (pros -> disable update | cons -> more branchs just to update)
-
+- enabling / disabling events, and use this in ui system
 - check everything that needs to be commented is
+- make string conventer bool faster with if
+- more nabi no except in nabicore?
+- namespace ecs::SingletonComponents
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
 - Have all entity groups / event calls etc as constexpr in a file
 
-- namespace ecs::SingletonComponents ?
 - nabi::Utils::[UtilName] -> nabi::[UtilName]? have eg ecs::[ModuleName] not ecs::Modules::[ModuleName] ?
 
 - Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
@@ -37,6 +35,8 @@ Structure Stuff
 -  for standard includes in core/enginecore/etc is it dumb to have like a standard.h file with all the standard includes i use? can include here and in enginecore*/
 
 // --- Low Priority ---
+
+- Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? (i think it does exist and im just dumb)
 
 - When we make a GameCore, can use m_WindowEventsListener to stop the game rendering when its minimised. might still want it to update thou? idk
 
@@ -64,6 +64,10 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive:
+- see notebook for reflection update idea (pros -> disable update | cons -> more branchs just to update) (put it behind an #define i recon, but still we probs use and then can profile l8r)
+    - [this was pain]
+- Should the components in the view be const, rather than the components in the lambda? I think so... and then can the components in the lambda just be auto? does that carry const? [yes]
+    - or just switch over to the for loop approach [no need]
 - A UI storage w/stickys sort of thing? (probs a good idea, as ui scenes are just free funcs, though the actual sticky keys will be a game side thing)
 - should all systems modify the input components? eg like the asset bank does with the drawables? (probs not.. ui doesnt load any actual data, rendering does. should be seperate)
 - delay_creation

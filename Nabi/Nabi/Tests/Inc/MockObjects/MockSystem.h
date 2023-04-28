@@ -8,12 +8,13 @@ namespace nabitest::ECS
 	class MockSystem final : public nabi::ECS::SystemBase
 	{
 	public:
-		using SystemBase::SystemBase;
+		MockSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId);
+		~MockSystem();
 
-		int GetMockSystemData() const
-		{
-			return m_MockSystemData;
-		}
+		void Update(/*game time*/) const;
+		void Render(/*game time*/) const;
+
+		inline int GetMockSystemData() const { return m_MockSystemData; }
 
 	private:
 		int m_MockSystemData;

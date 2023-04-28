@@ -10,6 +10,22 @@ namespace ecs
 	REFLECT_SYSTEM_BEGIN_DEFAULT(RenderSystem)
 	RELFECT_SYSTEM_END(RenderSystem)
 
+	RenderSystem::RenderSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId)
+		: SystemBase(context, systemId, systemGroupId)
+#ifdef USE_DEBUG_UTILS
+		, m_DebugProjectionMatrix{}
+		, m_DebugViewMatrix{}
+		, m_DebugModelMatrix{}
+#endif // ifdef USE_DEBUG_UTILS
+	{
+		REGISTER_SYSTEM_RENDER_EVENT_SUBSCRIBER(RenderSystem)
+	}
+
+	RenderSystem::~RenderSystem()
+	{
+		UNREGISTER_SYSTEM_RENDER_EVENT_SUBSCRIBER(RenderSystem)
+	}
+
 	void RenderSystem::Render()
 	{
 		// Get the graphics entity. This stores the camera, constant buffers, etc

@@ -5,6 +5,7 @@
 #include <any>
 
 #include "EntityCreator.h"
+#include "NabiEventsManager.h"
 #include "RenderCommand.h"
 #include "Window.h"
 
@@ -24,6 +25,7 @@ namespace nabi
 
 		// Core
 		std::unique_ptr<Window> m_Window;
+		NabiEventsManager m_NabiEventsManager;
 
 		// Entities
 		entt::registry m_Registry;
@@ -33,8 +35,5 @@ namespace nabi
 
 		// Graphic
 		std::unique_ptr<Rendering::RenderCommand> m_RenderCommand;
-
-		// Game
-		std::unordered_map<int, std::any> m_GameResources; // An easy, global way to pass data between game systems if needed
 	};
 } // namespace nabi

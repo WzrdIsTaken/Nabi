@@ -20,6 +20,8 @@ namespace ecs
 	LightingSystem::LightingSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId)
 		: SystemBase(context, systemId, systemGroupId)
 	{
+		REGISTER_SYSTEM_RENDER_EVENT_SUBSCRIBER(LightingSystem)
+
 		// Set up listeners for the creation, updating and destruction of lights
 		MANAGE_LIGHT_LISTENERS(on_construct, connect, LightingSystem::OnLightCreated);
 		MANAGE_LIGHT_LISTENERS(on_update, connect, LightingSystem::OnLightUpdated);
@@ -28,6 +30,8 @@ namespace ecs
 
 	LightingSystem::~LightingSystem()
 	{
+		UNREGISTER_SYSTEM_RENDER_EVENT_SUBSCRIBER(LightingSystem)
+
 		// Remove listeners for the creation, updating and destruction of lights
 		MANAGE_LIGHT_LISTENERS(on_construct, disconnect, LightingSystem::OnLightCreated);
 		MANAGE_LIGHT_LISTENERS(on_update, disconnect, LightingSystem::OnLightUpdated);

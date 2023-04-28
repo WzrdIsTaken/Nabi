@@ -12,7 +12,8 @@ namespace ecs
 	class RenderSystem final : public nabi::ECS::SystemBase
 	{
 	public:
-		using SystemBase::SystemBase;
+		RenderSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId);
+		~RenderSystem();
 
 		// Core, call this and forget render function
 		void Render(/*TODO - game time?*/);

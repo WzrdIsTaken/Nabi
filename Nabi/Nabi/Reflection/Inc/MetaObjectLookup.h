@@ -37,10 +37,12 @@ namespace nabi::Reflection
 		/// </summary>
 		/// <param name="systemId">- The string id of the system</param> 
 		/// <param name="metaSystem">- The meta system</param>
-		inline void AddObject(std::string const& systemId, entt::meta_any const& metaSystem) NABI_NOEXCEPT
+		inline void AddObject(std::string const& systemId, entt::meta_any&& metaSystem) NABI_NOEXCEPT
 		{
 			ASSERT(m_MetaObjectLookup.find(systemId) == m_MetaObjectLookup.end(), "The system with id " + systemId + " is already present in the lookup map!");
-			m_MetaObjectLookup.emplace(systemId, metaSystem);
+			
+			std::pair<std::string, entt::meta_any> item(systemId, std::move(metaSystem));
+			m_MetaObjectLookup.emplace_hint(m_MetaObjectLookup.end(), std::move(item));
 		}
 
 		std::unordered_map<std::string, entt::meta_any> m_MetaObjectLookup{};

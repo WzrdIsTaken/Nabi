@@ -176,8 +176,10 @@ namespace nabitest::Examples
 
 	bool TestDraw::Render()
 	{
+#ifndef USE_EVENT_SYSTEM_UPDATE
 		m_LightingSystem.Render();
 		m_RenderSystem.Render();
+#endif // ifndef USE_EVENT_SYSTEM_UPDATE
 
 		return true;
 	}

@@ -3,7 +3,7 @@
 
 namespace nabi
 {
-	// Window Settings
+	// --- Window Settings ---
 	struct WindowSettings final
 	{
 		LONG m_Width;
@@ -20,7 +20,7 @@ namespace nabi
 		size_t m_StartingEventsSize;
 	};
 
-	WindowSettings const windowDefaultSettings = {
+	WindowSettings const c_WindowDefaultSettings = {
 		.m_Width = 1280l,
 		.m_Height = 720l,
 
@@ -35,13 +35,37 @@ namespace nabi
 		.m_StartingEventsSize = 10u
 	};
 
-	// Nabi Core Settings
+	// --- Data Settings ---
+	struct DataSettings final
+	{
+		enum class NabiCoreParseMode : int
+		{
+			All,
+			None,
+			Systems,
+			Components,
+
+			ENUM_COUNT
+		};
+
+		std::string m_RouteDocument;
+		NabiCoreParseMode m_NabiCoreParseDocuments;
+	};
+
+	DataSettings const c_DataDefaultSettings = {
+		.m_RouteDocument = "Data/Core.xml",
+		.m_NabiCoreParseDocuments = DataSettings::NabiCoreParseMode::None
+	};
+
+	// --- Nabi Core Settings ---
 	struct NabiCoreSettings final
 	{
 		WindowSettings m_WindowSettings;
+		DataSettings m_DataSettings;
 	};
 
 	NabiCoreSettings const nabiCoreDefaultSettings = {
-		.m_WindowSettings = windowDefaultSettings
+		.m_WindowSettings = c_WindowDefaultSettings,
+		.m_DataSettings = c_DataDefaultSettings
 	};
 } // namespace nabi

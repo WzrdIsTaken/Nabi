@@ -46,8 +46,10 @@ namespace nabitest::Examples
 
 	bool TestInput::Update()
 	{
+#ifndef USE_EVENT_SYSTEM_UPDATE
 		m_InputSystem->Update();
 		m_UISystem->Update();
+#endif // ifndef USE_EVENT_SYSTEM_UPDATE
 
 		TestKeyboard();
 		TestMouse();

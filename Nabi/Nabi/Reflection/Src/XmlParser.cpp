@@ -107,7 +107,12 @@ namespace nabi::Reflection
 				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << LOG_CATEGORY_REFLECTION << "Created a system with id " << WRAP(systemId, "'") << ENDLINE);
 
 				// Construct the system
-				entt::meta_any metaSystem = ReflectionHelpers::ConstructMetaObject(systemIdHash, entt::forward_as_meta(context), systemIdHash, systemGroupIdHash);
+ 
+				// I have no idea why, but this function was the cause of all my pain. It works in an isolated example, but not within this flow?? idk dude, im just glad i found that bug				
+				//entt::meta_any metaSystem = ReflectionHelpers::ConstructMetaObject(systemIdHash, entt::forward_as_meta(context), systemIdHash, systemGroupIdHash);
+
+				entt::meta_type systemType = entt::resolve(systemIdHash);
+				entt::meta_any metaSystem = systemType.construct(entt::forward_as_meta(context), systemIdHash, systemGroupIdHash);
 
 				// Construct the data for the ststem
 				SystemData const systemData = CreateECSTypeData(systemNode);
@@ -118,7 +123,7 @@ namespace nabi::Reflection
 				// Add the system to the system's lookup map
 				if (systemsLookup != nullptr)
 				{
-					systemsLookup->AddObject(systemId.data(), metaSystem);
+					systemsLookup->AddObject(systemId.data(), std::move(metaSystem));
 				}
 			}
 		}

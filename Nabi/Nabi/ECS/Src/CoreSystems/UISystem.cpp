@@ -16,12 +16,16 @@ namespace ecs
 	UISystem::UISystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId)
 		: SystemBase(context, systemId, systemGroupId)
 	{
+		REGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(UISystem)
+
 		m_Context.m_Registry.on_construct<UISceneComponent>().connect<&UISystem::OnUISceneCreated>(this);
 		m_Context.m_Registry.on_destroy<UISceneComponent>().connect<&UISystem::OnUISceneDestroyed>(this);
 	}
 
 	UISystem::~UISystem()
 	{
+		UNREGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(UISystem)
+
 		m_Context.m_Registry.on_construct<UISceneComponent>().disconnect<&UISystem::OnUISceneCreated>(this);
 		m_Context.m_Registry.on_destroy<UISceneComponent>().disconnect<&UISystem::OnUISceneDestroyed>(this);
 	}

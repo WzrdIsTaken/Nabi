@@ -15,6 +15,8 @@ namespace ecs
 	InputSystem::InputSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId)
 		: SystemBase(context, systemId, systemGroupId)
 	{
+		REGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(InputSystem)
+
 		// Keyboard 
 		REGISTER_WINDOWS_EVENT_SUBSCRIBER(WM_KEYDOWN,     InputSystem::OnKeyboardKeyDown);
 		REGISTER_WINDOWS_EVENT_SUBSCRIBER(WM_KEYUP,       InputSystem::OnKeyboardKeyUp);
@@ -31,6 +33,8 @@ namespace ecs
 
 	InputSystem::~InputSystem()
 	{
+		UNREGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(InputSystem)
+
 		// Keyboard 
 		UNREGISTER_WINDOWS_EVENT_SUBSCRIBER(WM_KEYDOWN,     InputSystem::OnKeyboardKeyDown);
 		UNREGISTER_WINDOWS_EVENT_SUBSCRIBER(WM_KEYUP,       InputSystem::OnKeyboardKeyUp);

@@ -702,6 +702,9 @@
     <ClInclude Include="ECS\Inc\CoreModules\ReflectionModule.h">
       <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Inc\NabiEventsManager.h">
+      <Filter>Core\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

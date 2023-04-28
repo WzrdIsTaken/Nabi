@@ -9,8 +9,9 @@
 #include "CoreSingletonComponents\UIStateComponent.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
 #include "EntityCreator.h"
-#include "InitSettings.h"
+#include "MetaObjectLookup.h"
 #include "RenderCommand.h"
+#include "XmlParser.h"
 
 namespace nabi
 {
@@ -24,6 +25,7 @@ namespace nabi
 
 		// Nabi
 		, m_Context{}
+		, m_InitSettings(initSettings)
 
 		// TEST
 		, test_Input(m_Context)
@@ -54,11 +56,15 @@ namespace nabi
 
 	int NabiCore::Init() NABI_NOEXCEPT
 	{
-		// Init core entities
 		bool initializationSuccessful = true;
+
+		// Init core entities
 		initializationSuccessful &= InitGraphicsEntity();
 		initializationSuccessful &= InitDxPipeline();
 		initializationSuccessful &= InitInputEntity();
+
+		// Parse xml
+		initializationSuccessful &= ParseECSData();
 
 		// TEST
 		test_Input.Init();
@@ -88,6 +94,11 @@ namespace nabi
 
 	void NabiCore::Update() NABI_NOEXCEPT
 	{
+#ifdef USE_EVENT_SYSTEM_UPDATE
+		m_Context.m_NabiEventsManager.FireSystemUpdateEvent(/*game time*/);
+#endif // ifdef USE_META_SYSTEM_UPDATE
+
+		// TEST
 		test_Input.Update();
 	}
 
@@ -95,12 +106,53 @@ namespace nabi
 	{
 		m_Context.m_RenderCommand->BeginFrame();
 
-		// Render code goes here
+#ifdef USE_EVENT_SYSTEM_UPDATE
+		m_Context.m_NabiEventsManager.FireSystemRenderEvent(/*game time*/);
+#endif // ifdef USE_META_SYSTEM_UPDATE
 
 		// TEST
 		test_Input.Render();
 
 		m_Context.m_RenderCommand->EndFrame();
+	}
+
+	bool const NabiCore::ParseECSData()
+	{
+		typedef DataSettings::NabiCoreParseMode ParseMode;
+		ParseMode const parseMode = m_InitSettings.m_DataSettings.m_NabiCoreParseDocuments;
+
+		if (parseMode != ParseMode::None)
+		{
+			Reflection::XmlParser xmlParser;
+			Reflection::MetaObjectLookup systemsLookup;
+			std::string const& routeDoc = m_InitSettings.m_DataSettings.m_RouteDocument;
+
+			switch (parseMode)
+			{
+				case ParseMode::All:
+					xmlParser.ParseXml(routeDoc, m_Context, &systemsLookup);
+					break;
+				case ParseMode::Systems:
+					ASSERT_FAIL("Only parsing systems is currently unhandled by NabiCore, though the functionality exists in XmlParser");
+					break;
+				case ParseMode::Components:
+					ASSERT_FAIL("Only parsing components is currently unhandled by NabiCore, though the functionality exists in XmlParser");
+					break;
+				default:
+					ASSERT_FAIL("Using an unexpected DataSettings::NabiCoreParseMode!");
+
+				// (examples of parsing both systems and components separately can be found in RefectionTests/)
+			}
+
+#ifdef USE_EVENT_SYSTEM_UPDATE
+			m_Systems = std::move(systemsLookup.m_MetaObjectLookup);
+#else
+			ASSERT(parseMode == ParseMode::All || parseMode == ParseMode::Systems, 
+				"Using NabiCore's parse xml functionality but not system event updating is not defined. Systems will fall out of scope, and will not update.");
+#endif // USE_EVENT_SYSTEM_UPDATE
+		}
+
+		return true;
 	}
 
 	bool const NabiCore::InitGraphicsEntity()
