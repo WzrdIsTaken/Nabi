@@ -82,20 +82,20 @@ namespace ecs::UIModule
 		return uiStorage.m_Storage.at(sticky);
 	};
 
-	inline bool StickyExists(UIStorageComponent const& uiStorage, UIStorageComponent::Sticky const sticky)
+	inline bool HasSticky(UIStorageComponent const& uiStorage, UIStorageComponent::Sticky const sticky)
 	{
 		return uiStorage.m_Storage.find(sticky) != uiStorage.m_Storage.end();
 	}
-	inline bool StickyExists(nabi::Context const& context, UIStorageComponent::Sticky const sticky)
+	inline bool HasSticky(nabi::Context const& context, UIStorageComponent::Sticky const sticky)
 	{ 
 		UIStorageComponent const& uiStorage = GetUIStorageComponent(context);
-		return StickyExists(uiStorage, sticky);
+		return HasSticky(uiStorage, sticky);
 	};
 
 	inline void SetSticky(nabi::Context& context, UIStorageComponent::Sticky const sticky, std::any const value)
 	{
 		UIStorageComponent& uiStorage = GetUIStorageComponent(context);
-		if (StickyExists(uiStorage, sticky))
+		if (HasSticky(uiStorage, sticky))
 		{
 			LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_UI << "Overriding an existing sticky's  (" << sticky << ") value!" << ENDLINE);
 			uiStorage.m_Storage.at(sticky) = value;
@@ -109,7 +109,7 @@ namespace ecs::UIModule
 
 	inline void ClearSticky(nabi::Context& context, UIStorageComponent::Sticky const sticky)
 	{
-		CONDITIONAL_LOG(!StickyExists(context, sticky), LOG_PREP, LOG_INFO, LOG_CATEGORY_UI << "Clearing a sticky (" << sticky << ") which doesn't exist!" << ENDLINE);
+		CONDITIONAL_LOG(!HasSticky(context, sticky), LOG_PREP, LOG_INFO, LOG_CATEGORY_UI << "Clearing a sticky (" << sticky << ") which doesn't exist!" << ENDLINE);
 
 		UIStorageComponent& uiStorage = GetUIStorageComponent(context);
 		uiStorage.m_Storage.erase(sticky);
