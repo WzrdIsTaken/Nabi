@@ -59,7 +59,7 @@ namespace nabi
 		inline SystemFrameEvent& GetSystemRenderEvent() NABI_NOEXCEPT { return m_RenderEvent; };
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
 
-	//private:
+	private:
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		SystemFrameEvent m_UpdateEvent = {};
 		SystemFrameEvent m_RenderEvent = {};
