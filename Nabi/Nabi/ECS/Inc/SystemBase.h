@@ -20,8 +20,8 @@ namespace nabi::ECS
 	public:
 		SystemBase(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId) NABI_NOEXCEPT;
 
-		[[nodiscard]] entt::hashed_string const& GetSystemId() const NABI_NOEXCEPT;
-		[[nodiscard]] entt::hashed_string const& GetSystemGroupId() const NABI_NOEXCEPT;
+		[[nodiscard]] inline entt::hashed_string const& GetSystemId() const NABI_NOEXCEPT { return c_SystemId; }
+		[[nodiscard]] inline entt::hashed_string const& GetSystemGroupId() const NABI_NOEXCEPT { return c_SystemGroupId; }
 
 	protected:
 		nabi::Context& m_Context;
