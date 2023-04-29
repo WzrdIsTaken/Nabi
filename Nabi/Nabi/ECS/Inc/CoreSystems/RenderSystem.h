@@ -19,8 +19,8 @@ namespace ecs
 		void Render(/*TODO - game time?*/);
 
 		// For more control (what 'Render' calls under the hood)
-		void RenderPerspective(GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent);
-		void RenderOrthographic(GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent);
+		void RenderPerspective(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent);
+		void RenderOrthographic(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent);
 
 	private:
 		// What actually does the rendering
@@ -28,7 +28,7 @@ namespace ecs
 		using ValidTags = typename std::enable_if<std::is_same<T, Tags::DrawPerspective>::value || std::is_same<T, Tags::DrawOrthographic>::value>::type;
 
 		template<typename RenderableTag, typename = ValidTags<RenderableTag>>
-		void RenderInternal(GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameras, CameraIndex::Enum const cameraType)
+		void RenderInternal(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameras, CameraIndex::Enum const cameraType)
 		{
 			// Update the per frame constant buffer
 			{

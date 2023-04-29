@@ -116,46 +116,7 @@ namespace nabi
 		m_Context.m_RenderCommand->EndFrame();
 	}
 
-	bool const NabiCore::ParseECSData()
-	{
-		typedef DataSettings::NabiCoreParseMode ParseMode;
-		ParseMode const parseMode = m_InitSettings.m_DataSettings.m_NabiCoreParseDocuments;
-
-		if (parseMode != ParseMode::None)
-		{
-			Reflection::XmlParser xmlParser;
-			Reflection::MetaObjectLookup systemsLookup;
-			std::string const& routeDoc = m_InitSettings.m_DataSettings.m_RouteDocument;
-
-			switch (parseMode)
-			{
-				case ParseMode::All:
-					xmlParser.ParseXml(routeDoc, m_Context, &systemsLookup);
-					break;
-				case ParseMode::Systems:
-					ASSERT_FAIL("Only parsing systems is currently unhandled by NabiCore, though the functionality exists in XmlParser");
-					break;
-				case ParseMode::Components:
-					ASSERT_FAIL("Only parsing components is currently unhandled by NabiCore, though the functionality exists in XmlParser");
-					break;
-				default:
-					ASSERT_FAIL("Using an unexpected DataSettings::NabiCoreParseMode!");
-
-				// (examples of parsing both systems and components separately can be found in RefectionTests/)
-			}
-
-#ifdef USE_EVENT_SYSTEM_UPDATE
-			m_Systems = std::move(systemsLookup.m_MetaObjectLookup);
-#else
-			ASSERT(parseMode == ParseMode::All || parseMode == ParseMode::Systems, 
-				"Using NabiCore's parse xml functionality but not system event updating is not defined. Systems will fall out of scope, and will not update.");
-#endif // USE_EVENT_SYSTEM_UPDATE
-		}
-
-		return true;
-	}
-
-	bool const NabiCore::InitGraphicsEntity()
+	bool const NabiCore::InitGraphicsEntity() NABI_NOEXCEPT
 	{
 		using namespace nabi::Rendering;
 
@@ -176,7 +137,7 @@ namespace nabi
 		ecs::CameraModule::DefaultCameraValues(m_Context, orthographicCamera, defaultCameraSettings);
 
 		// --- Create the graphics component ---
-		ecs::GraphicsComponent graphicsComponent;
+		ecs::SComp::GraphicsComponent graphicsComponent;
 
 		// Create the constant buffers
 		ConstantBufferLoader constantBufferLoader;
@@ -191,19 +152,19 @@ namespace nabi
 		graphicsComponent.m_ConstantBuffers.at(ConstantBufferIndex::Enum::PerLightChange) = perLightChangeConstantBuffer;
 
 		// --- Create the light state component ---
-		ecs::LightStateComponent lightStateComponent;
+		ecs::SComp::LightStateComponent lightStateComponent;
 		lightStateComponent.m_LightCount = 0u;
 		lightStateComponent.m_UpdateLights = false;
 
 		// --- Add the graphics components to the entity ---
 		m_Context.m_Registry.emplace<ecs::CameraGroupComponent>(graphicsEntity, cameraComponent);
-		m_Context.m_Registry.emplace<ecs::GraphicsComponent>(graphicsEntity, graphicsComponent);
-		m_Context.m_Registry.emplace<ecs::LightStateComponent>(graphicsEntity, lightStateComponent);
+		m_Context.m_Registry.emplace<ecs::SComp::GraphicsComponent>(graphicsEntity, graphicsComponent);
+		m_Context.m_Registry.emplace<ecs::SComp::LightStateComponent>(graphicsEntity, lightStateComponent);
 
 		return true;
 	}
 
-	bool const NabiCore::InitDxPipeline()
+	bool const NabiCore::InitDxPipeline() NABI_NOEXCEPT
 	{
 		using namespace nabi::Rendering;
 
@@ -216,20 +177,59 @@ namespace nabi
 		return true;
 	}
 
-	bool const NabiCore::InitInputEntity()
+	bool const NabiCore::InitInputEntity() NABI_NOEXCEPT
 	{
 		// Create the input entity
 		entt::entity const inputEntity =
 			m_Context.m_SingletonEntites.at(Context::SingletonEntities::Input) = m_Context.m_Registry.create();
 
 		// Add the input state component (tracks the state of keys/buttons)
-		m_Context.m_Registry.emplace<ecs::InputStateComponent>(inputEntity);
+		m_Context.m_Registry.emplace<ecs::SComp::InputStateComponent>(inputEntity);
 
 		// Add the ui state component (tracks the hierachy of ui scenes)
-		m_Context.m_Registry.emplace<ecs::UIStateComponent>(inputEntity);
+		m_Context.m_Registry.emplace<ecs::SComp::UIStateComponent>(inputEntity);
 
 		// Add the ui storage component (can be used to store data between ui scenes / function calls (as ui scenes are just free functions + wouldn't always exist anyway))
-		m_Context.m_Registry.emplace<ecs::UIStorageComponent>(inputEntity);
+		m_Context.m_Registry.emplace<ecs::SComp::UIStorageComponent>(inputEntity);
+
+		return true;
+	}
+
+	bool const NabiCore::ParseECSData() NABI_NOEXCEPT
+	{
+		typedef DataSettings::NabiCoreParseMode ParseMode;
+		ParseMode const parseMode = m_InitSettings.m_DataSettings.m_NabiCoreParseDocuments;
+
+		if (parseMode != ParseMode::None)
+		{
+			Reflection::XmlParser xmlParser;
+			Reflection::MetaObjectLookup systemsLookup;
+			std::string const& routeDoc = m_InitSettings.m_DataSettings.m_RouteDocument;
+
+			switch (parseMode)
+			{
+			case ParseMode::All:
+				xmlParser.ParseXml(routeDoc, m_Context, &systemsLookup);
+				break;
+			case ParseMode::Systems:
+				ASSERT_FAIL("Only parsing systems is currently unhandled by NabiCore, though the functionality exists in XmlParser");
+				break;
+			case ParseMode::Components:
+				ASSERT_FAIL("Only parsing components is currently unhandled by NabiCore, though the functionality exists in XmlParser");
+				break;
+			default:
+				ASSERT_FAIL("Using an unexpected DataSettings::NabiCoreParseMode!");
+
+				// (examples of parsing both systems and components separately can be found in RefectionTests/)
+			}
+
+#ifdef USE_EVENT_SYSTEM_UPDATE
+			m_Systems = std::move(systemsLookup.m_MetaObjectLookup);
+#else
+			ASSERT(parseMode == ParseMode::All || parseMode == ParseMode::Systems,
+				"Using NabiCore's parse xml functionality but not system event updating is not defined. Systems will fall out of scope, and will not update.");
+#endif // USE_EVENT_SYSTEM_UPDATE
+		}
 
 		return true;
 	}

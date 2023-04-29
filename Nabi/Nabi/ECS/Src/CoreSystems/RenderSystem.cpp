@@ -32,7 +32,7 @@ namespace ecs
 		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
 
 		// Cache the graphics and camera component
-		GraphicsComponent& graphicsComponent = m_Context.m_Registry.get<GraphicsComponent>(graphicEntity);
+		SComp::GraphicsComponent& graphicsComponent = m_Context.m_Registry.get<SComp::GraphicsComponent>(graphicEntity);
 		CameraGroupComponent const& cameraGroupComponent = m_Context.m_Registry.get<CameraGroupComponent>(graphicEntity);
 
 		// Complete render passes
@@ -40,13 +40,13 @@ namespace ecs
 		RenderOrthographic(graphicsComponent, cameraGroupComponent);
 	}
 
-	void RenderSystem::RenderPerspective(GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent)
+	void RenderSystem::RenderPerspective(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent)
 	{
 		CameraIndex::Enum constexpr camera = CameraIndex::Perspective;
 		RenderInternal<Tags::DrawPerspective>(graphicsComponent, cameraGroupComponent, camera);
 	}
 
-	void RenderSystem::RenderOrthographic(GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent)
+	void RenderSystem::RenderOrthographic(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent)
 	{
 		CameraIndex::Enum constexpr camera = CameraIndex::Orthographic;
 		RenderInternal<Tags::DrawOrthographic>(graphicsComponent, cameraGroupComponent, camera);

@@ -1,7 +1,7 @@
 #pragma once
 #include "Core.h"
 
-namespace ecs
+namespace ecs::SComp
 {
 	struct KeyboardState
 	{
@@ -46,4 +46,4 @@ namespace ecs
 		MouseState m_MouseState{};
 		ControllerState m_ControllerState{};
 	};
-} // namespace ecs
+} // namespace ecs::SComp

@@ -56,7 +56,7 @@ namespace ecs
 
 	void InputSystem::UpdateKeyboard() const
 	{
-		KeyboardState& state = InputModule::GetKeyboardState(m_Context);
+		SComp::KeyboardState& state = InputModule::GetKeyboardState(m_Context);
 
 		state.m_PreviousKeyStates = state.m_CurrentKeyStates;
 		state.m_CurrentKeyStates = state.m_PendingKeyStates;
@@ -64,7 +64,7 @@ namespace ecs
 
 	void InputSystem::UpdateMouse() const
 	{
-		MouseState& state = InputModule::GetMouseState(m_Context);
+		SComp::MouseState& state = InputModule::GetMouseState(m_Context);
 
 		state.m_PreviousButtonStates = state.m_CurrentButtonStates;
 		state.m_CurrentButtonStates = state.m_PendingButtonStates;
@@ -72,7 +72,7 @@ namespace ecs
 
 	void InputSystem::UpdateControllers() const
 	{
-		ControllerState& state = InputModule::GetControllerState(m_Context);
+		SComp::ControllerState& state = InputModule::GetControllerState(m_Context);
 		state.m_PreviousControllerStates = state.m_CurrentControllerStates;
 
 		for (DWORD i = 0; i < XUSER_MAX_COUNT; ++i)
@@ -82,7 +82,7 @@ namespace ecs
 			ZeroMemory(&xInputState, sizeof(XINPUT_STATE));
 
 			// Cache the current controller
-			ControllerState::Controller& controller = state.m_CurrentControllerStates[i];
+			SComp::ControllerState::Controller& controller = state.m_CurrentControllerStates[i];
 
 			// If the controller is connected, populate the struct
 			if (XInputGetState(i, &xInputState) == 0)
@@ -97,14 +97,14 @@ namespace ecs
 				controller.m_Buttons = gamepad.wButtons;
 
 				// Sticks
-				float constexpr stickConversion = ControllerState::c_StickConversion;
+				float constexpr stickConversion = SComp::ControllerState::c_StickConversion;
 				controller.m_Axis[0] = static_cast<float>(gamepad.sThumbLX) / stickConversion;
 				controller.m_Axis[1] = static_cast<float>(gamepad.sThumbLY) / stickConversion;
 				controller.m_Axis[2] = static_cast<float>(gamepad.sThumbRX) / stickConversion;
 				controller.m_Axis[3] = static_cast<float>(gamepad.sThumbRY) / stickConversion;
 
 				// Triggers
-				float constexpr triggerConversion = ControllerState::c_TriggerConversion;
+				float constexpr triggerConversion = SComp::ControllerState::c_TriggerConversion;
 				controller.m_Axis[4] = static_cast<float>(gamepad.bLeftTrigger)  / triggerConversion;
 				controller.m_Axis[5] = static_cast<float>(gamepad.bRightTrigger) / triggerConversion;
 			}

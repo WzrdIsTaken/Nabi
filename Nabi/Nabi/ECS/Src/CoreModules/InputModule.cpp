@@ -9,7 +9,7 @@ namespace ecs::InputModule
 
 	nabi::Input::InputState GetKeyboardKey(nabi::Context const& context, nabi::Input::InputCode const keyCode)
 	{
-		KeyboardState const& keyboardState = GetKeyboardState(context);
+		SComp::KeyboardState const& keyboardState = GetKeyboardState(context);
 		InputState keyState = InputState::Invalid;
 		int const key = GetInputCode(keyCode);
 
@@ -35,7 +35,7 @@ namespace ecs::InputModule
 
 	nabi::Input::InputState GetMouseButton(nabi::Context const& context, nabi::Input::InputCode const buttonCode)
 	{
-		MouseState const& mouseState = GetMouseState(context);
+		SComp::MouseState const& mouseState = GetMouseState(context);
 		InputState buttonState = InputState::Invalid;
 		int const button = GetInputCode(buttonCode);
 
@@ -66,7 +66,7 @@ namespace ecs::InputModule
 
 	nabi::Input::InputState GetControllerButton(nabi::Context const& context, nabi::Input::Controller const controllerCode, nabi::Input::InputCode const buttonCode)
 	{
-		ControllerState const& controllerState = GetControllerState(context);
+		SComp::ControllerState const& controllerState = GetControllerState(context);
 		InputState buttonState = InputState::Invalid;
 		unsigned int const controller = GetController(controllerCode);
 		int const button = GetInputCode(buttonCode);

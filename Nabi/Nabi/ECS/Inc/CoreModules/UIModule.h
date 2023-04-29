@@ -7,22 +7,22 @@ namespace ecs::UIModule
 {
 	// --- UI State ---
 
-	inline UIStateComponent const& GetUIStateComponent(nabi::Context const& context)
+	inline SComp::UIStateComponent const& GetUIStateComponent(nabi::Context const& context)
 	{
-		return context.m_Registry.get<UIStateComponent>(context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Input));
+		return context.m_Registry.get<SComp::UIStateComponent>(context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Input));
 	}
-	inline UIStateComponent& GetUIStateComponent(nabi::Context& context)
+	inline SComp::UIStateComponent& GetUIStateComponent(nabi::Context& context)
 	{
-		return const_cast<UIStateComponent&>(GetUIStateComponent(const_cast<nabi::Context const&>(context)));
+		return const_cast<SComp::UIStateComponent&>(GetUIStateComponent(const_cast<nabi::Context const&>(context)));
 	}
 
-	inline UIStateComponent const* const TryGetUIStateComponent(nabi::Context const& context)
+	inline SComp::UIStateComponent const* const TryGetUIStateComponent(nabi::Context const& context)
 	{
-		return context.m_Registry.try_get<UIStateComponent>(context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Input));
+		return context.m_Registry.try_get<SComp::UIStateComponent>(context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Input));
 	}
-	inline UIStateComponent* const TryGetUIStateComponent(nabi::Context& context)
+	inline SComp::UIStateComponent* const TryGetUIStateComponent(nabi::Context& context)
 	{
-		return const_cast<UIStateComponent* const>(TryGetUIStateComponent(const_cast<nabi::Context const&>(context)));
+		return const_cast<SComp::UIStateComponent* const>(TryGetUIStateComponent(const_cast<nabi::Context const&>(context)));
 	}
 
 	enum class GetMode : int
@@ -40,17 +40,17 @@ namespace ecs::UIModule
 
 	// --- UI Storage ---
 
-	inline UIStorageComponent const& GetUIStorageComponent(nabi::Context const& context)
+	inline SComp::UIStorageComponent const& GetUIStorageComponent(nabi::Context const& context)
 	{
-		return context.m_Registry.get<UIStorageComponent>(context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Input));
+		return context.m_Registry.get<SComp::UIStorageComponent>(context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Input));
 	}
-	inline UIStorageComponent& GetUIStorageComponent(nabi::Context& context)
+	inline SComp::UIStorageComponent& GetUIStorageComponent(nabi::Context& context)
 	{
-		return const_cast<UIStorageComponent&>(GetUIStorageComponent(const_cast<nabi::Context const&>(context)));
+		return const_cast<SComp::UIStorageComponent&>(GetUIStorageComponent(const_cast<nabi::Context const&>(context)));
 	}
 
 	template<typename T>
-	T GetStickyAs(nabi::Context const& context, UIStorageComponent::Sticky const sticky)
+	T GetStickyAs(nabi::Context const& context, SComp::UIStorageComponent::Sticky const sticky)
 	{
 		std::any const sticky = GetSticky(context, sticky);
 
@@ -76,25 +76,25 @@ namespace ecs::UIModule
 			return stickyAsT;
 		)
 	};
-	inline std::any GetSticky(nabi::Context const& context, UIStorageComponent::Sticky const sticky)
+	inline std::any GetSticky(nabi::Context const& context, SComp::UIStorageComponent::Sticky const sticky)
 	{ 
-		UIStorageComponent const& uiStorage = GetUIStorageComponent(context);
+		SComp::UIStorageComponent const& uiStorage = GetUIStorageComponent(context);
 		return uiStorage.m_Storage.at(sticky);
 	};
 
-	inline bool HasSticky(UIStorageComponent const& uiStorage, UIStorageComponent::Sticky const sticky)
+	inline bool HasSticky(SComp::UIStorageComponent const& uiStorage, SComp::UIStorageComponent::Sticky const sticky)
 	{
 		return uiStorage.m_Storage.find(sticky) != uiStorage.m_Storage.end();
 	}
-	inline bool HasSticky(nabi::Context const& context, UIStorageComponent::Sticky const sticky)
+	inline bool HasSticky(nabi::Context const& context, SComp::UIStorageComponent::Sticky const sticky)
 	{ 
-		UIStorageComponent const& uiStorage = GetUIStorageComponent(context);
+		SComp::UIStorageComponent const& uiStorage = GetUIStorageComponent(context);
 		return HasSticky(uiStorage, sticky);
 	};
 
-	inline void SetSticky(nabi::Context& context, UIStorageComponent::Sticky const sticky, std::any const value)
+	inline void SetSticky(nabi::Context& context, SComp::UIStorageComponent::Sticky const sticky, std::any const value)
 	{
-		UIStorageComponent& uiStorage = GetUIStorageComponent(context);
+		SComp::UIStorageComponent& uiStorage = GetUIStorageComponent(context);
 		if (HasSticky(uiStorage, sticky))
 		{
 			LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_UI << "Overriding an existing sticky's  (" << sticky << ") value!" << ENDLINE);
@@ -102,23 +102,23 @@ namespace ecs::UIModule
 		}
 		else
 		{
-			std::pair<UIStorageComponent::Sticky, std::any> const pair = { sticky, value };
+			std::pair<SComp::UIStorageComponent::Sticky, std::any> const pair = { sticky, value };
 			uiStorage.m_Storage.emplace(pair);
 		}
 	}
 
-	inline void ClearSticky(nabi::Context& context, UIStorageComponent::Sticky const sticky)
+	inline void ClearSticky(nabi::Context& context, SComp::UIStorageComponent::Sticky const sticky)
 	{
 		CONDITIONAL_LOG(!HasSticky(context, sticky), LOG_PREP, LOG_INFO, LOG_CATEGORY_UI << "Clearing a sticky (" << sticky << ") which doesn't exist!" << ENDLINE);
 
-		UIStorageComponent& uiStorage = GetUIStorageComponent(context);
+		SComp::UIStorageComponent& uiStorage = GetUIStorageComponent(context);
 		uiStorage.m_Storage.erase(sticky);
 	};
 	inline void ClearStickies(nabi::Context& context)
 	{
 		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_UI << "Clearing all stickies from UIStorage!" << ENDLINE);
 
-		UIStorageComponent& uiStorage = GetUIStorageComponent(context);
+		SComp::UIStorageComponent& uiStorage = GetUIStorageComponent(context);
 		uiStorage.m_Storage.clear();
 	};
 

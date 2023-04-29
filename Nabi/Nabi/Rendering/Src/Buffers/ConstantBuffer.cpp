@@ -19,7 +19,7 @@ namespace nabi::Rendering
 		AddMode const addMode, nabi::Context const& context) NABI_NOEXCEPT
 	{
 		entt::entity const graphicEntity = context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
-		ecs::GraphicsComponent const& graphicsComponent = context.m_Registry.get<ecs::GraphicsComponent>(graphicEntity);
+		ecs::SComp::GraphicsComponent const& graphicsComponent = context.m_Registry.get<ecs::SComp::GraphicsComponent>(graphicEntity);
 		std::array<nabi::Rendering::ConstantBuffer, nabi::Rendering::ConstantBufferIndex::ENUM_COUNT> const& constantBuffers = graphicsComponent.m_ConstantBuffers;
 
 		if (addMode == AddMode::ClearAndAdd)

@@ -3,7 +3,7 @@
 
 #include "CoreComponents\UIComponents.h"
 
-namespace ecs
+namespace ecs::SComp
 {
 	struct UIStateComponent final : public nabi::ECS::ComponentBase
 	{
@@ -15,4 +15,4 @@ namespace ecs
 		typedef unsigned int Sticky;
 		std::unordered_map<Sticky, std::any> m_Storage;
 	};
-} // namespace ecs
+} // namespace ecs::SComp

@@ -18,14 +18,14 @@ namespace ecs::InputModule
 	bool GetControllerConnected(nabi::Context const& context, nabi::Input::Controller const controllerCode);
 
 	// Input state getters
-	inline InputStateComponent const& GetInputStateComponent(nabi::Context const& context) {
-		return context.m_Registry.get<ecs::InputStateComponent>(context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Input));
+	inline SComp::InputStateComponent const& GetInputStateComponent(nabi::Context const& context) {
+		return context.m_Registry.get<SComp::InputStateComponent>(context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Input));
 	};
-	inline KeyboardState const& GetKeyboardState(nabi::Context const& context)     { return GetInputStateComponent(context).m_KeyboardState;   }
-	inline MouseState const& GetMouseState(nabi::Context const& context)           { return GetInputStateComponent(context).m_MouseState;      }
-	inline ControllerState const& GetControllerState(nabi::Context const& context) { return GetInputStateComponent(context).m_ControllerState; }
+	inline SComp::KeyboardState const& GetKeyboardState(nabi::Context const& context)     { return GetInputStateComponent(context).m_KeyboardState;   }
+	inline SComp::MouseState const& GetMouseState(nabi::Context const& context)           { return GetInputStateComponent(context).m_MouseState;      }
+	inline SComp::ControllerState const& GetControllerState(nabi::Context const& context) { return GetInputStateComponent(context).m_ControllerState; }
 
-	inline KeyboardState& GetKeyboardState(nabi::Context& context)     { return const_cast<KeyboardState&>(GetInputStateComponent(context).m_KeyboardState);     }
-	inline MouseState& GetMouseState(nabi::Context& context)           { return const_cast<MouseState&>(GetInputStateComponent(context).m_MouseState);           }
-	inline ControllerState& GetControllerState(nabi::Context& context) { return const_cast<ControllerState&>(GetInputStateComponent(context).m_ControllerState); }
+	inline SComp::KeyboardState& GetKeyboardState(nabi::Context& context)     { return const_cast<SComp::KeyboardState&>(GetInputStateComponent(context).m_KeyboardState);     }
+	inline SComp::MouseState& GetMouseState(nabi::Context& context)           { return const_cast<SComp::MouseState&>(GetInputStateComponent(context).m_MouseState);           }
+	inline SComp::ControllerState& GetControllerState(nabi::Context& context) { return const_cast<SComp::ControllerState&>(GetInputStateComponent(context).m_ControllerState); }
 } // namespace ecs

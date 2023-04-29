@@ -44,13 +44,13 @@ namespace ecs
 		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
 
 		// Cache the light state component
-		LightStateComponent& lightStateComponent = m_Context.m_Registry.get<LightStateComponent>(graphicEntity);
+		SComp::LightStateComponent& lightStateComponent = m_Context.m_Registry.get<SComp::LightStateComponent>(graphicEntity);
 
 		// Check if the lights need to be updated
 		if (lightStateComponent.m_UpdateLights)
 		{
 			// Cache the graphics component
-			GraphicsComponent& graphicsComponent = m_Context.m_Registry.get<GraphicsComponent>(graphicEntity);
+			SComp::GraphicsComponent& graphicsComponent = m_Context.m_Registry.get<SComp::GraphicsComponent>(graphicEntity);
 
 			// Get the light constant buffer
 			nabi::Rendering::ConstantBuffer const lightConstantBuffer = 
@@ -123,7 +123,7 @@ namespace ecs
 
 	void LightingSystem::OnLightCreated(entt::registry& /*registry*/, entt::entity /*entity*/) const
 	{
-		LightStateComponent& lightStateComponent = GetLightStateComponent();
+		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
 
 		++lightStateComponent.m_LightCount;
 		lightStateComponent.m_UpdateLights = true;
@@ -131,21 +131,21 @@ namespace ecs
 
 	void LightingSystem::OnLightUpdated(entt::registry& /*registry*/, entt::entity /*entity*/) const
 	{
-		LightStateComponent& lightStateComponent = GetLightStateComponent();
+		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
 		lightStateComponent.m_UpdateLights = true;
 	}
 
 	void LightingSystem::OnLightDestroyed(entt::registry& /*registry*/, entt::entity /*entity*/) const
 	{
-		LightStateComponent& lightStateComponent = GetLightStateComponent();
+		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
 
 		--lightStateComponent.m_LightCount;
 		lightStateComponent.m_UpdateLights = true;
 	}
 
-	LightStateComponent& LightingSystem::GetLightStateComponent() const
+	SComp::LightStateComponent& LightingSystem::GetLightStateComponent() const
 	{
 		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
-		return m_Context.m_Registry.get<LightStateComponent>(graphicEntity);
+		return m_Context.m_Registry.get<SComp::LightStateComponent>(graphicEntity);
 	}
 } // namespace ecs

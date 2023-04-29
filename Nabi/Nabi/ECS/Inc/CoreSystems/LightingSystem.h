@@ -3,7 +3,10 @@
 
 namespace ecs
 {
-	struct LightStateComponent;
+	namespace SComp
+	{
+		struct LightStateComponent;
+	} // namespace SComp
 
 	struct DirectionalLightComponent;
 	struct LightingProperties;
@@ -29,7 +32,7 @@ namespace ecs
 		void OnLightCreated(entt::registry& registry, entt::entity entity) const;
 		void OnLightUpdated(entt::registry& registry, entt::entity entity) const;
 		void OnLightDestroyed(entt::registry& registry, entt::entity entity) const;
-		LightStateComponent& GetLightStateComponent() const;
+		SComp::LightStateComponent& GetLightStateComponent() const;
 
 		REFLECT_PRIVATES(LightingSystem)
 	};

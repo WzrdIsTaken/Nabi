@@ -27,8 +27,8 @@ namespace nabi
 		NabiCore(HINSTANCE const hInstance, NabiCoreSettings const& initSettings) NABI_NOEXCEPT;
 		virtual ~NabiCore();
 
-		[[nodiscard]] virtual int Init() NABI_NOEXCEPT;
-		[[nodiscard]] virtual int Run() NABI_NOEXCEPT;
+		[[nodiscard]] virtual int Init();
+		[[nodiscard]] virtual int Run();
 
 		[[nodiscard]] inline Context& GetContext() NABI_NOEXCEPT { return m_Context; }
 
@@ -36,11 +36,11 @@ namespace nabi
 		virtual void Update(/*gametime?*/) /*const?*/ NABI_NOEXCEPT;
 		virtual void Render(/*gametime?*/) /*const?*/ NABI_NOEXCEPT;
 
-		bool const InitGraphicsEntity();
-		bool const InitDxPipeline();
-		bool const InitInputEntity();
+		bool const InitGraphicsEntity() NABI_NOEXCEPT;
+		bool const InitDxPipeline() NABI_NOEXCEPT;
+		bool const InitInputEntity() NABI_NOEXCEPT;
 
-		bool const ParseECSData(); // The user defined xml ecs data
+		bool const ParseECSData() NABI_NOEXCEPT; // The user defined xml ecs data
 
 		// Windows
 		HINSTANCE const m_hInstance;
