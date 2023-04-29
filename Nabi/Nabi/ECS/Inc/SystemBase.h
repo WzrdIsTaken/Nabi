@@ -15,7 +15,7 @@ namespace nabi::ECS
 	/// Base class for Systems. The registery and ids are things all systems will need. But no virtual inheritance!
 	/// Could also be useful if I ever need to group all systems
 	/// </summary>
-	class SystemBase
+	class SystemBase abstract
 	{
 	public:
 		SystemBase(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId) NABI_NOEXCEPT;
