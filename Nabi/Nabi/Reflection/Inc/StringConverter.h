@@ -80,12 +80,25 @@ namespace nabi::Reflection::StringConverter
 	template<>
 	[[nodiscard]] bool FromString<bool>(std::string const& string) NABI_NOEXCEPT
 	{
-		std::string inputString = string; // unfortunate
-		std::transform(inputString.begin(), inputString.end(), inputString.begin(), std::tolower);
-		std::stringstream ss(string);
+		/* cool but bot
+			std::string& inputString = const_cast<std::string&>(string); // unfortunate
+			std::transform(inputString.begin(), inputString.end(), inputString.begin(), std::tolower);
 
-		bool result;
-		ss >> std::boolalpha >> result;
+			std::stringstream ss(inputString);
+
+			bool result;
+			ss >> std::boolalpha >> result;
+
+			return result;
+		*/
+
+		bool result = false;
+		
+		if (string == "true" || string == "True" || string == "TRUE" || string == "1")
+		{
+			result = true;
+		}
+
 		return result;
 	}
 

@@ -11,6 +11,8 @@ namespace nabi::Reflection::StringConverter
 {
 	void ConvertFromString(std::string const& propertyValue, entt::hashed_string const& propertyTypeHash, entt::meta_any& metaObject, entt::meta_data const& metaMember) NABI_NOEXCEPT
 	{
+		Utils::StringUtils::Trim(const_cast<std::string&>(propertyValue)); // bit of a hack but i just realised this is needed and want to wack it in before i go out
+
 		/* 
 		   Ok so strings are kind of an edge case, and so I am going to just hide this little block of logic here...
 		   Why are they an edge case? Because "when you register FromString<std::string> on the meta type of std::string, 

@@ -24,19 +24,19 @@ namespace nabi::Utils::StringUtils
 	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, char const delimiter, size_t const expectedValues = SIZE_MAX) NABI_NOEXCEPT;
 
 	// Trims a string
-    static inline char const* c_WhiteSpace = " \t\n\r\f\v";
+    static inline char const* const c_WhiteSpace = " \t\n\r\f\v";
 
-	inline std::string& RightTrim(std::string& string, char const* trim = c_WhiteSpace)
+	inline std::string& RightTrim(std::string& string, char const* trim = c_WhiteSpace) NABI_NOEXCEPT
 	{
 		string.erase(string.find_last_not_of(trim) + 1);
 		return string;
 	}
-	inline std::string& LeftTrim(std::string& string, char const* trim = c_WhiteSpace)
+	inline std::string& LeftTrim(std::string& string, char const* trim = c_WhiteSpace) NABI_NOEXCEPT
 	{
 		string.erase(0, string.find_first_not_of(trim));
 		return string;
 	}
-	inline std::string& Trim(std::string& string, char const* trim = c_WhiteSpace)
+	inline std::string& Trim(std::string& string, char const* trim = c_WhiteSpace) NABI_NOEXCEPT
 	{
 		return LeftTrim(RightTrim(string, trim), trim);
 	}
