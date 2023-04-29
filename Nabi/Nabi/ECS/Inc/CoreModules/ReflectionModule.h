@@ -22,9 +22,11 @@ namespace ecs::ReflectionModule
 
 		if (reflectedFunc)
 		{
-			bool functionValid = true;
+			// Debug flow
 			ASSERT_CODE
 			(
+				bool functionValid = true;
+
 				if (constraints)
 				{
 					if (constraints->m_ExpectStatic && !reflectedFunc.is_static())
@@ -36,16 +38,22 @@ namespace ecs::ReflectionModule
 						functionValid = false;
 					}
 				}
+
+				if (functionValid)
+				{
+					result = reflectedFunc.invoke(reflectedType, std::forward<Args>(args)...);
+				}
+				else
+				{
+					ASSERT_FAIL("The reflected function didn't meet the constraints");
+				}
 			)
 
-			if (functionValid)
-			{
+			// Release flow
+			FINAL_CODE
+			(
 				result = reflectedFunc.invoke(reflectedType, std::forward<Args>(args)...);
-			}
-			else
-			{
-				ASSERT_FAIL("The reflected function didn't meet the constraints");
-			}
+			)
 		}
 		else
 		{
