@@ -34,8 +34,8 @@ namespace ecs
 
 		nabi::Input::InputState GetInput(InputInfo const inputInfo, InputInfo const altInputInfo) const;
 
-		void OnUISceneCreated(entt::registry& registry, entt::entity entity) const;
-		void OnUISceneDestroyed(entt::registry& registry, entt::entity entity) const;
+		void OnUISceneCreated(entt::registry& registry, entt::entity entity);
+		void OnUISceneDestroyed(entt::registry& registry, entt::entity entity);
 
 		REFLECT_PRIVATES(UISystem)
 	};

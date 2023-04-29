@@ -8,19 +8,13 @@ Current:
 
 // --- High Priority ---
 - Write some UI tests?
-
-
-- enabling / disabling events, and use this in ui system
 - check everything that needs to be commented is
-- make string conventer bool faster with if
-- more nabi no except in nabicore?
-- namespace ecs::SingletonComponents
+
+- nabi::Utils::[UtilName] -> nabi::[UtilName]? have eg ecs::[ModuleName] not ecs::Modules::[ModuleName] ? (remember to update the //namespace ~~ comment)
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
 - Have all entity groups / event calls etc as constexpr in a file
-
-- nabi::Utils::[UtilName] -> nabi::[UtilName]? have eg ecs::[ModuleName] not ecs::Modules::[ModuleName] ?
 
 - Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
   (acc i think this is ok on the stack?)
@@ -64,6 +58,11 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive:
+- enabling / disabling events, and use this in ui system (if cant make this work just use the if) DONE
+- make string conventer bool faster with if DONE
+- more nabi no except in nabicore? DONE
+- namespace ecs::SingletonComponents DONE
+- is there a problem with reflection system and values like " hello" which a space? should they be trimmed before FromString is called? YES - FIXED
 - see notebook for reflection update idea (pros -> disable update | cons -> more branchs just to update) (put it behind an #define i recon, but still we probs use and then can profile l8r)
     - [this was pain]
 - Should the components in the view be const, rather than the components in the lambda? I think so... and then can the components in the lambda just be auto? does that carry const? [yes]

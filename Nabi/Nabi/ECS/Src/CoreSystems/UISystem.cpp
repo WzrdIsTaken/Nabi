@@ -17,6 +17,7 @@ namespace ecs
 		: SystemBase(context, systemId, systemGroupId)
 	{
 		REGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(UISystem)
+		DISABLE_SYSTEM_UPDATE(UISystem) // this system doesn't need to update until there are ui scenes
 
 		m_Context.m_Registry.on_construct<UISceneComponent>().connect<&UISystem::OnUISceneCreated>(this);
 		m_Context.m_Registry.on_destroy<UISceneComponent>().connect<&UISystem::OnUISceneDestroyed>(this);
@@ -38,65 +39,63 @@ namespace ecs
 		// But again, uni project - not infinite time
 
 		UISceneComponent::UISceneEntities const* const uiEntities = UIModule::GetCurrentUISceneEntities(m_Context, UIModule::GetMode::FirstEnabled);
+		std::vector<SelectedUIElement> selectedUiElements = {};
 
-		if (uiEntities)
+		ASSERT_FATAL(uiEntities, "uiEntities is null!");
+
+		for (entt::entity const entity : *uiEntities)
 		{
-			std::vector<SelectedUIElement> selectedUiElements = {};
+			// Currently this UI system just handles buttons. I think this is all it will ever need. 
+			// If not, then some sort of switch will be needed here I think. Or, get a view of all the ui components and filter them by the current ui scene.
+			// Could perhaps use syntax like this, and then check which component isn't null: 
+			// auto [button, slider] = m_Context.m_Registry.try_get<ButtonComponent, SliderComponent>(entity);
 
-			for (entt::entity const entity : *uiEntities)
+			UIElementComponentBase& uiElement = m_Context.m_Registry.get<ButtonComponent>(entity);
+
+			if (uiElement.m_Interactable && uiElement.m_Active)
 			{
-				// TODO - Currently this UI system just handles buttons. I think this is all it will ever need. 
-				// If not, then some sort of switch will be needed here I think. Or, get a view of all the ui components and filter them by the current ui scene.
-				// Could use syntax like this, and then check which component isn't null: 
-				// auto [button, slider] = m_Context.m_Registry.try_get<ButtonComponent, SliderComponent>(entity);
+				using namespace nabi::Input;
 
-				UIElementComponentBase& uiElement = m_Context.m_Registry.get<ButtonComponent>(entity); 
-
-				if (uiElement.m_Interactable && uiElement.m_Active)
+				InputInfo const inputInfo =
 				{
-					using namespace nabi::Input;
+					uiElement.m_InputType,
+					uiElement.m_ActivationKey,
+					uiElement.m_Controller
+				};
+				InputInfo const altInputInfo =
+				{
+					uiElement.m_AltInputType,
+					uiElement.m_AltActivationKey,
+					uiElement.m_Controller
+				};
 
-					InputInfo const inputInfo =
+				InputState const inputState = GetInput(inputInfo, altInputInfo);
+
+				if (inputState == InputState::Pressed)
+				{
+					SelectedUIElement const selectedUIElement =
 					{
-						uiElement.m_InputType,
-						uiElement.m_ActivationKey,
-						uiElement.m_Controller
+						entity,
+						uiElement
 					};
-					InputInfo const altInputInfo =
-					{
-						uiElement.m_AltInputType,
-						uiElement.m_AltActivationKey,
-						uiElement.m_Controller
-					};
 
-					InputState const inputState = GetInput(inputInfo, altInputInfo);
-
-					if (inputState == InputState::Pressed)
-					{
-						SelectedUIElement const selectedUIElement = 
-						{
-							entity,
-							uiElement
-						};
-
-						selectedUiElements.emplace_back(selectedUIElement);
-						uiElement.m_Selected = true;
-					}
+					selectedUiElements.emplace_back(selectedUIElement);
+					uiElement.m_Selected = true;
 				}
 			}
+		}
 
-			if (!selectedUiElements.empty())
+		if (!selectedUiElements.empty())
+		{
+			for (SelectedUIElement const& uiElement : selectedUiElements)
 			{
-				for (SelectedUIElement const& uiElement : selectedUiElements)
-				{
-					entt::entity const uiEntity = uiElement.m_Entity;
-					UIElementComponentBase& uiElementComponent = uiElement.m_Element.get();
+				entt::entity const uiEntity = uiElement.m_Entity;
+				UIElementComponentBase& uiElementComponent = uiElement.m_Element.get();
 
-					uiElementComponent.m_Selected = false;
+				uiElementComponent.m_Selected = false;
 
-					ReflectionModule::Constraints constexpr* const constraints = nullptr;
-					ReflectionModule::CallReflectedFunction(m_Context, uiElementComponent.m_Scene, uiElementComponent.m_Action, constraints, entt::forward_as_meta(m_Context), uiEntity);
-				}
+				ReflectionModule::Constraints constexpr* const constraints = nullptr;
+				ReflectionModule::CallReflectedFunction(m_Context, uiElementComponent.m_Scene, uiElementComponent.m_Action, constraints, entt::forward_as_meta(m_Context), uiEntity);
 			}
 		}
 	}
@@ -138,7 +137,7 @@ namespace ecs
 		return inputState;
 	}
 
-	void UISystem::OnUISceneCreated(entt::registry& /*registry*/, entt::entity entity) const
+	void UISystem::OnUISceneCreated(entt::registry& /*registry*/, entt::entity entity)
 	{
 	    // this func is kinda expensive. can we optimise it?
 
@@ -164,17 +163,23 @@ namespace ecs
 			}
 		}
 
-		UIStateComponent& uiStateComponent = UIModule::GetUIStateComponent(m_Context);
-		uiStateComponent.m_UIScenes.push(uiSceneComponent);
+		SComp::UIStateComponent& uiStateComponent = UIModule::GetUIStateComponent(m_Context);
+		std::stack<UISceneComponent>& uiScenes = uiStateComponent.m_UIScenes;
+
+		uiScenes.push(uiSceneComponent);
+		if (uiScenes.size() == 1u)
+		{
+			ENABLE_SYSTEM_UPDATE(UISystem)
+		}
 	}
 
-	void UISystem::OnUISceneDestroyed(entt::registry& /*registry*/, entt::entity entity) const
+	void UISystem::OnUISceneDestroyed(entt::registry& /*registry*/, entt::entity entity)
 	{
 		// This uses try get because otherwise when the program exits we get exit code 3 on shutdown.
 		// I guess because the reference is invalid as the UIStateComponent has already been deleted.
 
 		UISceneComponent const* const uiSceneComponent = m_Context.m_Registry.try_get<UISceneComponent>(entity);
-		UIStateComponent* const uiStateComponent = UIModule::TryGetUIStateComponent(m_Context);
+		SComp::UIStateComponent* const uiStateComponent = UIModule::TryGetUIStateComponent(m_Context);
 		if (uiSceneComponent && uiStateComponent)
 		{
 			std::stack<UISceneComponent>& uiScenes = uiStateComponent->m_UIScenes;
@@ -191,6 +196,11 @@ namespace ecs
 						{
 							m_Context.m_Registry.destroy(entity);
 						});
+
+					if (uiScenes.empty())
+					{
+						DISABLE_SYSTEM_UPDATE(UISystem)
+					}
 				}
 				else
 				{

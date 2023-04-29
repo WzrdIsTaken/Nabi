@@ -7,6 +7,11 @@
 // Though I could of just used virtual inheritance for exactly the same thing and saved myself a lot of time and pain... im good as solving bugs that shouldnt of existed in the first place ;_;
 #define USE_EVENT_SYSTEM_UPDATE
 
+#pragma region System Events
+
+// Perhaps this could be made more generic for all events?
+// But it is also verbose, and its likely that these events will be the only things this manager is used for
+
 #ifdef USE_EVENT_SYSTEM_UPDATE
 	#define REGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(system) \
 		{ \
@@ -36,6 +41,13 @@
 	#define UNREGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(system) (void(0));
 	#define UNREGISTER_SYSTEM_RENDER_EVENT_SUBSCRIBER(system) (void(0));
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
+
+#define ENABLE_SYSTEM_UPDATE(system)  REGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(system)
+#define ENABLE_SYSTEM_RENDER(system)  REGISTER_SYSTEM_RENDER_EVENT_SUBSCRIBER(system)
+#define DISABLE_SYSTEM_UPDATE(system) UNREGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(system)
+#define DISABLE_SYSTEM_RENDER(system) UNREGISTER_SYSTEM_RENDER_EVENT_SUBSCRIBER(system)
+
+#pragma endregion
 
 #define REGISTER_UNREGISTER_NABI_EVENT_HELPER(eventGetter) \
 		nabi::NabiEventsManager::SystemFrameEvent& sigh = m_Context.m_NabiEventsManager.eventGetter(); \
