@@ -18,26 +18,50 @@ namespace nabi::Utils::StringUtils
 	// A LPCSTR is just a typedef'ed WCHAR
 #define STRING_TO_WCHAR(string, wchar) STRING_TO_LPCWSTR(string, wchar)
 
+	struct SplitSettings
+	{
+		char m_Delimiter;
+		bool m_TrimEachValue;
+		size_t m_ExpectedValues;
+	};
+	SplitSettings constexpr c_DefaultSplitSettings = {
+		.m_Delimiter = ',',
+		.m_TrimEachValue = true,
+		.m_ExpectedValues = SIZE_MAX
+	};
+
 	// Splits a string via a delimiter, after a character
-	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, char const after, char const delimiter, size_t const expectedValues = SIZE_MAX) NABI_NOEXCEPT;
+	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, char const after, SplitSettings const& splitSettings) NABI_NOEXCEPT;
 	// Splits a string via a delimiter. Fatal assert if expectedValues is not equal to the resultant split
-	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, char const delimiter, size_t const expectedValues = SIZE_MAX) NABI_NOEXCEPT;
+	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, SplitSettings const& splitSettings) NABI_NOEXCEPT;
 
 	// Trims a string
     static inline char const* const c_WhiteSpace = " \t\n\r\f\v";
 
-	inline std::string& RightTrim(std::string& string, char const* trim = c_WhiteSpace) NABI_NOEXCEPT
+	inline std::string& RightTrim(std::string& string, char const* const trim = c_WhiteSpace) NABI_NOEXCEPT
 	{
 		string.erase(string.find_last_not_of(trim) + 1);
 		return string;
 	}
-	inline std::string& LeftTrim(std::string& string, char const* trim = c_WhiteSpace) NABI_NOEXCEPT
+	inline std::string& LeftTrim(std::string& string, char const* const trim = c_WhiteSpace) NABI_NOEXCEPT
 	{
 		string.erase(0, string.find_first_not_of(trim));
 		return string;
 	}
-	inline std::string& Trim(std::string& string, char const* trim = c_WhiteSpace) NABI_NOEXCEPT
+	inline std::string& Trim(std::string& string, char const* const trim = c_WhiteSpace) NABI_NOEXCEPT
 	{
 		return LeftTrim(RightTrim(string, trim), trim);
+	}
+	inline std::string_view Trim(std::string_view const stringView, char const* const trim = c_WhiteSpace) NABI_NOEXCEPT
+	{
+		size_t const first = stringView.find_first_not_of(c_WhiteSpace);
+		size_t const last = stringView.find_last_not_of(c_WhiteSpace);
+
+		if (first == std::string_view::npos || last == std::string_view::npos)
+		{
+			return {};
+		}
+
+		return stringView.substr(first, last - first + 1);
 	}
 } // namespace nabi::Utils::StringUtils

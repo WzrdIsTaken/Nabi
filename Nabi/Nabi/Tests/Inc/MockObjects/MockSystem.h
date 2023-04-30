@@ -11,13 +11,24 @@ namespace nabitest::ECS
 		MockSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId);
 		~MockSystem();
 
-		void Update(/*game time*/) const;
-		void Render(/*game time*/) const;
+		void Update(/*game time*/);
+		void Render(/*game time*/);
 
-		inline int GetMockSystemData() const { return m_MockSystemData; }
+		void RegisterSystemRenderEvent();
+		void UnregisterSystemRenderEvent();
+		void EnabledSystemRenderEvent();
+		void DisableSystemRenderEvent();
+		 
+		inline int GetMockSystemData()    const { return m_MockSystemData;    }
+		inline int GetUpdateCalledCount() const { return m_UpdateCalledCount; }
+		inline int GetRenderCalledCount() const { return m_RenderCalledCount; }
 
 	private:
 		int m_MockSystemData;
+
+		// should really use MOCK_METHOD for this
+		int m_UpdateCalledCount;
+		int m_RenderCalledCount;
 
 		REFLECT_PRIVATES(MockSystem)
 	};

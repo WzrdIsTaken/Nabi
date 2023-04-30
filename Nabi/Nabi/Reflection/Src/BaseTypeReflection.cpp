@@ -39,9 +39,9 @@ namespace nabi::Reflection::DirectXTypes
 
 	XMFLOAT2 Float2::FromString(std::string const& source) NABI_NOEXCEPT
 	{
-		char constexpr delimiter = ',';
-		size_t constexpr expectedValues = 2;
-		std::vector<std::string_view> const splitString = StringUtils::SplitString(source, delimiter, expectedValues);
+		StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
+		splitSettings.m_ExpectedValues = 2u;
+		std::vector<std::string_view> const splitString = StringUtils::SplitString(source, splitSettings);
 
 		FLOAT const float1 = StringConverter::FromString<FLOAT>(splitString[0].data());
 		FLOAT const float2 = StringConverter::FromString<FLOAT>(splitString[1].data());
@@ -52,9 +52,9 @@ namespace nabi::Reflection::DirectXTypes
 
 	XMFLOAT3 Float3::FromString(std::string const& source) NABI_NOEXCEPT
 	{
-		char constexpr delimiter = ',';
-		size_t constexpr expectedValues = 3;
-		std::vector<std::string_view> const splitString = StringUtils::SplitString(source, delimiter, expectedValues);
+		StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
+		splitSettings.m_ExpectedValues = 3u;
+		std::vector<std::string_view> const splitString = StringUtils::SplitString(source, splitSettings);
 
 		FLOAT const float1 = StringConverter::FromString<FLOAT>(splitString[0].data());
 		FLOAT const float2 = StringConverter::FromString<FLOAT>(splitString[1].data());
@@ -66,9 +66,9 @@ namespace nabi::Reflection::DirectXTypes
 
 	XMINT2 Int2::FromString(std::string const& source) NABI_NOEXCEPT
 	{
-		char constexpr delimiter = ',';
-		size_t constexpr expectedValues = 2;
-		std::vector<std::string_view> const splitString = StringUtils::SplitString(source, delimiter, expectedValues);
+		StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
+		splitSettings.m_ExpectedValues = 2u;
+		std::vector<std::string_view> const splitString = StringUtils::SplitString(source, splitSettings);
 
 		INT const int1 = StringConverter::FromString<INT>(splitString[0].data());
 		INT const int2 = StringConverter::FromString<INT>(splitString[1].data());
@@ -79,9 +79,9 @@ namespace nabi::Reflection::DirectXTypes
 
 	XMINT3 Int3::FromString(std::string const& source) NABI_NOEXCEPT
 	{
-		char constexpr delimiter = ',';
-		size_t constexpr expectedValues = 3;
-		std::vector<std::string_view> const splitString = StringUtils::SplitString(source, delimiter, expectedValues);
+		StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
+		splitSettings.m_ExpectedValues = 3u;
+		std::vector<std::string_view> const splitString = StringUtils::SplitString(source, splitSettings);
 
 		INT const int1 = StringConverter::FromString<INT>(splitString[0].data());
 		INT const int2 = StringConverter::FromString<INT>(splitString[1].data());

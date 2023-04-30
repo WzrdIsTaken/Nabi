@@ -216,7 +216,9 @@
     <ClCompile Include="Rendering\Src\Shaders\VertexShader.cpp" />
     <ClCompile Include="Rendering\Src\Textures\Texture.cpp" />
     <ClCompile Include="Tests\Fixtures\DebugTests\LoggingTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\ECSTests\SystemEventsTests.cpp" />
     <ClCompile Include="Tests\Fixtures\InputTests\InputStateTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\InputTests\UITests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionInitTests.cpp" />

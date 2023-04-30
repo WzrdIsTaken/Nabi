@@ -144,15 +144,17 @@ namespace ecs
 		UISceneComponent& uiSceneComponent = m_Context.m_Registry.get<UISceneComponent>(entity);
 		std::string_view const uiSceneEntityNames = uiSceneComponent.m_UISceneEntityNames.data();
 
-		char constexpr delimiter = ',';
-		std::vector<std::string_view> const uiSceneEntityNamesVec = nabi::Utils::StringUtils::SplitString(uiSceneEntityNames, delimiter);
+		using namespace nabi::Utils;
+		StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
+		splitSettings.m_TrimEachValue = false; // a quirk of this system, don't worry about it (the trimming happens below, something to do with stringview)
 
+		std::vector<std::string_view> const uiSceneEntityNamesVec = StringUtils::SplitString(uiSceneEntityNames, StringUtils::c_DefaultSplitSettings);
 		uiSceneComponent.m_UISceneEntities.reserve(uiSceneEntityNamesVec.size());
 
 		for (std::string_view const uiSceneEntityName : uiSceneEntityNamesVec)
 		{
 			std::string trimedName = std::string(uiSceneEntityName.data(), uiSceneEntityName.length());
-			nabi::Utils::StringUtils::Trim(trimedName);
+			StringUtils::Trim(trimedName);
 
 			entt::hashed_string const uiSceneEntityNameHash = entt::hashed_string(trimedName.c_str());
 			entt::entity const uiEntity = EntityModule::FindFirstEntityByName(m_Context, uiSceneEntityNameHash);

@@ -28,7 +28,7 @@ namespace nabitest::Examples
 	{
 #pragma region 3D
 		{
-			ecs::LightStateComponent& lightStateComponent = m_Context.m_Registry.get<ecs::LightStateComponent>(
+			ecs::SComp::LightStateComponent& lightStateComponent = m_Context.m_Registry.get<ecs::SComp::LightStateComponent>(
 				m_Context.m_SingletonEntites.at(nabi::Context::Graphic));
 			lightStateComponent.m_LightCount = 1u;
 			lightStateComponent.m_UpdateLights = true;

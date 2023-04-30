@@ -34,6 +34,6 @@ namespace nabitest::InputTests
 		// See / run 'TestInput'
 		EXPECT_TRUE(true);
 	}
-} // namespace nabitest::ReflectionTests
+} // namespace nabitest::InputTests
 
 #endif // #ifdef RUN_TESTS

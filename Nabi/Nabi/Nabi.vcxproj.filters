@@ -224,6 +224,9 @@
     <Filter Include="Tests\Data\Input">
       <UniqueIdentifier>{9507a751-5721-493c-b3a5-198c1b3ee7d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Fixtures\ECSTests">
+      <UniqueIdentifier>{fbd23e0e-db7d-4bd5-830e-95c958609262}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -412,6 +415,12 @@
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreModules\UIModule.cpp">
       <Filter>ECS\Src\CoreModules</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\ECSTests\SystemEventsTests.cpp">
+      <Filter>Tests\Fixtures\ECSTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\InputTests\UITests.cpp">
+      <Filter>Tests\Fixtures\InputTests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

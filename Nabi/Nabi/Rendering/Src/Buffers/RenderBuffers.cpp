@@ -111,8 +111,14 @@ namespace nabi::Rendering
 		auto extractDimensionsFromPrimative =
 			[](std::string const& primative, size_t const expectedValues) -> std::optional<std::vector<DimensionType>>
 			{
+				using namespace nabi::Utils;
+
+				StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
+				splitSettings.m_Delimiter = 'x';
+				splitSettings.m_ExpectedValues = expectedValues;
+
 				std::optional<std::vector<DimensionType>> primativeDimensionsReturn = {};
-				std::vector<std::string_view> const primativeDimensions = nabi::Utils::StringUtils::SplitString(primative, '=', 'x', expectedValues);
+				std::vector<std::string_view> const primativeDimensions = StringUtils::SplitString(primative, '=', splitSettings);
 			
 				if (!primativeDimensions.empty())
 				{

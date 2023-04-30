@@ -7,6 +7,8 @@ Current:
 // --- Critical Priority ---
 
 // --- High Priority ---
+- Collision! Start with some reading (red book / example code)
+
 - Write some UI tests?
 
 Structure Stuff
