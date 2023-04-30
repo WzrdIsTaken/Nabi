@@ -9,7 +9,7 @@ Current:
 // --- High Priority ---
 - Collision! Start with some reading (red book / example code)
 
-- Write some UI tests?
+- Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -58,6 +58,7 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive:
+- Write some UI tests?
 - check everything that needs to be commented is
 - enabling / disabling events, and use this in ui system (if cant make this work just use the if) DONE
 - make string conventer bool faster with if DONE
