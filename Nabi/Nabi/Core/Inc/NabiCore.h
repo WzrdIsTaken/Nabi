@@ -12,6 +12,7 @@
 // TEST
 #include "Examples\TestDraw.h"
 #include "Examples\TestInput.h"
+#include "Examples\TestPhysics.h"
 
 namespace nabi
 {
@@ -59,6 +60,6 @@ namespace nabi
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)
 
-		nabitest::Examples::TestInput test_Input;
+		nabitest::Examples::TestPhysics test_Input;
 	};
 } // namespace nabi

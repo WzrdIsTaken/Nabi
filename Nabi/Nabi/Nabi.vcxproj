@@ -228,6 +228,7 @@
     <ClCompile Include="Tests\Fixtures\ResourceTests\ResourceLoadTests.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestDraw.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestInput.cpp" />
+    <ClCompile Include="Tests\Src\Examples\TestPhysics.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockComponent.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockCustomDataType.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockEnum.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="Libraries\Inc\WICTextureLoader\WICTextureLoader.h" />
     <ClInclude Include="Memory\Inc\Allocator.h" />
     <ClInclude Include="Patterns\Inc\Singleton.h" />
+    <ClInclude Include="Physics\Inc\PhysicsConstants.h" />
     <ClInclude Include="Reflection\Inc\BaseTypeReflection.h" />
     <ClInclude Include="Reflection\Inc\EntityCreator.h" />
     <ClInclude Include="Reflection\Inc\EntityGroup.h" />
@@ -320,6 +322,7 @@
     <ClInclude Include="Tests\Inc\Examples\TestDraw.h" />
     <ClInclude Include="Tests\Inc\Examples\IExample.h" />
     <ClInclude Include="Tests\Inc\Examples\TestInput.h" />
+    <ClInclude Include="Tests\Inc\Examples\TestPhysics.h" />
     <ClInclude Include="Tests\Inc\Helpers\Comparison.h" />
     <ClInclude Include="Tests\Inc\MockObjects\MockComponent.h" />
     <ClInclude Include="Tests\Inc\MockObjects\MockCustomDataType.h" />

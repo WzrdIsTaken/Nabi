@@ -227,6 +227,15 @@
     <Filter Include="Tests\Fixtures\ECSTests">
       <UniqueIdentifier>{fbd23e0e-db7d-4bd5-830e-95c958609262}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{ee1f2c86-46a8-41ad-b7d3-b5c913b11380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\Src">
+      <UniqueIdentifier>{4334419c-76c7-432c-a7db-d0615c9da309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\Inc">
+      <UniqueIdentifier>{86b3a7d5-ae80-46bb-a9bc-c62735d27652}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -421,6 +430,9 @@
     </ClCompile>
     <ClCompile Include="Tests\Fixtures\InputTests\UITests.cpp">
       <Filter>Tests\Fixtures\InputTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Examples\TestPhysics.cpp">
+      <Filter>Tests\Src\Examples</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -713,6 +725,12 @@
     </ClInclude>
     <ClInclude Include="Core\Inc\NabiEventsManager.h">
       <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Inc\PhysicsConstants.h">
+      <Filter>Physics\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Examples\TestPhysics.h">
+      <Filter>Tests\Inc\Examples</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

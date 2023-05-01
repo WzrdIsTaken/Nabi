@@ -17,7 +17,7 @@ namespace ecs
 		: SystemBase(context, systemId, systemGroupId)
 	{
 		REGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(UISystem)
-		DISABLE_SYSTEM_UPDATE(UISystem) // this system doesn't need to update until there are ui scenes
+		DISABLE_SYSTEM_UPDATE(UISystem) // this system shouldn't update until there are ui scenes
 
 		m_Context.m_Registry.on_construct<UISceneComponent>().connect<&UISystem::OnUISceneCreated>(this);
 		m_Context.m_Registry.on_destroy<UISceneComponent>().connect<&UISystem::OnUISceneDestroyed>(this);
