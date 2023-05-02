@@ -15,6 +15,6 @@ This is the development roadmap:
 - Audio 🔜™
 - Threading 🔜™
 
-Nabi's features aren't exhaustive, its just meant to be enough for me to make some cool final year projects without needing an existing engine.
+Nabi's features aren't exhaustive, its just meant to be enough for me to make some cool final year projects without needing an existing engine and learn a bunch a long the way.
 
 Nabi means "butterfly" in Korean - and it is my favourite Korean word!
