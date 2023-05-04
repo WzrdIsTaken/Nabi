@@ -434,6 +434,15 @@
     <ClCompile Include="Tests\Src\Examples\TestPhysics.cpp">
       <Filter>Tests\Src\Examples</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\RigidbodyComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\ColliderComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreSystems\PhysicsSystem.cpp">
+      <Filter>ECS\Src\CoreSystems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -726,11 +735,20 @@
     <ClInclude Include="Core\Inc\NabiEventsManager.h">
       <Filter>Core\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\Inc\PhysicsConstants.h">
-      <Filter>Physics\Inc</Filter>
-    </ClInclude>
     <ClInclude Include="Tests\Inc\Examples\TestPhysics.h">
       <Filter>Tests\Inc\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\RigidbodyComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\ColliderComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSystems\PhysicsSystem.h">
+      <Filter>ECS\Inc\CoreSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Inc\PhysicsConstants.h">
+      <Filter>Physics\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

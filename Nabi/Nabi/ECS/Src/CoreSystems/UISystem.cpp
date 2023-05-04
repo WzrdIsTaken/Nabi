@@ -215,4 +215,4 @@ namespace ecs
 			}
 		}
 	}
-} // namespace ecs::System
+} // namespace ecs

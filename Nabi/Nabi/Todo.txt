@@ -9,6 +9,16 @@ Current:
 // --- High Priority ---
 - Collision! Start with some reading (red book / example code)
 
+- Its time to write GameTime
+
+- Need to write rotation code for physics system
+- Need to actually use the constraints vars
+- Is the byte allignment stuff in physics component correct?
+- I imagine I just want to have a collider component, the CollisionSystem iterates over all of them and calls a solver in nabi/physics
+- need to work out what im doing with computevelocity/computeangular velocity. can the compute/set funcs just be made into 1 and pass in params?
+
+- Make sure all components have a default constructor. Should SpatialHeirachyComponent and EntityInfoComponent go into one file called 'EntityComponents?'
+
 - Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
 
 Structure Stuff
