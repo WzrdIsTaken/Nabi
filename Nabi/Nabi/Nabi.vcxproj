@@ -175,6 +175,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\Src\Console.cpp" />
+    <ClCompile Include="Core\Src\GameTime.cpp" />
     <ClCompile Include="Core\Src\NabiCore.cpp" />
     <ClCompile Include="Core\Src\Window.cpp" />
     <ClCompile Include="Core\Src\WindowEventsListener.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="Core\Inc\Console.h" />
     <ClInclude Include="Core\Inc\Context.h" />
     <ClInclude Include="Core\Inc\Defines.h" />
+    <ClInclude Include="Core\Inc\GameTime.h" />
     <ClInclude Include="Core\Inc\InitSettings.h" />
     <ClInclude Include="Core\Inc\NabiCore.h" />
     <ClInclude Include="Core\Inc\NabiEventsManager.h" />

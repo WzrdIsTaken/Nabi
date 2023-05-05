@@ -443,6 +443,9 @@
     <ClCompile Include="ECS\Src\CoreSystems\PhysicsSystem.cpp">
       <Filter>ECS\Src\CoreSystems</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Src\GameTime.cpp">
+      <Filter>Core\Src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -749,6 +752,9 @@
     </ClInclude>
     <ClInclude Include="Physics\Inc\PhysicsConstants.h">
       <Filter>Physics\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Inc\GameTime.h">
+      <Filter>Core\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

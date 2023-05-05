@@ -30,4 +30,19 @@ namespace nabi::Utils::MathUtils
 	/// <param name="max">- The maximum random number that will be generated</param>
 	/// <returns>A random number</returns>
 	[[nodiscard]] int GenerateRandomNumberInRange(int const min, int const max) NABI_NOEXCEPT;
+
+	/// <summary>
+	/// Returns true if the two values are approximity equal
+	/// </summary>
+	double constexpr c_dEpsilon = 0.00001;
+	float constexpr c_fEpsilon = 0.00001f;
+
+	[[nodiscard]] inline bool Approximity(double const a, double const b, double const epsilon = c_dEpsilon) NABI_NOEXCEPT
+	{
+		return std::fabs(a - b) < epsilon;
+	}
+	[[nodiscard]] inline bool Approximity(float const a, float const b, float const epsilon = c_fEpsilon) NABI_NOEXCEPT
+	{
+		return std::fabs(a - b) < epsilon;
+	}
 } // namespace nabi::Utils::MathUtils
