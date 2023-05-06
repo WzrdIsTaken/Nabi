@@ -3,6 +3,7 @@
 #include "Examples\TestPhysics.h"
 
 #include "CoreComponents\RigidbodyComponent.h"
+#include "CoreModules\InputModule.h"
 
 #ifdef RUN_TESTS
 
@@ -12,6 +13,7 @@ namespace nabitest::Examples
 
 	TestPhysics::TestPhysics(nabi::Context& context)
 		: m_Context(context)
+		, m_PlayerEntity(entt::null)
 	{
 	}
 
@@ -20,17 +22,18 @@ namespace nabitest::Examples
 		// --- Systems ---
 
 		// Having systems as ptrs gets around init order problems
-		m_PhysicsSystem = std::make_unique<ecs::PhysicsSystem>(m_Context, "Physics"_hs, "NabiTestSystems"_hs);
-		m_RenderSystem = std::make_unique<ecs::RenderSystem>(m_Context, "Render"_hs, "NabiTestSystems"_hs);
+		m_InputSystem = std::make_unique<ecs::InputSystem>(m_Context, "Input"_hs, "NabiPhysicsTestSystems"_hs);
+		m_PhysicsSystem = std::make_unique<ecs::PhysicsSystem>(m_Context, "Physics"_hs, "NabiPhysicsTestSystems"_hs);
+		m_RenderSystem = std::make_unique<ecs::RenderSystem>(m_Context, "Render"_hs, "NabiPhysicsTestSystems"_hs);
 
 		// --- Entities ---
-		entt::entity const testEntity = m_Context.m_EntityCreator->CreateEntity();
+		m_PlayerEntity = m_Context.m_EntityCreator->CreateEntity();
 
 		// Core
 		ecs::TransformComponent transformComponent = {};
 		transformComponent.m_Position = { 0, 0, 0 }; 
 		transformComponent.m_Rotation = { 0, 0, 0 };
-		transformComponent.m_Scale = { 1.0f, 1.0f, 1.0f };
+		transformComponent.m_Scale = { 0.25f, 0.25f, 0.25f };
 
 		// Rendering
 		ecs::ModelResourceComponent modelComponent = {};
@@ -41,12 +44,12 @@ namespace nabitest::Examples
 
 		// Physics
 		ecs::RigidbodyComponent rigidbodyComponent = {};
-		rigidbodyComponent.m_GravityScale = 0.0f;
+		rigidbodyComponent.m_GravityScale = 1.0f;
 
 		// Add everything!
-		m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
-		m_Context.m_Registry.emplace<ecs::ModelResourceComponent>(testEntity, modelComponent);
-		m_Context.m_Registry.emplace<ecs::RigidbodyComponent>(testEntity, rigidbodyComponent);
+		m_Context.m_Registry.emplace<ecs::TransformComponent>(m_PlayerEntity, transformComponent);
+		m_Context.m_Registry.emplace<ecs::ModelResourceComponent>(m_PlayerEntity, modelComponent);
+		m_Context.m_Registry.emplace<ecs::RigidbodyComponent>(m_PlayerEntity, rigidbodyComponent);
 
 		// --- Assets ---
 		m_AssetBank = std::make_unique<SimpleAssetBank>(m_Context);
@@ -57,7 +60,52 @@ namespace nabitest::Examples
 
 	bool TestPhysics::Update()
 	{
-		return false;
+		using namespace ecs::InputModule;
+		using namespace nabi::Input;
+
+		ecs::RigidbodyComponent& playerEntityRigidbody = m_Context.m_Registry.get<ecs::RigidbodyComponent>(m_PlayerEntity);
+		float constexpr testEntitySpeed = 0.0001f;
+
+		InputState const resetKeyState = GetKeyboardKey(m_Context, InputCode::Key_Q);
+		InputState const wKeyState = GetKeyboardKey(m_Context, InputCode::Key_W);
+		InputState const sKeyState = GetKeyboardKey(m_Context, InputCode::Key_S);
+		InputState const aKeyState = GetKeyboardKey(m_Context, InputCode::Key_A);
+		InputState const dKeyState = GetKeyboardKey(m_Context, InputCode::Key_D);
+		
+		if (resetKeyState == InputState::Pressed)
+		{
+			ecs::TransformComponent& playerEntityTransformComponent = m_Context.m_Registry.get<ecs::TransformComponent>(m_PlayerEntity);
+			dx::XMFLOAT3 constexpr resetValues = { 0.0f, 0.0f, 0.0f };
+
+			playerEntityRigidbody.m_Velocity = resetValues;
+			playerEntityRigidbody.m_AngularVelocity = resetValues;
+
+			playerEntityTransformComponent.m_Position = resetValues;
+			playerEntityTransformComponent.m_Rotation = resetValues;
+		}
+
+		if (wKeyState == InputState::Held)
+		{
+			playerEntityRigidbody.m_Velocity.y += testEntitySpeed;
+			playerEntityRigidbody.m_AngularVelocity.y += testEntitySpeed;
+		}
+		if (sKeyState == InputState::Held)
+		{
+			playerEntityRigidbody.m_Velocity.y -= testEntitySpeed;
+			playerEntityRigidbody.m_AngularVelocity.y -= testEntitySpeed;
+		}
+		if (aKeyState == InputState::Held)
+		{
+			playerEntityRigidbody.m_Velocity.x -= testEntitySpeed;
+			playerEntityRigidbody.m_AngularVelocity.x -= testEntitySpeed;
+		}
+		if (dKeyState == InputState::Held)
+		{
+			playerEntityRigidbody.m_Velocity.x += testEntitySpeed;
+			playerEntityRigidbody.m_AngularVelocity.x += testEntitySpeed;
+		}
+
+		return true;
 	}
 
 	bool TestPhysics::Render()

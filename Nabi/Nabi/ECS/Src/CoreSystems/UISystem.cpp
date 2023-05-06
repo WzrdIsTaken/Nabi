@@ -35,7 +35,7 @@ namespace ecs
 	{
 		// I think this system has to tick in order to handle console inputs, which aren't event driven ):
 		// Unless I write an event system for that.. thats an option I guess..
-		// Plus I don't like the fact we are branching in an update loop
+		// Plus I don't like the fact we are branching like this in an update loop
 		// But again, uni project - not infinite time
 
 		UISceneComponent::UISceneEntities const* const uiEntities = UIModule::GetCurrentUISceneEntities(m_Context, UIModule::GetMode::FirstEnabled);

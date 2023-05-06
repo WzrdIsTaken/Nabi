@@ -5,6 +5,7 @@
 
 #include "AssetBank.h"
 #include "ResourceBank.h"
+#include "CoreSystems\InputSystem.h"
 #include "CoreSystems\PhysicsSystem.h"
 #include "CoreSystems\RenderSystem.h"
 #include "Buffers\RenderBuffers.h"
@@ -48,10 +49,13 @@ namespace nabitest::Examples
 
 		nabi::Context& m_Context;
 
+		std::unique_ptr<ecs::InputSystem> m_InputSystem;
 		std::unique_ptr<ecs::PhysicsSystem> m_PhysicsSystem;
 		std::unique_ptr<ecs::RenderSystem> m_RenderSystem;
 
 		std::unique_ptr<SimpleAssetBank> m_AssetBank;
+
+		entt::entity m_PlayerEntity;
 	};
 } // namespace nabitest::Examples
 
