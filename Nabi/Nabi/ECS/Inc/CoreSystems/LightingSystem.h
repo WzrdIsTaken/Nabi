@@ -24,7 +24,7 @@ namespace ecs
 		LightingSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId);
 		~LightingSystem();
 
-		void Render(/*TODO - game time?*/);
+		void Render(nabi::GameTime const& gameTime);
 
 	private:
 		void AssignLightingProperties(nabi::Rendering::PerLightChange& perLightChangeConstantBuffer, LightingProperties const& lightProperties) const;

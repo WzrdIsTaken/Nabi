@@ -17,7 +17,7 @@ namespace ecs
 		UISystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId);
 		~UISystem();
 
-		void Update(/*TODO - game time?*/);
+		void Update(nabi::GameTime const& gameTime);
 
 	private:
 		struct SelectedUIElement

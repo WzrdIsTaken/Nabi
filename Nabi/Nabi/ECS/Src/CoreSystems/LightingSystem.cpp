@@ -38,7 +38,7 @@ namespace ecs
 		MANAGE_LIGHT_LISTENERS(on_destroy, disconnect, LightingSystem::OnLightDestroyed);		
 	}
 
-	void LightingSystem::Render()
+	void LightingSystem::Render(nabi::GameTime const& /*gameTime*/)
 	{
 		// Get the graphics entity. This stores the camera, constant buffers, etc
 		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);

@@ -47,7 +47,7 @@ namespace ecs
 		UNREGISTER_WINDOWS_EVENT_SUBSCRIBER(WM_MOUSEMOVE,   InputSystem::OnMouseMove);
 	}
 
-	void InputSystem::Update()
+	void InputSystem::Update(nabi::GameTime const& /*gameTime*/)
 	{
 		UpdateKeyboard();
 		UpdateMouse();

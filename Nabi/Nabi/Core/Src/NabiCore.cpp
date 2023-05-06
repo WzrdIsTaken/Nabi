@@ -25,6 +25,7 @@ namespace nabi
 
 		// Nabi
 		, m_Context{}
+		, m_GameTime{}
 		, m_InitSettings(initSettings)
 
 		// TEST
@@ -84,6 +85,8 @@ namespace nabi
 				return errorCode.value();
 			}
 
+			m_GameTime.Tick();
+
 			Update();
 			Render();
 		}
@@ -95,7 +98,7 @@ namespace nabi
 	void NabiCore::Update() NABI_NOEXCEPT
 	{
 #ifdef USE_EVENT_SYSTEM_UPDATE
-		m_Context.m_NabiEventsManager.FireSystemUpdateEvent(/*game time*/);
+		m_Context.m_NabiEventsManager.FireSystemUpdateEvent(m_GameTime);
 #endif // ifdef USE_META_SYSTEM_UPDATE
 
 		// TEST
@@ -107,7 +110,7 @@ namespace nabi
 		m_Context.m_RenderCommand->BeginFrame();
 
 #ifdef USE_EVENT_SYSTEM_UPDATE
-		m_Context.m_NabiEventsManager.FireSystemRenderEvent(/*game time*/);
+		m_Context.m_NabiEventsManager.FireSystemRenderEvent(m_GameTime);
 #endif // ifdef USE_META_SYSTEM_UPDATE
 
 		// TEST

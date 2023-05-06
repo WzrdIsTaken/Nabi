@@ -19,7 +19,7 @@ namespace ecs
 		UNREGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(PhysicsSystem)
 	}
 
-	void PhysicsSystem::Update()
+	void PhysicsSystem::Update(nabi::GameTime const& /*gameTime*/)
 	{
 		float dt = 0.001f;
 		// I think its finally time to write a GameTime

@@ -6,6 +6,7 @@
 
 #include "Context.h"
 #include "DXObjects.h"
+#include "GameTime.h"
 #include "InitSettings.h"
 #include "WindowEventsListener.h"
 
@@ -34,8 +35,8 @@ namespace nabi
 		[[nodiscard]] inline Context& GetContext() NABI_NOEXCEPT { return m_Context; }
 
 	protected:
-		virtual void Update(/*gametime?*/) /*const?*/ NABI_NOEXCEPT;
-		virtual void Render(/*gametime?*/) /*const?*/ NABI_NOEXCEPT;
+		virtual void Update() /*const?*/ NABI_NOEXCEPT;
+		virtual void Render() /*const?*/ NABI_NOEXCEPT;
 
 		bool const InitGraphicsEntity() NABI_NOEXCEPT;
 		bool const InitDxPipeline() NABI_NOEXCEPT;
@@ -52,6 +53,7 @@ namespace nabi
 
 		// Nabi
 		Context m_Context;
+		GameTime m_GameTime;
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		std::unordered_map<std::string, entt::meta_any> m_Systems;
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE

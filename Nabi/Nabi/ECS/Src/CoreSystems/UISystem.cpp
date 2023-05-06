@@ -31,7 +31,7 @@ namespace ecs
 		m_Context.m_Registry.on_destroy<UISceneComponent>().disconnect<&UISystem::OnUISceneDestroyed>(this);
 	}
 
-	void UISystem::Update()
+	void UISystem::Update(nabi::GameTime const& /*gameTime*/)
 	{
 		// I think this system has to tick in order to handle console inputs, which aren't event driven ):
 		// Unless I write an event system for that.. thats an option I guess..

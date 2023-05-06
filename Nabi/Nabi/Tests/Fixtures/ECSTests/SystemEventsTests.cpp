@@ -9,11 +9,12 @@ namespace nabitest::ECSTests
 	{
 		// Create a mock objects
 		nabi::Context context;
+		nabi::GameTime gameTime;
 		MockSystem mockSystem(context, "id"_hs, "group"_hs);
 
 		// Fire the events
-		context.m_NabiEventsManager.FireSystemUpdateEvent();
-		context.m_NabiEventsManager.FireSystemRenderEvent();
+		context.m_NabiEventsManager.FireSystemUpdateEvent(gameTime);
+		context.m_NabiEventsManager.FireSystemRenderEvent(gameTime);
 
 		// Compair initial results
 		Comparison<int> updateCalled(1, mockSystem.GetUpdateCalledCount());
@@ -24,7 +25,7 @@ namespace nabitest::ECSTests
 
 		// Compair results when registering an event
 		mockSystem.RegisterSystemRenderEvent();
-		context.m_NabiEventsManager.FireSystemRenderEvent();
+		context.m_NabiEventsManager.FireSystemRenderEvent(gameTime);
 
 		renderCalled.m_Expected = 1;
 		renderCalled.m_Actual = mockSystem.GetRenderCalledCount();
@@ -33,7 +34,7 @@ namespace nabitest::ECSTests
 
 		// Compair results when disabling that event
 		mockSystem.DisableSystemRenderEvent();
-		context.m_NabiEventsManager.FireSystemRenderEvent();
+		context.m_NabiEventsManager.FireSystemRenderEvent(gameTime);
 
 		renderCalled.m_Expected = 1;
 		renderCalled.m_Actual = mockSystem.GetRenderCalledCount();
@@ -42,7 +43,7 @@ namespace nabitest::ECSTests
 
 		// And again when enabling it again
 		mockSystem.EnabledSystemRenderEvent();
-		context.m_NabiEventsManager.FireSystemRenderEvent();
+		context.m_NabiEventsManager.FireSystemRenderEvent(gameTime);
 
 		renderCalled.m_Expected = 2;
 		renderCalled.m_Actual = mockSystem.GetRenderCalledCount();

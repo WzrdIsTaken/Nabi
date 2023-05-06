@@ -17,7 +17,7 @@ namespace ecs
 		PhysicsSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId);
 		~PhysicsSystem();
 
-		void Update(/*TODO - game time?*/);
+		void Update(nabi::GameTime const& gameTime);
 
 	private:
 		void SetPosition(TransformComponent& transformComponent, RigidbodyComponent const& rigidbodyComponent, float const dt) const;

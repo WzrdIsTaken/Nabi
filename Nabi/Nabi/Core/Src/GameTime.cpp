@@ -52,8 +52,8 @@ namespace nabi
 
 	GameTime::Interval GameTime::GetFixedDeltaTime() const
 	{
-		// I'll write fixed delta time soon tm..
-		return m_DeltaTime; // m_FixedDeltaTime
+		FUNCTION_NOT_IMPLEMENTED
+		return m_FixedDeltaTime;
 	}
 
 	GameTime::Interval GameTime::GetStartUpTime() const

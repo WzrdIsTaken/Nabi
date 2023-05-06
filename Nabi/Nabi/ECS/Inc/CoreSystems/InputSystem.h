@@ -9,7 +9,7 @@ namespace ecs
 		InputSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId);
 		~InputSystem();
 
-		void Update(/*TODO - game time?*/);
+		void Update(nabi::GameTime const& gameTime);
 
 	private:
 		void UpdateKeyboard() const;

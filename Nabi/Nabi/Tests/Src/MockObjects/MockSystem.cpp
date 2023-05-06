@@ -24,12 +24,12 @@ namespace nabitest::ECS
 		UNREGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(MockSystem)
 	}
 
-	void MockSystem::Update(/*game time*/)
+	void MockSystem::Update(nabi::GameTime const& /*gameTime*/)
 	{
 		++m_UpdateCalledCount;
 	}
 
-	void MockSystem::Render()
+	void MockSystem::Render(nabi::GameTime const& /*gameTime*/)
 	{
 		++m_RenderCalledCount;
 	}

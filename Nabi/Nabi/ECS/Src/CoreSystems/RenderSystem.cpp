@@ -26,7 +26,7 @@ namespace ecs
 		UNREGISTER_SYSTEM_RENDER_EVENT_SUBSCRIBER(RenderSystem)
 	}
 
-	void RenderSystem::Render()
+	void RenderSystem::Render(nabi::GameTime const& /*gameTime*/)
 	{
 		// Get the graphics entity. This stores the camera, constant buffers, etc
 		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
