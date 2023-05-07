@@ -44,7 +44,7 @@ namespace nabitest::Examples
 
 		// Physics
 		ecs::RigidbodyComponent rigidbodyComponent = {};
-		rigidbodyComponent.m_GravityScale = 0.1f;
+		rigidbodyComponent.m_GravityScale = 0.0f;
 
 		// Add everything!
 		m_Context.m_Registry.emplace<ecs::TransformComponent>(m_PlayerEntity, transformComponent);
@@ -67,11 +67,15 @@ namespace nabitest::Examples
 		float constexpr testEntitySpeed = 0.1f;
 		float constexpr testEntityRotation = 5.0f;
 
-		InputState const resetKeyState = GetKeyboardKey(m_Context, InputCode::Key_Q);
+		InputState const resetKeyState = GetKeyboardKey(m_Context, InputCode::Key_Z);
+
 		InputState const wKeyState = GetKeyboardKey(m_Context, InputCode::Key_W);
 		InputState const sKeyState = GetKeyboardKey(m_Context, InputCode::Key_S);
 		InputState const aKeyState = GetKeyboardKey(m_Context, InputCode::Key_A);
 		InputState const dKeyState = GetKeyboardKey(m_Context, InputCode::Key_D);
+		InputState const qKeyState = GetKeyboardKey(m_Context, InputCode::Key_Q);
+		InputState const eKeyState = GetKeyboardKey(m_Context, InputCode::Key_E);
+
 		
 		if (resetKeyState == InputState::Pressed)
 		{
@@ -104,6 +108,16 @@ namespace nabitest::Examples
 		{
 			playerEntityRigidbody.m_Velocity.x += testEntitySpeed;
 			playerEntityRigidbody.m_AngularVelocity.y -= testEntityRotation;
+		}
+		if (qKeyState == InputState::Held)
+		{
+			playerEntityRigidbody.m_Velocity.z -= testEntitySpeed;
+			playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
+		}
+		if (eKeyState == InputState::Held)
+		{
+			playerEntityRigidbody.m_Velocity.z += testEntitySpeed;
+			playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation;
 		}
 
 		return true;

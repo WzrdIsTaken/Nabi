@@ -76,7 +76,7 @@ namespace ecs
 
 	void PhysicsSystem::ComputeAngularVelocity(RigidbodyComponent& rigidbodyComponent, float const dt) const
 	{
-		// I spent a while playing around with a more complex method of calculating angular velocity, but honestl'y there 
+		// I spent a while playing around with a more complex method of calculating angular velocity, but honestly there 
 		// wasn't much different to just doing this. I think I need to be better at maths xD
 		// I've shelved up the changes and may come back to it - but for now this is fine.
 
