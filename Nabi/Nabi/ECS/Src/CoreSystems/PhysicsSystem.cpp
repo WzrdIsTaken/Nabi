@@ -23,7 +23,7 @@ namespace ecs
 
 	void PhysicsSystem::Update(nabi::GameTime const& gameTime)
 	{
-		float const dt = static_cast<float>(gameTime.GetDeltaTime());
+		float const dt = static_cast<float>(gameTime.GetDeltaTime()); // FixedDeltaTime...
 
 		m_Context.m_Registry.view<TransformComponent, RigidbodyComponent>()
 			.each([&](auto& transformComponent, auto& rigidbodyComponent)
