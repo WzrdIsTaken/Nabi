@@ -61,7 +61,7 @@ namespace ecs::EntityModule
 				if (entityMatchesFindTerm)
 				{
 					matchingEntities.AddEntity(entity);
-					entitiesFound++;
+					++entitiesFound;
 
 					if (entitiesFound == findSettings.m_SearchCount)
 					{
