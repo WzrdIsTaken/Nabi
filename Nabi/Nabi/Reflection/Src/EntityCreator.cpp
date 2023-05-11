@@ -239,13 +239,14 @@ namespace nabi::Reflection
 		return entity;
 	}
 
-	bool EntityCreator::DestroyEntity(entt::entity const entity) NABI_NOEXCEPT
+	bool EntityCreator::DestroyEntity(entt::entity& entity) NABI_NOEXCEPT
 	{
 		bool const entityExists = m_Registry.valid(entity);
 
 		if (entityExists)
 		{
 			m_Registry.destroy(entity);
+			entity = entt::null;
 		}
 		else
 		{

@@ -131,7 +131,7 @@ namespace nabi::Reflection
 		/// </summary>
 		/// <param name="entity">- The entity to delete</param>
 		/// <returns>If the entity was successfully deleted</returns>
-		bool DestroyEntity(entt::entity const entity) NABI_NOEXCEPT;
+		bool DestroyEntity(entt::entity& entity) NABI_NOEXCEPT;
 
 		/// <summary>
 		/// Copies all of the components from one entity to another. 
