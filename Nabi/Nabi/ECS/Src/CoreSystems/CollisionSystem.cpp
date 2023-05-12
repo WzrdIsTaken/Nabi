@@ -118,7 +118,7 @@ namespace ecs
 					(
 						static unsigned long long collisionCount = 0ull;
 						++collisionCount;
-						LOG(LOG_PREP, LOG_ERROR, LOG_CATEGORY_COLLISION << "Collision! Count: " << collisionCount << ENDLINE);
+						LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Collision! Count: " << collisionCount << ENDLINE);
 					)
 					
 					NarrowPhase();
