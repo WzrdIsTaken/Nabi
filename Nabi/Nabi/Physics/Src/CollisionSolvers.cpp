@@ -54,4 +54,21 @@ namespace nabi::Physics::AABBSolvers
 		aabb.m_MinExtents = Float3Subtract(aabb.m_MinExtents, radiusVector);
 		aabb.m_MaxExtents = Float3Add(aabb.m_MaxExtents, radiusVector);
 	}
+
+	std::string AABBToString(AABB const& aabb, std::optional<std::string> const aabbName) NABI_NOEXCEPT
+	{
+		std::string const maxExtents = 
+			std::to_string(aabb.m_MaxExtents.x) + " " + 
+			std::to_string(aabb.m_MaxExtents.y) + " " + 
+			std::to_string(aabb.m_MaxExtents.z);
+
+		std::string const minExtents =
+			std::to_string(aabb.m_MinExtents.x) + " " +
+			std::to_string(aabb.m_MinExtents.y) + " " +
+			std::to_string(aabb.m_MinExtents.z);
+
+		std::string const name = aabbName.has_value() ? aabbName.value() : "";
+
+		return name + " Max: " + maxExtents + " | Min: " + minExtents;
+	}
 } // namespace nabi::Physics::AABBSolvers

@@ -32,7 +32,17 @@ namespace nabi::Physics::AABBSolvers
 
 	[[nodiscard]] inline bool Intersects(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT
 	{
+		/*
+			if (lhs.m_MaxExtents.x <= rhs.m_MinExtents.x || lhs.m_MinExtents.x >= rhs.m_MaxExtents.x) return false;
+			if (lhs.m_MaxExtents.y <= rhs.m_MinExtents.y || lhs.m_MinExtents.y >= rhs.m_MaxExtents.y) return false;
+			if (lhs.m_MaxExtents.z <= rhs.m_MinExtents.z || lhs.m_MinExtents.z >= rhs.m_MaxExtents.z) return false;
+
+			return true;
+		*/
+
 		using namespace nabi::Utils::DirectXUtils;
-		return Float3LessOrEqual(lhs.m_MinExtents, rhs.m_MaxExtents) | Float3GreaterOrEqual(lhs.m_MaxExtents, rhs.m_MinExtents);
+		return Float3LessOrEqual(lhs.m_MinExtents, rhs.m_MaxExtents) && Float3GreaterOrEqual(lhs.m_MaxExtents, rhs.m_MinExtents);
 	}
+
+	[[nodiscard]] std::string AABBToString(AABB const& aabb, std::optional<std::string> const aabbName = std::nullopt) NABI_NOEXCEPT;
 } // namespace nabi::Physics::AABBSolvers

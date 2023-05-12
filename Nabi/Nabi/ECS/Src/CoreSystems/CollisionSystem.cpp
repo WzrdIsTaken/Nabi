@@ -88,13 +88,15 @@ namespace ecs
 
 			// Iterate through each collider in front of the lhs one
 			auto rhsIt = each.begin();
-			rhsIt = std::next(rhsIt, iterationProgress); // iterationProgress - 1u? or because we are no longer using a conventional for loop this is ok?
+			rhsIt = std::next(rhsIt, iterationProgress);
 
 			for (; rhsIt != each.end(); ++rhsIt)
 			{
 				// Get the AABB rhs collider
 				auto [rhsEntity, rhsTansformComponent, rhsRigidbodyComponent, rhsColliderComponent] = *rhsIt;
 				ReassignAABBFromCollisionComponents(rhsAABB, rhsTansformComponent, rhsColliderComponent);
+				LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << 
+					AABBSolvers::AABBToString(lhsAABB, "LHS:") + " | " + AABBSolvers::AABBToString(rhsAABB, "RHS:") << ENDLINE);
 
 				// Check if the AABBs are intersecting
 				dx::XMFLOAT3 const& otherMinExtents = lhsAABB.m_MinExtents;
@@ -112,6 +114,13 @@ namespace ecs
 				bool const aabbsIntersect = AABBSolvers::Intersects(lhsAABB, rhsAABB);
 				if (aabbsIntersect)
 				{
+					ASSERT_CODE
+					(
+						static unsigned long long collisionCount = 0ull;
+						++collisionCount;
+						LOG(LOG_PREP, LOG_ERROR, LOG_CATEGORY_COLLISION << "Collision! Count: " << collisionCount << ENDLINE);
+					)
+					
 					NarrowPhase();
 				}
 			}
@@ -126,6 +135,8 @@ namespace ecs
 	{
 		int i = 0;
 		i++;
+
+		// iterationProgress - 1u? or because we are no longer using a conventional for loop this is ok?
 	}
 
 	//

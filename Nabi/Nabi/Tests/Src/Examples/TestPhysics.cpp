@@ -107,7 +107,7 @@ namespace nabitest::Examples
 			playerEntityRigidbody.m_Velocity.x += testEntitySpeed;
 			playerEntityRigidbody.m_AngularVelocity.y -= testEntityRotation;
 		}
-		if (qKeyState == InputState::Pressed)
+		if (qKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.z -= testEntitySpeed;
 			playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;

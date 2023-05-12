@@ -19,7 +19,7 @@ Current:
 - should float3 be passed by reference? partically in directx utils?
 - should the physicssystem -> rotation code not times by dt twice? [if we add drag it wont do this i think]
 
-- reflect AABB in basetypereflection
+- reflect AABB (not) in basetypereflection (see other core types, only cpp / lib types are in basetypereflection)
 
 - Make sure all components have a default constructor. Should SpatialHeirachyComponent and EntityInfoComponent go into one file called 'EntityComponents?'
 
