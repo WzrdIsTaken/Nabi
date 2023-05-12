@@ -22,34 +22,24 @@ namespace nabitest::Examples
 		// --- Systems ---
 
 		// Having systems as ptrs gets around init order problems
+		m_CollisionSystem = std::make_unique<ecs::CollisionSystem>(m_Context, "Collision"_hs, "NabiPhysicsTestSystems"_hs);
 		m_InputSystem = std::make_unique<ecs::InputSystem>(m_Context, "Input"_hs, "NabiPhysicsTestSystems"_hs);
 		m_PhysicsSystem = std::make_unique<ecs::PhysicsSystem>(m_Context, "Physics"_hs, "NabiPhysicsTestSystems"_hs);
 		m_RenderSystem = std::make_unique<ecs::RenderSystem>(m_Context, "Render"_hs, "NabiPhysicsTestSystems"_hs);
 
 		// --- Entities ---
-		m_PlayerEntity = m_Context.m_EntityCreator->CreateEntity();
 
-		// Core
-		ecs::TransformComponent transformComponent = {};
-		transformComponent.m_Position = { 0, 0, 0 }; 
-		transformComponent.m_Rotation = { 0, 0, 0 };
-		transformComponent.m_Scale = { 0.25f, 0.25f, 0.25f };
+		// Player Entity
+		CollisionEntitySettings playerSettings = {};
+		playerSettings.m_Position = { 0.0f, 0.0f, 0.0f };
+		playerSettings.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
+		m_PlayerEntity = CreateCollisionEntity(playerSettings);
 
-		// Rendering
-		ecs::ModelResourceComponent modelComponent = {};
-		modelComponent.m_MeshPath = "PrimativeCube=1x1x1";
-		modelComponent.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
-		modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShaderSkybox.cso";
-		modelComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShaderSkybox.cso";
-
-		// Physics
-		ecs::RigidbodyComponent rigidbodyComponent = {};
-		rigidbodyComponent.m_GravityScale = 0.0f;
-
-		// Add everything!
-		m_Context.m_Registry.emplace<ecs::TransformComponent>(m_PlayerEntity, transformComponent);
-		m_Context.m_Registry.emplace<ecs::ModelResourceComponent>(m_PlayerEntity, modelComponent);
-		m_Context.m_Registry.emplace<ecs::RigidbodyComponent>(m_PlayerEntity, rigidbodyComponent);
+		// - Collision Entity(s?)
+		CollisionEntitySettings collisionOneSettings = {};
+		collisionOneSettings.m_Position = { 2.0f, 0.0f, 0.0f };
+		collisionOneSettings.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
+		CreateCollisionEntity(collisionOneSettings);
 
 		// --- Assets ---
 		m_AssetBank = std::make_unique<SimpleAssetBank>(m_Context);
@@ -60,6 +50,14 @@ namespace nabitest::Examples
 
 	bool TestPhysics::Update()
 	{
+		if (m_PlayerEntity == entt::null)
+		{
+			//m_Context.m_Registry.destroy(m_PlayerEntity);
+			//m_PlayerEntity = entt::null;
+
+			return true;
+		}
+
 		using namespace ecs::InputModule;
 		using namespace nabi::Input;
 
@@ -109,7 +107,7 @@ namespace nabitest::Examples
 			playerEntityRigidbody.m_Velocity.x += testEntitySpeed;
 			playerEntityRigidbody.m_AngularVelocity.y -= testEntityRotation;
 		}
-		if (qKeyState == InputState::Held)
+		if (qKeyState == InputState::Pressed)
 		{
 			playerEntityRigidbody.m_Velocity.z -= testEntitySpeed;
 			playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
@@ -126,6 +124,42 @@ namespace nabitest::Examples
 	bool TestPhysics::Render()
 	{
 		return false;
+	}
+
+	entt::entity TestPhysics::CreateCollisionEntity(CollisionEntitySettings const& creationSettings) const
+	{
+		// Entity
+		entt::entity const entity = m_Context.m_EntityCreator->CreateEntity();
+
+		// Core
+		ecs::TransformComponent transformComponent = {};
+		transformComponent.m_Position = creationSettings.m_Position;
+		transformComponent.m_Rotation = { 0, 0, 0 };
+		transformComponent.m_Scale = { 0.25f, 0.25f, 0.25f };
+
+		// Rendering
+		ecs::ModelResourceComponent modelComponent = {};
+		modelComponent.m_MeshPath = "PrimativeCube=1x1x1";
+		modelComponent.m_TexturePath = creationSettings.m_TexturePath;
+		modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShaderSkybox.cso";
+		modelComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShaderSkybox.cso";
+
+		// Physics
+		ecs::RigidbodyComponent rigidbodyComponent = {};
+		rigidbodyComponent.m_GravityScale = 0.0f;
+
+		ecs::ColliderComponent colliderComponent = {};
+		colliderComponent.m_ColliderType = ecs::ColliderComponent::ColliderType::Cube;
+		colliderComponent.m_ColliderDimensions = { 0.25f, 0.25f, 0.25f };
+
+		// Add everything!
+		m_Context.m_Registry.emplace<ecs::TransformComponent>(entity, transformComponent);
+		m_Context.m_Registry.emplace<ecs::ModelResourceComponent>(entity, modelComponent);
+		m_Context.m_Registry.emplace<ecs::RigidbodyComponent>(entity, rigidbodyComponent);
+		m_Context.m_Registry.emplace<ecs::ColliderComponent>(entity, colliderComponent);
+
+		// Return
+		return entity;
 	}
 
 	// --- Assets ---

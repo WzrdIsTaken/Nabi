@@ -8,11 +8,12 @@ namespace ecs
 		enum class ColliderType : int
 		{
 			Sphere,
-			// others
+			Cube,
 
 			ENUM_COUNT
 		};
 
 		ColliderType m_ColliderType;
+		dx::XMFLOAT3 m_ColliderDimensions;
 	};
 } // namespace ecs

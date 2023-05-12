@@ -20,6 +20,7 @@ namespace nabi
 		{
 			Graphic,
 			Input,
+			Physics,
 			ENUM_COUNT
 		};
 

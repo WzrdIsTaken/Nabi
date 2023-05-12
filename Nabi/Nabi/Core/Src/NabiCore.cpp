@@ -4,6 +4,7 @@
 
 #include "CoreComponents\CameraComponent.h"
 #include "CoreModules\CameraModule.h"
+#include "CoreSingletonComponents\CollisionStateComponent.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"
 #include "CoreSingletonComponents\InputStateComponent.h"
 #include "CoreSingletonComponents\UIStateComponent.h"
@@ -63,6 +64,7 @@ namespace nabi
 		initializationSuccessful &= InitGraphicsEntity();
 		initializationSuccessful &= InitDxPipeline();
 		initializationSuccessful &= InitInputEntity();
+		initializationSuccessful &= InitPhysicsEntity();
 
 		// Parse xml
 		initializationSuccessful &= ParseECSData();
@@ -194,6 +196,18 @@ namespace nabi
 
 		// Add the ui storage component (can be used to store data between ui scenes / function calls (as ui scenes are just free functions + wouldn't always exist anyway))
 		m_Context.m_Registry.emplace<ecs::SComp::UIStorageComponent>(inputEntity);
+
+		return true;
+	}
+
+	bool const NabiCore::InitPhysicsEntity() NABI_NOEXCEPT
+	{
+		// Create the physics entity
+		entt::entity const physicsEntity =
+			m_Context.m_SingletonEntites.at(Context::SingletonEntities::Physics) = m_Context.m_Registry.create();
+
+		// Add the CollisionStateComponent (keeps track of colliders)
+		m_Context.m_Registry.emplace<ecs::SComp::CollisionStateComponent>(physicsEntity);
 
 		return true;
 	}

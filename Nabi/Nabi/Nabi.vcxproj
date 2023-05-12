@@ -192,6 +192,7 @@
     <ClCompile Include="ECS\Src\CoreModules\RenderModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\UIModule.cpp" />
+    <ClCompile Include="ECS\Src\CoreSystems\CollisionSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\InputSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\PhysicsSystem.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Memory\Src\Allocator.cpp" />
     <ClCompile Include="Patterns\Src\Singleton.cpp" />
+    <ClCompile Include="Physics\Src\CollisionSolvers.cpp" />
     <ClCompile Include="Reflection\Src\BaseTypeReflection.cpp" />
     <ClCompile Include="Reflection\Src\EntityCreator.cpp" />
     <ClCompile Include="Reflection\Src\EntityPropertyList.cpp" />
@@ -276,10 +278,12 @@
     <ClInclude Include="ECS\Inc\CoreModules\RenderModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\TextModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\UIModule.h" />
+    <ClInclude Include="ECS\Inc\CoreSingletonComponents\CollisionStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\InputStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\LightStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\UIStateComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreSystems\CollisionSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\InputSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\LightingSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\PhysicsSystem.h" />
@@ -296,6 +300,8 @@
     <ClInclude Include="Libraries\Inc\WICTextureLoader\WICTextureLoader.h" />
     <ClInclude Include="Memory\Inc\Allocator.h" />
     <ClInclude Include="Patterns\Inc\Singleton.h" />
+    <ClInclude Include="Physics\Inc\AABB.h" />
+    <ClInclude Include="Physics\Inc\CollisionSolvers.h" />
     <ClInclude Include="Physics\Inc\PhysicsConstants.h" />
     <ClInclude Include="Reflection\Inc\BaseTypeReflection.h" />
     <ClInclude Include="Reflection\Inc\EntityCreator.h" />

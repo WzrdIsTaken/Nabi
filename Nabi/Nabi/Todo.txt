@@ -10,12 +10,16 @@ Current:
 - Collision! Start with some reading (red book / example code)
 
 - Write collision system
+- velocity = velocity / (1 + drag * delta); ?
 
 - Is the byte allignment stuff in physics component correct?
 - I imagine I just want to have a collider component, the CollisionSystem iterates over all of them and calls a solver in nabi/physics
 - need to work out what im doing with computevelocity/computeangular velocity. can the compute/set funcs just be made into 1 and pass in params?
 
 - should float3 be passed by reference? partically in directx utils?
+- should the physicssystem -> rotation code not times by dt twice? [if we add drag it wont do this i think]
+
+- reflect AABB in basetypereflection
 
 - Make sure all components have a default constructor. Should SpatialHeirachyComponent and EntityInfoComponent go into one file called 'EntityComponents?'
 

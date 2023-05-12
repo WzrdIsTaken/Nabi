@@ -446,6 +446,12 @@
     <ClCompile Include="Core\Src\GameTime.cpp">
       <Filter>Core\Src</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\CoreSystems\CollisionSystem.cpp">
+      <Filter>ECS\Src\CoreSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Src\CollisionSolvers.cpp">
+      <Filter>Physics\Src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -755,6 +761,18 @@
     </ClInclude>
     <ClInclude Include="Core\Inc\GameTime.h">
       <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSystems\CollisionSystem.h">
+      <Filter>ECS\Inc\CoreSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Inc\CollisionSolvers.h">
+      <Filter>Physics\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSingletonComponents\CollisionStateComponent.h">
+      <Filter>ECS\Inc\CoreSingletonComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Inc\AABB.h">
+      <Filter>Physics\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

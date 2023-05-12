@@ -5,6 +5,7 @@
 
 #include "AssetBank.h"
 #include "ResourceBank.h"
+#include "CoreSystems\CollisionSystem.h"
 #include "CoreSystems\InputSystem.h"
 #include "CoreSystems\PhysicsSystem.h"
 #include "CoreSystems\RenderSystem.h"
@@ -29,7 +30,7 @@ namespace nabitest::Examples
 		bool Render() override;
 
 	private:
-		struct SimpleAssetBank : nabi::Resource::AssetBank
+		class SimpleAssetBank : nabi::Resource::AssetBank
 		{
 		public:
 			SimpleAssetBank(nabi::Context& context);
@@ -47,8 +48,17 @@ namespace nabitest::Examples
 			nabi::Resource::ResourceBank<nabi::Rendering::Texture, nabi::Rendering::TextureLoader, 20> m_TextureBank;
 		};
 
+		struct CollisionEntitySettings
+		{
+			dx::XMFLOAT3 m_Position;
+			std::string m_TexturePath;
+		};
+
+		entt::entity CreateCollisionEntity(CollisionEntitySettings const& creationSettings) const;
+
 		nabi::Context& m_Context;
 
+		std::unique_ptr<ecs::CollisionSystem> m_CollisionSystem;
 		std::unique_ptr<ecs::InputSystem> m_InputSystem;
 		std::unique_ptr<ecs::PhysicsSystem> m_PhysicsSystem;
 		std::unique_ptr<ecs::RenderSystem> m_RenderSystem;

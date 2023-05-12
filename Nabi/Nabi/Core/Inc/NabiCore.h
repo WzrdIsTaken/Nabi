@@ -41,6 +41,7 @@ namespace nabi
 		bool const InitGraphicsEntity() NABI_NOEXCEPT;
 		bool const InitDxPipeline() NABI_NOEXCEPT;
 		bool const InitInputEntity() NABI_NOEXCEPT;
+		bool const InitPhysicsEntity() NABI_NOEXCEPT;
 
 		bool const ParseECSData() NABI_NOEXCEPT; // The user defined xml ecs data
 
