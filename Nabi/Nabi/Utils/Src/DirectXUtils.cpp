@@ -25,4 +25,13 @@ namespace nabi::Utils::DirectXUtils
 
 		return matrixStr.str();
 	}
+
+	std::string Float3ToString(dx::XMFLOAT3 const& float3) NABI_NOEXCEPT
+	{
+		std::string const x = "x: " + std::to_string(float3.x);
+		std::string const y = "y: " + std::to_string(float3.y);
+		std::string const z = "z: " + std::to_string(float3.z);
+
+		return x + " " + y + " " + z;
+	}
 } // namespace nabi::Utils::DirectXUtils

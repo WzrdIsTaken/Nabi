@@ -10,9 +10,11 @@
 
 namespace nabi::Utils::DirectXUtils
 {
-	[[nodiscard]] std::string MatrixToString(dx::XMMATRIX const& matrix) NABI_NOEXCEPT;
+	// am i being dumb or do these not exist in dx?? probs the former... i will write them as i need them
 
-	// am i being dumb or do these not exist in dx?? probs the former...
+	// Debug
+	[[nodiscard]] std::string MatrixToString(dx::XMMATRIX const& matrix) NABI_NOEXCEPT;
+	[[nodiscard]] std::string Float3ToString(dx::XMFLOAT3 const& float3) NABI_NOEXCEPT;
 
 	// Comparison
 	[[nodiscard]] inline bool Float2Equal(dx::XMFLOAT2 const float2Lhs, dx::XMFLOAT2 const& float2Rhs) NABI_NOEXCEPT
