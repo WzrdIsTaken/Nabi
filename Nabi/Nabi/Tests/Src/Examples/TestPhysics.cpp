@@ -150,7 +150,7 @@ namespace nabitest::Examples
 
 		ecs::ColliderComponent colliderComponent = {};
 		colliderComponent.m_ColliderType = ecs::ColliderComponent::ColliderType::Cube;
-		colliderComponent.m_ColliderDimensions = { 0.25f, 0.25f, 0.25f };
+		colliderComponent.m_ColliderDimensions = { 0.625f, 0.625f, 0.625f };
 
 		// Add everything!
 		m_Context.m_Registry.emplace<ecs::TransformComponent>(entity, transformComponent);

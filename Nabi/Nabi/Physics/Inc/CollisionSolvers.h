@@ -7,11 +7,6 @@
 
 namespace nabi::Physics::CollisionSolvers
 {
-	
-} // namespace nabi::Physics::CollisionSolvers
-
-namespace nabi::Physics::AABBSolvers
-{
 	[[nodiscard]] AABB CreateAABBFromTopLeft(dx::XMFLOAT3 const& topLeft, dx::XMFLOAT3 const& dimensions) NABI_NOEXCEPT;
 	[[nodiscard]] AABB CreateAABBFromCenter(dx::XMFLOAT3 const& topLeft, dx::XMFLOAT3 const& dimensions) NABI_NOEXCEPT;
 	void ReassignAABBFromTopLeft(AABB& aabb, dx::XMFLOAT3 const& topLeft, dx::XMFLOAT3 const& dimensions) NABI_NOEXCEPT;
@@ -44,5 +39,9 @@ namespace nabi::Physics::AABBSolvers
 		return Float3LessOrEqual(lhs.m_MinExtents, rhs.m_MaxExtents) && Float3GreaterOrEqual(lhs.m_MaxExtents, rhs.m_MinExtents);
 	}
 
+	[[nodiscard]] dx::XMFLOAT3 CalculateCollisionNormal(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT;
+	[[nodiscard]] dx::XMFLOAT3 CalculatePenetrationDepth(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT;
+	[[nodiscard]] void CalculateSmallestPentrationDepth(dx::XMFLOAT3 const& penetrationDepth, float& penetration, dx::XMFLOAT3& normal) NABI_NOEXCEPT;
+
 	[[nodiscard]] std::string AABBToString(AABB const& aabb, std::optional<std::string> const aabbName = std::nullopt) NABI_NOEXCEPT;
-} // namespace nabi::Physics::AABBSolvers
+} // namespace nabi::Physics::CollisionSolvers

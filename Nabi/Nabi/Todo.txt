@@ -5,25 +5,31 @@ Goals:
 Current:
 
 // --- Critical Priority ---
+- Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
 
 // --- High Priority ---
 - Collision! Start with some reading (red book / example code)
 
-- Write collision system
 - velocity = velocity / (1 + drag * delta); ?
+- should the physicssystem -> rotation code not times by dt twice? [if we add drag it wont do this i think]
 
 - Is the byte allignment stuff in physics component correct?
 - I imagine I just want to have a collider component, the CollisionSystem iterates over all of them and calls a solver in nabi/physics
 - need to work out what im doing with computevelocity/computeangular velocity. can the compute/set funcs just be made into 1 and pass in params?
 
 - should float3 be passed by reference? partically in directx utils?
-- should the physicssystem -> rotation code not times by dt twice? [if we add drag it wont do this i think]
 
-- reflect AABB (not) in basetypereflection (see other core types, only cpp / lib types are in basetypereflection)
+- do we need to write a raycast func? probs. in a collision/physics module?
+
+- Need collision OnCollisionEnter and OnCollisionExit events. This will probs involve having the CollisionStateComponent holding entitiy pairs (structs) of current collisions.
+    - This can be implemented like the UI buttons, with refleted functions which are typed in data
+    - Can also implemnt physics materials like this? Perhaps in data its an enum? Otherwise a string to a function. The signature can contain eg peneration depth, the normal
+      and the rb. Then eg the function can modifiy the rb - like a bouncy material.
+- Also need collision tags. Could this be implemented as some sort of enum bitshifting? 
+
+- Comments in physics stuff
 
 - Make sure all components have a default constructor. Should SpatialHeirachyComponent and EntityInfoComponent go into one file called 'EntityComponents?'
-
-- Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -72,6 +78,8 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive:
+- reflect AABB (not) in basetypereflection (see other core types, only cpp / lib types are in basetypereflection) [not needed]
+- Write collision system
 - Need to write rotation code for physics system
 - Need to actually use the constraints vars
 - Rigidbodycomponent should reflect width as radious and height ? actually this wont work cos its a custom type. whatever trevor. just make a note of this
@@ -233,5 +241,6 @@ To Read:
 
 Remember:
 - Can't use ifdef inside __pragma
+- cool syntax: normal ? (normal->x = (normal->x < 0.0f) ? -1.0f : 1.0f) : 0;
 
 idk why this is here really but as i say, i like everything in one place :D
