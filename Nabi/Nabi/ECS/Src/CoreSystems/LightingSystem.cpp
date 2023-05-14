@@ -47,67 +47,78 @@ namespace ecs
 		// Cache the light state component
 		SComp::LightStateComponent& lightStateComponent = m_Context.m_Registry.get<SComp::LightStateComponent>(graphicEntity);
 
-		// Cache the graphics component
-		SComp::GraphicsComponent& graphicsComponent = m_Context.m_Registry.get<SComp::GraphicsComponent>(graphicEntity);
+#ifndef USE_EVENT_SYSTEM_UPDATE
+		// Check if the lights need to be updated
+		// If USE_EVENT_SYSTEM_UPDATE is defined, then ENABLE/DISABLE_SYSTEM_RENDER is used instead
+		if (lightStateComponent.m_UpdateLights)
+#endif // ifndef USE_EVENT_SYSTEM_UPDATE
+		{
+			// Cache the graphics component
+			SComp::GraphicsComponent& graphicsComponent = m_Context.m_Registry.get<SComp::GraphicsComponent>(graphicEntity);
 
-		// Get the light constant buffer
-		nabi::Rendering::ConstantBuffer const lightConstantBuffer =
-			graphicsComponent.m_ConstantBuffers.at(nabi::Rendering::ConstantBufferIndex::PerLightChange);
-		std::vector<nabi::Rendering::PerLightChange> lightConstantBufferData;
+			// Get the light constant buffer
+			nabi::Rendering::ConstantBuffer const lightConstantBuffer = 
+				graphicsComponent.m_ConstantBuffers.at(nabi::Rendering::ConstantBufferIndex::PerLightChange);
+			std::vector<nabi::Rendering::PerLightChange> lightConstantBufferData;
 
-		// Calculate how large the per light constant buffer should be
-		size_t const lightCount = static_cast<size_t>(lightStateComponent.m_LightCount);
-		lightConstantBufferData.resize(lightCount);
+			// Calculate how large the per light constant buffer should be
+			size_t const lightCount = static_cast<size_t>(lightStateComponent.m_LightCount);
+			lightConstantBufferData.resize(lightCount);
 
-		// --- Loop through all the lights ---
-		int currentLightCount = 0;
+			// --- Loop through all the lights ---
+			int currentLightCount = 0;
 
-		// Directional
-		m_Context.m_Registry.view<TransformComponent const, DirectionalLightComponent const>()
-			.each([&](auto& transformComponent, auto& directionalLightComponent)
-				{
-					nabi::Rendering::PerLightChange& light = lightConstantBufferData.at(currentLightCount);
+			// Directional
+			m_Context.m_Registry.view<TransformComponent const, DirectionalLightComponent const>()
+				.each([&](auto& transformComponent, auto& directionalLightComponent)
+					{
+						nabi::Rendering::PerLightChange& light = lightConstantBufferData.at(currentLightCount);
 
-					// Directional light
-					light.m_Position = transformComponent.m_Position;
-					light.m_Direction = directionalLightComponent.m_Direction;
-					light.m_Colour = directionalLightComponent.m_Colour;
-					light.m_Intensity = directionalLightComponent.m_Intensity;
+						// Directional light
+						light.m_Position = transformComponent.m_Position;
+						light.m_Direction = directionalLightComponent.m_Direction;
+						light.m_Colour = directionalLightComponent.m_Colour;
+						light.m_Intensity = directionalLightComponent.m_Intensity;
 
-					// Defaults (things a DirectionalLight doesn't have but are in the PerLightChange constant buffer)
-					light.m_AttenuationRadius = 1.0f;
-					light.m_SpotAngle = 1.0f;
+						// Defaults (things a DirectionalLight doesn't have but are in the PerLightChange constant buffer)
+						light.m_AttenuationRadius = 1.0f;
+						light.m_SpotAngle = 1.0f;
 
-					// Light properties
-					AssignLightingProperties(light, directionalLightComponent);
+						// Light properties
+						AssignLightingProperties(light, directionalLightComponent);
+						
+						++currentLightCount;
+					});
 
-					++currentLightCount;
-				});
+			/*
+			// Spot
+			m_Context.m_Registry.view<TransformComponent, SpotLightComponent>()
+				.each([&](auto const& transformComponent, auto const& spotLightComponent)
+					{
+						++currentLightCount;
+					});
 
-		/*
-		// Spot
-		m_Context.m_Registry.view<TransformComponent, SpotLightComponent>()
-			.each([&](auto const& transformComponent, auto const& spotLightComponent)
-				{
-					++currentLightCount;
-				});
+			// Point
+			m_Context.m_Registry.view<TransformComponent, PointLightComponent>()
+				.each([&](auto const& transformComponent, auto const& pointLightComponent)
+					{
 
-		// Point
-		m_Context.m_Registry.view<TransformComponent, PointLightComponent>()
-			.each([&](auto const& transformComponent, auto const& pointLightComponent)
-				{
+						++currentLightCount;
+					});
+			*/
 
-					++currentLightCount;
-				});
-		*/
+			ASSERT(sizeof(nabi::Rendering::PerLightChange) * lightConstantBufferData.size(),
+				"The allocated space for the light constant buffer does not match the number of lights created!");
 
-		ASSERT(sizeof(nabi::Rendering::PerLightChange) * lightConstantBufferData.size(),
-			"The allocated space for the light constant buffer does not match the number of lights created!");
+			// --- Let there be light! ---
 
-		// --- Let there be light! ---
-
-		m_Context.m_RenderCommand->UpdateConstantBuffer(lightConstantBuffer, lightConstantBufferData.data());
-		DISABLE_SYSTEM_RENDER(LightingSystem)
+			m_Context.m_RenderCommand->UpdateConstantBuffer(lightConstantBuffer, lightConstantBufferData.data());
+#ifdef USE_EVENT_SYSTEM_UPDATE
+			DISABLE_SYSTEM_RENDER(LightingSystem)
+#else
+			lightStateComponent.m_UpdateLights = false;
+#endif // ifdef USE_EVENT_SYSTEM_UPDATE
+		}
 	}
 
 	void LightingSystem::AssignLightingProperties(nabi::Rendering::PerLightChange& perLightChangeConstantBuffer, LightingProperties const& lightProperties) const
@@ -123,12 +134,21 @@ namespace ecs
 		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
 		++lightStateComponent.m_LightCount;
 
-		ENABLE_SYSTEM_RENDER(LightingSystem)
+#ifdef USE_EVENT_SYSTEM_UPDATE
+		ENABLE_SYSTEM_RENDER(LightingSystem);
+#else
+		lightStateComponent.m_UpdateLights = true;
+#endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
 	void LightingSystem::OnLightUpdated(entt::registry& /*registry*/, entt::entity /*entity*/)
 	{
-		ENABLE_SYSTEM_RENDER(LightingSystem)
+#ifdef USE_EVENT_SYSTEM_UPDATE
+		ENABLE_SYSTEM_RENDER(LightingSystem);
+#else
+		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
+		lightStateComponent.m_UpdateLights = true;
+#endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
 	void LightingSystem::OnLightDestroyed(entt::registry& /*registry*/, entt::entity /*entity*/)
@@ -136,7 +156,11 @@ namespace ecs
 		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
 		--lightStateComponent.m_LightCount;
 
-		ENABLE_SYSTEM_RENDER(LightingSystem)
+#ifdef USE_EVENT_SYSTEM_UPDATE
+		ENABLE_SYSTEM_RENDER(LightingSystem);
+#else
+		lightStateComponent.m_UpdateLights = true;
+#endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
 	SComp::LightStateComponent& LightingSystem::GetLightStateComponent() const

@@ -47,8 +47,9 @@ namespace nabitest::Examples
 	bool TestInput::Update()
 	{
 #ifndef USE_EVENT_SYSTEM_UPDATE
-		m_InputSystem->Update();
-		m_UISystem->Update();
+		nabi::GameTime gameTime = {};
+		m_InputSystem->Update(gameTime);
+		m_UISystem->Update(gameTime);
 #endif // ifndef USE_EVENT_SYSTEM_UPDATE
 
 		TestKeyboard();
