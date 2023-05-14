@@ -159,7 +159,6 @@ namespace nabi
 		// --- Create the light state component ---
 		ecs::SComp::LightStateComponent lightStateComponent;
 		lightStateComponent.m_LightCount = 0u;
-		lightStateComponent.m_UpdateLights = false;
 
 		// --- Add the graphics components to the entity ---
 		m_Context.m_Registry.emplace<ecs::CameraGroupComponent>(graphicsEntity, cameraComponent);

@@ -31,10 +31,10 @@ namespace nabitest::Examples
 			ecs::SComp::LightStateComponent& lightStateComponent = m_Context.m_Registry.get<ecs::SComp::LightStateComponent>(
 				m_Context.m_SingletonEntites.at(nabi::Context::Graphic));
 			lightStateComponent.m_LightCount = 1u;
-			lightStateComponent.m_UpdateLights = true;
 			//auto thisMakesTheLightingSystemEventFire = ecs::LightingSystem{ m_Context, "LightingId"_hs, "GroupId"_hs };
 			// So the reason this event was never firing was because the context was invalid at the point it was setup, therefore the registry was as well.
 			// This should never be a problem in the actual game, as first NabiCore's constructor will create the context and then GameCore's init will create the systems.
+			// Note the render call at the bottom of this region
 
 			// --- Create the test entity ---
 			entt::entity testEntity = m_Context.m_Registry.create();
@@ -76,6 +76,9 @@ namespace nabitest::Examples
 			// Add the light and transform component to the entity
 			m_Context.m_Registry.emplace<ecs::DirectionalLightComponent>(lightEntity, lightComponent);
 			m_Context.m_Registry.emplace<ecs::TransformComponent>(lightEntity, transformComponent);
+
+			//nabi::GameTime gameTime = {};
+			//thisMakesTheLightingSystemEventFire.Render(gameTime);
 		}
 #pragma endregion
 
