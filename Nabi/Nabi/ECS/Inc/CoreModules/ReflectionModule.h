@@ -5,8 +5,23 @@ namespace ecs::ReflectionModule
 {
 	struct Constraints
 	{
+		// Debug only checks
 		bool m_ExpectStatic;
 		bool m_ExpectConst;
+
+		// Release + debug flow
+		bool m_CanNotExist;
+	};
+
+	Constraints constexpr c_ConstraintsDefaultSettings
+	{
+		// Note that m_CanNotExist is true. Components which have the option to have reflected function data members
+		// might not always have them filled. In this case, we don't want to assert as this is the expected behaviour.
+		// Eg - The ColliderComponent/CollisionSystem
+
+		.m_ExpectStatic = false,
+		.m_ExpectConst = false,
+		.m_CanNotExist = true
 	};
 
 	template<typename... Args>
@@ -57,7 +72,12 @@ namespace ecs::ReflectionModule
 		}
 		else
 		{
-			ASSERT_FAIL("The type " << type.data() << " does not have a " << function.data() << " method!");
+			if (constraints && !constraints->m_CanNotExist) 
+			{
+				// Currently, this m_CanNotExist check is only used to prevent a debug only assert. However, the same expectation is in final 
+
+				ASSERT_FAIL("The type " << type.data() << " does not have a " << function.data() << " method!");
+			}
 		}
 
 		return result;

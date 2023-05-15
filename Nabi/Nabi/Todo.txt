@@ -30,6 +30,7 @@ Current:
 - Comments in physics stuff
 
 - Make sure all components have a default constructor. Should SpatialHeirachyComponent and EntityInfoComponent go into one file called 'EntityComponents?'
+- Make sure all operator overloads are constexpr? and all defaultSettings structs
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
