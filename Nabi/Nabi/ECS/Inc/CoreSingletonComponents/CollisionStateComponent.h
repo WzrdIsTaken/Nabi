@@ -9,6 +9,31 @@ namespace ecs::SComp
 {
 	struct CollisionStateComponent final : public nabi::ECS::ComponentBase
 	{
+		struct CollisionPair final
+		{
+			entt::entity m_LhsEntity;
+			entt::entity m_RhsEntity;
+
+			bool operator == (CollisionPair const& other) const
+			{
+				bool const sameSide     = this->m_LhsEntity == other.m_LhsEntity &&
+					                      this->m_RhsEntity == other.m_RhsEntity;
+
+				bool const oppositeSide = this->m_RhsEntity == other.m_LhsEntity &&
+					                      this->m_LhsEntity == other.m_RhsEntity;
+
+				return sameSide || oppositeSide;
+			}
+		};
+
+		struct CollisionPairComparator final
+		{
+			bool operator() (CollisionPair const& lhs, CollisionPair const& rhs) const
+			{
+				return !(lhs == rhs);
+			}
+		};
+
 		enum class MaxVariance : int
 		{
 			X = 0, 
@@ -19,5 +44,8 @@ namespace ecs::SComp
 		};
 
 		MaxVariance m_MaxVarianceAxis;
+
+		typedef std::set<CollisionPair, CollisionPairComparator> CurrentCollisions;
+		CurrentCollisions m_CurrentCollisions;
 	};
 } // namespace ecs::SComp
