@@ -18,6 +18,7 @@ namespace ecs::ReflectionModule
 		// Note that m_CanNotExist is true. Components which have the option to have reflected function data members
 		// might not always have them filled. In this case, we don't want to assert as this is the expected behaviour.
 		// Eg - The ColliderComponent/CollisionSystem
+		// If constraints is not null, then this is the expected default
 
 		.m_ExpectStatic = false,
 		.m_ExpectConst = false,
