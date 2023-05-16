@@ -24,6 +24,17 @@ namespace nabitest
 	};
 	DEFINE_ENUM_FLAG_OPERATORS(MockEnumFlags)
 
+	typedef std::uint64_t MockEnumFlagsUnderlyingType;
+	enum class MockEnumFlagsUnderlying : MockEnumFlagsUnderlyingType
+	{
+		One   = 1 << 1,
+		Two   = 1 << 2,
+		Three = 1 << 3,
+
+		All   = ~0
+	};
+	DEFINE_ENUM_FLAG_OPERATORS(MockEnumFlagsUnderlying)
+
 	namespace NamespacedMockEnum
 	{
 		enum Enum : int

@@ -24,7 +24,7 @@ namespace nabi::Reflection::EnumConverter
 			(see StringConverter::ConvertFromString (cpp)) as now the functions first arg wouldn't be a std::string? maybe... 
 			But the reflection works and I don't want to touch it right now :D I'm like 50% sure past Ben already tried it as well...
 
-			The reason why we need to use enumBitwiseOrHelper and not just or the enum directly, is because not all enums have the 
+			The reason why we need to use enumBitwiseOrHelper and not just or the enum directly is because not all enums have the 
 			bitwise operators defined. Therefore, the template wouldn't compile.
 		*/
 
@@ -78,6 +78,17 @@ namespace nabi::Reflection::EnumConverter
 			T const enumValue = stringToEnumHelper(enumName);
 			return enumValue;
 		}
+	}
+
+	template<typename T>
+	[[nodiscard]] std::underlying_type_t<T> StringToEnumUnderlyingValue(std::string const& enumName) NABI_NOEXCEPT
+	{
+		typedef std::underlying_type_t<T> EnumType;
+
+		T const enumValue = StringToEnum<T>(enumName);
+		EnumType const enumUnderlyingValue = static_cast<EnumType>(enumValue);
+
+		return enumUnderlyingValue;
 	}
 
 	// Soon tm!

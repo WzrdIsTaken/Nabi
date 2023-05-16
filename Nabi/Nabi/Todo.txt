@@ -32,7 +32,7 @@ Current:
 
 - Comments in physics stuff
 
-- Make sure all components have a default constructor. Should SpatialHeirachyComponent and EntityInfoComponent go into one file called 'EntityComponents?'
+- Make sure all components have a default constructor (inc scomps). Should SpatialHeirachyComponent and EntityInfoComponent go into one file called 'EntityComponents?'
 - Make sure all operator overloads are constexpr? and all defaultSettings structs
 
 - Im done with this Utils::Util class thign. Gotta fix that i recon . Just nabi::StringUtils , for example

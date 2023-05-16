@@ -4,6 +4,7 @@
 
 // --- Standard Lib ---
 #include <bitset>
+#include <cstdint>
 #include <stack>
 #include <string>
 
