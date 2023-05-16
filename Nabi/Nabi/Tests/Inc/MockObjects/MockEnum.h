@@ -14,6 +14,16 @@ namespace nabitest
 		ENUM_COUNT
 	};
 
+	enum class MockEnumFlags
+	{
+		One   = 1 << 1,
+		Two   = 1 << 2,
+		Three = 1 << 3,
+
+		All   = ~0
+	};
+	DEFINE_ENUM_FLAG_OPERATORS(MockEnumFlags)
+
 	namespace NamespacedMockEnum
 	{
 		enum Enum : int

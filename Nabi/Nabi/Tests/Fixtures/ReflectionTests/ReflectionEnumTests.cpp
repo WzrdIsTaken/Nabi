@@ -4,11 +4,11 @@
 
 namespace nabitest::ReflectionTests
 {
+	// Enum -> String functionality is currently not needed, I will implement if it becomes needed!
+
 	// Check enums work as expected
 	TEST(ReflectionTests, ParseEnum)
 	{
-		// Enum -> String functionality is currently not needed, I will implement if it becomes needed!
-
 		//Comparison<std::string> nameComparison("Ben");
 		Comparison<MockEnum> valueComparison(MockEnum::Kyra);
 
@@ -17,6 +17,17 @@ namespace nabitest::ReflectionTests
 
 		//COMPAIR_EQ(nameComparison);
 		COMPAIR_EQ(valueComparison);
+	}
+
+	// Check enum flags work as expected
+	TEST(ReflectionTests, ParseEnumFlags)
+	{
+		MockEnumFlags const mockFlags = nabi::Reflection::EnumConverter::StringToEnum<MockEnumFlags>("One|Two");
+		MockEnumFlags const mockAll   = nabi::Reflection::EnumConverter::StringToEnum<MockEnumFlags>("All"    );
+
+		EXPECT_TRUE (static_cast<bool> (mockFlags & MockEnumFlags::One  ));
+		EXPECT_TRUE (static_cast<bool> (mockAll   & MockEnumFlags::Two  ));
+		EXPECT_FALSE(static_cast<bool> (mockFlags & MockEnumFlags::Three));
 	}
 } // namespace nabitest::ReflectionTests
 

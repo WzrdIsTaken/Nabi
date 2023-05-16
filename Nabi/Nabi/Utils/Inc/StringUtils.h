@@ -35,6 +35,12 @@ namespace nabi::Utils::StringUtils
 	// Splits a string via a delimiter. Fatal assert if expectedValues is not equal to the resultant split
 	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, SplitSettings const& splitSettings) NABI_NOEXCEPT;
 
+	// Constructs a string from a string view
+	[[nodiscard]] inline std::string StringFromStringView(std::string_view const string_view) NABI_NOEXCEPT
+	{
+		return std::string(string_view.data(), string_view.length());
+	}
+
 	// Trims a string
     static inline char const* const c_WhiteSpace = " \t\n\r\f\v";
 
