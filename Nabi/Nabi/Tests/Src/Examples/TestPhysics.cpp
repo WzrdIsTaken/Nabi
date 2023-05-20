@@ -33,12 +33,14 @@ namespace nabitest::Examples
 		CollisionEntitySettings playerSettings = {};
 		playerSettings.m_Position = { 0.0f, 0.0f, 0.0f };
 		playerSettings.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
+		playerSettings.m_CollisionMask = 1 << 1;
 		m_PlayerEntity = CreateCollisionEntity(playerSettings);
 
 		// - Collision Entity(s?)
 		CollisionEntitySettings collisionOneSettings = {};
 		collisionOneSettings.m_Position = { 2.0f, 0.0f, 0.0f };
 		collisionOneSettings.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
+		collisionOneSettings.m_CollisionMask = 1 << 1;
 		CreateCollisionEntity(collisionOneSettings);
 
 		// --- Assets ---
@@ -151,6 +153,7 @@ namespace nabitest::Examples
 		ecs::ColliderComponent colliderComponent = {};
 		colliderComponent.m_ColliderType = ecs::ColliderComponent::ColliderType::Cube;
 		colliderComponent.m_ColliderDimensions = { 0.625f, 0.625f, 0.625f };
+		colliderComponent.m_Mask = creationSettings.m_CollisionMask;
 
 		// Add everything!
 		m_Context.m_Registry.emplace<ecs::TransformComponent>(entity, transformComponent);

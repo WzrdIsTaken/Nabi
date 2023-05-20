@@ -26,11 +26,12 @@ namespace ecs::SComp
 			}
 		};
 
-		struct CollisionPairComparator final
+		class CollisionPairComparator final
 		{
-			bool operator() (CollisionPair const& lhs, CollisionPair const& rhs) const
+		public:
+			bool operator () (CollisionPair const& lhs, CollisionPair const& rhs) const
 			{
-				return !(lhs == rhs);
+				return lhs != rhs;
 			}
 		};
 
@@ -49,3 +50,4 @@ namespace ecs::SComp
 		CurrentCollisions m_CurrentCollisions;
 	};
 } // namespace ecs::SComp
+
