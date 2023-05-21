@@ -3,7 +3,7 @@
 
 namespace nabi
 {
-	class GameTime
+	class GameTime final
 	{
 	public:
 		typedef std::chrono::steady_clock Clock;
