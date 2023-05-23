@@ -40,7 +40,20 @@ namespace nabi
 		)
 
 		// Fixed delta time
-		// soontm? something to do with an accumulator...
+		m_FixedDeltaTimeAccumulator += m_DeltaTime;
+		if (m_FixedDeltaTimeAccumulator >= c_FixedTimeStep)
+		{
+			m_FixedDeltaTime = c_FixedTimeStep;
+			m_FixedDeltaTimeAccumulator -= c_FixedTimeStep;
+		}
+		else
+		{
+			// Really, the simulation should only run if m_FixedDeltaTimeAccumulator >= c_FixedTimeStep
+			// rather than doing this jankness. This wouldn't actually be very hard - just add a FixedUpdate event
+
+			Interval constexpr smallestPositiveValue = std::numeric_limits<Interval>::epsilon();
+			m_FixedDeltaTime = smallestPositiveValue;
+		}
 
 		m_PreviousTime = m_CurrentTime;
 	}
@@ -52,7 +65,6 @@ namespace nabi
 
 	GameTime::Interval GameTime::GetFixedDeltaTime() const
 	{
-		FUNCTION_NOT_IMPLEMENTED
 		return m_FixedDeltaTime;
 	}
 

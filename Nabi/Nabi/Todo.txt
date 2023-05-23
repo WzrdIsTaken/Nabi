@@ -8,10 +8,7 @@ Current:
 - Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
 
 // --- High Priority ---
-- Collision! Start with some reading (red book / example code)
-
-- velocity = velocity / (1 + drag * delta); ?
-- should the physicssystem -> rotation code not times by dt twice? [if we add drag it wont do this i think]
+- See notebook: Raycast, collision/physics tests, then these many todos... come on! lets go dude~
 
 - Is the byte allignment stuff in physics component correct?
 - I imagine I just want to have a collider component, the CollisionSystem iterates over all of them and calls a solver in nabi/physics
@@ -29,6 +26,7 @@ Current:
       and the rb. Then eg the function can modifiy the rb - like a bouncy material.
 
 - Also need collision tags. Could this be implemented as some sort of enum bitshifting? 
+    - Yes, I think I've done it - just need to test write like one like in CollisionSystem and test it
 
 - Comments in physics stuff
 
@@ -36,6 +34,9 @@ Current:
 - Make sure all operator overloads are constexpr? and all defaultSettings structs
 
 - Im done with this Utils::Util class thign. Gotta fix that i recon . Just nabi::StringUtils , for example
+- also should probs refactor entity creator, entity property list and entity group out of reflection and into ECS
+
+- Should the operator functions (eg operator()/++) not have a space? current: 'operator ()', new(?) 'operator()'
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -84,6 +85,9 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive:
+- Collision! Start with some reading (red book / example code)
+- velocity = velocity / (1 + drag * delta); ?
+- should the physicssystem -> rotation code not times by dt twice? [if we add drag it wont do this i think]
 - reflect AABB (not) in basetypereflection (see other core types, only cpp / lib types are in basetypereflection) [not needed]
 - Write collision system
 - Need to write rotation code for physics system

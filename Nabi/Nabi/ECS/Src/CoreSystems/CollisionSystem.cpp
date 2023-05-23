@@ -2,13 +2,17 @@
 
 #include "CoreSystems\CollisionSystem.h"
 
+#include "Collision.h"
 #include "CollisionSolvers.h"
 #include "CoreComponents\ColliderComponent.h"
 #include "CoreComponents\RigidbodyComponent.h"
 #include "CoreComponents\TransformComponent.h"
-#include "DebugUtils.h"
+#include "CoreModules\ReflectionModule.h"
 #include "DirectXUtils.h"
-#include "TypeUtils.h"
+#include "ECSUtils.h"
+
+// For some games, narrow phase collision resolution might not be needed - just collision detection
+#define ENABLE_NARROW_PHASE 
 
 namespace ecs
 {
@@ -25,14 +29,13 @@ namespace ecs
 
 	void CollisionSystem::Update(nabi::GameTime const& gameTime)
 	{
-		float const dt = static_cast<float>(gameTime.GetDeltaTime()); // FixedDeltaTime...
-
-		BroadPhase(/*dt? to pass to NarrowPhase()*/);
+		float const dt = static_cast<float>(gameTime.GetFixedDeltaTime());
+		BroadPhase(dt);
 	}
 
 	// 
 
-	void CollisionSystem::BroadPhase() const
+	void CollisionSystem::BroadPhase(float const dt) const
 	{
 		// Sweep and prune collision detection
 
@@ -49,7 +52,7 @@ namespace ecs
 		AABB rhsAABB = {};
 
 		// Sort the view by the AABB's transforms along the comparison axis
-		auto view = m_Context.m_Registry.view<TransformComponent, RigidbodyComponent const, ColliderComponent const>();
+		auto view = m_Context.m_Registry.view<TransformComponent, RigidbodyComponent, ColliderComponent const>();
 		view.storage<TransformComponent const>().sort(
 			[&](entt::entity const lhs, entt::entity const rhs)
 			{
@@ -82,7 +85,7 @@ namespace ecs
 			auto [lhsEntity, lhsTransformComponent, lhsRigidbodyComponent, lhsColliderComponent] = *lhsIt;
 			ReassignAABBFromCollisionComponents(lhsAABB, lhsTransformComponent, lhsColliderComponent);
 
-			dx::XMFLOAT3 const center = AABBSolvers::GetCenter(lhsAABB);
+			dx::XMFLOAT3 const center = CollisionSolvers::GetCenter(lhsAABB);
 			centerSum = DirectXUtils::Float3Add(centerSum, center);
 			centerSumSquared = DirectXUtils::Float3Add(centerSumSquared, DirectXUtils::Float3Square(center));
 
@@ -92,36 +95,65 @@ namespace ecs
 
 			for (; rhsIt != each.end(); ++rhsIt)
 			{
-				// Get the AABB rhs collider
-				auto [rhsEntity, rhsTansformComponent, rhsRigidbodyComponent, rhsColliderComponent] = *rhsIt;
-				ReassignAABBFromCollisionComponents(rhsAABB, rhsTansformComponent, rhsColliderComponent);
-				LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << 
-					AABBSolvers::AABBToString(lhsAABB, "LHS:") + " | " + AABBSolvers::AABBToString(rhsAABB, "RHS:") << ENDLINE);
+				// Check if the two colliders have a valid mask to check collisions
+				auto [rhsEntity, rhsTransformComponent, rhsRigidbodyComponent, rhsColliderComponent] = *rhsIt;
+				bool const validMask = static_cast<bool>(lhsColliderComponent.m_Mask & rhsColliderComponent.m_Mask);
 
-				// Check if the AABBs are intersecting
-				dx::XMFLOAT3 const& otherMinExtents = lhsAABB.m_MinExtents;
-				dx::XMFLOAT3 const& thisMaxExtents = rhsAABB.m_MaxExtents;
-				float const otherMinExtent = GetVarianceValue(otherMinExtents, comparisonAxis);
-				float const thisMaxExtent = GetVarianceValue(thisMaxExtents, comparisonAxis);
-
-				bool const otherExtentBeyondThisExtent = otherMinExtent > thisMaxExtent;
-				if (otherExtentBeyondThisExtent)
+				if (validMask)
 				{
-					// No more collisions are possible with this AABB
-					break;
-				}
+					// Get the AABB rhs collider
+					ReassignAABBFromCollisionComponents(rhsAABB, rhsTransformComponent, rhsColliderComponent);
+					LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION <<
+						CollisionSolvers::AABBToString(lhsAABB, "LHS:") + " | " + CollisionSolvers::AABBToString(rhsAABB, "RHS:") << ENDLINE);
 
-				bool const aabbsIntersect = AABBSolvers::Intersects(lhsAABB, rhsAABB);
-				if (aabbsIntersect)
-				{
-					ASSERT_CODE
-					(
-						static unsigned long long collisionCount = 0ull;
-						++collisionCount;
-						LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Collision! Count: " << collisionCount << ENDLINE);
-					)
-					
-					NarrowPhase();
+					// Check if the AABBs are intersecting
+					dx::XMFLOAT3 const& otherMinExtents = lhsAABB.m_MinExtents;
+					dx::XMFLOAT3 const& thisMaxExtents = rhsAABB.m_MaxExtents;
+					float const otherMinExtent = GetVarianceValue(otherMinExtents, comparisonAxis);
+					float const thisMaxExtent = GetVarianceValue(thisMaxExtents, comparisonAxis);
+
+					bool const otherExtentBeyondThisExtent = otherMinExtent > thisMaxExtent;
+					if (otherExtentBeyondThisExtent)
+					{
+						// No more collisions are possible with this AABB
+						break;
+					}
+
+					bool const aabbsIntersect = CollisionSolvers::Intersects(lhsAABB, rhsAABB);
+					CollisionState collisionState = CollisionState::NotColliding;
+
+					if (aabbsIntersect)
+					{
+						ASSERT_CODE
+						(
+							static uint64_t collisionCount = 0ull;
+							++collisionCount;
+							LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Broad Phase - Collision! Count: " << collisionCount << ENDLINE);
+						)
+
+#ifdef ENABLE_NARROW_PHASE
+						// Proceed to narrow phase collision
+						NarrowPhaseData lhsNarrowPhaseData = {
+							lhsAABB, lhsColliderComponent, lhsRigidbodyComponent, lhsTransformComponent
+						};
+						NarrowPhaseData rhsNarrowPhaseData = {
+							rhsAABB, rhsColliderComponent, rhsRigidbodyComponent, rhsTransformComponent
+						};
+						NarrowPhase(dt, lhsNarrowPhaseData, rhsNarrowPhaseData);
+#endif // ifdef ENABLE_NARROW_PHASE
+
+						// Set the collision state to colliding, used below for firing collision events
+						collisionState = CollisionState::Colliding;
+					}
+
+					// Fire collision events
+					CollisionEventData const lhsCollisionEventData = {
+						lhsColliderComponent, lhsEntity
+					};
+					CollisionEventData rhsCollisionEventData = {
+						rhsColliderComponent, rhsEntity
+					};
+					FireCollisionEvents(collisionState, lhsCollisionEventData, rhsCollisionEventData);
 				}
 			}
 
@@ -131,12 +163,97 @@ namespace ecs
 		CalculateNextMaxVariance(iterationProgress, centerSum, centerSumSquared);
 	}
 
-	void CollisionSystem::NarrowPhase() const
+	void CollisionSystem::NarrowPhase(float const dt, NarrowPhaseData& lhsData, NarrowPhaseData& rhsData) const
 	{
-		int i = 0;
-		i++;
+		using namespace nabi::Physics;
 
-		// iterationProgress - 1u? or because we are no longer using a conventional for loop this is ok?
+		auto narrowPhaseHelper =
+			[](AABB const& lhsAABB, AABB const& rhsAABB) -> Collision
+			{
+				Collision collision = {};
+				collision.m_Normal = CollisionSolvers::CalculateCollisionNormal(lhsAABB, rhsAABB);
+				
+				dx::XMFLOAT3 const depth = CollisionSolvers::CalculatePenetrationDepth(lhsAABB, rhsAABB);
+				collision.m_Depth = CollisionSolvers::CalculateSmallestPentrationDepth(depth);
+
+				return collision;
+			};
+
+		if (lhsData.m_Collider.m_InteractionType == ColliderComponent::InteractionType::Dynamic)
+		{
+			Collision collision = narrowPhaseHelper(rhsData.m_AABB, lhsData.m_AABB);
+			ResolveCollision(dt, collision, lhsData);
+		}
+		if (rhsData.m_Collider.m_InteractionType == ColliderComponent::InteractionType::Dynamic)
+		{
+			Collision collision = narrowPhaseHelper(lhsData.m_AABB, rhsData.m_AABB);
+			ResolveCollision(dt, collision, rhsData);
+		}
+	}
+
+	void CollisionSystem::FireCollisionEvents(CollisionState const collisionState, CollisionEventData const& lhsData, CollisionEventData const& rhsData) const
+	{
+		ASSERT_CODE(using namespace nabi::Utils::ECSUtils;)
+
+		auto fireCollisionEventsHelper =
+			[&](entt::hashed_string const& actionType, entt::hashed_string const& actionName, entt::entity const& lhsEntity, entt::entity const& rhsEntity) -> void
+			{
+				ReflectionModule::Constraints constexpr constraints = ReflectionModule::c_ConstraintsDefaultSettings;
+				ReflectionModule::CallReflectedFunction(m_Context, actionType, actionName, &constraints, entt::forward_as_meta(m_Context), lhsEntity, rhsEntity);
+			};
+
+		SComp::CollisionStateComponent::CurrentCollisions& currentCollisions = GetCollisionStateComponent().m_CurrentCollisions;
+		SComp::CollisionStateComponent::CollisionPair const collisionPair =
+		{
+			lhsData.m_Entity,
+			rhsData.m_Entity,
+		};
+
+		ColliderComponent const& lhsCollider = lhsData.m_Collider;
+		ColliderComponent const& rhsCollider = rhsData.m_Collider;
+		
+		auto it = std::find(currentCollisions.begin(), currentCollisions.end(), collisionPair);
+		bool const presentInCurrentCollisions = it != currentCollisions.end();
+
+		if (collisionState == CollisionState::Colliding         && !presentInCurrentCollisions)
+		{
+			LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Collision Enter: " <<
+				GetEntityUUIDAsString(lhsData.m_Entity) << "-" << GetEntityUUIDAsString(rhsData.m_Entity) << ENDLINE);
+
+			currentCollisions.emplace_back(collisionPair);
+
+			fireCollisionEventsHelper(lhsCollider.m_OnCollisionExitType, lhsCollider.m_OnCollisionEnterAction, lhsData.m_Entity, rhsData.m_Entity);
+			fireCollisionEventsHelper(rhsCollider.m_OnCollisionExitType, rhsCollider.m_OnCollisionEnterAction, rhsData.m_Entity, lhsData.m_Entity);
+		}
+		else if (collisionState == CollisionState::NotColliding && presentInCurrentCollisions)
+		{
+			LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Collision Exit: " <<
+				GetEntityUUIDAsString(lhsData.m_Entity) << "-" << GetEntityUUIDAsString(rhsData.m_Entity) << ENDLINE);
+
+			currentCollisions.erase(it); // this isn't using a std::remove itr, but is fine here i think? https://stackoverflow.com/a/24011727
+
+			fireCollisionEventsHelper(lhsCollider.m_OnCollisionExitType, lhsCollider.m_OnCollisionExitAction, lhsData.m_Entity, rhsData.m_Entity);
+			fireCollisionEventsHelper(rhsCollider.m_OnCollisionExitType, rhsCollider.m_OnCollisionExitAction, rhsData.m_Entity, lhsData.m_Entity);
+		}
+	}
+
+	void CollisionSystem::ResolveCollision(float const dt, nabi::Physics::Collision const& collision, NarrowPhaseData& data) const
+	{
+		using namespace nabi::Utils;
+
+		dx::XMFLOAT3 const resultant = DirectXUtils::Float3Multiply(collision.m_Normal, collision.m_Depth);
+		float const ms = 1.0f / dt;
+		LOG(LOG_PREP, LOG_TRACE, "Narrow Phase - Normal: " << DirectXUtils::Float3ToString(collision.m_Normal) <<
+			" | Depth: " << collision.m_Depth << " | Normal * Depth = " << DirectXUtils::Float3ToString(resultant) << ENDLINE);
+
+		// Transform adjustment
+		TransformComponent& transform = data.m_TransformComponent;
+		transform.m_Position = DirectXUtils::Float3Add(transform.m_Position, resultant);
+
+		// Rigidbody adjustment 
+		RigidbodyComponent& rigidbody = data.m_RigidbodyComponent;
+		dx::XMFLOAT3 const velocityChange = DirectXUtils::Float3Multiply(resultant, ms);
+		rigidbody.m_Velocity = DirectXUtils::Float3Add(rigidbody.m_Velocity, velocityChange);
 	}
 
 	//
@@ -183,19 +300,53 @@ namespace ecs
 		GetCollisionStateComponent().m_MaxVarianceAxis = maxVarianceAxis;
 	}
 
-	void CollisionSystem::ReassignAABBFromCollisionComponents(nabi::Physics::AABB& aabb, TransformComponent const& transformComponent, ColliderComponent const& colliderComponent) const
+	void CollisionSystem::ReassignAABBFromCollisionComponents(nabi::Physics::AABB& aabb, 
+		TransformComponent const& transformComponent, ColliderComponent const& colliderComponent) const
 	{
 		dx::XMFLOAT3 const& center = transformComponent.m_Position;
 		dx::XMFLOAT3 const& dimensions = colliderComponent.m_ColliderDimensions;
 
-		nabi::Physics::AABBSolvers::ReassignAABBFromCenter(aabb, center, dimensions);
+		using namespace nabi::Physics;
+		CollisionSolvers::ReassignAABBFromCenter(aabb, center, dimensions);
+
+		switch (colliderComponent.m_ColliderType)
+		{
+			case ColliderComponent::ColliderType::Cube:
+				// No special case 
+				break;
+			case ColliderComponent::ColliderType::Sphere:
+			{
+				ASSERT(dimensions.x == dimensions.y && dimensions.y == dimensions.z,
+					"For a sphere collider, expecting x/y/z dimensions to be equal");
+
+				float const radius = dimensions.x / 2.0f;
+				CollisionSolvers::MakeAABBIntoSphere(aabb, radius);
+				break;
+			}
+			default:
+				ASSERT_FAIL("Using an unexpected ColliderComponent::ColliderType");
+				break;
+		}
 	}
 
 	// 
 
 	SComp::CollisionStateComponent& CollisionSystem::GetCollisionStateComponent() const
 	{
-		entt::entity physicsEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Physics);
+		entt::entity const physicsEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Physics);
 		return m_Context.m_Registry.get<SComp::CollisionStateComponent>(physicsEntity);
 	}
 } // namespace ecs
+
+/*
+* Could be useful in the future? 
+* I used this in NarrowPhase() before the refactor
+ASSERT_CODE
+(
+
+	using namespace nabi::Utils::DirectXUtils;
+	LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Narrow Phase - LHS Collision Normal: " << Float3ToString(lhsCollision.m_Normal)
+		<< " | Depth: " << Float3ToString(lhsCollisionDepth) <<    " - RHS Collision Normal: " << Float3ToString(rhsCollision.m_Normal)
+		<< " | Depth: " << Float3ToString(rhsCollisionDepth) << ENDLINE);
+)
+*/

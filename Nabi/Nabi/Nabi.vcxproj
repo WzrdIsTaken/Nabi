@@ -301,6 +301,7 @@
     <ClInclude Include="Memory\Inc\Allocator.h" />
     <ClInclude Include="Patterns\Inc\Singleton.h" />
     <ClInclude Include="Physics\Inc\AABB.h" />
+    <ClInclude Include="Physics\Inc\Collision.h" />
     <ClInclude Include="Physics\Inc\CollisionSolvers.h" />
     <ClInclude Include="Physics\Inc\PhysicsConstants.h" />
     <ClInclude Include="Reflection\Inc\BaseTypeReflection.h" />

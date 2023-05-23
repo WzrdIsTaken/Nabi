@@ -108,6 +108,9 @@ namespace nabi::Utils::DirectXUtils
 	[[nodiscard]] inline constexpr dx::XMFLOAT3 Float3Square(dx::XMFLOAT3 const float3) NABI_NOEXCEPT
 	{ return dx::XMFLOAT3(float3.x * float3.x, float3.y * float3.y, float3.z * float3.z); }
 
+	// Vector
+	[[nodiscard]] dx::XMFLOAT3 Float3Normalize(dx::XMFLOAT3 const& float3) NABI_NOEXCEPT;
+
 	// Constants
 	dx::XMINT2 constexpr c_Int2Zero = { 0, 0 };
 	dx::XMINT3 constexpr c_Int3Zero = { 0, 0, 0 };

@@ -18,19 +18,22 @@ namespace ecs
 		dx::XMFLOAT3 m_Velocity;
 		dx::XMFLOAT3 m_AngularVelocity;
 
+		float m_Drag;
+		float m_AngularDrag;
+
 		float m_Mass;
 		float m_GravityScale;
 
 		Constraints m_PositionConstraints;
 		Constraints m_RotationConstraints;
 
-		//float m_Drag;?
-		//float m_AngularDrag;?
 		//bool m_IsKinematic;?
 
 		RigidbodyComponent()
 			: m_Velocity{0.0f, 0.0f, 0.0f}
 			, m_AngularVelocity{0.0f, 0.0f, 0.0f}
+			, m_Drag(1.0f)
+			, m_AngularDrag(1.0f)
 			, m_Mass(1.0f)
 			, m_GravityScale(1.0f)
 			, m_PositionConstraints{false, false, false}

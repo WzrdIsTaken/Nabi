@@ -53,6 +53,10 @@ namespace nabitest::Examples
 			dx::XMFLOAT3 m_Position;
 			std::string m_TexturePath;
 			size_t m_CollisionMask;
+			ecs::ColliderComponent::ColliderType m_ColliderType;
+			ecs::ColliderComponent::InteractionType m_CollderInteractionType;
+			dx::XMFLOAT3 m_ColliderSize;
+			float m_GravityScale;
 		};
 
 		entt::entity CreateCollisionEntity(CollisionEntitySettings const& creationSettings) const;

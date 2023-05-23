@@ -34,14 +34,27 @@ namespace nabitest::Examples
 		playerSettings.m_Position = { 0.0f, 0.0f, 0.0f };
 		playerSettings.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
 		playerSettings.m_CollisionMask = 1 << 1;
+		playerSettings.m_ColliderType = ecs::ColliderComponent::ColliderType::Sphere;
+		playerSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Dynamic;
+		playerSettings.m_ColliderSize = { 0.3f, 0.3f, 0.3f };
+		playerSettings.m_GravityScale = 0.0f; // 1.0f
 		m_PlayerEntity = CreateCollisionEntity(playerSettings);
 
-		// - Collision Entity(s?)
-		CollisionEntitySettings collisionOneSettings = {};
-		collisionOneSettings.m_Position = { 2.0f, 0.0f, 0.0f };
-		collisionOneSettings.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
-		collisionOneSettings.m_CollisionMask = 1 << 1;
-		CreateCollisionEntity(collisionOneSettings);
+		// - Collision Entities
+		CollisionEntitySettings dynamicColliderSettings = {};
+		dynamicColliderSettings.m_Position = { 1.0f, 0.0f, 0.0f }; // 0.0f, -1.0f, 0.0f
+		dynamicColliderSettings.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
+		dynamicColliderSettings.m_CollisionMask = 1 << 1;
+		dynamicColliderSettings.m_ColliderType = ecs::ColliderComponent::ColliderType::Cube;
+		dynamicColliderSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Dynamic; // Static
+		dynamicColliderSettings.m_ColliderSize = { 0.625f, 0.625f, 0.625f }; // 10.0f, 0.625f, 0.625f
+		dynamicColliderSettings.m_GravityScale = 0.0f;
+		CreateCollisionEntity(dynamicColliderSettings);
+
+		CollisionEntitySettings staticColliderSettings = dynamicColliderSettings;
+		staticColliderSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Static;
+		staticColliderSettings.m_Position = { -1.0f, 0.0f, 0.0f };
+		CreateCollisionEntity(staticColliderSettings);
 
 		// --- Assets ---
 		m_AssetBank = std::make_unique<SimpleAssetBank>(m_Context);
@@ -65,7 +78,8 @@ namespace nabitest::Examples
 
 		ecs::RigidbodyComponent& playerEntityRigidbody = m_Context.m_Registry.get<ecs::RigidbodyComponent>(m_PlayerEntity);
 		float constexpr testEntitySpeed = 0.1f;
-		float constexpr testEntityRotation = 5.0f;
+		float constexpr testEntityRotation = 0.1f;
+		bool constexpr adjustRotation = false;
 
 		InputState const resetKeyState = GetKeyboardKey(m_Context, InputCode::Key_Z);
 
@@ -75,7 +89,6 @@ namespace nabitest::Examples
 		InputState const dKeyState = GetKeyboardKey(m_Context, InputCode::Key_D);
 		InputState const qKeyState = GetKeyboardKey(m_Context, InputCode::Key_Q);
 		InputState const eKeyState = GetKeyboardKey(m_Context, InputCode::Key_E);
-
 		
 		if (resetKeyState == InputState::Pressed)
 		{
@@ -92,32 +105,32 @@ namespace nabitest::Examples
 		if (wKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.y += testEntitySpeed;
-			playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation;
+			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation; 
 		}
 		if (sKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.y -= testEntitySpeed;
-			playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
+			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
 		}
 		if (aKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.x -= testEntitySpeed;
-			playerEntityRigidbody.m_AngularVelocity.y += testEntityRotation;
+			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.y += testEntityRotation;
 		}
 		if (dKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.x += testEntitySpeed;
-			playerEntityRigidbody.m_AngularVelocity.y -= testEntityRotation;
+			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.y -= testEntityRotation;
 		}
 		if (qKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.z -= testEntitySpeed;
-			playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
+			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
 		}
 		if (eKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.z += testEntitySpeed;
-			playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation;
+			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation;
 		}
 
 		return true;
@@ -148,12 +161,14 @@ namespace nabitest::Examples
 
 		// Physics
 		ecs::RigidbodyComponent rigidbodyComponent = {};
-		rigidbodyComponent.m_GravityScale = 0.0f;
+		rigidbodyComponent.m_Drag = 1.0f;
+		rigidbodyComponent.m_GravityScale = creationSettings.m_GravityScale;
 
 		ecs::ColliderComponent colliderComponent = {};
-		colliderComponent.m_ColliderType = ecs::ColliderComponent::ColliderType::Cube;
-		colliderComponent.m_ColliderDimensions = { 0.625f, 0.625f, 0.625f };
+		colliderComponent.m_ColliderType = creationSettings.m_ColliderType;
+		colliderComponent.m_ColliderDimensions = creationSettings.m_ColliderSize;
 		colliderComponent.m_Mask = creationSettings.m_CollisionMask;
+		colliderComponent.m_InteractionType = creationSettings.m_CollderInteractionType;
 
 		// Add everything!
 		m_Context.m_Registry.emplace<ecs::TransformComponent>(entity, transformComponent);

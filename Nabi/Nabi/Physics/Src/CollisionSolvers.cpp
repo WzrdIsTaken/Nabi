@@ -54,21 +54,48 @@ namespace nabi::Physics::CollisionSolvers
 
 	dx::XMFLOAT3 CalculateCollisionNormal(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT
 	{
-		using namespace nabi::Utils::DirectXUtils;
+		/*
+		* This almost worked.. but caused some sliding behaviour which I couldn't quite get to the bottom of ):
+		* Its probs super obvious and I'll see it as soon as I click 'commit' :p
 
-		auto calculateNormalHelper =
-			[](float const lhsAxisMin, float const lhsAxisMax, float const rhsAxisMin, float const rhsAxisMax) -> float
-			{
-				return ((rhsAxisMin + rhsAxisMax) * 0.5f) - ((lhsAxisMin + lhsAxisMax) * 0.5f);
-			};
+			using namespace nabi::Utils::DirectXUtils;
 
-		dx::XMFLOAT3 normal = c_Float3Zero;
-		
-		normal.x = calculateNormalHelper(lhs.m_MinExtents.x, lhs.m_MaxExtents.x, rhs.m_MinExtents.x, rhs.m_MaxExtents.x);
-		normal.y = calculateNormalHelper(lhs.m_MinExtents.y, lhs.m_MaxExtents.y, rhs.m_MinExtents.y, rhs.m_MaxExtents.y);
-		normal.z = calculateNormalHelper(lhs.m_MinExtents.z, lhs.m_MaxExtents.z, rhs.m_MinExtents.z, rhs.m_MaxExtents.z);
+			auto calculateNormalHelper =
+				[](float const lhsAxisMin, float const lhsAxisMax, float const rhsAxisMin, float const rhsAxisMax) -> float
+				{
+					return ((rhsAxisMin + rhsAxisMax) * 0.5f) - ((lhsAxisMin + lhsAxisMax) * 0.5f);
+				};
 
-		return normal;
+			dx::XMFLOAT3 normal = c_Float3Zero;
+
+			normal.x = calculateNormalHelper(lhs.m_MinExtents.x, lhs.m_MaxExtents.x, rhs.m_MinExtents.x, rhs.m_MaxExtents.x);
+			normal.y = calculateNormalHelper(lhs.m_MinExtents.y, lhs.m_MaxExtents.y, rhs.m_MinExtents.y, rhs.m_MaxExtents.y);
+			normal.z = calculateNormalHelper(lhs.m_MinExtents.z, lhs.m_MaxExtents.z, rhs.m_MinExtents.z, rhs.m_MaxExtents.z);
+
+			dx::XMFLOAT3 const normalizedNormal = Float3Normalize(normal);
+			return normalizedNormal;
+		*/
+
+		// This collision method is kinda rough
+		// What happens if the program ran slow or for whatever reason side - otherside < my arbitrary random number?
+		// yeah.. not great
+		// but at least it works! :)
+
+		float constexpr collisionNormalEpsilon = 0.1f;
+
+		float x = 0;
+		if (lhs.m_MaxExtents.x - rhs.m_MinExtents.x > collisionNormalEpsilon) --x;
+		if (rhs.m_MaxExtents.x - lhs.m_MinExtents.x > collisionNormalEpsilon) ++x;
+
+		float y = 0;
+		if (lhs.m_MaxExtents.y - rhs.m_MinExtents.y > collisionNormalEpsilon) --y;
+		if (rhs.m_MaxExtents.y - lhs.m_MinExtents.y > collisionNormalEpsilon) ++y;
+
+		float z = 0;
+		if (lhs.m_MinExtents.z - rhs.m_MinExtents.z > collisionNormalEpsilon) --z;
+		if (rhs.m_MaxExtents.z - lhs.m_MaxExtents.z > collisionNormalEpsilon) ++z;
+
+		return { x, y, z };
 	}
 
 	dx::XMFLOAT3 CalculatePenetrationDepth(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT
@@ -77,9 +104,9 @@ namespace nabi::Physics::CollisionSolvers
 
 		auto calculatePentrationHelper =
 			[](float const lhsAxisMin, float const lhsAxisMax, float const rhsAxisMin, float const rhsAxisMax) -> float
-		{
-			return std::min(lhsAxisMax, rhsAxisMax) - std::max(lhsAxisMin, rhsAxisMin);
-		};
+			{
+				return std::min(lhsAxisMax, rhsAxisMax) - std::max(lhsAxisMin, rhsAxisMin);
+			};
 
 		dx::XMFLOAT3 depth = c_Float3Zero;
 
@@ -90,23 +117,24 @@ namespace nabi::Physics::CollisionSolvers
 		return depth;
 	}
 
-	void CalculateSmallestPentrationDepth(dx::XMFLOAT3 const& penetrationDepth, float& penetration, dx::XMFLOAT3& normal) NABI_NOEXCEPT
+	float CalculateSmallestPentrationDepth(dx::XMFLOAT3 const& penetrationDepth) NABI_NOEXCEPT
 	{
+		float penetration = 0.0f;
+
 		if (penetrationDepth.x < penetrationDepth.y && penetrationDepth.x < penetrationDepth.z) 
 		{
 			penetration = penetrationDepth.x;
-			normal.x = normal.x < 0.0f ? -1.0f : 1.0f;
 		}
 		else if (penetrationDepth.y < penetrationDepth.z)
 		{
 			penetration = penetrationDepth.y;
-			normal.y = normal.y < 0.0f ? -1.0f : 1.0f;
 		}
 		else 
 		{
 			penetration = penetrationDepth.z;
-			normal.z = normal.z < 0.0f ? -1.0f : 1.0f;
 		}
+
+		return penetration;
 	}
 
 	std::string AABBToString(AABB const& aabb, std::optional<std::string> const aabbName) NABI_NOEXCEPT

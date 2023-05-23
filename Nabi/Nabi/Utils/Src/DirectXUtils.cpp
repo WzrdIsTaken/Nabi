@@ -34,4 +34,15 @@ namespace nabi::Utils::DirectXUtils
 
 		return x + " " + y + " " + z;
 	}
+
+	dx::XMFLOAT3 Float3Normalize(dx::XMFLOAT3 const& float3) NABI_NOEXCEPT
+	{
+		dx::XMVECTOR vector = dx::XMLoadFloat3(&float3);
+		vector = dx::XMVector3Normalize(vector);
+
+		dx::XMFLOAT3 normalizedVector;
+		dx::XMStoreFloat3(&normalizedVector, vector);
+
+		return normalizedVector;
+	}
 } // namespace nabi::Utils::DirectXUtils

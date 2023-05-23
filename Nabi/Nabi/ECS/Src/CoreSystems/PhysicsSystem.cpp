@@ -23,7 +23,7 @@ namespace ecs
 
 	void PhysicsSystem::Update(nabi::GameTime const& gameTime)
 	{
-		float const dt = static_cast<float>(gameTime.GetDeltaTime()); // FixedDeltaTime...
+		float const dt = static_cast<float>(gameTime.GetDeltaTime()); // Perhaps this should use fixed dt? But when I used that things seemed less smooth
 
 		m_Context.m_Registry.view<TransformComponent, RigidbodyComponent>()
 			.each([&](auto& transformComponent, auto& rigidbodyComponent)
@@ -69,8 +69,9 @@ namespace ecs
 		dx::XMFLOAT3 const acceleration = ComputeAcceleration(rigidbodyComponent, force);
 
 		dx::XMFLOAT3 const accelerationTimesDt = DirectXUtils::Float3Multiply(acceleration, dt);
-		dx::XMFLOAT3 const newVelocity = DirectXUtils::Float3Add(rigidbodyComponent.m_Velocity, accelerationTimesDt);
-
+		dx::XMFLOAT3 newVelocity = DirectXUtils::Float3Add(rigidbodyComponent.m_Velocity, accelerationTimesDt);
+		
+		AccountForDrag(newVelocity, rigidbodyComponent.m_Drag, dt);
 		rigidbodyComponent.m_Velocity = newVelocity;
 	}
 
@@ -81,7 +82,10 @@ namespace ecs
 		// I've shelved up the changes and may come back to it - but for now this is fine.
 
 		dx::XMFLOAT3 const angularVelocityTimesDt = DirectXUtils::Float3Multiply(rigidbodyComponent.m_AngularVelocity, dt);
-		rigidbodyComponent.m_AngularVelocity = angularVelocityTimesDt;
+		dx::XMFLOAT3 newAngularVelocity = DirectXUtils::Float3Add(rigidbodyComponent.m_AngularVelocity, angularVelocityTimesDt);
+
+		AccountForDrag(newAngularVelocity, rigidbodyComponent.m_AngularDrag, dt);
+		rigidbodyComponent.m_AngularVelocity = newAngularVelocity;
 	}
 
 	dx::XMFLOAT3 PhysicsSystem::ComputeForce(RigidbodyComponent const& rigidbodyComponent) const
@@ -98,8 +102,13 @@ namespace ecs
 
 		return acceleration;
 	}
-} // namespace ecs
 
+	void PhysicsSystem::AccountForDrag(dx::XMFLOAT3& velocity, float const drag, float const dt) const
+	{
+		float const dragTimesDt = 1.0f + (drag * dt);
+		velocity = DirectXUtils::Float3Divide(velocity, dragTimesDt);
+	}
+} // namespace ecs
 
 /*
 	WIP PhysicsModule that was being used to help compute angular velocity

@@ -165,7 +165,7 @@ namespace ecs
 
 	SComp::LightStateComponent& LightingSystem::GetLightStateComponent() const
 	{
-		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
+		entt::entity const graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
 		return m_Context.m_Registry.get<SComp::LightStateComponent>(graphicEntity);
 	}
 } // namespace ecs

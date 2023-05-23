@@ -41,7 +41,7 @@ namespace nabi::Physics::CollisionSolvers
 
 	[[nodiscard]] dx::XMFLOAT3 CalculateCollisionNormal(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT;
 	[[nodiscard]] dx::XMFLOAT3 CalculatePenetrationDepth(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT;
-	[[nodiscard]] void CalculateSmallestPentrationDepth(dx::XMFLOAT3 const& penetrationDepth, float& penetration, dx::XMFLOAT3& normal) NABI_NOEXCEPT;
+	[[nodiscard]] float CalculateSmallestPentrationDepth(dx::XMFLOAT3 const& penetrationDepth) NABI_NOEXCEPT;
 
 	[[nodiscard]] std::string AABBToString(AABB const& aabb, std::optional<std::string> const aabbName = std::nullopt) NABI_NOEXCEPT;
 } // namespace nabi::Physics::CollisionSolvers

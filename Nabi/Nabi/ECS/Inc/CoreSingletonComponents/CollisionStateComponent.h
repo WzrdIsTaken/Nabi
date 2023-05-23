@@ -26,15 +26,6 @@ namespace ecs::SComp
 			}
 		};
 
-		class CollisionPairComparator final
-		{
-		public:
-			bool operator () (CollisionPair const& lhs, CollisionPair const& rhs) const
-			{
-				return lhs != rhs;
-			}
-		};
-
 		enum class MaxVariance : int
 		{
 			X = 0, 
@@ -46,8 +37,21 @@ namespace ecs::SComp
 
 		MaxVariance m_MaxVarianceAxis;
 
-		typedef std::set<CollisionPair, CollisionPairComparator> CurrentCollisions;
+		typedef std::vector<CollisionPair> CurrentCollisions;
 		CurrentCollisions m_CurrentCollisions;
 	};
 } // namespace ecs::SComp
 
+/*
+* I was using a set for current collisions, but on reflection because of the likely small data set nabi will operate on, a vector might be the better fit
+	class CollisionPairComparator final
+	{
+	public:
+		bool operator () (CollisionPair const& lhs, CollisionPair const& rhs) const
+		{
+			return lhs != rhs;
+		}
+	};
+
+	typedef std::set<CollisionPair, CollisionPairComparator> CurrentCollisions;
+*/

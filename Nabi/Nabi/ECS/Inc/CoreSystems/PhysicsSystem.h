@@ -35,6 +35,8 @@ namespace ecs
 		dx::XMFLOAT3 ComputeForce(RigidbodyComponent const& rigidbodyComponent) const;
 		dx::XMFLOAT3 ComputeAcceleration(RigidbodyComponent const& rigidbodyComponent, dx::XMFLOAT3 const& force) const;
 
+		void AccountForDrag(dx::XMFLOAT3& velocity, float const drag, float const dt) const;
+
 		static dx::XMFLOAT3 constexpr c_Gravity = nabi::Physics::Constants::c_Gravity;
 
 		REFLECT_PRIVATES(PhysicsSystem)

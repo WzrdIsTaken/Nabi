@@ -4,9 +4,9 @@
 
 namespace nabi::Physics
 {
-	struct AABB final
+	struct Collision final
 	{
-		dx::XMFLOAT3 m_MinExtents;
-		dx::XMFLOAT3 m_MaxExtents;
+		dx::XMFLOAT3 m_Normal;
+		float m_Depth;
 	};
 } // namespace nabi::Physics

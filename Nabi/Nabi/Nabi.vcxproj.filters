@@ -774,6 +774,9 @@
     <ClInclude Include="Physics\Inc\AABB.h">
       <Filter>Physics\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\Inc\Collision.h">
+      <Filter>Physics\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
