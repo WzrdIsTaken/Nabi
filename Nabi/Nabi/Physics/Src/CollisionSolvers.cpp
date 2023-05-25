@@ -103,19 +103,19 @@ namespace nabi::Physics::CollisionSolvers
 		using namespace nabi::Utils::DirectXUtils;
 
 		/*
-		auto calculatePentrationHelper =
-			[](float const lhsAxisMin, float const lhsAxisMax, float const rhsAxisMin, float const rhsAxisMax) -> float
-			{
-				return std::min(lhsAxisMax, rhsAxisMax) - std::max(lhsAxisMin, rhsAxisMin);
-			};
+			auto calculatePentrationHelper =
+				[](float const lhsAxisMin, float const lhsAxisMax, float const rhsAxisMin, float const rhsAxisMax) -> float
+				{
+					return std::min(lhsAxisMax, rhsAxisMax) - std::max(lhsAxisMin, rhsAxisMin);
+				};
 
-		dx::XMFLOAT3 depth = c_Float3Zero;
+			dx::XMFLOAT3 depth = c_Float3Zero;
 
-		depth.x = calculatePentrationHelper(lhs.m_MinExtents.x, lhs.m_MaxExtents.x, rhs.m_MinExtents.x, rhs.m_MaxExtents.x);
-		depth.y = calculatePentrationHelper(lhs.m_MinExtents.y, lhs.m_MaxExtents.y, rhs.m_MinExtents.y, rhs.m_MaxExtents.y);
-		depth.z = calculatePentrationHelper(lhs.m_MinExtents.z, lhs.m_MaxExtents.z, rhs.m_MinExtents.z, rhs.m_MaxExtents.z);
+			depth.x = calculatePentrationHelper(lhs.m_MinExtents.x, lhs.m_MaxExtents.x, rhs.m_MinExtents.x, rhs.m_MaxExtents.x);
+			depth.y = calculatePentrationHelper(lhs.m_MinExtents.y, lhs.m_MaxExtents.y, rhs.m_MinExtents.y, rhs.m_MaxExtents.y);
+			depth.z = calculatePentrationHelper(lhs.m_MinExtents.z, lhs.m_MaxExtents.z, rhs.m_MinExtents.z, rhs.m_MaxExtents.z);
 
-		return depth;
+			return depth;
 		*/
 
 		dx::XMFLOAT3 depth = c_Float3Zero;
