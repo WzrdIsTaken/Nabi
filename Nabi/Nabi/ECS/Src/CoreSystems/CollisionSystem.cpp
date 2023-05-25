@@ -218,7 +218,7 @@ namespace ecs
 			LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Collision Exit: " <<
 				GetEntityUUIDAsString(lhsData.m_Entity) << "-" << GetEntityUUIDAsString(rhsData.m_Entity) << ENDLINE);
 
-			currentCollisions.erase(it); // this isn't using a std::remove itr, but is fine here i think? https://stackoverflow.com/a/24011727
+			currentCollisions.erase(it);
 
 			fireCollisionEventsHelper(lhsCollider.m_OnCollisionExitType, lhsCollider.m_OnCollisionExitAction, lhsData.m_Entity, rhsData.m_Entity);
 			fireCollisionEventsHelper(rhsCollider.m_OnCollisionExitType, rhsCollider.m_OnCollisionExitAction, rhsData.m_Entity, lhsData.m_Entity);
