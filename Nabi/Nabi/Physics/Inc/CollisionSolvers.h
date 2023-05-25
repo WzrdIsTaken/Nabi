@@ -3,6 +3,7 @@
 #include "DirectXCore.h"
 
 #include "AABB.h"
+#include "Collision.h"
 #include "DirectXUtils.h"
 
 namespace nabi::Physics::CollisionSolvers
@@ -39,6 +40,7 @@ namespace nabi::Physics::CollisionSolvers
 		return Float3LessOrEqual(lhs.m_MinExtents, rhs.m_MaxExtents) && Float3GreaterOrEqual(lhs.m_MaxExtents, rhs.m_MinExtents);
 	}
 
+	[[nodiscard]] Collision SolveCollision(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT; // <-- the mvp
 	[[nodiscard]] dx::XMFLOAT3 CalculateCollisionNormal(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT;
 	[[nodiscard]] dx::XMFLOAT3 CalculatePenetrationDepth(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT;
 	[[nodiscard]] float CalculateSmallestPentrationDepth(dx::XMFLOAT3 const& penetrationDepth) NABI_NOEXCEPT;

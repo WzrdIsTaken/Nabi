@@ -52,6 +52,17 @@ namespace nabi::Physics::CollisionSolvers
 		aabb.m_MaxExtents = Float3Add(aabb.m_MaxExtents, radiusVector);
 	}
 
+	Collision CollisionSolvers::SolveCollision(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT
+	{
+		Collision collision = {};
+		collision.m_Normal = CollisionSolvers::CalculateCollisionNormal(lhs, rhs);
+
+		dx::XMFLOAT3 const depth = CollisionSolvers::CalculatePenetrationDepth(lhs, rhs);
+		collision.m_Depth = CollisionSolvers::CalculateSmallestPentrationDepth(depth);
+
+		return collision;
+	}
+
 	dx::XMFLOAT3 CalculateCollisionNormal(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT
 	{
 		/*

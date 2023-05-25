@@ -167,26 +167,14 @@ namespace ecs
 	{
 		using namespace nabi::Physics;
 
-		auto narrowPhaseHelper =
-			[](AABB const& lhsAABB, AABB const& rhsAABB) -> Collision
-			{
-				Collision collision = {};
-				collision.m_Normal = CollisionSolvers::CalculateCollisionNormal(lhsAABB, rhsAABB);
-				
-				dx::XMFLOAT3 const depth = CollisionSolvers::CalculatePenetrationDepth(lhsAABB, rhsAABB);
-				collision.m_Depth = CollisionSolvers::CalculateSmallestPentrationDepth(depth);
-
-				return collision;
-			};
-
 		if (lhsData.m_Collider.m_InteractionType == ColliderComponent::InteractionType::Dynamic)
 		{
-			Collision collision = narrowPhaseHelper(rhsData.m_AABB, lhsData.m_AABB);
+			Collision collision = CollisionSolvers::SolveCollision(rhsData.m_AABB, lhsData.m_AABB);
 			ResolveCollision(dt, collision, lhsData);
 		}
 		if (rhsData.m_Collider.m_InteractionType == ColliderComponent::InteractionType::Dynamic)
 		{
-			Collision collision = narrowPhaseHelper(lhsData.m_AABB, rhsData.m_AABB);
+			Collision collision = CollisionSolvers::SolveCollision(lhsData.m_AABB, rhsData.m_AABB);
 			ResolveCollision(dt, collision, rhsData);
 		}
 	}
