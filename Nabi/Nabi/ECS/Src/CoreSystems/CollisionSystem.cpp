@@ -150,7 +150,7 @@ namespace ecs
 					CollisionEventData const lhsCollisionEventData = {
 						lhsColliderComponent, lhsEntity
 					};
-					CollisionEventData rhsCollisionEventData = {
+					CollisionEventData const rhsCollisionEventData = {
 						rhsColliderComponent, rhsEntity
 					};
 					FireCollisionEvents(collisionState, lhsCollisionEventData, rhsCollisionEventData);
@@ -196,9 +196,9 @@ namespace ecs
 		ASSERT_CODE(using namespace nabi::Utils::ECSUtils;)
 
 		auto fireCollisionEventsHelper =
-			[&](entt::hashed_string const& actionType, entt::hashed_string const& actionName, entt::entity const& lhsEntity, entt::entity const& rhsEntity) -> void
+			[&](entt::hashed_string const& actionType, entt::hashed_string const& actionName, entt::entity const lhsEntity, entt::entity const rhsEntity) -> void
 			{
-				ReflectionModule::Constraints constexpr constraints = ReflectionModule::c_ConstraintsDefaultSettings;
+				ReflectionModule::Constraints constexpr constraints = ReflectionModule::c_EventConstraints;
 				ReflectionModule::CallReflectedFunction(m_Context, actionType, actionName, &constraints, entt::forward_as_meta(m_Context), lhsEntity, rhsEntity);
 			};
 
@@ -222,8 +222,8 @@ namespace ecs
 
 			currentCollisions.emplace_back(collisionPair);
 
-			fireCollisionEventsHelper(lhsCollider.m_OnCollisionExitType, lhsCollider.m_OnCollisionEnterAction, lhsData.m_Entity, rhsData.m_Entity);
-			fireCollisionEventsHelper(rhsCollider.m_OnCollisionExitType, rhsCollider.m_OnCollisionEnterAction, rhsData.m_Entity, lhsData.m_Entity);
+			fireCollisionEventsHelper(lhsCollider.m_OnCollisionEnterType, lhsCollider.m_OnCollisionEnterAction, lhsData.m_Entity, rhsData.m_Entity);
+			fireCollisionEventsHelper(rhsCollider.m_OnCollisionEnterType, rhsCollider.m_OnCollisionEnterAction, rhsData.m_Entity, lhsData.m_Entity);
 		}
 		else if (collisionState == CollisionState::NotColliding && presentInCurrentCollisions)
 		{

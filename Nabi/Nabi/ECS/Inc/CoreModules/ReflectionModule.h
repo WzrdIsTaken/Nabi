@@ -25,6 +25,17 @@ namespace ecs::ReflectionModule
 		.m_CanNotExist = true
 	};
 
+	Constraints constexpr c_EventConstraints
+	{
+		// Note that m_ExpectStatic is true. The functions for events, eg the collision's OnCollisionEnter/Exit events have to be 
+		// static or free functions. This is because when the event is fired, we don't know the (eg system) instance the function to 
+		// be called is on.
+
+		.m_ExpectStatic = true,
+		.m_ExpectConst = false,
+		.m_CanNotExist = true
+	};
+
 	template<typename... Args>
 	entt::meta_any CallReflectedFunction(nabi::Context const& /*context*/, 
 		entt::hashed_string const type, entt::hashed_string const function, Constraints const* const constraints, Args&&... args)

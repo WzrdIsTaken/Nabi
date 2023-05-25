@@ -225,6 +225,8 @@
     <ClCompile Include="Tests\Fixtures\ECSTests\SystemEventsTests.cpp" />
     <ClCompile Include="Tests\Fixtures\InputTests\InputStateTests.cpp" />
     <ClCompile Include="Tests\Fixtures\InputTests\UITests.cpp" />
+    <ClCompile Include="Tests\Fixtures\PhysicsTests\CollisionTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\PhysicsTests\RigidbodyTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionInitTests.cpp" />

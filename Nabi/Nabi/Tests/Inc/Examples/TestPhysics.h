@@ -30,7 +30,7 @@ namespace nabitest::Examples
 		bool Render() override;
 
 	private:
-		class SimpleAssetBank : nabi::Resource::AssetBank
+		class SimpleAssetBank final : nabi::Resource::AssetBank
 		{
 		public:
 			SimpleAssetBank(nabi::Context& context);
@@ -48,7 +48,7 @@ namespace nabitest::Examples
 			nabi::Resource::ResourceBank<nabi::Rendering::Texture, nabi::Rendering::TextureLoader, 20> m_TextureBank;
 		};
 
-		struct CollisionEntitySettings
+		struct CollisionEntitySettings final
 		{
 			dx::XMFLOAT3 m_Position;
 			std::string m_TexturePath;
@@ -57,9 +57,17 @@ namespace nabitest::Examples
 			ecs::ColliderComponent::InteractionType m_CollderInteractionType;
 			dx::XMFLOAT3 m_ColliderSize;
 			float m_GravityScale;
+
+			entt::hashed_string m_CollisionEnterType = "TestPhysics"_hs;
+			entt::hashed_string m_CollisionEnterFunc = "TestCollisionEnterCallback"_hs; // Void
+			entt::hashed_string m_CollisionExitType  = "TestPhysics"_hs;
+			entt::hashed_string m_CollisionExitFunc  = "TestCollisionExitCallback"_hs;
 		};
 
 		entt::entity CreateCollisionEntity(CollisionEntitySettings const& creationSettings) const;
+		static void TestCollisionEnterCallback(nabi::Context& context, entt::entity const lhs, entt::entity const rhs);
+		static void TestCollisionExitCallback(nabi::Context& context, entt::entity const lhs, entt::entity const rhs);
+		void TestVoidFunc(nabi::Context& context, entt::entity const lhs, entt::entity const rhs);
 
 		nabi::Context& m_Context;
 

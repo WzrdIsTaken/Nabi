@@ -236,6 +236,9 @@
     <Filter Include="Physics\Inc">
       <UniqueIdentifier>{86b3a7d5-ae80-46bb-a9bc-c62735d27652}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Fixtures\PhysicsTests">
+      <UniqueIdentifier>{d2dda8f9-6c62-4009-bade-966f7aece7be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -451,6 +454,12 @@
     </ClCompile>
     <ClCompile Include="Physics\Src\CollisionSolvers.cpp">
       <Filter>Physics\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\PhysicsTests\CollisionTests.cpp">
+      <Filter>Tests\Fixtures\PhysicsTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\PhysicsTests\RigidbodyTests.cpp">
+      <Filter>Tests\Fixtures\PhysicsTests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

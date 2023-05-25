@@ -4,6 +4,7 @@
 
 #include "CoreComponents\RigidbodyComponent.h"
 #include "CoreModules\InputModule.h"
+#include "CoreModules\ReflectionModule.h"
 
 #ifdef RUN_TESTS
 
@@ -26,6 +27,15 @@ namespace nabitest::Examples
 		m_InputSystem = std::make_unique<ecs::InputSystem>(m_Context, "Input"_hs, "NabiPhysicsTestSystems"_hs);
 		m_PhysicsSystem = std::make_unique<ecs::PhysicsSystem>(m_Context, "Physics"_hs, "NabiPhysicsTestSystems"_hs);
 		m_RenderSystem = std::make_unique<ecs::RenderSystem>(m_Context, "Render"_hs, "NabiPhysicsTestSystems"_hs);
+
+		/*	
+			Alright listen up. See ReflectionModule::c_EventConstraints
+			I was just kinda dumb
+		*/
+		auto metaPhysics = entt::meta<TestPhysics>().type("TestPhysics"_hs)
+			.func<&TestPhysics::TestCollisionEnterCallback>("TestCollisionEnterCallback"_hs)
+			.func<&TestPhysics::TestCollisionExitCallback>("TestCollisionExitCallback"_hs)
+			.func<&TestPhysics::TestVoidFunc>("Void"_hs);
 
 		// --- Entities ---
 
@@ -170,6 +180,11 @@ namespace nabitest::Examples
 		colliderComponent.m_Mask = creationSettings.m_CollisionMask;
 		colliderComponent.m_InteractionType = creationSettings.m_CollderInteractionType;
 
+		colliderComponent.m_OnCollisionEnterType = creationSettings.m_CollisionEnterType;
+		colliderComponent.m_OnCollisionEnterAction = creationSettings.m_CollisionEnterFunc;
+		colliderComponent.m_OnCollisionExitType = creationSettings.m_CollisionExitType;
+		colliderComponent.m_OnCollisionExitAction = creationSettings.m_CollisionExitFunc;
+
 		// Add everything!
 		m_Context.m_Registry.emplace<ecs::TransformComponent>(entity, transformComponent);
 		m_Context.m_Registry.emplace<ecs::ModelResourceComponent>(entity, modelComponent);
@@ -178,6 +193,22 @@ namespace nabitest::Examples
 
 		// Return
 		return entity;
+	}
+
+	void TestPhysics::TestCollisionEnterCallback(nabi::Context& /*context*/, entt::entity const /*lhs*/, entt::entity const /*rhs*/)
+	{
+		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_TEST << "OnCollisionEnter!" << ENDLINE);
+	}
+
+	void TestPhysics::TestCollisionExitCallback(nabi::Context& /*context*/, entt::entity const /*lhs*/, entt::entity const /*rhs*/)
+	{
+		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_TEST << "OnCollisionExit!" << ENDLINE);
+	}
+
+	void TestPhysics::TestVoidFunc(nabi::Context& /*context*/, entt::entity const /*lhs*/, entt::entity const /*rhs*/)
+	{
+		// Actually won't see in Init for an explanation
+		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_TEST << "Does something, hopefully" << ENDLINE);
 	}
 
 	// --- Assets ---
