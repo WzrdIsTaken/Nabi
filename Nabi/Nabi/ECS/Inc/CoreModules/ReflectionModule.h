@@ -6,7 +6,7 @@ namespace ecs::ReflectionModule
 	struct Constraints
 	{
 		// Debug only checks
-		bool m_ExpectStatic;
+		bool m_ExpectStatic; // (or free)
 		bool m_ExpectConst;
 
 		// Release + debug flow

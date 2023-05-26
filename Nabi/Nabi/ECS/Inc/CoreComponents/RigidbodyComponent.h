@@ -12,6 +12,9 @@ namespace ecs
 			bool m_FreezeY : 1;
 			bool m_FreezeZ : 1;
 			bool const c_Padding : 1;
+
+			Constraints& operator=(Constraints const& other);
+			static Constraints FromString(std::string const& string);
 		};
 #pragma pack(pop)
 
