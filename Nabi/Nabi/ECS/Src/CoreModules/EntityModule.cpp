@@ -11,6 +11,8 @@ namespace ecs::EntityModule
 
 	namespace
 	{
+#pragma warning( push )
+#pragma warning( disable : 26495 ) // [var] is unitialized (perhaps the constexpr is confusing vs?)
 		struct FindSettings final
 		{
 			enum class SearchType : int
@@ -26,6 +28,7 @@ namespace ecs::EntityModule
 			SearchType m_SearchType;
 			int m_SearchCount; // -1 for all
 		};
+#pragma warning( pop )
 
 		EntityGroup FindEntitiyHelper(nabi::Context const& context, FindSettings const findSettings)
 		{

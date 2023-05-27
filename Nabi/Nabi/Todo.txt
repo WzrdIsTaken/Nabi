@@ -6,31 +6,17 @@ Current:
 
 // --- Critical Priority ---
 - Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
+- Once the test stuff is removed from NabiCore, make sure the engine compiles in release
 
 // --- High Priority ---
 - See notebook: Raycast, collision/physics tests, then these many todos... come on! lets go dude~   
     - Tests done, just raycast and the todos . will have to write a raycast test though once that is done
 
-- do we need to write a raycast func? probs (not..? idk - decide!). in a collision/physics module?
-
-- Can also implemnt physics materials like this? Perhaps in data its an enum? Otherwise a string to a function. The signature can contain eg peneration depth, the normal
-    and the rb. Then eg the function can modifiy the rb - like a bouncy material.
-
-
-- Comments in physics stuff
-
-- Make sure all components have a default constructor (inc scomps). Should SpatialHeirachyComponent and EntityInfoComponent go into one file called 'EntityComponents?'
-- Make sure all operator overloads are constexpr? and all defaultSettings structs
-
-- Im done with this Utils::Util class thign. Gotta fix that i recon . Just nabi::StringUtils , for example
-- also should probs refactor entity creator, entity property list and entity group out of reflection and into ECS
-
-- Should the operator functions (eg operator()/++) not have a space? current: 'operator ()', new(?) 'operator()'
+- do we need to write a raycast func? probs (not..? idk - decide!). in a collision/physics module? Just this left~!
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
 - Have all entity groups / event calls etc as constexpr in a file
-- nabi::Utils::[UtilName] -> nabi::[UtilName]? have eg ecs::[ModuleName] not ecs::Modules::[ModuleName] , but have nabi::ECS::~ ? (remember to update the //namespace ~~ comment) ?
 
 - Create systems on the heap (with a shared ptr i think) and adjust the initsystems test accordingly. might also have to create them differently in the first place?
   (acc i think this is ok on the stack?)
@@ -40,7 +26,6 @@ Structure Stuff
 
 - drawablecomponents->renderablecomponents?
 - use doxygen comment style?
-- refactor entity group, entity property list and entity creator outside of reflection and into ecs?
 
 -  for standard includes in core/enginecore/etc is it dumb to have like a standard.h file with all the standard includes i use? can include here and in enginecore*/
 
@@ -74,6 +59,16 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive:
+- Can also implemnt physics materials like this? Perhaps in data its an enum? Otherwise a string to a function. The signature can contain eg peneration depth, the normal
+    and the rb. Then eg the function can modifiy the rb - like a bouncy material.
+        - Left a note for this, but currently its solving a problem which doesn't /might never exist
+- Make sure all operator overloads are constexpr? and all defaultSettings structs <-- again, no point in finding/refactoring all. just do from now on
+- Should the operator functions (eg operator()/++) not have a space? current: 'operator ()', new(?) 'operator()' <-- is this worth doing? probs not. just do from now on
+- Make sure all components have a default constructor (inc scomps). Should SpatialHeirachyComponent and EntityInfoComponent go into one file called 'EntityComponents?'
+    - No I don't think so, if anything the other components should be split out
+- Im done with this Utils::Util class thign. Gotta fix that i recon . Just nabi::StringUtils , for example
+- also should probs refactor entity creator, entity property list and entity group out of reflection and into ECS
+- Comments in physics stuff
 - should float3 be passed by reference? partically in directx utils?
 - Is the byte allignment stuff in physics component correct?
 - I imagine I just want to have a collider component, the CollisionSystem iterates over all of them and calls a solver in nabi/physics
