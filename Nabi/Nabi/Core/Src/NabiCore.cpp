@@ -121,7 +121,7 @@ namespace nabi
 		m_Context.m_RenderCommand->EndFrame();
 	}
 
-	bool const NabiCore::InitGraphicsEntity() NABI_NOEXCEPT
+	bool NabiCore::InitGraphicsEntity() NABI_NOEXCEPT
 	{
 		using namespace nabi::Rendering;
 
@@ -171,7 +171,7 @@ namespace nabi
 		return true;
 	}
 
-	bool const NabiCore::InitDxPipeline() NABI_NOEXCEPT
+	bool NabiCore::InitDxPipeline() NABI_NOEXCEPT
 	{
 		using namespace nabi::Rendering;
 
@@ -184,7 +184,7 @@ namespace nabi
 		return true;
 	}
 
-	bool const NabiCore::InitInputEntity() NABI_NOEXCEPT
+	bool NabiCore::InitInputEntity() NABI_NOEXCEPT
 	{
 		// Create the input entity
 		entt::entity const inputEntity =
@@ -202,7 +202,7 @@ namespace nabi
 		return true;
 	}
 
-	bool const NabiCore::InitPhysicsEntity() NABI_NOEXCEPT
+	bool NabiCore::InitPhysicsEntity() NABI_NOEXCEPT
 	{
 		// Create the physics entity
 		entt::entity const physicsEntity =
@@ -214,7 +214,7 @@ namespace nabi
 		return true;
 	}
 
-	bool const NabiCore::ParseECSData() NABI_NOEXCEPT
+	bool NabiCore::ParseECSData() NABI_NOEXCEPT
 	{
 		typedef DataSettings::NabiCoreParseMode ParseMode;
 		ParseMode const parseMode = m_InitSettings.m_DataSettings.m_NabiCoreParseDocuments;

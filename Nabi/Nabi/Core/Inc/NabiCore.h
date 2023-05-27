@@ -38,12 +38,12 @@ namespace nabi
 		virtual void Update() /*const?*/ NABI_NOEXCEPT;
 		virtual void Render() /*const?*/ NABI_NOEXCEPT;
 
-		bool const InitGraphicsEntity() NABI_NOEXCEPT;
-		bool const InitDxPipeline() NABI_NOEXCEPT;
-		bool const InitInputEntity() NABI_NOEXCEPT;
-		bool const InitPhysicsEntity() NABI_NOEXCEPT;
+		bool InitGraphicsEntity() NABI_NOEXCEPT;
+		bool InitDxPipeline() NABI_NOEXCEPT;
+		bool InitInputEntity() NABI_NOEXCEPT;
+		bool InitPhysicsEntity() NABI_NOEXCEPT;
 
-		bool const ParseECSData() NABI_NOEXCEPT; // The user defined xml ecs data
+		bool ParseECSData() NABI_NOEXCEPT; // User defined xml ecs data
 
 		// Windows
 		HINSTANCE const m_hInstance;
