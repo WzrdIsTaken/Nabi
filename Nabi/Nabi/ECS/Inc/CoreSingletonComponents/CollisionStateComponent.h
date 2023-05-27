@@ -39,6 +39,12 @@ namespace ecs::SComp
 
 		typedef std::vector<CollisionPair> CurrentCollisions;
 		CurrentCollisions m_CurrentCollisions;
+
+		CollisionStateComponent()
+			: m_MaxVarianceAxis(MaxVariance::X)
+			, m_CurrentCollisions{}
+		{
+		}
 	};
 } // namespace ecs::SComp
 
