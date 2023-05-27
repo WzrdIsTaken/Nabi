@@ -142,7 +142,7 @@ namespace nabi::Reflection::Creation
 	void AddEntityInfoComponentToEntity(entt::registry& registey, entt::entity const entity,
 		entt::hashed_string const& entityGroupHash, std::string_view entityName) NABI_NOEXCEPT
 	{
-		auto entityInfoComponentSettings = ecs::entityInfoComponentDefaultSettings;
+		auto entityInfoComponentSettings = ecs::c_EntityInfoComponentDefaultSettings;
 		entityInfoComponentSettings.m_EntityGroup = entityGroupHash;
 		entityInfoComponentSettings.m_EntityName = entt::hashed_string(entityName.data());
 
@@ -151,7 +151,7 @@ namespace nabi::Reflection::Creation
 
 	void nabi::Reflection::Creation::AddSpatialHierarchyComponentToEntity(entt::registry& registey, entt::entity const parent) NABI_NOEXCEPT
 	{
-		auto spatialHierarchyComponentSettings = ecs::spatialHierarchyComponentDefaultSettings;
+		auto spatialHierarchyComponentSettings = ecs::c_SpatialHierarchyComponentDefaultSettings;
 		spatialHierarchyComponentSettings.m_Parent = parent;
 		spatialHierarchyComponentSettings.m_Children = {};
 

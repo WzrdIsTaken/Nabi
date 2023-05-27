@@ -27,7 +27,7 @@ namespace ecs
 	};
 
 	// Default Settings
-	EntityInfoComponentSettings const entityInfoComponentDefaultSettings
+	EntityInfoComponentSettings const c_EntityInfoComponentDefaultSettings
 	{
 		.m_EntityGroup = entt::hashed_string(),
 		.m_EntityName = entt::hashed_string()

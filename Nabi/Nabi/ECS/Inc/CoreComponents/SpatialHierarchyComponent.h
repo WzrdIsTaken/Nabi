@@ -13,7 +13,7 @@ namespace ecs
 	};
 
 	// Default Settings
-	SpatialHierarchyComponentSettings const spatialHierarchyComponentDefaultSettings
+	SpatialHierarchyComponentSettings const c_SpatialHierarchyComponentDefaultSettings
 	{
 		.m_Parent = entt::null,
 		.m_Children = {}
