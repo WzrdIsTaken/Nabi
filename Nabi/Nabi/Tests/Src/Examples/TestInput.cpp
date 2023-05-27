@@ -138,7 +138,7 @@ namespace nabitest::Examples
 		buttonComponent.m_Scene = entt::hashed_string("TestScene");
 		buttonComponent.m_Action = entt::hashed_string("TestButtonResponseOne");
 
-		nabi::Reflection::EntityCreator::EntityCreationSettings settings;
+		nabi::ECS::EntityCreator::EntityCreationSettings settings;
 		settings.m_EntityName = "ButtonEntity";
 		settings.m_AppendUUID = false;
 

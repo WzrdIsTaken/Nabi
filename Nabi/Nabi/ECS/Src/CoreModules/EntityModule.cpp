@@ -7,8 +7,7 @@
 
 namespace ecs::EntityModule
 {
-	// this namespace seems kinda odd for EntityGroup - perhaps refactor?
-	using namespace nabi::Reflection;
+	using namespace nabi::ECS;
 
 	namespace
 	{

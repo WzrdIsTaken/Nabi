@@ -260,10 +260,7 @@
     <ClCompile Include="Reflection\Src\BaseTypeReflection.cpp">
       <Filter>Reflection\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Reflection\Src\EntityCreator.cpp">
-      <Filter>Reflection\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Reflection\Src\EntityPropertyList.cpp">
+    <ClCompile Include="Reflection\Src\EntityCreation.cpp">
       <Filter>Reflection\Src</Filter>
     </ClCompile>
     <ClCompile Include="Reflection\Src\StringConverter.cpp">
@@ -461,6 +458,12 @@
     <ClCompile Include="Tests\Fixtures\PhysicsTests\RigidbodyTests.cpp">
       <Filter>Tests\Fixtures\PhysicsTests</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\EntityPropertyList.cpp">
+      <Filter>ECS\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\EntityCreator.cpp">
+      <Filter>ECS\Src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -497,10 +500,7 @@
     <ClInclude Include="Reflection\Inc\BaseTypeReflection.h">
       <Filter>Reflection\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Reflection\Inc\EntityCreator.h">
-      <Filter>Reflection\Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Reflection\Inc\EntityPropertyList.h">
+    <ClInclude Include="Reflection\Inc\EntityCreation.h">
       <Filter>Reflection\Inc</Filter>
     </ClInclude>
     <ClInclude Include="Reflection\Inc\EnumConverter.h">
@@ -711,9 +711,6 @@
     <ClInclude Include="Reflection\Inc\ReflectionCore.h">
       <Filter>Reflection\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Reflection\Inc\EntityGroup.h">
-      <Filter>Reflection\Inc</Filter>
-    </ClInclude>
     <ClInclude Include="Input\Inc\InputState.h">
       <Filter>Input\Inc</Filter>
     </ClInclude>
@@ -785,6 +782,15 @@
     </ClInclude>
     <ClInclude Include="Physics\Inc\Collision.h">
       <Filter>Physics\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\EntityGroup.h">
+      <Filter>ECS\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\EntityPropertyList.h">
+      <Filter>ECS\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\EntityCreator.h">
+      <Filter>ECS\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

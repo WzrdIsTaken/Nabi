@@ -7,7 +7,7 @@
 #include "BuildUtils.h"
 #include "Context.h"
 #include "DebugUtils.h"
-#include "EntityCreator.h"
+#include "EntityCreation.h"
 #include "MetaObjectLookup.h"
 #include "ReflectionGlobals.h"
 #include "ReflectionHelpers.h"

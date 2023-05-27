@@ -32,7 +32,7 @@ namespace nabi
 		entt::registry m_Registry;
 		std::array<entt::entity, SingletonEntities::ENUM_COUNT> m_SingletonEntites;
 
-		std::unique_ptr<nabi::Reflection::EntityCreator> m_EntityCreator;
+		std::unique_ptr<nabi::ECS::EntityCreator> m_EntityCreator;
 
 		// Graphic
 		std::unique_ptr<Rendering::RenderCommand> m_RenderCommand;

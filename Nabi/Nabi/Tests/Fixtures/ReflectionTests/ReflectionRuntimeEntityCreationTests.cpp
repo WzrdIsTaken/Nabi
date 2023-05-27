@@ -16,6 +16,7 @@ namespace nabitest::ReflectionTests
 	{
 		// --- Setup ---
 
+		using namespace nabi::ECS;
 		using namespace nabi::Reflection;
 
 		// Mock objects
@@ -110,6 +111,7 @@ namespace nabitest::ReflectionTests
 
 		// --- Setup ---
 
+		using namespace nabi::ECS;
 		using namespace nabi::Reflection;
 
 		// Mock objects

@@ -40,7 +40,7 @@ namespace nabi
 		m_Context.m_Registry = {};
 		m_Context.m_SingletonEntites.fill(entt::null);
 
-		m_Context.m_EntityCreator = std::make_unique<Reflection::EntityCreator>(m_Context.m_Registry);
+		m_Context.m_EntityCreator = std::make_unique<ECS::EntityCreator>(m_Context.m_Registry);
 
 		// Rendering
 		m_Context.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Context.m_Window->GetHWND(), initSettings.m_WindowSettings);

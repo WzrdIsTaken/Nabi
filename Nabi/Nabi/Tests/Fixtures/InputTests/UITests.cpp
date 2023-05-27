@@ -31,8 +31,8 @@ namespace nabitest::InputTests
 
 	void SetupUIButtonAndScene(nabi::Context& context)
 	{
+		using namespace nabi::ECS;
 		using namespace nabi::Input;
-		using namespace nabi::Reflection;
 
 		// Button
 		ecs::ButtonComponent buttonComponent;
@@ -71,7 +71,7 @@ namespace nabitest::InputTests
 
 		// Core
 		nabi::Context context;
-		context.m_EntityCreator = std::make_unique<nabi::Reflection::EntityCreator>(context.m_Registry);
+		context.m_EntityCreator = std::make_unique<nabi::ECS::EntityCreator>(context.m_Registry);
 		ecs::UISystem uiSystem(context, "id"_hs, "group"_hs);
 
 		entt::entity coreUiEntity = context.m_Registry.create();
@@ -102,7 +102,7 @@ namespace nabitest::InputTests
 
 		// Core
 		nabi::Context context;
-		context.m_EntityCreator = std::make_unique<nabi::Reflection::EntityCreator>(context.m_Registry);
+		context.m_EntityCreator = std::make_unique<nabi::ECS::EntityCreator>(context.m_Registry);
 		ecs::UISystem uiSystem(context, "id"_hs, "group"_hs);
 
 		entt::entity coreUiEntity = context.m_Registry.create();
