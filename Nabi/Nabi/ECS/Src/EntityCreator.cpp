@@ -11,7 +11,7 @@
 namespace nabi::ECS
 {
 	EntityCreator::EntityCreator(entt::registry& registry) NABI_NOEXCEPT
-		: m_Registry(registery)
+		: m_Registry(registry)
 	{
 	}
 
