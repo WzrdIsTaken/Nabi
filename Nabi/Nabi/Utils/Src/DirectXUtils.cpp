@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-namespace nabi::Utils::DirectXUtils
+namespace nabi::DirectXUtils
 {
 	std::string MatrixToString(dx::XMMATRIX const& matrix) NABI_NOEXCEPT
 	{
@@ -45,4 +45,4 @@ namespace nabi::Utils::DirectXUtils
 
 		return normalizedVector;
 	}
-} // namespace nabi::Utils::DirectXUtils
+} // namespace nabi::DirectXUtils

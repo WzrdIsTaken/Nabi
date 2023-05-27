@@ -33,11 +33,10 @@ namespace ecs
 	RigidbodyComponent::Constraints RigidbodyComponent::Constraints::FromString(std::string const& string)
 	{
 		using namespace nabi::Reflection;
-		using namespace nabi::Utils;
 
-		StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
+		nabi::StringUtils::SplitSettings splitSettings = nabi::StringUtils::c_DefaultSplitSettings;
 		splitSettings.m_ExpectedValues = 3u;
-		std::vector<std::string_view> const splitString = StringUtils::SplitString(string, splitSettings);
+		std::vector<std::string_view> const splitString = nabi::StringUtils::SplitString(string, splitSettings);
 
 		Constraints constraints = {};
 		constraints.m_FreezeX = StringConverter::FromString<bool>(splitString[0].data());

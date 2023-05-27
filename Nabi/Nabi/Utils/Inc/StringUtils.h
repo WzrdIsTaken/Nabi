@@ -5,7 +5,7 @@
 
 #include "TypeUtils.h"
 
-namespace nabi::Utils::StringUtils
+namespace nabi::StringUtils
 {
 #define TOSTRING(thing) #thing
 #define CONCAT(A, B) A ## B
@@ -70,4 +70,4 @@ namespace nabi::Utils::StringUtils
 
 		return stringView.substr(first, last - first + 1);
 	}
-} // namespace nabi::Utils::StringUtils
+} // namespace nabi::StringUtils

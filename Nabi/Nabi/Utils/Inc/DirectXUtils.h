@@ -8,7 +8,7 @@
 #define SAFE_RELEASE(obj) if ( (obj) != NULL    ) { (obj)->Release(); (obj) = NULL;    }
 #define SAFE_DELETE(obj)  if ( (obj) != nullptr ) { delete (obj);     (obj) = nullptr; }
 
-namespace nabi::Utils::DirectXUtils
+namespace nabi::DirectXUtils
 {
 	// am i being dumb or do these not exist in dx?? probs the former... i will write them as i need them
 
@@ -116,4 +116,4 @@ namespace nabi::Utils::DirectXUtils
 	dx::XMINT3 constexpr c_Int3Zero = { 0, 0, 0 };
 	dx::XMFLOAT2 constexpr c_Float2Zero = { 0.0f, 0.0f };
 	dx::XMFLOAT3 constexpr c_Float3Zero = { 0.0f, 0.0f, 0.0f };
-} // namespace nabi::Utils::DirectXUtils
+} // namespace nabi::DirectXUtils

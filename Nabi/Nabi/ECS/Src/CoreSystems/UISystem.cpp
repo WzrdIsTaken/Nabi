@@ -144,7 +144,7 @@ namespace ecs
 		UISceneComponent& uiSceneComponent = m_Context.m_Registry.get<UISceneComponent>(entity);
 		std::string_view const uiSceneEntityNames = uiSceneComponent.m_UISceneEntityNames.data();
 
-		using namespace nabi::Utils;
+		using namespace nabi;
 		StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
 		splitSettings.m_TrimEachValue = false; // a quirk of this system, don't worry about it (the trimming happens below, something to do with stringview)
 

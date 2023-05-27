@@ -10,9 +10,9 @@
 
 #ifdef USE_DEBUG_UTILS
 
-TSINGLETON_INSTANCE(nabi::Utils::DebugUtils::Logger)
+TSINGLETON_INSTANCE(nabi::DebugUtils::Logger)
 
-namespace nabi::Utils::DebugUtils
+namespace nabi::DebugUtils
 {
 	Logger::Logger() NABI_NOEXCEPT
 		: m_LogLevels{
@@ -81,6 +81,6 @@ namespace nabi::Utils::DebugUtils
 	{
 		return m_LogMessageCount;
 	}
-} // namespace nabi::Utils::DebugUtils
+} // namespace nabi::DebugUtils
 
 #endif // ifdef USE_DEBUG_UTILS

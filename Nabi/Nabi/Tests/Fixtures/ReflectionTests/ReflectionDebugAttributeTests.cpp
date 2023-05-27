@@ -16,7 +16,7 @@ namespace nabitest::ReflectionTests
 	{
 		BUILD_CONFIGURATION_CHANGE_BEGIN
 
-		using namespace nabi::Utils::BuildUtils;
+		using namespace nabi::BuildUtils;
 
 		// Mock objects
 		entt::registry registry;

@@ -49,7 +49,7 @@ namespace nabi::ECS
 
 		if (entityCreationSettings.m_AppendUUID)
 		{
-			entityName += "_" + Utils::ECSUtils::GetEntityUUIDAsString(entity);
+			entityName += "_" + nabi::ECSUtils::GetEntityUUIDAsString(entity);
 		}
 
 		if (entityCreationSettings.m_EntityOverriddenProperties != nullptr)

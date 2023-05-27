@@ -144,15 +144,15 @@ namespace nabi::Input
 
 	constexpr inline int GetInputType(InputType const inputType) NABI_NOEXCEPT
 	{
-		return nabi::Utils::TypeUtils::ToUnderlying<InputType>(inputType);
+		return nabi::TypeUtils::ToUnderlying<InputType>(inputType);
 	}
 	constexpr inline unsigned int GetController(Controller const controller) NABI_NOEXCEPT
 	{
-		return nabi::Utils::TypeUtils::ToUnderlying<Controller>(controller);
+		return nabi::TypeUtils::ToUnderlying<Controller>(controller);
 	}
 	constexpr inline int GetInputCode(InputCode const inputCode) NABI_NOEXCEPT
 	{
-		return nabi::Utils::TypeUtils::ToUnderlying<InputCode>(inputCode);
+		return nabi::TypeUtils::ToUnderlying<InputCode>(inputCode);
 	}
 } // namespace nabi::Input
 

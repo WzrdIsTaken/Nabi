@@ -17,12 +17,12 @@ namespace nabi::Physics::CollisionSolvers
 
 	[[nodiscard]] inline dx::XMFLOAT3 GetCenter(AABB const& aabb) NABI_NOEXCEPT
 	{
-		using namespace nabi::Utils::DirectXUtils;
+		using namespace nabi::DirectXUtils;
 		return Float3Multiply(Float3Add(aabb.m_MinExtents, aabb.m_MaxExtents), 0.5f);
 	}
 	[[nodiscard]] inline dx::XMFLOAT3 GetExtents(AABB const& aabb) NABI_NOEXCEPT
 	{
-		using namespace nabi::Utils::DirectXUtils;
+		using namespace nabi::DirectXUtils;
 		return Float3Multiply(Float3Subtract(aabb.m_MaxExtents, aabb.m_MinExtents), 0.5f);
 	}
 
@@ -36,7 +36,7 @@ namespace nabi::Physics::CollisionSolvers
 			return true;
 		*/
 
-		using namespace nabi::Utils::DirectXUtils;
+		using namespace nabi::DirectXUtils;
 		return Float3LessOrEqual(lhs.m_MinExtents, rhs.m_MaxExtents) && Float3GreaterOrEqual(lhs.m_MaxExtents, rhs.m_MinExtents);
 	}
 

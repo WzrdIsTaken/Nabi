@@ -12,9 +12,6 @@ namespace nabitest::PhysicsTests
 	// Check that rigidbodies move when force is applied to them
 	TEST(PhysicsTests, CheckRigidbodies)
 	{
-		// 4dx
-		using namespace nabi::Utils;
-
 		// Mock objects
 		nabi::Context context;
 		ecs::PhysicsSystem physicsSystem(context, "id"_hs, "group"_hs);
@@ -33,7 +30,7 @@ namespace nabitest::PhysicsTests
 		physicsSystem.Update(gameTime); physicsSystem.Update(gameTime); // physics system updates pos then velo, so 2 ticks are needed
 		positionComparison.m_Actual = transformComponent.m_Position;
 
-		bool result = DirectXUtils::Float3Equal(positionComparison.m_Expected, positionComparison.m_Actual);
+		bool result = nabi::DirectXUtils::Float3Equal(positionComparison.m_Expected, positionComparison.m_Actual);
 		EXPECT_TRUE(result);
 
 		// With a gravity scale of 1, the entity should move down

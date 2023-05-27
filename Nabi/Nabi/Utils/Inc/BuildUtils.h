@@ -2,7 +2,7 @@
 
 #include "Defines.h"
 
-namespace nabi::Utils::BuildUtils
+namespace nabi::BuildUtils
 {
 	enum class BuildConfiguration
 	{
@@ -25,4 +25,4 @@ namespace nabi::Utils::BuildUtils
 #else
 			BuildConfiguration::Release;
 #endif // ifdef _DEBUG
-} // namespace nabi::Utils::BuildUtils
+} // namespace nabi::BuildUtils

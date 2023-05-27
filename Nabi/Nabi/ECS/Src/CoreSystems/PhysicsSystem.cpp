@@ -8,8 +8,6 @@
 
 namespace ecs
 {
-	using namespace nabi::Utils;
-
 	PhysicsSystem::PhysicsSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId)
 		: SystemBase(context, systemId, systemGroupId)
 	{
@@ -40,16 +38,16 @@ namespace ecs
 
 	void PhysicsSystem::SetPosition(TransformComponent& transformComponent, RigidbodyComponent const& rigidbodyComponent, float const dt) const
 	{
-		dx::XMFLOAT3 const velocityTimesDt = DirectXUtils::Float3Multiply(rigidbodyComponent.m_Velocity, dt);
-		dx::XMFLOAT3 const newPosition = DirectXUtils::Float3Add(transformComponent.m_Position, velocityTimesDt);
+		dx::XMFLOAT3 const velocityTimesDt = nabi::DirectXUtils::Float3Multiply(rigidbodyComponent.m_Velocity, dt);
+		dx::XMFLOAT3 const newPosition = nabi::DirectXUtils::Float3Add(transformComponent.m_Position, velocityTimesDt);
 
 		SetTransformValues(transformComponent.m_Position, newPosition, rigidbodyComponent.m_PositionConstraints);
 	}
 
 	void PhysicsSystem::SetRotation(TransformComponent& transformComponent, RigidbodyComponent const& rigidbodyComponent, float const dt) const
 	{
-		dx::XMFLOAT3 const angularVelocityTimesDt = DirectXUtils::Float3Multiply(rigidbodyComponent.m_AngularVelocity, dt);
-		dx::XMFLOAT3 const newRotation = DirectXUtils::Float3Add(transformComponent.m_Rotation, angularVelocityTimesDt);
+		dx::XMFLOAT3 const angularVelocityTimesDt = nabi::DirectXUtils::Float3Multiply(rigidbodyComponent.m_AngularVelocity, dt);
+		dx::XMFLOAT3 const newRotation = nabi::DirectXUtils::Float3Add(transformComponent.m_Rotation, angularVelocityTimesDt);
 
 		SetTransformValues(transformComponent.m_Rotation, newRotation, rigidbodyComponent.m_RotationConstraints);
 	}
@@ -68,8 +66,8 @@ namespace ecs
 		dx::XMFLOAT3 const force = ComputeForce(rigidbodyComponent);
 		dx::XMFLOAT3 const acceleration = ComputeAcceleration(rigidbodyComponent, force);
 
-		dx::XMFLOAT3 const accelerationTimesDt = DirectXUtils::Float3Multiply(acceleration, dt);
-		dx::XMFLOAT3 newVelocity = DirectXUtils::Float3Add(rigidbodyComponent.m_Velocity, accelerationTimesDt);
+		dx::XMFLOAT3 const accelerationTimesDt = nabi::DirectXUtils::Float3Multiply(acceleration, dt);
+		dx::XMFLOAT3 newVelocity = nabi::DirectXUtils::Float3Add(rigidbodyComponent.m_Velocity, accelerationTimesDt);
 		
 		AccountForDrag(newVelocity, rigidbodyComponent.m_Drag, dt);
 		rigidbodyComponent.m_Velocity = newVelocity;
@@ -81,8 +79,8 @@ namespace ecs
 		// wasn't much different to just doing this. I think I need to be better at maths xD
 		// I've shelved up the changes and may come back to it - but for now this is fine.
 
-		dx::XMFLOAT3 const angularVelocityTimesDt = DirectXUtils::Float3Multiply(rigidbodyComponent.m_AngularVelocity, dt);
-		dx::XMFLOAT3 newAngularVelocity = DirectXUtils::Float3Add(rigidbodyComponent.m_AngularVelocity, angularVelocityTimesDt);
+		dx::XMFLOAT3 const angularVelocityTimesDt = nabi::DirectXUtils::Float3Multiply(rigidbodyComponent.m_AngularVelocity, dt);
+		dx::XMFLOAT3 newAngularVelocity = nabi::DirectXUtils::Float3Add(rigidbodyComponent.m_AngularVelocity, angularVelocityTimesDt);
 
 		AccountForDrag(newAngularVelocity, rigidbodyComponent.m_AngularDrag, dt);
 		rigidbodyComponent.m_AngularVelocity = newAngularVelocity;
@@ -90,15 +88,15 @@ namespace ecs
 
 	dx::XMFLOAT3 PhysicsSystem::ComputeForce(RigidbodyComponent const& rigidbodyComponent) const
 	{
-		dx::XMFLOAT3 const gravityScale = DirectXUtils::Float3Multiply(c_Gravity, rigidbodyComponent.m_GravityScale);
-		dx::XMFLOAT3 const gravityForce = DirectXUtils::Float3Multiply(gravityScale, rigidbodyComponent.m_Mass);
+		dx::XMFLOAT3 const gravityScale = nabi::DirectXUtils::Float3Multiply(c_Gravity, rigidbodyComponent.m_GravityScale);
+		dx::XMFLOAT3 const gravityForce = nabi::DirectXUtils::Float3Multiply(gravityScale, rigidbodyComponent.m_Mass);
 
 		return gravityForce;
 	}
 
 	dx::XMFLOAT3 PhysicsSystem::ComputeAcceleration(RigidbodyComponent const& rigidbodyComponent, dx::XMFLOAT3 const& force) const
 	{
-		dx::XMFLOAT3 const acceleration = DirectXUtils::Float3Divide(force, rigidbodyComponent.m_Mass);
+		dx::XMFLOAT3 const acceleration = nabi::DirectXUtils::Float3Divide(force, rigidbodyComponent.m_Mass);
 
 		return acceleration;
 	}
@@ -106,7 +104,7 @@ namespace ecs
 	void PhysicsSystem::AccountForDrag(dx::XMFLOAT3& velocity, float const drag, float const dt) const
 	{
 		float const dragTimesDt = 1.0f + (drag * dt);
-		velocity = DirectXUtils::Float3Divide(velocity, dragTimesDt);
+		velocity = nabi::DirectXUtils::Float3Divide(velocity, dragTimesDt);
 	}
 } // namespace ecs
 

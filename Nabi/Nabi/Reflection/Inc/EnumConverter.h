@@ -47,7 +47,7 @@ namespace nabi::Reflection::EnumConverter
 		{
 			// Or the expression
 
-			using namespace nabi::Utils;
+			using namespace nabi;
 
 			StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
 			splitSettings.m_Delimiter = bitwiseOr;

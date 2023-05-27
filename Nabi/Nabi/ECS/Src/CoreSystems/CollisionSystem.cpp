@@ -40,7 +40,6 @@ namespace ecs
 		// Sweep and prune collision detection
 
 		using namespace nabi::Physics;
-		using namespace nabi::Utils;
 
 		// Sweep along the comparison axis. This axis (x, y or z) is the axis on which in the previous frame there was the largest
 		// distance between colliders. Using this axis to sweep can help ensure that the spatial partitioning is balanced 
@@ -74,8 +73,8 @@ namespace ecs
 		auto each = view.each();
 
 		// The center is used to calculate the next comparison axis
-		dx::XMFLOAT3 centerSum = DirectXUtils::c_Float3Zero;
-		dx::XMFLOAT3 centerSumSquared = DirectXUtils::c_Float3Zero;
+		dx::XMFLOAT3 centerSum = nabi::DirectXUtils::c_Float3Zero;
+		dx::XMFLOAT3 centerSumSquared = nabi::DirectXUtils::c_Float3Zero;
 
 		// Iterate through each collider
 		size_t iterationProgress = 1u;
@@ -86,8 +85,8 @@ namespace ecs
 			ReassignAABBFromCollisionComponents(lhsAABB, lhsTransformComponent, lhsColliderComponent);
 
 			dx::XMFLOAT3 const center = CollisionSolvers::GetCenter(lhsAABB);
-			centerSum = DirectXUtils::Float3Add(centerSum, center);
-			centerSumSquared = DirectXUtils::Float3Add(centerSumSquared, DirectXUtils::Float3Square(center));
+			centerSum = nabi::DirectXUtils::Float3Add(centerSum, center);
+			centerSumSquared = nabi::DirectXUtils::Float3Add(centerSumSquared, nabi::DirectXUtils::Float3Square(center));
 
 			// Iterate through each collider in front of the lhs one
 			auto rhsIt = each.begin();
@@ -181,7 +180,7 @@ namespace ecs
 
 	void CollisionSystem::FireCollisionEvents(CollisionState const collisionState, CollisionEventData const& lhsData, CollisionEventData const& rhsData) const
 	{
-		ASSERT_CODE(using namespace nabi::Utils::ECSUtils;)
+		ASSERT_CODE(using namespace nabi::ECSUtils;)
 
 		auto fireCollisionEventsHelper =
 			[&](entt::hashed_string const& actionType, entt::hashed_string const& actionName, entt::entity const lhsEntity, entt::entity const rhsEntity) -> void
@@ -227,21 +226,19 @@ namespace ecs
 
 	void CollisionSystem::ResolveCollision(float const dt, nabi::Physics::Collision const& collision, NarrowPhaseData& data) const
 	{
-		using namespace nabi::Utils;
-
-		dx::XMFLOAT3 const resultant = DirectXUtils::Float3Multiply(collision.m_Normal, collision.m_Depth);
+		dx::XMFLOAT3 const resultant = nabi::DirectXUtils::Float3Multiply(collision.m_Normal, collision.m_Depth);
 		float const ms = 1.0f / dt;
-		LOG(LOG_PREP, LOG_TRACE, "Narrow Phase - Normal: " << DirectXUtils::Float3ToString(collision.m_Normal) <<
-			" | Depth: " << collision.m_Depth << " | Normal * Depth = " << DirectXUtils::Float3ToString(resultant) << ENDLINE);
+		LOG(LOG_PREP, LOG_TRACE, "Narrow Phase - Normal: " << nabi::DirectXUtils::Float3ToString(collision.m_Normal) <<
+			" | Depth: " << collision.m_Depth << " | Normal * Depth = " << nabi::DirectXUtils::Float3ToString(resultant) << ENDLINE);
 
 		// Transform adjustment
 		TransformComponent& transform = data.m_TransformComponent;
-		transform.m_Position = DirectXUtils::Float3Add(transform.m_Position, resultant);
+		transform.m_Position = nabi::DirectXUtils::Float3Add(transform.m_Position, resultant);
 
 		// Rigidbody adjustment 
 		RigidbodyComponent& rigidbody = data.m_RigidbodyComponent;
-		dx::XMFLOAT3 const velocityChange = DirectXUtils::Float3Multiply(resultant, ms);
-		rigidbody.m_Velocity = DirectXUtils::Float3Add(rigidbody.m_Velocity, velocityChange);
+		dx::XMFLOAT3 const velocityChange = nabi::DirectXUtils::Float3Multiply(resultant, ms);
+		rigidbody.m_Velocity = nabi::DirectXUtils::Float3Add(rigidbody.m_Velocity, velocityChange);
 	}
 
 	//
@@ -250,7 +247,7 @@ namespace ecs
 	{
 		// high quality function
 
-		using namespace nabi::Utils::TypeUtils;
+		using namespace nabi::TypeUtils;
 		int const maxVarianceIndex = ToUnderlying<SComp::CollisionStateComponent::MaxVariance>(variance);
 
 		ASSERT_FATAL(maxVarianceIndex == 0 || maxVarianceIndex == 1 || maxVarianceIndex == 2, 
@@ -264,13 +261,11 @@ namespace ecs
 
 	void CollisionSystem::CalculateNextMaxVariance(size_t const numberOfColliders, dx::XMFLOAT3 const& centerSum, dx::XMFLOAT3 const& centerSumSquared) const
 	{
-		using namespace nabi::Utils;
-
 		float const numberOfCollidersAsFloat = static_cast<float>(numberOfColliders);
-		dx::XMFLOAT3 const centerSumDivSize = DirectXUtils::Float3Divide(centerSum, numberOfCollidersAsFloat);
-		dx::XMFLOAT3 const centerSumSquaredDivSize = DirectXUtils::Float3Divide(centerSumSquared, numberOfCollidersAsFloat);
+		dx::XMFLOAT3 const centerSumDivSize = nabi::DirectXUtils::Float3Divide(centerSum, numberOfCollidersAsFloat);
+		dx::XMFLOAT3 const centerSumSquaredDivSize = nabi::DirectXUtils::Float3Divide(centerSumSquared, numberOfCollidersAsFloat);
 
-		dx::XMFLOAT3 const variance = DirectXUtils::Float3Subtract(centerSumSquaredDivSize, DirectXUtils::Float3Square(centerSumDivSize));
+		dx::XMFLOAT3 const variance = nabi::DirectXUtils::Float3Subtract(centerSumSquaredDivSize, nabi::DirectXUtils::Float3Square(centerSumDivSize));
 		float maxVariance = variance.x;
 		auto maxVarianceAxis = SComp::CollisionStateComponent::MaxVariance::X;
 

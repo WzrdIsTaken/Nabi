@@ -2,7 +2,7 @@
 
 #include "DebugUtils.h"
 
-namespace nabi::Utils::ECSUtils
+namespace nabi::ECSUtils
 {
 	std::string GetEntityUUIDAsString(entt::entity const entity) NABI_NOEXCEPT
 	{
@@ -15,4 +15,4 @@ namespace nabi::Utils::ECSUtils
 		ENTT_ID_TYPE const entityId = static_cast<ENTT_ID_TYPE>(entity);
 		return std::to_string(entityId);
 	}
-} // namespace nabi::Utils::ECSUtils
+} // namespace nabi::ECSUtils

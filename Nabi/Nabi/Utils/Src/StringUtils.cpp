@@ -2,7 +2,7 @@
 
 #include "DebugUtils.h"
 
-namespace nabi::Utils::StringUtils
+namespace nabi::StringUtils
 {
 	std::vector<std::string_view> SplitString(std::string_view const string, char const after, SplitSettings const& splitSettings) NABI_NOEXCEPT
 	{
@@ -44,4 +44,4 @@ namespace nabi::Utils::StringUtils
 			}
 		}
 	}
-} // namespace nabi::Utils::StringUtils
+} // namespace nabi::StringUtils

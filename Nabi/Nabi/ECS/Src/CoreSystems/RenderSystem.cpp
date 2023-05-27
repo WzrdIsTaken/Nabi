@@ -68,7 +68,7 @@ namespace ecs
 		}
 
 		// Build the log message
-		using namespace nabi::Utils::DirectXUtils;
+		using namespace nabi::DirectXUtils;
 		std::ostringstream logMessage;
 
 		logMessage <<

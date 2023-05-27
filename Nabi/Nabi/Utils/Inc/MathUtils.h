@@ -2,7 +2,7 @@
 
 #include "TypeUtils.h"
 
-namespace nabi::Utils::MathUtils
+namespace nabi::MathUtils
 {
 	// --- Random Number Generations ---
 
@@ -45,4 +45,4 @@ namespace nabi::Utils::MathUtils
 	{
 		return std::fabs(a - b) < epsilon;
 	}
-} // namespace nabi::Utils::MathUtils
+} // namespace nabi::MathUtils
