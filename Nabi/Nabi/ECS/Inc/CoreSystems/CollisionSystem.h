@@ -24,18 +24,14 @@ namespace ecs
 		void Update(nabi::GameTime const& gameTime);
 
 	private:
-		struct NarrowPhaseData final
-		{
-			nabi::Physics::AABB const& m_AABB;
-			ColliderComponent const& m_Collider;
-			RigidbodyComponent& m_RigidbodyComponent;
-			TransformComponent& m_TransformComponent;
-		};
-
 		struct CollisionEventData final
 		{
-			ColliderComponent const& m_Collider;
-			entt::entity m_Entity;
+			entt::entity const m_Entity;
+			nabi::Physics::AABB const& m_AABB;
+
+			ColliderComponent const& m_ColliderComponent;
+			RigidbodyComponent& m_RigidbodyComponent;
+			TransformComponent& m_TransformComponent;
 		};
 
 		enum class CollisionState : int
@@ -47,10 +43,10 @@ namespace ecs
 		};
 
 		void BroadPhase(float const dt) const;
-		void NarrowPhase(float const dt, NarrowPhaseData& lhsData, NarrowPhaseData& rhsData) const;
+		void NarrowPhase(float const dt, CollisionEventData& lhsData, CollisionEventData& rhsData) const;
 
 		void FireCollisionEvents(CollisionState const collisionState, CollisionEventData const& lhsData, CollisionEventData const& rhsData) const;
-		void ResolveCollision(float const dt, nabi::Physics::Collision const& collision, NarrowPhaseData& data) const;
+		void ResolveCollision(float const dt, nabi::Physics::Collision const& collision, CollisionEventData& data) const;
 
 		float GetVarianceValue(dx::XMFLOAT3 const& extent, SComp::CollisionStateComponent::MaxVariance const variance) const;
 		void CalculateNextMaxVariance(size_t const numberOfColliders, dx::XMFLOAT3 const& centerSum, dx::XMFLOAT3 const& centerSumSquared) const;

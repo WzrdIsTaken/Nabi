@@ -121,6 +121,13 @@ namespace ecs
 					bool const aabbsIntersect = CollisionSolvers::Intersects(lhsAABB, rhsAABB);
 					CollisionState collisionState = CollisionState::NotColliding;
 
+					CollisionEventData lhsCollisionEventData = {
+						lhsEntity, lhsAABB, lhsColliderComponent, lhsRigidbodyComponent, lhsTransformComponent
+					};
+					CollisionEventData rhsCollisionEventData = {
+						rhsEntity, rhsAABB, rhsColliderComponent, rhsRigidbodyComponent, rhsTransformComponent
+					};
+
 					if (aabbsIntersect)
 					{
 						ASSERT_CODE
@@ -131,27 +138,13 @@ namespace ecs
 						)
 
 #ifdef ENABLE_NARROW_PHASE
-						// Proceed to narrow phase collision
-						NarrowPhaseData lhsNarrowPhaseData = {
-							lhsAABB, lhsColliderComponent, lhsRigidbodyComponent, lhsTransformComponent
-						};
-						NarrowPhaseData rhsNarrowPhaseData = {
-							rhsAABB, rhsColliderComponent, rhsRigidbodyComponent, rhsTransformComponent
-						};
-						NarrowPhase(dt, lhsNarrowPhaseData, rhsNarrowPhaseData);
+						NarrowPhase(dt, lhsCollisionEventData, rhsCollisionEventData);
 #endif // ifdef ENABLE_NARROW_PHASE
 
 						// Set the collision state to colliding, used below for firing collision events
 						collisionState = CollisionState::Colliding;
 					}
 
-					// Fire collision events
-					CollisionEventData const lhsCollisionEventData = {
-						lhsColliderComponent, lhsEntity
-					};
-					CollisionEventData const rhsCollisionEventData = {
-						rhsColliderComponent, rhsEntity
-					};
 					FireCollisionEvents(collisionState, lhsCollisionEventData, rhsCollisionEventData);
 				}
 			}
@@ -162,16 +155,16 @@ namespace ecs
 		CalculateNextMaxVariance(iterationProgress, centerSum, centerSumSquared);
 	}
 
-	void CollisionSystem::NarrowPhase(float const dt, NarrowPhaseData& lhsData, NarrowPhaseData& rhsData) const
+	void CollisionSystem::NarrowPhase(float const dt, CollisionEventData& lhsData, CollisionEventData& rhsData) const
 	{
 		using namespace nabi::Physics;
 
-		if (lhsData.m_Collider.m_InteractionType == ColliderComponent::InteractionType::Dynamic)
+		if (lhsData.m_ColliderComponent.m_InteractionType == ColliderComponent::InteractionType::Dynamic)
 		{
 			Collision collision = CollisionSolvers::SolveCollision(rhsData.m_AABB, lhsData.m_AABB);
 			ResolveCollision(dt, collision, lhsData);
 		}
-		if (rhsData.m_Collider.m_InteractionType == ColliderComponent::InteractionType::Dynamic)
+		if (rhsData.m_ColliderComponent.m_InteractionType == ColliderComponent::InteractionType::Dynamic)
 		{
 			Collision collision = CollisionSolvers::SolveCollision(lhsData.m_AABB, rhsData.m_AABB);
 			ResolveCollision(dt, collision, rhsData);
@@ -196,8 +189,8 @@ namespace ecs
 			rhsData.m_Entity,
 		};
 
-		ColliderComponent const& lhsCollider = lhsData.m_Collider;
-		ColliderComponent const& rhsCollider = rhsData.m_Collider;
+		ColliderComponent const& lhsCollider = lhsData.m_ColliderComponent;
+		ColliderComponent const& rhsCollider = rhsData.m_ColliderComponent;
 		
 		auto it = std::find(currentCollisions.begin(), currentCollisions.end(), collisionPair);
 		bool const presentInCurrentCollisions = it != currentCollisions.end();
@@ -224,7 +217,7 @@ namespace ecs
 		}
 	}
 
-	void CollisionSystem::ResolveCollision(float const dt, nabi::Physics::Collision const& collision, NarrowPhaseData& data) const
+	void CollisionSystem::ResolveCollision(float const dt, nabi::Physics::Collision const& collision, CollisionEventData& data) const
 	{
 		dx::XMFLOAT3 const resultant = nabi::DirectXUtils::Float3Multiply(collision.m_Normal, collision.m_Depth);
 		float const ms = 1.0f / dt;
@@ -322,14 +315,30 @@ namespace ecs
 } // namespace ecs
 
 /*
+* If I want to implement physics materials in the future, this could be a way of doing it. Basically have a reflected function which is called
+* when a collision is detected. But, currently this is solving a problem which doesn't + might never exist - so I'm not going to worry about it. 
+* 
+	void CollisionSystem::FirePhysicsMaterialEvent(float const dt, nabi::Physics::Collision const& collision, CollisionEventData& data) const
+	{
+		ReflectionModule::Constraints constexpr constraints = ReflectionModule::c_EventConstraints;
+		ColliderComponent const& colliderComponent = data.m_ColliderComponent;
+
+		ReflectionModule::CallReflectedFunction(m_Context, 
+			colliderComponent.m_PhysicsMaterialType, colliderComponent.m_PhysicsMaterialAction, 
+			&constraints, entt::forward_as_meta(m_Context), collision, dt, data.m_RigidbodyComponent, data.m_Entity);
+	}
+*/
+
+/*
 * Could be useful in the future? 
 * I used this in NarrowPhase() before the refactor
-ASSERT_CODE
-(
+* 
+	ASSERT_CODE
+	(
 
-	using namespace nabi::Utils::DirectXUtils;
-	LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Narrow Phase - LHS Collision Normal: " << Float3ToString(lhsCollision.m_Normal)
-		<< " | Depth: " << Float3ToString(lhsCollisionDepth) <<    " - RHS Collision Normal: " << Float3ToString(rhsCollision.m_Normal)
-		<< " | Depth: " << Float3ToString(rhsCollisionDepth) << ENDLINE);
-)
+		using namespace nabi::Utils::DirectXUtils;
+		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Narrow Phase - LHS Collision Normal: " << Float3ToString(lhsCollision.m_Normal)
+			<< " | Depth: " << Float3ToString(lhsCollisionDepth) <<    " - RHS Collision Normal: " << Float3ToString(rhsCollision.m_Normal)
+			<< " | Depth: " << Float3ToString(rhsCollisionDepth) << ENDLINE);
+	)
 */
