@@ -40,10 +40,10 @@ namespace ecs
 			, m_ColliderDimensions{ 0.0f, 0.0f, 0.0f }
 			, m_Mask(~0ull)
 			, m_InteractionType(InteractionType::Dynamic)
-			, m_OnCollisionEnterType("InvalidType")
-			, m_OnCollisionEnterAction("InvalidAction")
-			, m_OnCollisionExitType("InvalidType")
-			, m_OnCollisionExitAction("InvalidAction")
+			, m_OnCollisionEnterType(nabi::Reflection::ReflectionGlobals::c_InvalidType)
+			, m_OnCollisionEnterAction(nabi::Reflection::ReflectionGlobals::c_InvalidFunction)
+			, m_OnCollisionExitType(nabi::Reflection::ReflectionGlobals::c_InvalidType)
+			, m_OnCollisionExitAction(nabi::Reflection::ReflectionGlobals::c_InvalidFunction)
 		{
 		}
 	};

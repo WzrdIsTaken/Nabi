@@ -55,8 +55,8 @@ namespace ecs
 		bool m_Selected;
 
 		UIElementComponentBase()
-			: m_Scene("InvalidScene"_hs)
-			, m_Action("InvalidAction"_hs)
+			: m_Scene(nabi::Reflection::ReflectionGlobals::c_InvalidType)
+			, m_Action(nabi::Reflection::ReflectionGlobals::c_InvalidFunction)
 			, m_InputType(nabi::Input::InputType::Invalid)
 			, m_ActivationKey(nabi::Input::InputCode::Invalid)
 			, m_AltInputType(nabi::Input::InputType::Invalid)

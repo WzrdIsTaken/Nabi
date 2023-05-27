@@ -44,51 +44,62 @@ namespace ecs::ReflectionModule
 		// But... its also kinda good that the ecs/StringConverter are seperated. Doesn't make a big difference either way I guess.
 
 		entt::meta_any result = {};
-		entt::meta_type const reflectedType = entt::resolve(type);
-		entt::meta_func const reflectedFunc = reflectedType.func(function);
 
-		if (reflectedFunc)
+		if (type != nabi::Reflection::ReflectionGlobals::c_InvalidType && function != nabi::Reflection::ReflectionGlobals::c_InvalidFunction)
 		{
-			// Debug flow
-			ASSERT_CODE
-			(
-				bool functionValid = true;
+			entt::meta_type const reflectedType = entt::resolve(type);
+			entt::meta_func const reflectedFunc = reflectedType.func(function);
 
-				if (constraints)
-				{
-					if (constraints->m_ExpectStatic && !reflectedFunc.is_static())
-					{
-						functionValid = false;
-					}
-					if (constraints->m_ExpectConst && !reflectedFunc.is_const())
-					{
-						functionValid = false;
-					}
-				}
+			if (reflectedFunc)
+			{
+				// Debug flow
+				ASSERT_CODE
+				(
+					bool functionValid = true;
 
-				if (functionValid)
-				{
+					if (constraints)
+					{
+						if (constraints->m_ExpectStatic && !reflectedFunc.is_static())
+						{
+							functionValid = false;
+						}
+						if (constraints->m_ExpectConst && !reflectedFunc.is_const())
+						{
+							functionValid = false;
+						}
+					}
+
+					if (functionValid)
+					{
+						result = reflectedFunc.invoke(reflectedType, std::forward<Args>(args)...);
+					}
+					else
+					{
+						ASSERT_FAIL("The reflected function didn't meet the constraints");
+					}
+				)
+
+				// Release flow
+				FINAL_CODE
+				(
 					result = reflectedFunc.invoke(reflectedType, std::forward<Args>(args)...);
-				}
-				else
+				)
+			}
+			else
+			{
+				if (constraints && !constraints->m_CanNotExist)
 				{
-					ASSERT_FAIL("The reflected function didn't meet the constraints");
-				}
-			)
+					// Currently, this m_CanNotExist check is only used to prevent a debug only assert. However, the same expectation is in final 
 
-			// Release flow
-			FINAL_CODE
-			(
-				result = reflectedFunc.invoke(reflectedType, std::forward<Args>(args)...);
-			)
+					ASSERT_FAIL("The type " << type.data() << " does not have a " << function.data() << " method");
+				}
+			}
 		}
 		else
 		{
-			if (constraints && !constraints->m_CanNotExist) 
+			if (constraints && !constraints->m_CanNotExist)
 			{
-				// Currently, this m_CanNotExist check is only used to prevent a debug only assert. However, the same expectation is in final 
-
-				ASSERT_FAIL("The type " << type.data() << " does not have a " << function.data() << " method!");
+				ASSERT_FAIL("The reflected type or function has not been set");
 			}
 		}
 
