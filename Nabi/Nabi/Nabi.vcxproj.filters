@@ -464,6 +464,9 @@
     <ClCompile Include="ECS\Src\EntityCreator.cpp">
       <Filter>ECS\Src</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\CoreModules\PhysicsModule.cpp">
+      <Filter>ECS\Src\CoreModules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -791,6 +794,9 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\EntityCreator.h">
       <Filter>ECS\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\PhysicsModule.h">
+      <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

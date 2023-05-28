@@ -189,6 +189,7 @@
     <ClCompile Include="ECS\Src\CoreModules\CameraModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\EntityModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\InputModule.cpp" />
+    <ClCompile Include="ECS\Src\CoreModules\PhysicsModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\RenderModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\UIModule.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="ECS\Inc\CoreModules\CameraModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\EntityModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\InputModule.h" />
+    <ClInclude Include="ECS\Inc\CoreModules\PhysicsModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\ReflectionModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\RenderModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\TextModule.h" />

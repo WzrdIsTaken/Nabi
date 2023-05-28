@@ -5,6 +5,8 @@
 
 namespace ecs
 {
+	struct ColliderComponent;
+	struct RigidbodyComponent;
 	struct TransformComponent;
 } // namespace ecs
 namespace nabi::Physics
@@ -48,12 +50,7 @@ namespace ecs
 		void FireCollisionEvents(CollisionState const collisionState, CollisionEventData const& lhsData, CollisionEventData const& rhsData) const;
 		void ResolveCollision(float const dt, nabi::Physics::Collision const& collision, CollisionEventData& data) const;
 
-		float GetVarianceValue(dx::XMFLOAT3 const& extent, SComp::CollisionStateComponent::MaxVariance const variance) const;
 		void CalculateNextMaxVariance(size_t const numberOfColliders, dx::XMFLOAT3 const& centerSum, dx::XMFLOAT3 const& centerSumSquared) const;
-
-		void ReassignAABBFromCollisionComponents(nabi::Physics::AABB& aabb, TransformComponent const& transformComponent, ColliderComponent const& colliderComponent) const;
-
-		SComp::CollisionStateComponent& GetCollisionStateComponent() const;
 
 		REFLECT_PRIVATES(CollisionSystem)
 	};

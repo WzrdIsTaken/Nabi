@@ -7,6 +7,7 @@
 #include "CoreComponents\ColliderComponent.h"
 #include "CoreComponents\RigidbodyComponent.h"
 #include "CoreComponents\TransformComponent.h"
+#include "CoreModules\PhysicsModule.h"
 #include "CoreModules\ReflectionModule.h"
 #include "DirectXUtils.h"
 #include "ECSUtils.h"
@@ -44,33 +45,14 @@ namespace ecs
 		// Sweep along the comparison axis. This axis (x, y or z) is the axis on which in the previous frame there was the largest
 		// distance between colliders. Using this axis to sweep can help ensure that the spatial partitioning is balanced 
 		// and reduce unnecessary intersection tests.
-		SComp::CollisionStateComponent::MaxVariance const comparisonAxis = GetCollisionStateComponent().m_MaxVarianceAxis;
+		SComp::CollisionStateComponent::MaxVariance const comparisonAxis = PhysicsModule::GetCollisionStateComponent(m_Context).m_MaxVarianceAxis;
 
 		// Left and right hand side AABBs, used throughout the loop
 		AABB lhsAABB = {};
 		AABB rhsAABB = {};
 
 		// Sort the view by the AABB's transforms along the comparison axis
-		auto view = m_Context.m_Registry.view<TransformComponent, RigidbodyComponent, ColliderComponent const>();
-		view.storage<TransformComponent const>().sort(
-			[&](entt::entity const lhs, entt::entity const rhs)
-			{
-				TransformComponent const& lhsTransform = m_Context.m_Registry.get<TransformComponent>(lhs);
-				TransformComponent const& rhsTransform = m_Context.m_Registry.get<TransformComponent>(rhs);
-
-				ColliderComponent const& lhsCollider = m_Context.m_Registry.get<ColliderComponent>(lhs);
-				ColliderComponent const& rhsCollider = m_Context.m_Registry.get<ColliderComponent>(rhs);
-
-				ReassignAABBFromCollisionComponents(lhsAABB, lhsTransform, lhsCollider);
-				ReassignAABBFromCollisionComponents(rhsAABB, rhsTransform, rhsCollider);
-
-				float const lhsMaxVariance = GetVarianceValue(lhsAABB.m_MinExtents, comparisonAxis);
-				float const rhsMaxVariance = GetVarianceValue(rhsAABB.m_MinExtents, comparisonAxis);
-
-				return lhsMaxVariance < rhsMaxVariance;
-			});
-		view = view.use<TransformComponent>();
-		auto each = view.each();
+		auto view = PhysicsModule::GetSortedCollisionView(m_Context, comparisonAxis, lhsAABB, rhsAABB).each();
 
 		// The center is used to calculate the next comparison axis
 		dx::XMFLOAT3 centerSum = nabi::DirectXUtils::c_Float3Zero;
@@ -78,21 +60,21 @@ namespace ecs
 
 		// Iterate through each collider
 		size_t iterationProgress = 1u;
-		for (auto lhsIt = each.begin(); lhsIt != each.end(); ++lhsIt)
+		for (auto lhsIt = view.begin(); lhsIt != view.end(); ++lhsIt)
 		{
 			// Get the AABB lhs collider
 			auto [lhsEntity, lhsTransformComponent, lhsRigidbodyComponent, lhsColliderComponent] = *lhsIt;
-			ReassignAABBFromCollisionComponents(lhsAABB, lhsTransformComponent, lhsColliderComponent);
+			PhysicsModule::ReassignAABBFromCollisionComponents(lhsAABB, lhsTransformComponent, lhsColliderComponent);
 
 			dx::XMFLOAT3 const center = CollisionSolvers::GetCenter(lhsAABB);
 			centerSum = nabi::DirectXUtils::Float3Add(centerSum, center);
 			centerSumSquared = nabi::DirectXUtils::Float3Add(centerSumSquared, nabi::DirectXUtils::Float3Square(center));
 
 			// Iterate through each collider in front of the lhs one
-			auto rhsIt = each.begin();
+			auto rhsIt = view.begin();
 			rhsIt = std::next(rhsIt, iterationProgress);
 
-			for (; rhsIt != each.end(); ++rhsIt)
+			for (; rhsIt != view.end(); ++rhsIt)
 			{
 				// Check if the two colliders have a valid mask to check collisions
 				auto [rhsEntity, rhsTransformComponent, rhsRigidbodyComponent, rhsColliderComponent] = *rhsIt;
@@ -101,15 +83,15 @@ namespace ecs
 				if (validMask)
 				{
 					// Get the AABB rhs collider
-					ReassignAABBFromCollisionComponents(rhsAABB, rhsTransformComponent, rhsColliderComponent);
+					PhysicsModule::ReassignAABBFromCollisionComponents(rhsAABB, rhsTransformComponent, rhsColliderComponent);
 					LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION <<
 						CollisionSolvers::AABBToString(lhsAABB, "LHS:") + " | " + CollisionSolvers::AABBToString(rhsAABB, "RHS:") << ENDLINE);
 
 					// Check if the AABBs are intersecting
 					dx::XMFLOAT3 const& otherMinExtents = lhsAABB.m_MinExtents;
 					dx::XMFLOAT3 const& thisMaxExtents = rhsAABB.m_MaxExtents;
-					float const otherMinExtent = GetVarianceValue(otherMinExtents, comparisonAxis);
-					float const thisMaxExtent = GetVarianceValue(thisMaxExtents, comparisonAxis);
+					float const otherMinExtent = PhysicsModule::GetVarianceValue(otherMinExtents, comparisonAxis);
+					float const thisMaxExtent = PhysicsModule::GetVarianceValue(thisMaxExtents, comparisonAxis);
 
 					bool const otherExtentBeyondThisExtent = otherMinExtent > thisMaxExtent;
 					if (otherExtentBeyondThisExtent)
@@ -161,12 +143,12 @@ namespace ecs
 
 		if (lhsData.m_ColliderComponent.m_InteractionType == ColliderComponent::InteractionType::Dynamic)
 		{
-			Collision collision = CollisionSolvers::SolveCollision(rhsData.m_AABB, lhsData.m_AABB);
+			Collision const collision = CollisionSolvers::SolveCollision(rhsData.m_AABB, lhsData.m_AABB);
 			ResolveCollision(dt, collision, lhsData);
 		}
 		if (rhsData.m_ColliderComponent.m_InteractionType == ColliderComponent::InteractionType::Dynamic)
 		{
-			Collision collision = CollisionSolvers::SolveCollision(lhsData.m_AABB, rhsData.m_AABB);
+			Collision const collision = CollisionSolvers::SolveCollision(lhsData.m_AABB, rhsData.m_AABB);
 			ResolveCollision(dt, collision, rhsData);
 		}
 	}
@@ -182,7 +164,7 @@ namespace ecs
 				ReflectionModule::CallReflectedFunction(m_Context, actionType, actionName, &constraints, entt::forward_as_meta(m_Context), lhsEntity, rhsEntity);
 			};
 
-		SComp::CollisionStateComponent::CurrentCollisions& currentCollisions = GetCollisionStateComponent().m_CurrentCollisions;
+		SComp::CollisionStateComponent::CurrentCollisions& currentCollisions = PhysicsModule::GetCollisionStateComponent(m_Context).m_CurrentCollisions;
 		SComp::CollisionStateComponent::CollisionPair const collisionPair =
 		{
 			lhsData.m_Entity,
@@ -236,22 +218,6 @@ namespace ecs
 
 	//
 
-	float CollisionSystem::GetVarianceValue(dx::XMFLOAT3 const& extent, SComp::CollisionStateComponent::MaxVariance const variance) const
-	{
-		// high quality function
-
-		using namespace nabi::TypeUtils;
-		int const maxVarianceIndex = ToUnderlying<SComp::CollisionStateComponent::MaxVariance>(variance);
-
-		ASSERT_FATAL(maxVarianceIndex == 0 || maxVarianceIndex == 1 || maxVarianceIndex == 2, 
-			"Indexing into a float3 with a value of " << maxVarianceIndex << " is *not* going to go well.");
-
-		char* const ptr = reinterpret_cast<char*>(&const_cast<dx::XMFLOAT3&>(extent));
-		float const maxVariance = *reinterpret_cast<float*>(ptr + sizeof(float) * maxVarianceIndex);
-
-		return maxVariance;
-	}
-
 	void CollisionSystem::CalculateNextMaxVariance(size_t const numberOfColliders, dx::XMFLOAT3 const& centerSum, dx::XMFLOAT3 const& centerSumSquared) const
 	{
 		float const numberOfCollidersAsFloat = static_cast<float>(numberOfColliders);
@@ -273,45 +239,9 @@ namespace ecs
 			maxVarianceAxis = SComp::CollisionStateComponent::MaxVariance::Z;
 		}
 
-		GetCollisionStateComponent().m_MaxVarianceAxis = maxVarianceAxis;
+		PhysicsModule::GetCollisionStateComponent(m_Context).m_MaxVarianceAxis = maxVarianceAxis;
 	}
 
-	void CollisionSystem::ReassignAABBFromCollisionComponents(nabi::Physics::AABB& aabb, 
-		TransformComponent const& transformComponent, ColliderComponent const& colliderComponent) const
-	{
-		dx::XMFLOAT3 const& center = transformComponent.m_Position;
-		dx::XMFLOAT3 const& dimensions = colliderComponent.m_ColliderDimensions;
-
-		using namespace nabi::Physics;
-		CollisionSolvers::ReassignAABBFromCenter(aabb, center, dimensions);
-
-		switch (colliderComponent.m_ColliderType)
-		{
-			case ColliderComponent::ColliderType::Cube:
-				// No special case 
-				break;
-			case ColliderComponent::ColliderType::Sphere:
-			{
-				ASSERT(dimensions.x == dimensions.y && dimensions.y == dimensions.z,
-					"For a sphere collider, expecting x/y/z dimensions to be equal");
-
-				float const radius = dimensions.x / 2.0f;
-				CollisionSolvers::MakeAABBIntoSphere(aabb, radius);
-				break;
-			}
-			default:
-				ASSERT_FAIL("Using an unexpected ColliderComponent::ColliderType");
-				break;
-		}
-	}
-
-	// 
-
-	SComp::CollisionStateComponent& CollisionSystem::GetCollisionStateComponent() const
-	{
-		entt::entity const physicsEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Physics);
-		return m_Context.m_Registry.get<SComp::CollisionStateComponent>(physicsEntity);
-	}
 } // namespace ecs
 
 /*
