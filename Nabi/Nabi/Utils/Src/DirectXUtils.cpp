@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-namespace nabi::Utils::DirectXUtils
+namespace nabi::DirectXUtils
 {
 	std::string MatrixToString(dx::XMMATRIX const& matrix) NABI_NOEXCEPT
 	{
@@ -25,4 +25,24 @@ namespace nabi::Utils::DirectXUtils
 
 		return matrixStr.str();
 	}
-} // namespace nabi::Utils::DirectXUtils
+
+	std::string Float3ToString(dx::XMFLOAT3 const& float3) NABI_NOEXCEPT
+	{
+		std::string const x = "x: " + std::to_string(float3.x);
+		std::string const y = "y: " + std::to_string(float3.y);
+		std::string const z = "z: " + std::to_string(float3.z);
+
+		return x + " " + y + " " + z;
+	}
+
+	dx::XMFLOAT3 Float3Normalize(dx::XMFLOAT3 const& float3) NABI_NOEXCEPT
+	{
+		dx::XMVECTOR vector = dx::XMLoadFloat3(&float3);
+		vector = dx::XMVector3Normalize(vector);
+
+		dx::XMFLOAT3 normalizedVector;
+		dx::XMStoreFloat3(&normalizedVector, vector);
+
+		return normalizedVector;
+	}
+} // namespace nabi::DirectXUtils

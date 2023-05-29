@@ -11,8 +11,8 @@ namespace nabitest::ECS
 		MockSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId);
 		~MockSystem();
 
-		void Update(/*game time*/);
-		void Render(/*game time*/);
+		void Update(nabi::GameTime const& gameTime);
+		void Render(nabi::GameTime const& gameTime);
 
 		void RegisterSystemRenderEvent();
 		void UnregisterSystemRenderEvent();

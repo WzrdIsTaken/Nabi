@@ -3,7 +3,7 @@
 
 #include "entt.h"
 
-namespace nabi::Reflection
+namespace nabi::ECS
 {
 	/// <summary>
 	/// A lightweight wrapper around a vector of entities
@@ -59,4 +59,4 @@ namespace nabi::Reflection
 	private:
 		Group m_Entities;
 	};
-} // namespace nabi::Reflection
+} // namespace nabi::ECS

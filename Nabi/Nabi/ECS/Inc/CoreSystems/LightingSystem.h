@@ -24,14 +24,14 @@ namespace ecs
 		LightingSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId);
 		~LightingSystem();
 
-		void Render(/*TODO - game time?*/);
+		void Render(nabi::GameTime const& gameTime);
 
 	private:
 		void AssignLightingProperties(nabi::Rendering::PerLightChange& perLightChangeConstantBuffer, LightingProperties const& lightProperties) const;
 
-		void OnLightCreated(entt::registry& registry, entt::entity entity) const;
-		void OnLightUpdated(entt::registry& registry, entt::entity entity) const;
-		void OnLightDestroyed(entt::registry& registry, entt::entity entity) const;
+		void OnLightCreated(entt::registry& registry, entt::entity entity);
+		void OnLightUpdated(entt::registry& registry, entt::entity entity);
+		void OnLightDestroyed(entt::registry& registry, entt::entity entity);
 		SComp::LightStateComponent& GetLightStateComponent() const;
 
 		REFLECT_PRIVATES(LightingSystem)

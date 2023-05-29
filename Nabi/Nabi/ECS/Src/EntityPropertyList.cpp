@@ -4,11 +4,11 @@
 
 #include "DebugUtils.h"
 
-namespace nabi::Reflection
+namespace nabi::ECS
 {
 	void EntityPropertyList::AddProperty(std::string_view const component, std::string_view const propertyName, std::string_view const propertyValue) NABI_NOEXCEPT
 	{
-		PropertyData propertyOverride;
+		Reflection::PropertyData propertyOverride;
 		propertyOverride.m_Id = entt::hashed_string(propertyName.data());
 		propertyOverride.m_Value = entt::hashed_string(propertyValue.data());
 
@@ -51,4 +51,4 @@ namespace nabi::Reflection
 		ASSERT_FATAL(result != m_OverriddenProperties.end(), "Trying to find a property override which doesn't exist!");
 		return *result;
 	}
-} // namespace nabi::Reflection
+} // namespace nabi::ECS

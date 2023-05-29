@@ -100,7 +100,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -122,7 +122,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -143,7 +143,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -162,7 +162,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -175,9 +175,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\Src\Console.cpp" />
+    <ClCompile Include="Core\Src\GameTime.cpp" />
     <ClCompile Include="Core\Src\NabiCore.cpp" />
     <ClCompile Include="Core\Src\Window.cpp" />
     <ClCompile Include="Core\Src\WindowEventsListener.cpp" />
+    <ClCompile Include="ECS\Src\CoreComponents\ColliderComponent.cpp" />
+    <ClCompile Include="ECS\Src\CoreComponents\RigidbodyComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\UIComponents.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\CameraComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\LightComponent.cpp" />
@@ -186,13 +189,18 @@
     <ClCompile Include="ECS\Src\CoreModules\CameraModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\EntityModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\InputModule.cpp" />
+    <ClCompile Include="ECS\Src\CoreModules\PhysicsModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\RenderModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\UIModule.cpp" />
+    <ClCompile Include="ECS\Src\CoreSystems\CollisionSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\InputSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp" />
+    <ClCompile Include="ECS\Src\CoreSystems\PhysicsSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\RenderSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\UISystem.cpp" />
+    <ClCompile Include="ECS\Src\EntityCreator.cpp" />
+    <ClCompile Include="ECS\Src\EntityPropertyList.cpp" />
     <ClCompile Include="ECS\Src\SystemBase.cpp" />
     <ClCompile Include="Input\Src\InputCodes.cpp" />
     <ClCompile Include="Libraries\Src\pugixml\pugixml.cpp" />
@@ -200,9 +208,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Memory\Src\Allocator.cpp" />
     <ClCompile Include="Patterns\Src\Singleton.cpp" />
+    <ClCompile Include="Physics\Src\CollisionSolvers.cpp" />
     <ClCompile Include="Reflection\Src\BaseTypeReflection.cpp" />
-    <ClCompile Include="Reflection\Src\EntityCreator.cpp" />
-    <ClCompile Include="Reflection\Src\EntityPropertyList.cpp" />
+    <ClCompile Include="Reflection\Src\EntityCreation.cpp" />
     <ClCompile Include="Reflection\Src\StringConverter.cpp" />
     <ClCompile Include="Reflection\Src\XmlParser.cpp" />
     <ClCompile Include="Rendering\Src\Buffers\ConstantBuffer.cpp" />
@@ -219,6 +227,9 @@
     <ClCompile Include="Tests\Fixtures\ECSTests\SystemEventsTests.cpp" />
     <ClCompile Include="Tests\Fixtures\InputTests\InputStateTests.cpp" />
     <ClCompile Include="Tests\Fixtures\InputTests\UITests.cpp" />
+    <ClCompile Include="Tests\Fixtures\PhysicsTests\CollisionTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\PhysicsTests\RaycastTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\PhysicsTests\RigidbodyTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionInitTests.cpp" />
@@ -228,6 +239,7 @@
     <ClCompile Include="Tests\Fixtures\ResourceTests\ResourceLoadTests.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestDraw.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestInput.cpp" />
+    <ClCompile Include="Tests\Src\Examples\TestPhysics.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockComponent.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockCustomDataType.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockEnum.cpp" />
@@ -247,6 +259,7 @@
     <ClInclude Include="Core\Inc\Console.h" />
     <ClInclude Include="Core\Inc\Context.h" />
     <ClInclude Include="Core\Inc\Defines.h" />
+    <ClInclude Include="Core\Inc\GameTime.h" />
     <ClInclude Include="Core\Inc\InitSettings.h" />
     <ClInclude Include="Core\Inc\NabiCore.h" />
     <ClInclude Include="Core\Inc\NabiEventsManager.h" />
@@ -254,6 +267,8 @@
     <ClInclude Include="Core\Inc\WindowEventsListener.h" />
     <ClInclude Include="Core\WinCore.h" />
     <ClInclude Include="ECS\Inc\ComponentBase.h" />
+    <ClInclude Include="ECS\Inc\CoreComponents\ColliderComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreComponents\RigidbodyComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\UIComponents.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\CameraComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\EntityInfoComponent.h" />
@@ -264,19 +279,26 @@
     <ClInclude Include="ECS\Inc\CoreModules\CameraModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\EntityModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\InputModule.h" />
+    <ClInclude Include="ECS\Inc\CoreModules\PhysicsModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\ReflectionModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\RenderModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\TextModule.h" />
     <ClInclude Include="ECS\Inc\CoreModules\UIModule.h" />
+    <ClInclude Include="ECS\Inc\CoreSingletonComponents\CollisionStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\GraphicsComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\InputStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\LightStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\UIStateComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreSystems\CollisionSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\InputSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\LightingSystem.h" />
+    <ClInclude Include="ECS\Inc\CoreSystems\PhysicsSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\RenderSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\UISystem.h" />
     <ClInclude Include="ECS\Inc\ECSGlobals.h" />
+    <ClInclude Include="ECS\Inc\EntityCreator.h" />
+    <ClInclude Include="ECS\Inc\EntityGroup.h" />
+    <ClInclude Include="ECS\Inc\EntityPropertyList.h" />
     <ClInclude Include="ECS\Inc\SystemBase.h" />
     <ClInclude Include="Input\Inc\InputState.h" />
     <ClInclude Include="Input\Inc\InputCodes.h" />
@@ -287,10 +309,14 @@
     <ClInclude Include="Libraries\Inc\WICTextureLoader\WICTextureLoader.h" />
     <ClInclude Include="Memory\Inc\Allocator.h" />
     <ClInclude Include="Patterns\Inc\Singleton.h" />
+    <ClInclude Include="Physics\Inc\AABB.h" />
+    <ClInclude Include="Physics\Inc\Collision.h" />
+    <ClInclude Include="Physics\Inc\CollisionSolvers.h" />
+    <ClInclude Include="Physics\Inc\PhysicsConstants.h" />
+    <ClInclude Include="Physics\Inc\Ray.h" />
+    <ClInclude Include="Physics\Inc\RaycastHitResult.h" />
     <ClInclude Include="Reflection\Inc\BaseTypeReflection.h" />
-    <ClInclude Include="Reflection\Inc\EntityCreator.h" />
-    <ClInclude Include="Reflection\Inc\EntityGroup.h" />
-    <ClInclude Include="Reflection\Inc\EntityPropertyList.h" />
+    <ClInclude Include="Reflection\Inc\EntityCreation.h" />
     <ClInclude Include="Reflection\Inc\EnumConverter.h" />
     <ClInclude Include="Reflection\Inc\MetaECSTypes.h" />
     <ClInclude Include="Reflection\Inc\MetaObjectLookup.h" />
@@ -317,9 +343,11 @@
     <ClInclude Include="Resource\Inc\AssetBank.h" />
     <ClInclude Include="Resource\Inc\ResourceWrappers.h" />
     <ClInclude Include="Resource\Inc\ResourceBank.h" />
+    <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h" />
     <ClInclude Include="Tests\Inc\Examples\TestDraw.h" />
     <ClInclude Include="Tests\Inc\Examples\IExample.h" />
     <ClInclude Include="Tests\Inc\Examples\TestInput.h" />
+    <ClInclude Include="Tests\Inc\Examples\TestPhysics.h" />
     <ClInclude Include="Tests\Inc\Helpers\Comparison.h" />
     <ClInclude Include="Tests\Inc\MockObjects\MockComponent.h" />
     <ClInclude Include="Tests\Inc\MockObjects\MockCustomDataType.h" />

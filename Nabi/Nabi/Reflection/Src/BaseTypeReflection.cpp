@@ -30,7 +30,6 @@ namespace nabi::Reflection::DirectXTypes
 	// Nothing fancy here, just best to be explicit I think
 	
 	using namespace dx; // this using namespace is kinda sneaky, cos it means that the directx type name can be stringified directly 
-	using namespace nabi::Utils;
 
 	REFLECT_DATA_TYPE_CUSTOM_DEFAULT(XMFLOAT2, Float2::FromString)
 	REFLECT_DATA_TYPE_CUSTOM_DEFAULT(XMFLOAT3, Float3::FromString)

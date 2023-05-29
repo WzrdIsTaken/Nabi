@@ -15,14 +15,14 @@ namespace nabitest
 
 		static MockCustomDataType FromString(std::string const& string)
 		{
-			using namespace nabi::Utils;
+			using namespace nabi;
 
 			StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
 			splitSettings.m_ExpectedValues = 2u;
 			std::vector<std::string_view> const splitString = StringUtils::SplitString(string, splitSettings);
 
-			double const doubleType = nabi::Reflection::StringConverter::FromString<double>(splitString[0].data());
-			bool const boolType = nabi::Reflection::StringConverter::FromString<bool>(splitString[1].data());
+			double const doubleType = Reflection::StringConverter::FromString<double>(splitString[0].data());
+			bool const boolType = Reflection::StringConverter::FromString<bool>(splitString[1].data());
 
 			MockCustomDataType const result = { doubleType, boolType };
 			return result;

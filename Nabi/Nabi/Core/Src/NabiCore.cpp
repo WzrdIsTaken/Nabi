@@ -4,6 +4,7 @@
 
 #include "CoreComponents\CameraComponent.h"
 #include "CoreModules\CameraModule.h"
+#include "CoreSingletonComponents\CollisionStateComponent.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"
 #include "CoreSingletonComponents\InputStateComponent.h"
 #include "CoreSingletonComponents\UIStateComponent.h"
@@ -25,6 +26,7 @@ namespace nabi
 
 		// Nabi
 		, m_Context{}
+		, m_GameTime{}
 		, m_InitSettings(initSettings)
 
 		// TEST
@@ -38,7 +40,7 @@ namespace nabi
 		m_Context.m_Registry = {};
 		m_Context.m_SingletonEntites.fill(entt::null);
 
-		m_Context.m_EntityCreator = std::make_unique<Reflection::EntityCreator>(m_Context.m_Registry);
+		m_Context.m_EntityCreator = std::make_unique<ECS::EntityCreator>(m_Context.m_Registry);
 
 		// Rendering
 		m_Context.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Context.m_Window->GetHWND(), initSettings.m_WindowSettings);
@@ -62,6 +64,7 @@ namespace nabi
 		initializationSuccessful &= InitGraphicsEntity();
 		initializationSuccessful &= InitDxPipeline();
 		initializationSuccessful &= InitInputEntity();
+		initializationSuccessful &= InitPhysicsEntity();
 
 		// Parse xml
 		initializationSuccessful &= ParseECSData();
@@ -84,6 +87,8 @@ namespace nabi
 				return errorCode.value();
 			}
 
+			m_GameTime.Tick();
+
 			Update();
 			Render();
 		}
@@ -95,7 +100,7 @@ namespace nabi
 	void NabiCore::Update() NABI_NOEXCEPT
 	{
 #ifdef USE_EVENT_SYSTEM_UPDATE
-		m_Context.m_NabiEventsManager.FireSystemUpdateEvent(/*game time*/);
+		m_Context.m_NabiEventsManager.FireSystemUpdateEvent(m_GameTime);
 #endif // ifdef USE_META_SYSTEM_UPDATE
 
 		// TEST
@@ -107,7 +112,7 @@ namespace nabi
 		m_Context.m_RenderCommand->BeginFrame();
 
 #ifdef USE_EVENT_SYSTEM_UPDATE
-		m_Context.m_NabiEventsManager.FireSystemRenderEvent(/*game time*/);
+		m_Context.m_NabiEventsManager.FireSystemRenderEvent(m_GameTime);
 #endif // ifdef USE_META_SYSTEM_UPDATE
 
 		// TEST
@@ -116,7 +121,7 @@ namespace nabi
 		m_Context.m_RenderCommand->EndFrame();
 	}
 
-	bool const NabiCore::InitGraphicsEntity() NABI_NOEXCEPT
+	bool NabiCore::InitGraphicsEntity() NABI_NOEXCEPT
 	{
 		using namespace nabi::Rendering;
 
@@ -154,7 +159,9 @@ namespace nabi
 		// --- Create the light state component ---
 		ecs::SComp::LightStateComponent lightStateComponent;
 		lightStateComponent.m_LightCount = 0u;
-		lightStateComponent.m_UpdateLights = false;
+#ifndef USE_EVENT_SYSTEM_UPDATE
+		lightStateComponent.m_UpdateLights = true;
+#endif // ifndef USE_EVENT_SYSTEM_UPDATE
 
 		// --- Add the graphics components to the entity ---
 		m_Context.m_Registry.emplace<ecs::CameraGroupComponent>(graphicsEntity, cameraComponent);
@@ -164,7 +171,7 @@ namespace nabi
 		return true;
 	}
 
-	bool const NabiCore::InitDxPipeline() NABI_NOEXCEPT
+	bool NabiCore::InitDxPipeline() NABI_NOEXCEPT
 	{
 		using namespace nabi::Rendering;
 
@@ -177,7 +184,7 @@ namespace nabi
 		return true;
 	}
 
-	bool const NabiCore::InitInputEntity() NABI_NOEXCEPT
+	bool NabiCore::InitInputEntity() NABI_NOEXCEPT
 	{
 		// Create the input entity
 		entt::entity const inputEntity =
@@ -195,7 +202,19 @@ namespace nabi
 		return true;
 	}
 
-	bool const NabiCore::ParseECSData() NABI_NOEXCEPT
+	bool NabiCore::InitPhysicsEntity() NABI_NOEXCEPT
+	{
+		// Create the physics entity
+		entt::entity const physicsEntity =
+			m_Context.m_SingletonEntites.at(Context::SingletonEntities::Physics) = m_Context.m_Registry.create();
+
+		// Add the CollisionStateComponent (keeps track of colliders)
+		m_Context.m_Registry.emplace<ecs::SComp::CollisionStateComponent>(physicsEntity);
+
+		return true;
+	}
+
+	bool NabiCore::ParseECSData() NABI_NOEXCEPT
 	{
 		typedef DataSettings::NabiCoreParseMode ParseMode;
 		ParseMode const parseMode = m_InitSettings.m_DataSettings.m_NabiCoreParseDocuments;

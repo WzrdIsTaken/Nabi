@@ -130,7 +130,7 @@ namespace nabitest::ReflectionTests
 		}
 
 		// ;_;
-		using namespace nabi::Utils::DirectXUtils;
+		using namespace nabi::DirectXUtils;
 		bool const float2Equal = Float2Equal(float2.m_Expected, float2.m_Actual);
 		bool const float3Equal = Float3Equal(float3.m_Expected, float3.m_Actual);
 		bool const int2Equal = Int2Equal(int2.m_Expected, int2.m_Actual);

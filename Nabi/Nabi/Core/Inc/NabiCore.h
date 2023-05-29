@@ -6,12 +6,14 @@
 
 #include "Context.h"
 #include "DXObjects.h"
+#include "GameTime.h"
 #include "InitSettings.h"
 #include "WindowEventsListener.h"
 
 // TEST
 #include "Examples\TestDraw.h"
 #include "Examples\TestInput.h"
+#include "Examples\TestPhysics.h"
 
 namespace nabi
 {
@@ -33,14 +35,15 @@ namespace nabi
 		[[nodiscard]] inline Context& GetContext() NABI_NOEXCEPT { return m_Context; }
 
 	protected:
-		virtual void Update(/*gametime?*/) /*const?*/ NABI_NOEXCEPT;
-		virtual void Render(/*gametime?*/) /*const?*/ NABI_NOEXCEPT;
+		virtual void Update() /*const?*/ NABI_NOEXCEPT;
+		virtual void Render() /*const?*/ NABI_NOEXCEPT;
 
-		bool const InitGraphicsEntity() NABI_NOEXCEPT;
-		bool const InitDxPipeline() NABI_NOEXCEPT;
-		bool const InitInputEntity() NABI_NOEXCEPT;
+		bool InitGraphicsEntity() NABI_NOEXCEPT;
+		bool InitDxPipeline() NABI_NOEXCEPT;
+		bool InitInputEntity() NABI_NOEXCEPT;
+		bool InitPhysicsEntity() NABI_NOEXCEPT;
 
-		bool const ParseECSData() NABI_NOEXCEPT; // The user defined xml ecs data
+		bool ParseECSData() NABI_NOEXCEPT; // User defined xml ecs data
 
 		// Windows
 		HINSTANCE const m_hInstance;
@@ -51,6 +54,7 @@ namespace nabi
 
 		// Nabi
 		Context m_Context;
+		GameTime m_GameTime;
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		std::unordered_map<std::string, entt::meta_any> m_Systems;
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
@@ -59,6 +63,6 @@ namespace nabi
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)
 
-		nabitest::Examples::TestInput test_Input;
+		nabitest::Examples::TestPhysics test_Input;
 	};
 } // namespace nabi

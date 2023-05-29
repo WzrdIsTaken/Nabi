@@ -55,6 +55,11 @@
 
 namespace nabi
 {
+	class GameTime;
+} // namespace nabi
+
+namespace nabi
+{
 	/// <summary>
 	/// Handles all core Nabi events. Eg, like those which update systems.
 	/// </summary>
@@ -62,10 +67,10 @@ namespace nabi
 	{
 	public:
 #ifdef USE_EVENT_SYSTEM_UPDATE
-		typedef entt::sigh<void(/*game time*/)> SystemFrameEvent;
+		typedef entt::sigh<void(GameTime const&)> SystemFrameEvent;
 
-		inline void FireSystemUpdateEvent(/*game time*/) const NABI_NOEXCEPT { m_UpdateEvent.publish(); };
-		inline void FireSystemRenderEvent(/*game time*/) const NABI_NOEXCEPT { m_RenderEvent.publish(); };
+		inline void FireSystemUpdateEvent(GameTime const& gameTime) const NABI_NOEXCEPT { m_UpdateEvent.publish(gameTime); };
+		inline void FireSystemRenderEvent(GameTime const& gameTime) const NABI_NOEXCEPT { m_RenderEvent.publish(gameTime); };
 
 		inline SystemFrameEvent& GetSystemUpdateEvent() NABI_NOEXCEPT { return m_UpdateEvent; };
 		inline SystemFrameEvent& GetSystemRenderEvent() NABI_NOEXCEPT { return m_RenderEvent; };

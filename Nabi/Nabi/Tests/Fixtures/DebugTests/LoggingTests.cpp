@@ -11,7 +11,7 @@ namespace nabitest::DebugTests
 	TEST(DebugTests, CheckLogCalls)
 	{
 		// Grab the logger and cache the expected number of messages logged
-		using nabi::Utils::DebugUtils::Logger;
+		using nabi::DebugUtils::Logger;
 		Logger logger;
 		Logger::LogCount const expectedMessagesLogged = logger.GetLogCount() + 1ull;
 

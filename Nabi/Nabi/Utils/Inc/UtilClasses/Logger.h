@@ -5,7 +5,7 @@
 
 #ifdef USE_DEBUG_UTILS
 
-namespace nabi::Utils::DebugUtils
+namespace nabi::DebugUtils
 {
 	// Some new defines to be used with SetLogLevel. Macros so they match up stylistically with the logging levels defined in DebugUtils
 #define LOG_LEVEL_ALL  "this string could be anything!"
@@ -57,6 +57,6 @@ namespace nabi::Utils::DebugUtils
 		// This guy is kinda just for fun
 		LogCount m_LogMessageCount;
 	};
-} // namespace nabi::Utils::DebugUtils
+} // namespace nabi::DebugUtils
 
 #endif // ifdef USE_DEBUG_UTILS

@@ -27,10 +27,24 @@ namespace ecs
 		dx::XMFLOAT3 m_Target;
 
 		bool m_HasToBeUpdated;
+
+		CameraComponent()
+			: m_View{}
+			, m_Projection{}
+			, m_Position{}
+			, m_Target{}
+			, m_HasToBeUpdated(true)
+		{
+		}
 	};
 
 	struct CameraGroupComponent final : public nabi::ECS::ComponentBase
 	{
 		std::array<CameraComponent, CameraIndex::Enum::ENUM_COUNT> m_Cameras;
+
+		CameraGroupComponent()
+			: m_Cameras{}
+		{
+		}
 	};
 } // namespace ecs

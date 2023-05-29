@@ -21,6 +21,7 @@ namespace ecs
 		: SystemBase(context, systemId, systemGroupId)
 	{
 		REGISTER_SYSTEM_RENDER_EVENT_SUBSCRIBER(LightingSystem)
+		DISABLE_SYSTEM_RENDER(LightingSystem)
 
 		// Set up listeners for the creation, updating and destruction of lights
 		MANAGE_LIGHT_LISTENERS(on_construct, connect, LightingSystem::OnLightCreated);
@@ -38,7 +39,7 @@ namespace ecs
 		MANAGE_LIGHT_LISTENERS(on_destroy, disconnect, LightingSystem::OnLightDestroyed);		
 	}
 
-	void LightingSystem::Render()
+	void LightingSystem::Render(nabi::GameTime const& /*gameTime*/)
 	{
 		// Get the graphics entity. This stores the camera, constant buffers, etc
 		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
@@ -46,8 +47,11 @@ namespace ecs
 		// Cache the light state component
 		SComp::LightStateComponent& lightStateComponent = m_Context.m_Registry.get<SComp::LightStateComponent>(graphicEntity);
 
+#ifndef USE_EVENT_SYSTEM_UPDATE
 		// Check if the lights need to be updated
+		// If USE_EVENT_SYSTEM_UPDATE is defined, then ENABLE/DISABLE_SYSTEM_RENDER is used instead
 		if (lightStateComponent.m_UpdateLights)
+#endif // ifndef USE_EVENT_SYSTEM_UPDATE
 		{
 			// Cache the graphics component
 			SComp::GraphicsComponent& graphicsComponent = m_Context.m_Registry.get<SComp::GraphicsComponent>(graphicEntity);
@@ -109,7 +113,11 @@ namespace ecs
 			// --- Let there be light! ---
 
 			m_Context.m_RenderCommand->UpdateConstantBuffer(lightConstantBuffer, lightConstantBufferData.data());
+#ifdef USE_EVENT_SYSTEM_UPDATE
+			DISABLE_SYSTEM_RENDER(LightingSystem)
+#else
 			lightStateComponent.m_UpdateLights = false;
+#endif // ifdef USE_EVENT_SYSTEM_UPDATE
 		}
 	}
 
@@ -121,31 +129,43 @@ namespace ecs
 		perLightChangeConstantBuffer.m_SpecularIntensity = lightProperties.m_SpecularIntensity;
 	}
 
-	void LightingSystem::OnLightCreated(entt::registry& /*registry*/, entt::entity /*entity*/) const
+	void LightingSystem::OnLightCreated(entt::registry& /*registry*/, entt::entity /*entity*/)
 	{
 		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
-
 		++lightStateComponent.m_LightCount;
+
+#ifdef USE_EVENT_SYSTEM_UPDATE
+		ENABLE_SYSTEM_RENDER(LightingSystem);
+#else
 		lightStateComponent.m_UpdateLights = true;
+#endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
-	void LightingSystem::OnLightUpdated(entt::registry& /*registry*/, entt::entity /*entity*/) const
+	void LightingSystem::OnLightUpdated(entt::registry& /*registry*/, entt::entity /*entity*/)
 	{
+#ifdef USE_EVENT_SYSTEM_UPDATE
+		ENABLE_SYSTEM_RENDER(LightingSystem);
+#else
 		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
 		lightStateComponent.m_UpdateLights = true;
+#endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
-	void LightingSystem::OnLightDestroyed(entt::registry& /*registry*/, entt::entity /*entity*/) const
+	void LightingSystem::OnLightDestroyed(entt::registry& /*registry*/, entt::entity /*entity*/)
 	{
 		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
-
 		--lightStateComponent.m_LightCount;
+
+#ifdef USE_EVENT_SYSTEM_UPDATE
+		ENABLE_SYSTEM_RENDER(LightingSystem);
+#else
 		lightStateComponent.m_UpdateLights = true;
+#endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
 	SComp::LightStateComponent& LightingSystem::GetLightStateComponent() const
 	{
-		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
+		entt::entity const graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
 		return m_Context.m_Registry.get<SComp::LightStateComponent>(graphicEntity);
 	}
 } // namespace ecs

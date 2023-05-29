@@ -16,7 +16,7 @@ namespace ecs
 		~RenderSystem();
 
 		// Core, call this and forget render function
-		void Render(/*TODO - game time?*/);
+		void Render(nabi::GameTime const& gameTime);
 
 		// For more control (what 'Render' calls under the hood)
 		void RenderPerspective(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent);

@@ -2,7 +2,7 @@
 
 #include "DebugUtils.h"
 
-namespace nabi::Utils::MathUtils
+namespace nabi::MathUtils
 {
 #ifdef USE_DEBUG_UTILS
 	namespace
@@ -31,4 +31,4 @@ namespace nabi::Utils::MathUtils
 		ASSERT(min < max, "Trying to generate a random number in a range but [min] (" << min << ") is greater than or equal to [max] (" << max << ")!");
 		return min + rand() % (max - min + 1);
 	}
-} // namespace nabi::Utils::MathUtils
+} // namespace nabi::MathUtils

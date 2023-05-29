@@ -11,11 +11,9 @@ namespace nabi::Rendering
 	
 	UVs UVs::FromString(std::string const& string) NABI_NOEXCEPT
 	{
-		using namespace nabi::Utils;
-
-		StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
+		nabi::StringUtils::SplitSettings splitSettings = nabi::StringUtils::c_DefaultSplitSettings;
 		splitSettings.m_ExpectedValues = 4u;
-		std::vector<std::string_view> const splitString = StringUtils::SplitString(string, splitSettings);
+		std::vector<std::string_view> const splitString = nabi::StringUtils::SplitString(string, splitSettings);
 
 		float const u1 = nabi::Reflection::StringConverter::FromString<float>(splitString[0].data());
 		float const u2 = nabi::Reflection::StringConverter::FromString<float>(splitString[1].data());

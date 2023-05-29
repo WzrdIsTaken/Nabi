@@ -5,7 +5,7 @@
 
 #include "TypeUtils.h"
 
-namespace nabi::Utils::StringUtils
+namespace nabi::StringUtils
 {
 #define TOSTRING(thing) #thing
 #define CONCAT(A, B) A ## B
@@ -34,6 +34,12 @@ namespace nabi::Utils::StringUtils
 	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, char const after, SplitSettings const& splitSettings) NABI_NOEXCEPT;
 	// Splits a string via a delimiter. Fatal assert if expectedValues is not equal to the resultant split
 	[[nodiscard]] std::vector<std::string_view> SplitString(std::string_view const string, SplitSettings const& splitSettings) NABI_NOEXCEPT;
+
+	// Constructs a string from a string view
+	[[nodiscard]] inline std::string StringFromStringView(std::string_view const string_view) NABI_NOEXCEPT
+	{
+		return std::string(string_view.data(), string_view.length());
+	}
 
 	// Trims a string
     static inline char const* const c_WhiteSpace = " \t\n\r\f\v";
@@ -64,4 +70,4 @@ namespace nabi::Utils::StringUtils
 
 		return stringView.substr(first, last - first + 1);
 	}
-} // namespace nabi::Utils::StringUtils
+} // namespace nabi::StringUtils

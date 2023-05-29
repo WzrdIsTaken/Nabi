@@ -40,10 +40,17 @@ namespace ecs::SComp
 		std::array<Controller, c_MaxControllers> m_PreviousControllerStates{};
 	};
 
-	struct InputStateComponent final : public nabi::ECS::ComponentSettingsBase
+	struct InputStateComponent final : public nabi::ECS::ComponentBase
 	{
-		KeyboardState m_KeyboardState{};
-		MouseState m_MouseState{};
-		ControllerState m_ControllerState{};
+		KeyboardState m_KeyboardState;
+		MouseState m_MouseState;
+		ControllerState m_ControllerState;
+
+		InputStateComponent()
+			: m_KeyboardState{}
+			, m_MouseState{}
+			, m_ControllerState{}
+		{
+		}
 	};
 } // namespace ecs::SComp

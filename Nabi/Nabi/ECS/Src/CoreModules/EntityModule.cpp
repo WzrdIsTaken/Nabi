@@ -7,11 +7,12 @@
 
 namespace ecs::EntityModule
 {
-	// this namespace seems kinda odd for EntityGroup - perhaps refactor?
-	using namespace nabi::Reflection;
+	using namespace nabi::ECS;
 
 	namespace
 	{
+#pragma warning( push )
+#pragma warning( disable : 26495 ) // [var] is unitialized (perhaps the constexpr is confusing vs?)
 		struct FindSettings final
 		{
 			enum class SearchType : int
@@ -27,6 +28,7 @@ namespace ecs::EntityModule
 			SearchType m_SearchType;
 			int m_SearchCount; // -1 for all
 		};
+#pragma warning( pop )
 
 		EntityGroup FindEntitiyHelper(nabi::Context const& context, FindSettings const findSettings)
 		{
@@ -61,7 +63,7 @@ namespace ecs::EntityModule
 				if (entityMatchesFindTerm)
 				{
 					matchingEntities.AddEntity(entity);
-					entitiesFound++;
+					++entitiesFound;
 
 					if (entitiesFound == findSettings.m_SearchCount)
 					{

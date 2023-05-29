@@ -42,7 +42,7 @@
 
 #define LOG(prep, severity, message) \
 		{ \
-			using nabi::Utils::DebugUtils::Logger; \
+			using nabi::DebugUtils::Logger; \
 			\
 			std::ostringstream debugStream; \
 			debugStream << prep << severity << LEVEL_MESSAGE_DIVIDER << message; \
@@ -62,7 +62,7 @@
 		LOG(prep, severity, message); \
 	}
 
-#define LOG_RAW(message) nabi::Utils::DebugUtils::Logger::LogRaw(message);
+#define LOG_RAW(message) nabi::DebugUtils::Logger::LogRaw(message);
 #define FAST_LOG(message) LOG(LOG_PREP, LOG_INFO, message << ENDLINE); // for when you just want to quickly write a log message to check something. deliberately not accounted for in release
 
 #define FUNCTION_NOT_IMPLEMENTED ASSERT_FAIL("The function " << __FUNCTION__  << " is not implemented!");

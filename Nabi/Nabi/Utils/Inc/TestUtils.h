@@ -20,12 +20,12 @@
 	  to track down bugs if we don't change it back. These macros should hopefully alleviate that problem.
 	*/
 	#define MAKE_LOGIC_TESTABLE \
-		using namespace nabi::Utils::BuildUtils; \
+		using namespace nabi::BuildUtils; \
 		if (c_BuildConfiguration == BuildConfiguration::Release)
 
 	// Used inside test cases
 	#define BUILD_CONFIGURATION_CHANGE_BEGIN \
-		using namespace nabi::Utils::BuildUtils; \
+		using namespace nabi::BuildUtils; \
 		BuildConfiguration const startBuildConfiguration = c_BuildConfiguration;
 	#define BUILD_CONFIGURATION_CHANGE_END \
 		c_BuildConfiguration = startBuildConfiguration; \

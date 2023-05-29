@@ -17,7 +17,7 @@ namespace ecs
 		: SystemBase(context, systemId, systemGroupId)
 	{
 		REGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(UISystem)
-		DISABLE_SYSTEM_UPDATE(UISystem) // this system doesn't need to update until there are ui scenes
+		DISABLE_SYSTEM_UPDATE(UISystem) // this system shouldn't update until there are ui scenes
 
 		m_Context.m_Registry.on_construct<UISceneComponent>().connect<&UISystem::OnUISceneCreated>(this);
 		m_Context.m_Registry.on_destroy<UISceneComponent>().connect<&UISystem::OnUISceneDestroyed>(this);
@@ -31,11 +31,11 @@ namespace ecs
 		m_Context.m_Registry.on_destroy<UISceneComponent>().disconnect<&UISystem::OnUISceneDestroyed>(this);
 	}
 
-	void UISystem::Update()
+	void UISystem::Update(nabi::GameTime const& /*gameTime*/)
 	{
 		// I think this system has to tick in order to handle console inputs, which aren't event driven ):
 		// Unless I write an event system for that.. thats an option I guess..
-		// Plus I don't like the fact we are branching in an update loop
+		// Plus I don't like the fact we are branching like this in an update loop
 		// But again, uni project - not infinite time
 
 		UISceneComponent::UISceneEntities const* const uiEntities = UIModule::GetCurrentUISceneEntities(m_Context, UIModule::GetMode::FirstEnabled);
@@ -144,7 +144,7 @@ namespace ecs
 		UISceneComponent& uiSceneComponent = m_Context.m_Registry.get<UISceneComponent>(entity);
 		std::string_view const uiSceneEntityNames = uiSceneComponent.m_UISceneEntityNames.data();
 
-		using namespace nabi::Utils;
+		using namespace nabi;
 		StringUtils::SplitSettings splitSettings = StringUtils::c_DefaultSplitSettings;
 		splitSettings.m_TrimEachValue = false; // a quirk of this system, don't worry about it (the trimming happens below, something to do with stringview)
 
@@ -215,4 +215,4 @@ namespace ecs
 			}
 		}
 	}
-} // namespace ecs::System
+} // namespace ecs

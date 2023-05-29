@@ -5,7 +5,7 @@
 
 #include "MetaECSTypes.h"
 
-namespace nabi::Reflection
+namespace nabi::ECS
 {
 	/// <summary>
 	/// Used to override certain properties on a runtime created entity
@@ -16,7 +16,7 @@ namespace nabi::Reflection
 		struct PropertyComponentPair final
 		{
 			entt::hashed_string m_ComponentHash;
-			PropertyData m_PropertyOverride;
+			Reflection::PropertyData m_PropertyOverride;
 
 			bool operator == (PropertyComponentPair const other) const NABI_NOEXCEPT
 			{
@@ -63,4 +63,4 @@ namespace nabi::Reflection
 
 		std::vector<PropertyComponentPair> m_OverriddenProperties;
 	};
-} // namespace nabi::Reflection
+} // namespace nabi::ECS

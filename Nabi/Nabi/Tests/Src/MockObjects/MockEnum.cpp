@@ -14,6 +14,20 @@ namespace nabitest
 		REFLECT_ENUM_VALUE_DEFAULT(MockEnum::ENUM_COUNT)
 	REFLECT_ENUM_END(MockEnum)
 
+	REFLECT_ENUM_BEGIN_DEFAULT(MockEnumFlags)
+		REFLECT_ENUM_VALUE_DEFAULT(MockEnumFlags::One)
+		REFLECT_ENUM_VALUE_DEFAULT(MockEnumFlags::Two)
+		REFLECT_ENUM_VALUE_DEFAULT(MockEnumFlags::Three)
+		REFLECT_ENUM_VALUE_DEFAULT(MockEnumFlags::All)
+	REFLECT_ENUM_END(MockEnumFlags)
+
+	REFLECT_ENUM_UNDERLYING_BEGIN_DEFAULT(MockEnumFlagsUnderlying)
+		REFLECT_ENUM_VALUE_DEFAULT(MockEnumFlagsUnderlying::One)
+		REFLECT_ENUM_VALUE_DEFAULT(MockEnumFlagsUnderlying::Two)
+		REFLECT_ENUM_VALUE_DEFAULT(MockEnumFlagsUnderlying::Three)
+		REFLECT_ENUM_VALUE_DEFAULT(MockEnumFlagsUnderlying::All)
+	REFLECT_ENUM_END(MockEnumFlagsUnderlying)
+
 	namespace NamespacedMockEnum
 	{
 		REFLECT_ENUM_BEGIN_DEFAULT(Enum)

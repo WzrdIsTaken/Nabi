@@ -165,6 +165,18 @@
 		entt::meta<_enum>().type(entt::hashed_string(#_enum)) \
 			.func<&nabi::Reflection::EnumConverter::StringToEnum<_enum>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName)
 
+#define REFLECT_ENUM_UNDERLYING_BEGIN(_enum, enumName) \
+	CREATE_REFLECTOR_BEGIN(_enum) \
+	CREATE_INIT_REFLECTION_FUNCTION() \
+		entt::meta<_enum>().type(entt::hashed_string(enumName)) \
+			.func<&nabi::Reflection::EnumConverter::StringToEnumUnderlyingValue<_enum>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName)
+
+#define REFLECT_ENUM_UNDERLYING_BEGIN_DEFAULT(_enum) \
+	CREATE_REFLECTOR_BEGIN(_enum) \
+	CREATE_INIT_REFLECTION_FUNCTION() \
+		entt::meta<_enum>().type(entt::hashed_string(#_enum)) \
+			.func<&nabi::Reflection::EnumConverter::StringToEnumUnderlyingValue<_enum>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName)
+
 #define REFLECT_ENUM_VALUE(enumValue, enumValueName) \
 			.data<enumValue>(entt::hashed_string(enumValueName))
 

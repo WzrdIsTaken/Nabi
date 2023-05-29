@@ -32,13 +32,10 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 	// --- Initial Nabi Setup ---
 
-	using namespace nabi;
-	using namespace nabi::Utils;
-
 	// Create a console window
 #ifdef USE_DEBUG_UTILS
 	UINT const consoleMaxLines = 4096u;
-	AllocateConsole(consoleMaxLines);
+	nabi::AllocateConsole(consoleMaxLines);
 #endif // #ifdef USE_DEBUG_UTILS
 
 	// Setup Debug Utils
@@ -47,12 +44,12 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	_CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_WNDW);
 
 	// Set up the logger
-	using DebugUtils::Logger;
+	using nabi::DebugUtils::Logger;
 	Logger::CreateInstance();
 #endif // #ifdef USE_DEBUG_UTILS
 
 	// Seed random
-	MathUtils::SeedRandom();
+	nabi::MathUtils::SeedRandom();
 
 	// --- Run Tests ---
 
@@ -93,7 +90,7 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 	// Destroy the console
 #ifdef USE_DEBUG_UTILS
-	ReleaseConsole();
+	nabi::ReleaseConsole();
 #endif // #ifdef USE_DEBUG_UTILS
 
 	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE << "Shutting down Nabi with code " << appRunResult << ENDLINE);

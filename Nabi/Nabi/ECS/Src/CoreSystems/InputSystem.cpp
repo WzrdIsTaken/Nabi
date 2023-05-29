@@ -47,7 +47,7 @@ namespace ecs
 		UNREGISTER_WINDOWS_EVENT_SUBSCRIBER(WM_MOUSEMOVE,   InputSystem::OnMouseMove);
 	}
 
-	void InputSystem::Update()
+	void InputSystem::Update(nabi::GameTime const& /*gameTime*/)
 	{
 		UpdateKeyboard();
 		UpdateMouse();
@@ -152,8 +152,8 @@ namespace ecs
 	{
 		POINTS const mousePosition = MAKEPOINTS(lParam);
 		InputModule::GetMouseState(m_Context).m_MousePosition = dx::XMFLOAT2(
-			static_cast<SHORT>(mousePosition.x), 
-			static_cast<SHORT>(mousePosition.y)
+			static_cast<float>(mousePosition.x), 
+			static_cast<float>(mousePosition.y)
 		);
 	}
 } // namespace ecs

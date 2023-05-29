@@ -22,7 +22,7 @@
     type(type&&) = delete; \
     type(type const&&) = delete;
 
-namespace nabi::Utils::TypeUtils
+namespace nabi::TypeUtils
 {
     // Note - this has some flaws / limitations
     // See https://stackoverflow.com/questions/20833453/comparing-stdfunctions-for-equality
@@ -48,7 +48,7 @@ namespace nabi::Utils::TypeUtils
         // Note - to_underlying will do this in cpp23
         return static_cast<typename std::underlying_type<E>::type>(e);
     }
-}
+} // namespace nabi::TypeUtils
 
 //#define interface __interface
 

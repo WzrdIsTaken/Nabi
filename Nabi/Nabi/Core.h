@@ -4,6 +4,7 @@
 
 // --- Standard Lib ---
 #include <bitset>
+#include <cstdint>
 #include <stack>
 #include <string>
 
@@ -22,6 +23,7 @@ using namespace entt::literals;
 // Nabi Core
 #include "Context.h"
 #include "Defines.h"
+#include "GameTime.h"
 
 // ECS
 #include "ComponentBase.h"

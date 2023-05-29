@@ -3,6 +3,7 @@
 // Standard
 #include <algorithm>
 #include <array>
+#include <chrono>
 #include <exception>
 #include <functional>
 #include <optional>

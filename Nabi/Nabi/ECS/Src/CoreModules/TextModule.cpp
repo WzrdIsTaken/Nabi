@@ -109,7 +109,7 @@ namespace ecs::TextModule
 
 	void CenterText(nabi::Context& context, TextComponent const& textComponent, TransformComponent& textTransformComponent, dx::XMFLOAT3 const* const position)
 	{
-		using namespace nabi::Utils::DirectXUtils;
+		using namespace nabi::DirectXUtils;
 
 		// Set the texts position if its supplied
 		if (position != nullptr)
