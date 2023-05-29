@@ -8,9 +8,11 @@ Current:
 - Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
 - Once the test stuff is removed from NabiCore, make sure the engine compiles in release
 
+-Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown. Also can tidy up this todo txt
+
 // --- High Priority ---
 
-- Audio
+- Audio <--
 - Threading
 
 Structure Stuff

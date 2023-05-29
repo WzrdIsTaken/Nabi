@@ -202,7 +202,7 @@ namespace ecs
 	void CollisionSystem::ResolveCollision(float const dt, nabi::Physics::Collision const& collision, CollisionEventData& data) const
 	{
 		dx::XMFLOAT3 const resultant = nabi::DirectXUtils::Float3Multiply(collision.m_Normal, collision.m_Depth);
-		float const ms = 1.0f / dt;
+		float const inverseDt = 1.0f / dt;
 		LOG(LOG_PREP, LOG_TRACE, "Narrow Phase - Normal: " << nabi::DirectXUtils::Float3ToString(collision.m_Normal) <<
 			" | Depth: " << collision.m_Depth << " | Normal * Depth = " << nabi::DirectXUtils::Float3ToString(resultant) << ENDLINE);
 
@@ -212,7 +212,7 @@ namespace ecs
 
 		// Rigidbody adjustment 
 		RigidbodyComponent& rigidbody = data.m_RigidbodyComponent;
-		dx::XMFLOAT3 const velocityChange = nabi::DirectXUtils::Float3Multiply(resultant, ms);
+		dx::XMFLOAT3 const velocityChange = nabi::DirectXUtils::Float3Multiply(resultant, inverseDt);
 		rigidbody.m_Velocity = nabi::DirectXUtils::Float3Add(rigidbody.m_Velocity, velocityChange);
 	}
 
