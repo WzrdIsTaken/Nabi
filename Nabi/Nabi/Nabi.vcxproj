@@ -201,7 +201,6 @@
     <ClCompile Include="ECS\Src\CoreSystems\UISystem.cpp" />
     <ClCompile Include="ECS\Src\EntityCreator.cpp" />
     <ClCompile Include="ECS\Src\EntityPropertyList.cpp" />
-    <ClCompile Include="ECS\Src\SystemBase.cpp" />
     <ClCompile Include="Input\Src\InputCodes.cpp" />
     <ClCompile Include="Libraries\Src\pugixml\pugixml.cpp" />
     <ClCompile Include="Libraries\Src\WICTextureLoader\WICTextureLoader.cpp" />

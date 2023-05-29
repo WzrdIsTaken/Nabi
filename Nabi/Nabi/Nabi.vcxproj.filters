@@ -269,9 +269,6 @@
     <ClCompile Include="Reflection\Src\XmlParser.cpp">
       <Filter>Reflection\Src</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Src\SystemBase.cpp">
-      <Filter>ECS\Src</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Src\NabiCore.cpp">
       <Filter>Core\Src</Filter>
     </ClCompile>
