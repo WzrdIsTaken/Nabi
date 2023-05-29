@@ -6,6 +6,11 @@
 #include "Collision.h"
 #include "DirectXUtils.h"
 
+namespace nabi::Physics
+{
+	struct Ray;
+} // namespace nabi::Physics
+
 namespace nabi::Physics::CollisionSolvers
 {
 	[[nodiscard]] AABB CreateAABBFromTopLeft(dx::XMFLOAT3 const& topLeft, dx::XMFLOAT3 const& dimensions) NABI_NOEXCEPT;
@@ -39,6 +44,7 @@ namespace nabi::Physics::CollisionSolvers
 		using namespace nabi::DirectXUtils;
 		return Float3LessOrEqual(lhs.m_MinExtents, rhs.m_MaxExtents) && Float3GreaterOrEqual(lhs.m_MaxExtents, rhs.m_MinExtents);
 	}
+	[[nodiscard]] bool Intersects(AABB const& aabb, Ray const& ray, float& distance) NABI_NOEXCEPT;
 
 	[[nodiscard]] Collision SolveCollision(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT; // <-- the mvp
 	[[nodiscard]] dx::XMFLOAT3 CalculateCollisionNormal(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT;

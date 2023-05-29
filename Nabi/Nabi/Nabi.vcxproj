@@ -228,6 +228,7 @@
     <ClCompile Include="Tests\Fixtures\InputTests\InputStateTests.cpp" />
     <ClCompile Include="Tests\Fixtures\InputTests\UITests.cpp" />
     <ClCompile Include="Tests\Fixtures\PhysicsTests\CollisionTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\PhysicsTests\RaycastTests.cpp" />
     <ClCompile Include="Tests\Fixtures\PhysicsTests\RigidbodyTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionDebugAttributeTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionEnumTests.cpp" />
@@ -312,6 +313,8 @@
     <ClInclude Include="Physics\Inc\Collision.h" />
     <ClInclude Include="Physics\Inc\CollisionSolvers.h" />
     <ClInclude Include="Physics\Inc\PhysicsConstants.h" />
+    <ClInclude Include="Physics\Inc\Ray.h" />
+    <ClInclude Include="Physics\Inc\RaycastHitResult.h" />
     <ClInclude Include="Reflection\Inc\BaseTypeReflection.h" />
     <ClInclude Include="Reflection\Inc\EntityCreation.h" />
     <ClInclude Include="Reflection\Inc\EnumConverter.h" />
@@ -340,6 +343,7 @@
     <ClInclude Include="Resource\Inc\AssetBank.h" />
     <ClInclude Include="Resource\Inc\ResourceWrappers.h" />
     <ClInclude Include="Resource\Inc\ResourceBank.h" />
+    <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h" />
     <ClInclude Include="Tests\Inc\Examples\TestDraw.h" />
     <ClInclude Include="Tests\Inc\Examples\IExample.h" />
     <ClInclude Include="Tests\Inc\Examples\TestInput.h" />

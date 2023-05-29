@@ -78,7 +78,7 @@ namespace ecs
 			{
 				// Check if the two colliders have a valid mask to check collisions
 				auto [rhsEntity, rhsTransformComponent, rhsRigidbodyComponent, rhsColliderComponent] = *rhsIt;
-				bool const validMask = static_cast<bool>(lhsColliderComponent.m_Mask & rhsColliderComponent.m_Mask);
+				bool const validMask = PhysicsModule::ValidCollisionMask(m_Context, lhsColliderComponent.m_Mask, rhsColliderComponent.m_Mask);
 
 				if (validMask)
 				{

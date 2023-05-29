@@ -4,9 +4,79 @@
 
 #include "AABB.h"
 #include "CollisionSolvers.h"
+#include "Ray.h"
+
+#define USE_RAYCAST_HEURISTIC 
 
 namespace ecs::PhysicsModule
 {
+	nabi::Physics::RaycastHitResult Raycast(nabi::Context& context, dx::XMFLOAT3 const& origin, dx::XMFLOAT3 const& direction, RaycastSettings const& settings)
+	{
+		int constexpr numberOfResults = 1;
+		nabi::Physics::RaycastHitResult const result = Raycast(context, origin, direction, numberOfResults, settings).front();
+
+		return result;
+	}
+
+	std::vector<nabi::Physics::RaycastHitResult> Raycast(nabi::Context& context, dx::XMFLOAT3 const& origin, dx::XMFLOAT3 const& direction, int const numberOfResults, RaycastSettings const& settings)
+	{
+		using namespace nabi::Physics;
+
+		std::vector<RaycastHitResult> results = {};
+#ifdef USE_RAYCAST_HEURISTIC
+		results.reserve(numberOfResults);
+#endif // ifdef USE_RAYCAST_HEURISTIC 
+
+		Ray ray;
+		ray.m_Origin = origin;
+		ray.m_Direction = direction;
+
+		float distance = FLT_MAX;
+
+		AABB lhsAABB = {};
+		AABB rhsAABB = {};
+
+		SComp::CollisionStateComponent::MaxVariance const comparisonAxis = GetCollisionStateComponent(context).m_MaxVarianceAxis;
+		auto view = GetSortedCollisionView(context, comparisonAxis, lhsAABB, rhsAABB);
+
+		for (auto [entity, transformComponent, rigidbodyComponent, colliderComponent] : view.each())
+		{
+			bool const validMask = ValidCollisionMask(context, colliderComponent.m_Mask, settings.m_Mask);
+			if (validMask)
+			{
+				ReassignAABBFromCollisionComponents(lhsAABB, transformComponent, colliderComponent);
+				bool const intersects = CollisionSolvers::Intersects(lhsAABB, ray, distance);
+
+				if (distance > settings.m_Range)
+				{
+					// No more AABBs are in range
+					break;
+				}
+
+				if (intersects)
+				{
+					RaycastHitResult result = c_EmptyRaycastResult;
+					result.m_Entity = entity;
+					result.m_Distance = distance;
+					results.emplace_back(result);
+
+					if (results.size() == numberOfResults)
+					{
+						break;
+					}
+				}
+			}
+		}
+
+		if (results.empty())
+		{
+			RaycastHitResult result = c_EmptyRaycastResult;
+			results.emplace_back(result);
+		}
+
+		return results;
+	}
+
 	CollisionView GetSortedCollisionView(nabi::Context& context, SComp::CollisionStateComponent::MaxVariance const comparisonAxis)
 	{
 		nabi::Physics::AABB lhsAABB = {};

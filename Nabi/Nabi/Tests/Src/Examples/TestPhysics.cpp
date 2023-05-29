@@ -4,12 +4,17 @@
 
 #include "CoreComponents\RigidbodyComponent.h"
 #include "CoreModules\InputModule.h"
+#include "CoreModules\PhysicsModule.h"
 #include "CoreModules\ReflectionModule.h"
 
 #ifdef RUN_TESTS
 
 namespace nabitest::Examples
 {
+	ecs::ColliderComponent::ColliderMask constexpr c_PlayerMask  = 1 << 1;
+	ecs::ColliderComponent::ColliderMask constexpr c_ObjectMask  = 1 << 1;
+	ecs::ColliderComponent::ColliderMask constexpr c_RaycastMask = 1 << 2;
+
 	// --- Physics ---
 
 	TestPhysics::TestPhysics(nabi::Context& context)
@@ -43,7 +48,7 @@ namespace nabitest::Examples
 		CollisionEntitySettings playerSettings = {};
 		playerSettings.m_Position = { 0.0f, 0.0f, 0.0f };
 		playerSettings.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
-		playerSettings.m_CollisionMask = 1 << 1;
+		playerSettings.m_CollisionMask = c_PlayerMask;
 		playerSettings.m_ColliderType = ecs::ColliderComponent::ColliderType::Sphere;
 		playerSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Dynamic;
 		playerSettings.m_ColliderSize = { 0.3f, 0.3f, 0.3f };
@@ -54,7 +59,7 @@ namespace nabitest::Examples
 		CollisionEntitySettings dynamicColliderSettings = {};
 		dynamicColliderSettings.m_Position = { 1.0f, 0.0f, 0.0f }; // 0.0f, -1.0f, 0.0f
 		dynamicColliderSettings.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
-		dynamicColliderSettings.m_CollisionMask = 1 << 1;
+		dynamicColliderSettings.m_CollisionMask = c_ObjectMask;
 		dynamicColliderSettings.m_ColliderType = ecs::ColliderComponent::ColliderType::Cube;
 		dynamicColliderSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Dynamic; // Static
 		dynamicColliderSettings.m_ColliderSize = { 0.625f, 0.625f, 0.625f }; // 10.0f, 0.625f, 0.625f
@@ -65,6 +70,11 @@ namespace nabitest::Examples
 		staticColliderSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Static;
 		staticColliderSettings.m_Position = { -1.0f, 0.0f, 0.0f };
 		CreateCollisionEntity(staticColliderSettings);
+
+		CollisionEntitySettings raycastableColliderSettings = staticColliderSettings;
+		raycastableColliderSettings.m_Position = { 1.25f, 1.0f, 0.0f };
+		raycastableColliderSettings.m_CollisionMask = c_RaycastMask;
+		CreateCollisionEntity(raycastableColliderSettings);
 
 		// --- Assets ---
 		m_AssetBank = std::make_unique<SimpleAssetBank>(m_Context);
@@ -87,11 +97,14 @@ namespace nabitest::Examples
 		using namespace nabi::Input;
 
 		ecs::RigidbodyComponent& playerEntityRigidbody = m_Context.m_Registry.get<ecs::RigidbodyComponent>(m_PlayerEntity);
+		ecs::TransformComponent& playerEntityTransform = m_Context.m_Registry.get<ecs::TransformComponent>(m_PlayerEntity);
+
 		float constexpr testEntitySpeed = 0.1f;
 		float constexpr testEntityRotation = 0.1f;
 		bool constexpr adjustRotation = false;
 
 		InputState const resetKeyState = GetKeyboardKey(m_Context, InputCode::Key_Z);
+		InputState const raycastKeyState = GetKeyboardKey(m_Context, InputCode::Key_R);
 
 		InputState const wKeyState = GetKeyboardKey(m_Context, InputCode::Key_W);
 		InputState const sKeyState = GetKeyboardKey(m_Context, InputCode::Key_S);
@@ -110,6 +123,21 @@ namespace nabitest::Examples
 
 			playerEntityTransformComponent.m_Position = resetValues;
 			playerEntityTransformComponent.m_Rotation = resetValues;
+		}
+		if (raycastKeyState == InputState::Pressed)
+		{
+			ecs::PhysicsModule::RaycastSettings settings = ecs::PhysicsModule::c_DefaultRaycastSettings;
+			settings.m_Mask = c_RaycastMask;
+			//settings.m_Range = 0.5f;
+
+			nabi::Physics::RaycastHitResult result = ecs::PhysicsModule::Raycast(
+				m_Context,
+				playerEntityTransform.m_Position,
+				{ 1, 0, 0 }, // direction
+				settings
+			);
+
+			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST << "Raycast " << (result ? "hit" : "didn't hit") << ENDLINE);
 		}
 
 		if (wKeyState == InputState::Held)

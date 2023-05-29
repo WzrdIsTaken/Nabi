@@ -9,10 +9,9 @@ Current:
 - Once the test stuff is removed from NabiCore, make sure the engine compiles in release
 
 // --- High Priority ---
-- See notebook: Raycast, collision/physics tests, then these many todos... come on! lets go dude~   
-    - Tests done, just raycast and the todos . will have to write a raycast test though once that is done
 
-- do we need to write a raycast func? probs (not..? idk - decide!). in a collision/physics module? Just this left~!
+- Audio
+- Threading
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -59,6 +58,10 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive:
+- See notebook: Raycast, collision/physics tests, then these many todos... come on! lets go dude~   
+    - Tests done, just raycast and the todos . will have to write a raycast test though once that is done
+- do we need to write a raycast func? probs (not..? idk - decide!). in a collision/physics module? Just this left~! 
+    - decided yes! and now its done B) [29/05/2023, right on schedule] run time i think..
 - Can also implemnt physics materials like this? Perhaps in data its an enum? Otherwise a string to a function. The signature can contain eg peneration depth, the normal
     and the rb. Then eg the function can modifiy the rb - like a bouncy material.
         - Left a note for this, but currently its solving a problem which doesn't /might never exist
@@ -246,5 +249,6 @@ Remember:
 - Can't use ifdef inside __pragma
 - cool syntax: normal ? (normal->x = (normal->x < 0.0f) ? -1.0f : 1.0f) : 0;
 - find it vs remove it for erase https://stackoverflow.com/a/24011727
+- 0xFFFF
 
 idk why this is here really but as i say, i like everything in one place :D

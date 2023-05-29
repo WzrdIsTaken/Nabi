@@ -3,6 +3,8 @@
 
 #include "CollisionSolvers.h"
 
+#include "Ray.h"
+
 namespace nabi::Physics::CollisionSolvers
 {
 	AABB CreateAABBFromTopLeft(dx::XMFLOAT3 const& topLeft, dx::XMFLOAT3 const& dimensions) NABI_NOEXCEPT
@@ -107,6 +109,43 @@ namespace nabi::Physics::CollisionSolvers
 		if (rhs.m_MaxExtents.z - lhs.m_MaxExtents.z > collisionNormalEpsilon) ++z;
 
 		return { x, y, z };
+	}
+
+	bool CollisionSolvers::Intersects(AABB const& aabb, Ray const& ray, float& distance) NABI_NOEXCEPT
+	{
+		// Resources:
+		// https://tavianator.com/2015/ray_box_nan.html
+		// https://gamedev.stackexchange.com/a/18459 
+
+		dx::XMFLOAT3 inverseDirection = nabi::DirectXUtils::c_Float3Zero;
+		inverseDirection.x = 1.0f / ray.m_Direction.x;
+		inverseDirection.y = 1.0f / ray.m_Direction.y;
+		inverseDirection.z = 1.0f / ray.m_Direction.z;
+
+		float const t1 = (aabb.m_MinExtents.x - ray.m_Origin.x) * inverseDirection.x;
+		float const t2 = (aabb.m_MaxExtents.x - ray.m_Origin.x) * inverseDirection.x;
+		float const t3 = (aabb.m_MinExtents.y - ray.m_Origin.y) * inverseDirection.y;
+		float const t4 = (aabb.m_MaxExtents.y - ray.m_Origin.y) * inverseDirection.y;
+		float const t5 = (aabb.m_MinExtents.z - ray.m_Origin.z) * inverseDirection.z;
+		float const t6 = (aabb.m_MaxExtents.z - ray.m_Origin.z) * inverseDirection.z;
+
+		float const tMin = std::max(std::max(std::min(t1, t2), std::min(t3, t4)), std::min(t5, t6));
+		float const tMax = std::min(std::min(std::max(t1, t2), std::max(t3, t4)), std::max(t5, t6));
+
+		if (tMax < 0.0f)
+		{
+			distance = tMax;
+			return false;
+		}
+
+		if (tMin > tMax)
+		{
+			distance = tMax;
+			return false;
+		}
+
+		distance = tMin;
+		return true;
 	}
 
 	dx::XMFLOAT3 CalculatePenetrationDepth(AABB const& lhs, AABB const& rhs) NABI_NOEXCEPT

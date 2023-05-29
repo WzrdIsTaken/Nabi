@@ -467,6 +467,9 @@
     <ClCompile Include="ECS\Src\CoreModules\PhysicsModule.cpp">
       <Filter>ECS\Src\CoreModules</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\Fixtures\PhysicsTests\RaycastTests.cpp">
+      <Filter>Tests\Fixtures\PhysicsTests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -797,6 +800,15 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\PhysicsModule.h">
       <Filter>ECS\Inc\CoreModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Inc\Ray.h">
+      <Filter>Physics\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Inc\RaycastHitResult.h">
+      <Filter>Physics\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h">
+      <Filter>Tests\Fixtures\PhysicsTests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
