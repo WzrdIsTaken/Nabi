@@ -10,7 +10,7 @@ namespace nabi::Physics
 		entt::entity m_Entity;
 		float m_Distance;
 
-		explicit constexpr inline operator bool() const
+		explicit constexpr inline operator bool() const NABI_NOEXCEPT
 		{
 			return m_Entity != entt::null;
 		}
