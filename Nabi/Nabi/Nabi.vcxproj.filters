@@ -239,6 +239,15 @@
     <Filter Include="Tests\Fixtures\PhysicsTests">
       <UniqueIdentifier>{d2dda8f9-6c62-4009-bade-966f7aece7be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{9505faec-f613-4c67-9ac7-e9c6dc9783e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio\Inc">
+      <UniqueIdentifier>{b4678634-d9ea-490e-8e6d-2625bacd02cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio\Src">
+      <UniqueIdentifier>{d7d5b257-91c4-41dd-bb7c-89e4d4657302}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -466,6 +475,12 @@
     </ClCompile>
     <ClCompile Include="Tests\Fixtures\PhysicsTests\RaycastTests.cpp">
       <Filter>Tests\Fixtures\PhysicsTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Examples\TestAudio.cpp">
+      <Filter>Tests\Src\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\Src\AudioCommand.cpp">
+      <Filter>Audio\Src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -806,6 +821,15 @@
     </ClInclude>
     <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h">
       <Filter>Tests\Fixtures\PhysicsTests</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\Inc\SoundSourceVoice.h">
+      <Filter>Audio\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Examples\TestAudio.h">
+      <Filter>Tests\Inc\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\Inc\AudioCommand.h">
+      <Filter>Audio\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

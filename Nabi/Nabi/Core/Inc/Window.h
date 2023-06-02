@@ -92,7 +92,7 @@ namespace nabi
 
 		// Helper functions for GetOrAddEvent and RemoveEvent
 		[[nodiscard]] WindowMsgItr FindMsgItr(UINT const messageId, FindMode const findMode) NABI_NOEXCEPT;
-		[[nodiscard]] bool IsMsgItrValid(WindowMsgItr const itr) const NABI_NOEXCEPT;
+		[[nodiscard]] inline bool IsMsgItrValid(WindowMsgItr const itr) const NABI_NOEXCEPT { return itr != m_WindowsEvents.end(); }
 
 		HWND m_hWnd;
 		std::vector<WindowsMsgPair> m_WindowsEvents;

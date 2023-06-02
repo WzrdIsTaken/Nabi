@@ -1,4 +1,5 @@
 #include "TestCore.h"
+
 #ifdef RUN_TESTS
 
 namespace nabitest::ECSTests

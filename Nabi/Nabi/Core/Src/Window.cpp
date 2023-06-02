@@ -200,9 +200,4 @@ namespace nabi
 									                    /* Default */   ASSERT_FATAL(findMode == FindMode::Find || findMode == FindMode::Remove, "yeah dont do that pls tyty");
 		return messageSubscribersItr;
 	}
-
-	bool Window::IsMsgItrValid(WindowMsgItr const itr) const NABI_NOEXCEPT
-	{
-		return itr != m_WindowsEvents.end();
-	}
 } // namespace nabi

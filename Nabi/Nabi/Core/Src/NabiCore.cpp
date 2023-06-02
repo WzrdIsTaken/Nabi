@@ -2,6 +2,7 @@
 
 #include "NabiCore.h"
 
+#include "AudioCommand.h"
 #include "CoreComponents\CameraComponent.h"
 #include "CoreModules\CameraModule.h"
 #include "CoreSingletonComponents\CollisionStateComponent.h"
@@ -44,6 +45,9 @@ namespace nabi
 
 		// Rendering
 		m_Context.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Context.m_Window->GetHWND(), initSettings.m_WindowSettings);
+
+		// Audio
+		m_Context.m_AudioCommand = std::make_unique<Audio::AudioCommand>();
 
 		// --- Setup windows events ---
 		m_WindowEventsListener.RegisterEvents();

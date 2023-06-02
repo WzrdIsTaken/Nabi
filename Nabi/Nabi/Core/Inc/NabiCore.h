@@ -10,10 +10,16 @@
 #include "InitSettings.h"
 #include "WindowEventsListener.h"
 
-// TEST
-#include "Examples\TestDraw.h"
-#include "Examples\TestInput.h"
-#include "Examples\TestPhysics.h"
+// Used to test / develop Nabi's core features
+#define INCLUDE_NABI_EXAMPLES
+#ifdef INCLUDE_NABI_EXAMPLES
+	#include "Examples\TestAudio.h"
+	#include "Examples\TestDraw.h"
+	#include "Examples\TestInput.h"
+	#include "Examples\TestPhysics.h"
+
+	// Just call the Example's Init/Update/Render functions at the end of the matching NabiCore function
+#endif // ifdef INCLUDE_EXAMPLES
 
 namespace nabi
 {
@@ -63,6 +69,8 @@ namespace nabi
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)
 
-		nabitest::Examples::TestPhysics test_Input;
+		nabitest::Examples::TestAudio test_Input;
 	};
 } // namespace nabi
+
+#undef INCLUDE_NABI_EXAMPLES

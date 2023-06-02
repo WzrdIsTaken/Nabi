@@ -100,7 +100,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Audio\Inc;$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -122,7 +122,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Audio\Inc;$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -143,7 +143,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Audio\Inc;$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -162,7 +162,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Audio\Inc;$(ProjectDir)\Core;$(ProjectDir)\Core\Inc;$(ProjectDir)\ECS\Inc;$(ProjectDir)\Input\Inc;$(ProjectDir)\Libraries\Inc\entt;$(ProjectDir)\Libraries\Inc\OBJLoader;$(ProjectDir)\Libraries\Inc\pugixml;$(ProjectDir)\Libraries\Inc\WICTextureLoader;$(ProjectDir)\Memory\Inc;$(ProjectDir)\Patterns\Inc;$(ProjectDir)\Physics\Inc;$(ProjectDir)\Reflection\Inc;$(ProjectDir)\Rendering\Inc;$(ProjectDir)\Resource\Inc;$(ProjectDir)\Tests;$(ProjectDir)\Tests\Inc;$(ProjectDir)\Utils\Inc</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -174,6 +174,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Audio\Src\AudioCommand.cpp" />
     <ClCompile Include="Core\Src\Console.cpp" />
     <ClCompile Include="Core\Src\GameTime.cpp" />
     <ClCompile Include="Core\Src\NabiCore.cpp" />
@@ -236,6 +237,7 @@
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp" />
     <ClCompile Include="Tests\Fixtures\RenderingTests\RenderingCreationTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ResourceTests\ResourceLoadTests.cpp" />
+    <ClCompile Include="Tests\Src\Examples\TestAudio.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestDraw.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestInput.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestPhysics.cpp" />
@@ -252,6 +254,8 @@
     <ClCompile Include="Utils\Src\UtilClasses\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Audio\Inc\AudioCommand.h" />
+    <ClInclude Include="Audio\Inc\SoundSourceVoice.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Core\DirectXCore.h" />
     <ClInclude Include="Core\EngineCore.h" />
@@ -343,6 +347,7 @@
     <ClInclude Include="Resource\Inc\ResourceWrappers.h" />
     <ClInclude Include="Resource\Inc\ResourceBank.h" />
     <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h" />
+    <ClInclude Include="Tests\Inc\Examples\TestAudio.h" />
     <ClInclude Include="Tests\Inc\Examples\TestDraw.h" />
     <ClInclude Include="Tests\Inc\Examples\IExample.h" />
     <ClInclude Include="Tests\Inc\Examples\TestInput.h" />
