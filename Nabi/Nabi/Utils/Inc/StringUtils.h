@@ -15,8 +15,13 @@ namespace nabi::StringUtils
 	std::wstring const wtemp = std::wstring(string.begin(), string.end()); \
     lpcwstr = wtemp.c_str();
 
+#define STRING_TO_LPCWSTR_INLINE(string) \
+	std::wstring(string.begin(), string.end()).c_str()
+
 	// A LPCSTR is just a typedef'ed WCHAR
 #define STRING_TO_WCHAR(string, wchar) STRING_TO_LPCWSTR(string, wchar)
+
+#define STRING_TO_WCHAR_INLINE(string) STRING_TO_LPCWSTR_INLINE(string)
 
 	struct SplitSettings
 	{

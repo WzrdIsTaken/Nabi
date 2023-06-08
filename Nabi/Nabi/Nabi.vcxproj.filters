@@ -482,6 +482,9 @@
     <ClCompile Include="Audio\Src\AudioCommand.cpp">
       <Filter>Audio\Src</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\CoreModules\AudioModule.cpp">
+      <Filter>ECS\Src\CoreModules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -822,7 +825,7 @@
     <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h">
       <Filter>Tests\Fixtures\PhysicsTests</Filter>
     </ClInclude>
-    <ClInclude Include="Audio\Inc\SoundSourceVoice.h">
+    <ClInclude Include="Audio\Inc\AudioSourceVoice.h">
       <Filter>Audio\Inc</Filter>
     </ClInclude>
     <ClInclude Include="Tests\Inc\Examples\TestAudio.h">
@@ -830,6 +833,24 @@
     </ClInclude>
     <ClInclude Include="Audio\Inc\AudioCommand.h">
       <Filter>Audio\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\Inc\XAudioObjects.h">
+      <Filter>Audio\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\Inc\AudioCore.h">
+      <Filter>Audio\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSingletonComponents\AudioStateComponent.h">
+      <Filter>ECS\Inc\CoreSingletonComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\Inc\AudioEffect.h">
+      <Filter>Audio\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\AudioResourceComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreModules\AudioModule.h">
+      <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

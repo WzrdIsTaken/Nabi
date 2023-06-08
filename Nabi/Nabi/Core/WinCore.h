@@ -4,8 +4,8 @@
 // And this was a great video as well - https://www.youtube.com/watch?v=5W7JLgFCkwI. Ty The Cherno
 // And tyvm Sam + Brandon
 
-// Target Windows 7 or later
-#define _WIN32_WINNT 0x0601
+// Target Windows 8 or later (was previously win7 (0x0601) but xaudio is windows 8+)
+#define _WIN32_WINNT 0x0602
 #include <sdkddkver.h>
 
 // Disable any Windows stuff we don't want

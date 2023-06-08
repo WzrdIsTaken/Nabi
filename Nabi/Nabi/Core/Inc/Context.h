@@ -22,6 +22,7 @@ namespace nabi
 			Graphic,
 			Input,
 			Physics,
+			Audio,
 			ENUM_COUNT
 		};
 

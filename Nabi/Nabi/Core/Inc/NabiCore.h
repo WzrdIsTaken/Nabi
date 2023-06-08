@@ -9,6 +9,7 @@
 #include "GameTime.h"
 #include "InitSettings.h"
 #include "WindowEventsListener.h"
+#include "XAudioObjects.h"
 
 // Used to test / develop Nabi's core features
 #define INCLUDE_NABI_EXAMPLES
@@ -48,6 +49,7 @@ namespace nabi
 		bool InitDxPipeline() NABI_NOEXCEPT;
 		bool InitInputEntity() NABI_NOEXCEPT;
 		bool InitPhysicsEntity() NABI_NOEXCEPT;
+		bool InitAudioEntity() NABI_NOEXCEPT;
 
 		bool ParseECSData() NABI_NOEXCEPT; // User defined xml ecs data
 
@@ -57,6 +59,7 @@ namespace nabi
 
 		// DirectX
 		Rendering::DXObjects m_DXObjects;
+		Audio::XAudioObjects m_XAudioObjects;
 
 		// Nabi
 		Context m_Context;

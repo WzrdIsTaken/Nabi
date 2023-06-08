@@ -110,6 +110,7 @@ namespace nabi::DirectXUtils
 
 	// Vector
 	[[nodiscard]] dx::XMFLOAT3 Float3Normalize(dx::XMFLOAT3 const& float3) NABI_NOEXCEPT;
+	[[nodiscard]] dx::XMFLOAT3 Float3Rotate(dx::XMFLOAT3 const& float3, dx::XMFLOAT3 const& rotation) NABI_NOEXCEPT;
 
 	// Constants
 	dx::XMINT2 constexpr c_Int2Zero = { 0, 0 };

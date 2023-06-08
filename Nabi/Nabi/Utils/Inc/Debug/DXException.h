@@ -64,6 +64,14 @@ namespace nabi::DirectX
 			throw DXException(file, line, GetLastError());
 		}
 	}
+
+	inline void ThrowIfFailed(std::string const file, int const line, DWORD const result)
+	{
+		if (result == INVALID_SET_FILE_POINTER)
+		{
+			throw DXException(file, line, GetLastError());
+		}
+	}
 } // namespace nabi::DirectX
 
 #endif // USE_DEBUG_UTILS

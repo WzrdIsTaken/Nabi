@@ -5,6 +5,7 @@
 #include "AudioCommand.h"
 #include "CoreComponents\CameraComponent.h"
 #include "CoreModules\CameraModule.h"
+#include "CoreSingletonComponents\AudioStateComponent.h"
 #include "CoreSingletonComponents\CollisionStateComponent.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"
 #include "CoreSingletonComponents\InputStateComponent.h"
@@ -47,7 +48,7 @@ namespace nabi
 		m_Context.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Context.m_Window->GetHWND(), initSettings.m_WindowSettings);
 
 		// Audio
-		m_Context.m_AudioCommand = std::make_unique<Audio::AudioCommand>();
+		m_Context.m_AudioCommand = std::make_unique<Audio::AudioCommand>(m_XAudioObjects);
 
 		// --- Setup windows events ---
 		m_WindowEventsListener.RegisterEvents();
@@ -69,6 +70,7 @@ namespace nabi
 		initializationSuccessful &= InitDxPipeline();
 		initializationSuccessful &= InitInputEntity();
 		initializationSuccessful &= InitPhysicsEntity();
+		initializationSuccessful &= InitAudioEntity();
 
 		// Parse xml
 		initializationSuccessful &= ParseECSData();
@@ -214,6 +216,18 @@ namespace nabi
 
 		// Add the CollisionStateComponent (keeps track of colliders)
 		m_Context.m_Registry.emplace<ecs::SComp::CollisionStateComponent>(physicsEntity);
+
+		return true;
+	}
+
+	bool NabiCore::InitAudioEntity() NABI_NOEXCEPT
+	{
+		// Create the audio entity
+		entt::entity const audioEntity =
+			m_Context.m_SingletonEntites.at(Context::SingletonEntities::Audio) = m_Context.m_Registry.create();
+
+		// Add the AudioComponent (holds all the loaded sounds in a map, look-up-able by an AudioID, and a pool of audio voices)
+		m_Context.m_Registry.emplace<ecs::SComp::AudioStateComponent>(audioEntity);
 
 		return true;
 	}

@@ -45,4 +45,17 @@ namespace nabi::DirectXUtils
 
 		return normalizedVector;
 	}
+
+	dx::XMFLOAT3 Float3Rotate(dx::XMFLOAT3 const& float3, dx::XMFLOAT3 const& rotation) NABI_NOEXCEPT
+	{
+		dx::XMFLOAT3 result = c_Float3Zero;
+
+		dx::XMVECTOR const float3Vector = dx::XMLoadFloat3(&float3);
+		dx::XMVECTOR const rotationVector = dx::XMLoadFloat3(&rotation);
+
+		dx::XMVECTOR const rotatedVector = dx::XMVector3Rotate(float3Vector, rotationVector);
+		dx::XMStoreFloat3(&result, rotatedVector);
+
+		return result;
+	}
 } // namespace nabi::DirectXUtils
