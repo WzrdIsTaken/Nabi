@@ -4,6 +4,7 @@
 
 #include "AudioCommand.h"
 #include "CoreComponents\CameraComponent.h"
+#include "CoreModules\AudioModule.h"
 #include "CoreModules\CameraModule.h"
 #include "CoreSingletonComponents\AudioStateComponent.h"
 #include "CoreSingletonComponents\CollisionStateComponent.h"
@@ -56,6 +57,9 @@ namespace nabi
 
 	NabiCore::~NabiCore()
 	{
+		ecs::AudioModule::DestroyAllEffects(m_Context);
+		ecs::AudioModule::DestroyAllVoices(m_Context);
+
 		m_Context.m_Registry.clear();
 		m_DXObjects.m_Context->ClearState();
 		m_WindowEventsListener.UnRegisterEvents();
@@ -228,6 +232,11 @@ namespace nabi
 
 		// Add the AudioComponent (holds all the loaded sounds in a map, look-up-able by an AudioID, and a pool of audio voices)
 		m_Context.m_Registry.emplace<ecs::SComp::AudioStateComponent>(audioEntity);
+
+		// Create the pools on the audio state component
+		size_t constexpr poolSize2D = 25u;
+		size_t constexpr poolSize3D = 25u;
+		ecs::AudioModule::InitSourceVoicePool(m_Context, poolSize2D, poolSize3D);
 
 		return true;
 	}

@@ -195,6 +195,7 @@
     <ClCompile Include="ECS\Src\CoreModules\RenderModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\UIModule.cpp" />
+    <ClCompile Include="ECS\Src\CoreSystems\AudioSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\CollisionSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\InputSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp" />
@@ -272,11 +273,13 @@
     <ClInclude Include="Core\Inc\NabiEventsManager.h" />
     <ClInclude Include="Core\Inc\Window.h" />
     <ClInclude Include="Core\Inc\WindowEventsListener.h" />
+    <ClInclude Include="Core\Inc\WorldConstants.h" />
     <ClInclude Include="Core\WinCore.h" />
     <ClInclude Include="ECS\Inc\ComponentBase.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\AudioResourceComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\ColliderComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\RigidbodyComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreComponents\AudioEmitterComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\UIComponents.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\CameraComponent.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\EntityInfoComponent.h" />
@@ -299,6 +302,7 @@
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\InputStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\LightStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\UIStateComponent.h" />
+    <ClInclude Include="ECS\Inc\CoreSystems\AudioSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\CollisionSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\InputSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\LightingSystem.h" />
@@ -322,7 +326,6 @@
     <ClInclude Include="Physics\Inc\AABB.h" />
     <ClInclude Include="Physics\Inc\Collision.h" />
     <ClInclude Include="Physics\Inc\CollisionSolvers.h" />
-    <ClInclude Include="Physics\Inc\PhysicsConstants.h" />
     <ClInclude Include="Physics\Inc\Ray.h" />
     <ClInclude Include="Physics\Inc\RaycastHitResult.h" />
     <ClInclude Include="Reflection\Inc\BaseTypeReflection.h" />

@@ -34,10 +34,10 @@ namespace nabi::Rendering
 		.m_RenderTargetView = nullptr,
 		.m_DepthStencilView = nullptr,
 
-		.m_Viewport{},
+		.m_Viewport{}
 
 #ifdef USE_DEBUG_UTILS
-		.m_DebugDevice = nullptr
+		, .m_DebugDevice = nullptr
 #endif // ifdef USE_DEBUG_UTILS
 	};
 } // namespace nabi::Rendering

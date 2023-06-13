@@ -7,7 +7,6 @@
 #include "DebugUtils.h"
 #include "DirectXUtils.h"
 #include "StringUtils.h"
-#include "XAudioObjects.h"
 
 #pragma comment(lib, "xaudio2.lib")
 
@@ -34,6 +33,13 @@ namespace nabi::Audio
             m_XAudioObjects.m_X3DAudio // XAudio3D
         ));
 
+		// Initialise XAudio debug
+#ifdef USE_DEBUG_UTILS
+		m_XAudioObjects.m_DebugConfiguration.TraceMask = XAUDIO2_LOG_ERRORS | XAUDIO2_LOG_WARNINGS | XAUDIO2_LOG_INFO;
+		//m_XAudioObjects.m_DebugConfiguration.BreakMask = XAUDIO2_LOG_ERRORS;
+
+		m_XAudioObjects.m_XAudio2->SetDebugConfiguration(&m_XAudioObjects.m_DebugConfiguration, NULL);
+#endif // ifdef USE_DEBUG_UTILS
     }
 
     AudioCommand::~AudioCommand() NABI_NOEXCEPT
@@ -69,7 +75,7 @@ namespace nabi::Audio
 		DX_ASSERT(ReadChunkData(file, &audioEffect.m_WFX, dwChunkSize, dwChunkPosition));
 
 		DX_ASSERT(FindChunk(file, c_FourccDATA, dwChunkSize, dwChunkPosition));
-		audioEffect.m_DataBuffer = std::make_unique<BYTE[]>(dwChunkSize);
+		audioEffect.m_DataBuffer = std::make_shared<BYTE[]>(dwChunkSize);
 		DX_ASSERT(ReadChunkData(file, audioEffect.m_DataBuffer.get(), dwChunkSize, dwChunkPosition));
 
 		audioEffect.m_Buffer.AudioBytes = dwChunkSize;
@@ -84,32 +90,37 @@ namespace nabi::Audio
 
 	void AudioCommand::LoadAudioVoice(AudioEffect& audioEffect, AudioSourceVoice& audioSourceVoice) const NABI_NOEXCEPT
 	{
-		DX_ASSERT(m_XAudioObjects.m_XAudio2->CreateSourceVoice(audioSourceVoice.GetSourceVoiceAddress(), reinterpret_cast<WAVEFORMATEX*>(&audioEffect.m_WFX)));
+		DWORD constexpr creationFlags = XAUDIO2_VOICE_USEFILTER; /*| any_more_flags*/
+
+		DX_ASSERT(m_XAudioObjects.m_XAudio2->CreateSourceVoice(audioSourceVoice.GetSourceVoiceAddress(), reinterpret_cast<WAVEFORMATEX*>(&audioEffect.m_WFX), creationFlags));
 		DX_ASSERT(audioSourceVoice.SubmitBuffer(audioEffect.m_Buffer));
 	}
 
 	void AudioCommand::DestroyAudioEffect(AudioEffect& audioEffect) const NABI_NOEXCEPT
 	{
 		audioEffect.m_DataBuffer.reset();
+		ZeroMemory(&audioEffect.m_WFX, sizeof(audioEffect.m_WFX));
+		ZeroMemory(&audioEffect.m_Buffer, sizeof(audioEffect.m_Buffer));
 	}
 
-	void AudioCommand::DestroyAudioSourceVoice(AudioSourceVoice& audioSourceVoice) const NABI_NOEXCEPT
+	void AudioCommand::DestroyAudioVoice(AudioSourceVoice& audioSourceVoice) const NABI_NOEXCEPT
 	{
 		IXAudio2SourceVoice* sourceVoice = audioSourceVoice.GetSourceVoice();
 		if (sourceVoice)
 		{
 			DX_ASSERT(sourceVoice->Stop());
 			DX_ASSERT(sourceVoice->FlushSourceBuffers());
+			DX_ASSERT(sourceVoice->SetVolume(0.0f));
 			sourceVoice->DestroyVoice();
 			sourceVoice = nullptr;
 		}	
 	}
 
-	void AudioCommand::SetListener(dx::XMFLOAT3 const& transformPosition, dx::XMFLOAT3 const& transformRotation, dx::XMFLOAT3 const& velocity, 
+	void AudioCommand::SetListener(dx::XMFLOAT3 const& position, dx::XMFLOAT3 const& rotation, dx::XMFLOAT3 const& velocity, 
 		dx::XMFLOAT3 const& worldForward, dx::XMFLOAT3 const& worldUp) const NABI_NOEXCEPT
 	{
-		dx::XMFLOAT3 const listenerForward = DirectXUtils::Float3Normalize(DirectXUtils::Float3Rotate(transformRotation, worldForward));
-		dx::XMFLOAT3 const listenerUp = DirectXUtils::Float3Normalize(DirectXUtils::Float3Rotate(transformRotation, worldUp));
+		dx::XMFLOAT3 const listenerForward = DirectXUtils::Float3Normalize(DirectXUtils::Float3Rotate(rotation, worldForward));
+		dx::XMFLOAT3 const listenerUp = DirectXUtils::Float3Normalize(DirectXUtils::Float3Rotate(rotation, worldUp));
 
 		X3DAUDIO_LISTENER& listener = m_XAudioObjects.m_Listener;
 		listener.OrientFront.x = listenerForward.x;
@@ -118,12 +129,41 @@ namespace nabi::Audio
 		listener.OrientTop.x   = listenerUp.x;
 		listener.OrientTop.y   = listenerUp.y;
 		listener.OrientTop.z   = listenerUp.z;
-		listener.Position.x    = transformPosition.x;
-		listener.Position.y    = transformPosition.y;
-		listener.Position.z    = transformPosition.z;
+		listener.Position.x    = position.x;
+		listener.Position.y    = position.y;
+		listener.Position.z    = position.z;
 		listener.Velocity.x    = velocity.x;
 		listener.Velocity.y    = velocity.y;
 		listener.Velocity.z    = velocity.z;
+	}
+
+	void AudioCommand::Calculate3DSoundProperties(X3DAUDIO_EMITTER const& audioEmitter, AudioSourceVoice& audioSourceVoice, X3DAUDIO_DSP_SETTINGS& audioDspSettings) const NABI_NOEXCEPT
+	{
+		IXAudio2SourceVoice* const sourceVoice = audioSourceVoice.GetSourceVoice();
+
+		X3DAudioCalculate(m_XAudioObjects.m_X3DAudio, &m_XAudioObjects.m_Listener, &audioEmitter,                               // Instances
+			X3DAUDIO_CALCULATE_MATRIX | X3DAUDIO_CALCULATE_DOPPLER | X3DAUDIO_CALCULATE_LPF_DIRECT | X3DAUDIO_CALCULATE_REVERB, // Flags
+			&audioDspSettings																								    // Settings
+		);
+
+		DX_ASSERT(sourceVoice->SetOutputMatrix(
+			m_XAudioObjects.m_MasteringVoice,    // Destination voice
+			GetSourceChannelCount(),             // Source channels
+			GetInputChannelCount(),              // Destination channels
+			audioDspSettings.pMatrixCoefficients // Level matrix	
+		));
+
+		DX_ASSERT(sourceVoice->SetFrequencyRatio(audioDspSettings.DopplerFactor));
+
+		// From https://learn.microsoft.com/en-us/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_filter_parameters
+		XAUDIO2_FILTER_PARAMETERS const filterParameters = { 
+			LowPassFilter,                          // Filter type
+			2.0f *                                  // (part of the equation)
+			sinf(X3DAUDIO_PI / 6.0f *               // " "
+			audioDspSettings.LPFDirectCoefficient), // Desired filter cutoff frequency
+			1.0f                                    // Controls how quickly frequencies beyond the set frequency are dampened
+		};
+		DX_ASSERT(sourceVoice->SetFilterParameters(&filterParameters));
 	}
 
     HRESULT AudioCommand::FindChunk(HANDLE hFile, DWORD fourcc, DWORD& dwChunkSize, DWORD& dwChunkDataPosition) const NABI_NOEXCEPT

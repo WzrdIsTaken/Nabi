@@ -14,6 +14,10 @@ namespace nabi::Audio
 		X3DAUDIO_HANDLE m_X3DAudio;
 		X3DAUDIO_LISTENER m_Listener;
 		XAUDIO2_VOICE_DETAILS m_MasteringVoiceDetails;
+
+#ifdef USE_DEBUG_UTILS
+		XAUDIO2_DEBUG_CONFIGURATION m_DebugConfiguration;
+#endif // ifdef USE_DEBUG_UTILS
 	};
 	
 	XAudioObjects const c_XAudioObjectsDefaultSettings
@@ -23,5 +27,9 @@ namespace nabi::Audio
 		.m_X3DAudio = NULL,
 		.m_Listener = {},
 		.m_MasteringVoiceDetails = {}
+
+#ifdef USE_DEBUG_UTILS
+		, .m_DebugConfiguration{}
+#endif // ifdef USE_DEBUG_UTILS
 	};
 } // namespace nabi::Audio

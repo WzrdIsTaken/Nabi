@@ -3,6 +3,11 @@
 
 #include "CoreSingletonComponents\AudioStateComponent.h"
 
+namespace ecs
+{
+	struct AudioEmitterComponent;
+} // namespace ecs
+
 namespace nabi::Audio
 {
 	class AudioSourceVoice;
@@ -21,11 +26,11 @@ namespace ecs::AudioModule
 
 	// --- Pool ---
 
-	void InitSourceVoicePool(nabi::Context& context, size_t const poolSize);
+	void InitSourceVoicePool(nabi::Context& context, size_t const poolSize2D, size_t const poolSize3D);
 	void DestroyAllEffects(nabi::Context& context);
 	void DestroyAllVoices(nabi::Context& context);
 
-	nabi::Audio::AudioSourceVoice* GetFirstReadySourceVoiceFromPool(nabi::Context& context);
+	nabi::Audio::AudioSourceVoice* GetFirstReadySourceVoiceFromPool(nabi::Context& context, SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool);
 
 	// --- Loading ---
 
@@ -34,7 +39,9 @@ namespace ecs::AudioModule
 
 	// --- Playing ---
 
-	void PlayAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings);
+	void Play2DAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings);
+	void Play3DAudioEffect(nabi::Context& context, AudioEmitterComponent& audioEmitterComponent,
+		SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings);
 
 	// --- State ---
 

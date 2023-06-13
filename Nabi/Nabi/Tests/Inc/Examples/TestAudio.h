@@ -9,6 +9,7 @@
 
 namespace ecs
 {
+	class AudioSystem;
 	class InputSystem;
 } // namespace ecs
 
@@ -32,8 +33,10 @@ namespace nabitest::Examples
 	private:
 		nabi::Context& m_Context;
 
-		// Audio System 
+		std::unique_ptr<ecs::AudioSystem> m_AudioSystem;
 		std::unique_ptr<ecs::InputSystem> m_InputSystem;
+
+		entt::entity m_AudioEmitterEntity;
 	};
 } // namespace nabitest::Examples
 

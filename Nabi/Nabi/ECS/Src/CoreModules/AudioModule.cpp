@@ -2,9 +2,50 @@
 
 #include "CoreModules\AudioModule.h"
 
+#include "CoreComponents\AudioEmitterComponent.h"
+
 namespace ecs::AudioModule
 {
-	void InitSourceVoicePool(nabi::Context& context, size_t const poolSize)
+	namespace
+	{
+		void PlayAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, 
+			PlaySettings const& playSettings, SComp::AudioStateComponent::SourceVoicePool& voicePool, 
+			std::optional<std::function<void(nabi::Audio::AudioSourceVoice&)>> configureSourceVoice)
+		{
+			SComp::AudioStateComponent::AudioEffectLookup& audioEffects = GetAudioStateComponent(context).m_AudioEffects;
+
+			auto effect = audioEffects.find(audioID);
+			if (effect != audioEffects.end())
+			{
+				nabi::Audio::AudioSourceVoice* const audioSourceVoice = GetFirstReadySourceVoiceFromPool(context, voicePool);
+				if (audioSourceVoice)
+				{
+					nabi::Audio::AudioEffect& audioEffect = effect->second;
+					context.m_AudioCommand->LoadAudioVoice(audioEffect, *audioSourceVoice);
+
+					IXAudio2SourceVoice* const sourceVoice = audioSourceVoice->GetSourceVoice();
+					if (configureSourceVoice)
+					{
+						(*configureSourceVoice)(*audioSourceVoice);
+					}
+
+					if (playSettings.m_Volume.has_value())
+					{
+						sourceVoice->SetVolume(playSettings.m_Volume.value());
+					}
+					// ...any other settings
+
+					sourceVoice->Start();
+				}
+			}
+			else
+			{
+				ASSERT_FAIL("Trying to play an audio effect with ID " << WRAP(audioID, "'") << " but no effect with that id is loaded");
+			}
+		}
+	}
+
+	void InitSourceVoicePool(nabi::Context& context, size_t const poolSize2D, size_t const poolSize3D)
 	{
 		ASSERT_CODE
 		(
@@ -14,8 +55,8 @@ namespace ecs::AudioModule
 			poolInitialized = true;
 		)
 
-		SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool = GetAudioStateComponent(context).m_SourceVoicePool;
-		sourceVoicePool.resize(poolSize);
+		GetAudioStateComponent(context).m_2DSourceVoicePool.resize(poolSize2D);
+		GetAudioStateComponent(context).m_3DSourceVoicePool.resize(poolSize3D);
 	}
 
 	void DestroyAllEffects(nabi::Context& context)
@@ -30,18 +71,22 @@ namespace ecs::AudioModule
 
 	void DestroyAllVoices(nabi::Context& context)
 	{
-		SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool = GetAudioStateComponent(context).m_SourceVoicePool;
+		auto destroyAllVoicesHelper =
+			[&context](SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool) -> void
+			{
+				for (auto& sourceVoice : sourceVoicePool)
+				{
+					context.m_AudioCommand->DestroyAudioVoice(sourceVoice);
+				}
+			};
 
-		for (auto& sourceVoice : sourceVoicePool)
-		{
-			context.m_AudioCommand->DestroyAudioSourceVoice(sourceVoice);
-		}
+		destroyAllVoicesHelper(GetAudioStateComponent(context).m_2DSourceVoicePool);
+		destroyAllVoicesHelper(GetAudioStateComponent(context).m_3DSourceVoicePool);
 	}
 
-	nabi::Audio::AudioSourceVoice* GetFirstReadySourceVoiceFromPool(nabi::Context& context)
+	nabi::Audio::AudioSourceVoice* GetFirstReadySourceVoiceFromPool(nabi::Context& /*context*/, SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool)
 	{
 		nabi::Audio::AudioSourceVoice* audioSourceVoice = nullptr;
-		SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool = GetAudioStateComponent(context).m_SourceVoicePool;
 
 		ASSERT(!sourceVoicePool.empty(), "Trying to get a source voice from the pool, but the pool is empty");
 
@@ -77,38 +122,28 @@ namespace ecs::AudioModule
 		}
 		else
 		{
-			ASSERT_FAIL("Loading an audio effect with ID " << WRAP(audioID, "'") << " but its already loaded");
+			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_AUDIO << "Loading an audio effect with ID " << WRAP(audioID, "'") << " but its already loaded" << ENDLINE);
 		}
 	}
 
 	// 
 
-	void PlayAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings)
+	void Play2DAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings)
 	{
-		SComp::AudioStateComponent::AudioEffectLookup& audioEffects = GetAudioStateComponent(context).m_AudioEffects;
+		PlayAudioEffect(context, audioID, playSettings, GetAudioStateComponent(context).m_2DSourceVoicePool, std::nullopt /*no custom play behaviour required*/);
+	}
 
-		auto effect = audioEffects.find(audioID);
-		if (effect != audioEffects.end())
-		{
-			nabi::Audio::AudioSourceVoice* const audioSourceVoice = GetFirstReadySourceVoiceFromPool(context);
-			if (audioSourceVoice)
+	void Play3DAudioEffect(nabi::Context& context, AudioEmitterComponent& audioEmitterComponent, 
+		SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings)
+	{
+		PlayAudioEffect(context, audioID, playSettings, GetAudioStateComponent(context).m_3DSourceVoicePool,
+			[&context, &audioEmitterComponent](nabi::Audio::AudioSourceVoice& audioSourceVoice) -> void
 			{
-				nabi::Audio::AudioEffect& audioEffect = effect->second;
-				context.m_AudioCommand->LoadAudioVoice(audioEffect, *audioSourceVoice);
-
-				IXAudio2SourceVoice* const sourceVoice = audioSourceVoice->GetSourceVoice();
-				if (playSettings.m_Volume.has_value())
-				{
-					sourceVoice->SetVolume(playSettings.m_Volume.value());
-				}
-				// ...any other settings
-
-				sourceVoice->Start();
-			}
-		}
-		else
-		{
-			ASSERT_FAIL("Trying to play an audio effect with ID " << WRAP(audioID, "'") << " but no effect with that id is loaded");
-		}
+				context.m_AudioCommand->Calculate3DSoundProperties(
+					audioEmitterComponent.m_Emitter,
+					audioSourceVoice,
+					audioEmitterComponent.m_DSPSettings
+				);
+			});
 	}
 } // namespace ecs::AudioModule

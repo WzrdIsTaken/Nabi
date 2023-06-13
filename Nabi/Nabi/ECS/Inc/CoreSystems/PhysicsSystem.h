@@ -2,7 +2,7 @@
 #include "Core.h"
 
 #include "CoreComponents\RigidbodyComponent.h" // Can't forward declare nested classes ):
-#include "PhysicsConstants.h"
+#include "WorldConstants.h"
 
 namespace ecs
 {
@@ -37,7 +37,7 @@ namespace ecs
 
 		void AccountForDrag(dx::XMFLOAT3& velocity, float const drag, float const dt) const;
 
-		static dx::XMFLOAT3 constexpr c_Gravity = nabi::Physics::Constants::c_Gravity;
+		static dx::XMFLOAT3 constexpr c_Gravity = nabi::WorldConstants::c_Gravity;
 
 		REFLECT_PRIVATES(PhysicsSystem)
 	};

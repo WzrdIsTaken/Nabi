@@ -13,11 +13,13 @@ namespace ecs::SComp
 		typedef std::vector<nabi::Audio::AudioSourceVoice> SourceVoicePool;
 
 		AudioEffectLookup m_AudioEffects;
-		SourceVoicePool m_SourceVoicePool;
+		SourceVoicePool m_2DSourceVoicePool;
+		SourceVoicePool m_3DSourceVoicePool;
 
 		AudioStateComponent()
 			: m_AudioEffects{}
-			, m_SourceVoicePool{}
+			, m_2DSourceVoicePool{}
+			, m_3DSourceVoicePool{}
 		{
 		}
 	};

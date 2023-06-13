@@ -485,6 +485,9 @@
     <ClCompile Include="ECS\Src\CoreModules\AudioModule.cpp">
       <Filter>ECS\Src\CoreModules</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\CoreSystems\AudioSystem.cpp">
+      <Filter>ECS\Src\CoreSystems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -783,9 +786,6 @@
     <ClInclude Include="ECS\Inc\CoreSystems\PhysicsSystem.h">
       <Filter>ECS\Inc\CoreSystems</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\Inc\PhysicsConstants.h">
-      <Filter>Physics\Inc</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Inc\GameTime.h">
       <Filter>Core\Inc</Filter>
     </ClInclude>
@@ -851,6 +851,15 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\AudioModule.h">
       <Filter>ECS\Inc\CoreModules</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSystems\AudioSystem.h">
+      <Filter>ECS\Inc\CoreSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\AudioEmitterComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Inc\WorldConstants.h">
+      <Filter>Core\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

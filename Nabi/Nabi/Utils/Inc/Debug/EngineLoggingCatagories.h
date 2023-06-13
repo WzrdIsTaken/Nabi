@@ -1,5 +1,6 @@
 #pragma once
 
+#define LOG_CATEGORY_AUDIO      "[Audio] "
 #define LOG_CATEGORY_COLLISION  "[Collision] "
 #define LOG_CATEGORY_CORE       "[Core] " 
 #define LOG_CATEGORY_ECS        "[ECS] " 

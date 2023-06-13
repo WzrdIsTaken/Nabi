@@ -8,12 +8,29 @@ Current:
 - Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
 - Once the test stuff is removed from NabiCore, make sure the engine compiles in release
 
--Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown. Also can tidy up this todo txt
+- Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown (i think this is to do with rendering..?). Also can tidy up this todo txt
+    - When nothing is being drawn I dont get the error
 
 // --- High Priority ---
 
-- Audio <--
+- Audio <--  
 - Threading
+
+- Do I need to call CoInitializeEx(nullptr, COINIT_MULTITHREADED); on startup?
+- New namespace for resource components. Eg have SComp::, Tags:: and should have Resource::? ecs::Resouce::~ Should I split up these into resource/tag/data folders?
+    - Just Have CoreComponents [all data components live here], then resource / tag component folders?
+    - Also split out all components into seperate files. Rather than eg DrawableComponents
+- GraphicsComponent -> GraphicsStateComponent
+- Test audio looping (AudioCommand::LoadSettings)
+
+- Audio data should be stored in an asset bank. Need a custom loader and whatever. Rather than going in the audio module
+    - Make sure that the audio bank doesnt assert if the resource is loaded more than once. it should ONLY log info. not even a warn
+
+- Too much NABI_NOEXCEPT? noexcept and nodiscard in core ecs stuff?
+- Make it so that LOG has to take in a category and a end? (eg, LOG_CATEGORY_AUDIO and NEWLINE )?
+
+- I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
+  go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -60,6 +77,9 @@ Structure Stuff
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 
 Archive:
+- Gotta read the docs. As the voices are in a pool now, do I even need to destroy them? they will just be cleaned up at the end anyway. [yes and done]
+- Great progress today! Keep it up. Next up is fix this (^) I recon, + make sure shutting down is anyways nice with no errors
+- Is there a audio engine . shutdown or similar I need to call>
 - See notebook: Raycast, collision/physics tests, then these many todos... come on! lets go dude~   
     - Tests done, just raycast and the todos . will have to write a raycast test though once that is done
 - do we need to write a raycast func? probs (not..? idk - decide!). in a collision/physics module? Just this left~! 
