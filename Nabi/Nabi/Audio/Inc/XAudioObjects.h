@@ -6,6 +6,11 @@
 
 namespace nabi::Audio
 {
+	/// <summary>
+	/// Holds all of the xaudio objects needed for 2d and 3d sound.
+	/// These objects are stored in NabiCore, and used in AudioCommand.
+	/// </summary>
+
 	struct XAudioObjects final
 	{
 		wrl::ComPtr<IXAudio2> m_XAudio2;

@@ -497,6 +497,9 @@
     <ClCompile Include="ECS\Src\CoreComponents\AudioResourceComponent.cpp">
       <Filter>ECS\Src\CoreComponents</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\AudioEmitterComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />

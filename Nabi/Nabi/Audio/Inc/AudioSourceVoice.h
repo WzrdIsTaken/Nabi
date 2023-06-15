@@ -7,6 +7,9 @@
 
 namespace nabi::Audio
 {
+	/// <summary>
+	/// Wraps an IXAudio2SourceVoice. Voices are what actually 'play' sounds.
+	/// </summary>
 	class AudioSourceVoice final
 	{
 	public:
@@ -15,12 +18,20 @@ namespace nabi::Audio
 		{
 		}
 
+		/// <summary>
+		/// Submits a buffer to the source voice. Onces this is done the audio is ready to be played.
+		/// </summary>
+		/// <param name="buffer">- A audio buffer stored in an AudioEffect</param>
+		/// <returns>The result of submitting the buffer</returns>
 		inline HRESULT SubmitBuffer(XAUDIO2_BUFFER const& buffer) NABI_NOEXCEPT
 		{
 			ASSERT_FATAL(m_SourceVoice, "Submitting a buffer to m_SourceVoice but its null");
 			return m_SourceVoice->SubmitSourceBuffer(&buffer);
 		}
 
+		/// <summary>
+		/// Returns true if the source voice is ready to play an audio track. This can be because the voice is null or if it has no queued tracks.
+		/// </summary>
 		inline bool IsReady() const NABI_NOEXCEPT
 		{
 			bool ready = false;

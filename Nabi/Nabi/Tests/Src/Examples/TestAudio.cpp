@@ -56,8 +56,10 @@ namespace nabitest::Examples
 
 		// Should really make it so that the loop is not something that is done by loading.. instead when playing
 
-		// Comments in audio code
-		// FINAL TODO (for audio...) - AUDIO TESTS!
+		// check other test examples still work (made some sweeping changes) DONE
+		// audio module todo DONE
+		// Comments in audio code DONE
+		// FINAL TODO (for audio...) - AUDIO TESTS! 
 	}
 
 	bool TestAudio::Init()

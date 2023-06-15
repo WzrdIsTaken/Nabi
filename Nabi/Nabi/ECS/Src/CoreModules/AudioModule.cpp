@@ -124,10 +124,11 @@ namespace ecs::AudioModule
 
 	void MapLoadedAudioEffectToID(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, nabi::Resource::ResourceRef<nabi::Audio::AudioEffect> const audioEffect)
 	{
-		// TODO ASSERT HERE OR ANOTHER FUNC TO CHECK IF THE AUDIO EFFECT IS ALREADY MAPPED
-
 		SComp::AudioStateComponent::AudioEffectLookup& audioEffects = GetAudioStateComponent(context).m_AudioEffects;
-		audioEffects.emplace(audioID, audioEffect);
+		if (!audioEffects.contains(audioID))
+		{
+			audioEffects.emplace(audioID, audioEffect);
+		}
 	}
 
 	// 

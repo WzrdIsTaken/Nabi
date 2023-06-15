@@ -181,6 +181,7 @@
     <ClCompile Include="Core\Src\NabiCore.cpp" />
     <ClCompile Include="Core\Src\Window.cpp" />
     <ClCompile Include="Core\Src\WindowEventsListener.cpp" />
+    <ClCompile Include="ECS\Src\CoreComponents\AudioEmitterComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\AudioResourceComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\ColliderComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\RigidbodyComponent.cpp" />

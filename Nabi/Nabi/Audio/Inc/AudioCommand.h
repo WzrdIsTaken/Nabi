@@ -17,6 +17,11 @@ namespace nabi::Audio
 
 namespace nabi::Audio
 {
+	/// <summary>
+	/// Stored in the Context, AudioCommand manages the XAudioObjects as well as loading/playing/deleting audio effects and voices.
+	/// The 3d audio listener can also be set through AudioCommand. Apart from this, you shouldn't need to interface with AudioCommand directly, 
+	/// instead there are a number of helper methods in the AudioModule.
+	/// </summary>
 	class AudioCommand final
 	{
 	public:

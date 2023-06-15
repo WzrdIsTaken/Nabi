@@ -11,6 +11,9 @@ namespace nabi
 
 namespace nabi::Audio
 {
+	/// <summary>
+	/// The loaded data of an audio effect. Nabi currently only supports .wav files.
+	/// </summary>
 	struct AudioEffect final
 	{
 		std::shared_ptr<BYTE[]> m_DataBuffer;
@@ -25,6 +28,9 @@ namespace nabi::Audio
 		}
 	};
 
+	/// <summary>
+	/// Loads an audio effect. Set m_LoadSettings to control how the effect is loaded. 
+	/// </summary>
 	class AudioEffectLoader final
 	{
 	public:
