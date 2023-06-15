@@ -3,7 +3,9 @@
 
 #include "IExample.h"
 
+#include "AssetBank.h"
 #include "CoreSingletonComponents\AudioStateComponent.h"
+#include "ResourceBank.h"
 
 #ifdef RUN_TESTS
 
@@ -20,7 +22,8 @@ namespace nabitest::Examples
 	public:
 		enum class AudioIDs : ecs::SComp::AudioStateComponent::AudioID
 		{
-			BingoBangoBongo
+			BingoBangoBongo,
+			BingoBangoBongoTwo
 		};
 
 		TestAudio(nabi::Context& context);
@@ -31,7 +34,25 @@ namespace nabitest::Examples
 		bool Render() override;
 
 	private:
+		class TestAssetBank final : public nabi::Resource::AssetBank
+		{
+		public:
+			TestAssetBank(nabi::Context& context);
+			virtual ~TestAssetBank() override;
+
+			virtual bool LoadAssets() override;
+			virtual bool UnloadAssets() override;
+
+		private:
+			bool LoadAudioEffects();
+
+			nabi::Resource::ResourceBank<nabi::Audio::AudioEffect, nabi::Audio::AudioEffectLoader, 20u> m_AudioEffectBank;
+		};
+
+		void ParseXmlAudioResource();
+
 		nabi::Context& m_Context;
+		std::unique_ptr<TestAssetBank> m_AssetBank;
 
 		std::unique_ptr<ecs::AudioSystem> m_AudioSystem;
 		std::unique_ptr<ecs::InputSystem> m_InputSystem;

@@ -2,8 +2,6 @@
 
 #include "StringConverter.h"
 
-#include "entt.h"
-
 #include "DebugUtils.h"
 #include "ReflectionGlobals.h"
 
@@ -32,12 +30,24 @@ namespace nabi::Reflection::StringConverter
 		}
 
 		entt::meta_type const dataType = entt::resolve(propertyTypeHash);
+		CallFromStringFunction(dataType, propertyValue, propertyTypeHash, &metaObject, &metaMember);
+	}
+
+	entt::meta_any CallFromStringFunction(entt::meta_type const& dataType, std::string const& dataValue, entt::hashed_string const& propertyTypeHash,
+		entt::meta_any* const metaObject, entt::meta_data const* const metaMember) NABI_NOEXCEPT
+	{
+		entt::meta_any result = {};
+
 		if (entt::meta_func const fromString = dataType.func(ReflectionGlobals::c_FromStringFunctionName))
 		{
 			if (fromString.is_static() /*|| .is_free()*/)
 			{
-				entt::meta_any const result = fromString.invoke(dataType, entt::forward_as_meta(propertyValue));
-				metaMember.set(metaObject, result);
+				result = fromString.invoke(dataType, entt::forward_as_meta(dataValue));
+
+				if (metaObject && metaMember)
+				{
+					metaMember->set(*metaObject, result);
+				}
 			}
 			else
 			{
@@ -48,6 +58,8 @@ namespace nabi::Reflection::StringConverter
 		{
 			ASSERT_FAIL("The type " << propertyTypeHash.data() << " does not have a FromString method!");
 		}
+
+		return result;
 	}
 
 	std::string ExtractTypeName(std::string_view const typeInfoName) NABI_NOEXCEPT

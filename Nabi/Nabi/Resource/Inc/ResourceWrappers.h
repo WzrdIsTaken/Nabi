@@ -74,6 +74,12 @@ namespace nabi::Resource
 			return m_Ptr.lock();
 		}
 
+		[[nodiscard]] std::shared_ptr<T> const GetResourceNonConst() const NABI_NOEXCEPT
+		{
+			ASSERT(IsValid(), "Getting the resource pointer but its null!");
+			return m_Ptr.lock();
+		}
+
 		[[nodiscard]] bool IsValid() const NABI_NOEXCEPT
 		{
 			return m_Ptr.lock() != nullptr;

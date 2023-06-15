@@ -45,6 +45,11 @@ namespace nabitest::ECS
 
 	struct MockComponentWithContainers final : public nabi::ECS::ComponentBase
 	{
+		// Note for future ben looking at this code confused - See ReflectionInitTests, line 172.
+		// Past ben never implemented container reflection.
+
+		// However, as of 15/06/23 container reflection can be hacked in with CREATE_CONTAINER_WRAPPER. See AudioResourceComponent for an example.
+
 		MockComponentWithContainers()
 			: m_IntVector{1, 2, 3}
 			, m_CustomTypeVector{{0.1, true}, {0.2, false}}

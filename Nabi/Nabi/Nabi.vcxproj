@@ -175,11 +175,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Audio\Src\AudioCommand.cpp" />
+    <ClCompile Include="Audio\Src\AudioEffect.cpp" />
     <ClCompile Include="Core\Src\Console.cpp" />
     <ClCompile Include="Core\Src\GameTime.cpp" />
     <ClCompile Include="Core\Src\NabiCore.cpp" />
     <ClCompile Include="Core\Src\Window.cpp" />
     <ClCompile Include="Core\Src\WindowEventsListener.cpp" />
+    <ClCompile Include="ECS\Src\CoreComponents\AudioResourceComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\ColliderComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\RigidbodyComponent.cpp" />
     <ClCompile Include="ECS\Src\CoreComponents\UIComponents.cpp" />
@@ -391,6 +393,7 @@
     <Text Include="Todo.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Tests\Data\Audio\test_audio_entities.xml" />
     <Xml Include="Tests\Data\Input\test_ui_entities.xml" />
     <Xml Include="Tests\Data\Reflection\test_container_entity_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_debug_entity_file.xml" />

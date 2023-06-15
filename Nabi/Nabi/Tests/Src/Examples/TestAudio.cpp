@@ -2,23 +2,40 @@
 
 #include "Examples\TestAudio.h"
 
+#include "pugixml.hpp"
+
 #include "AudioSourceVoice.h"
 #include "CoreComponents\AudioEmitterComponent.h"
+#include "CoreComponents\AudioResourceComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\AudioModule.h"
 #include "CoreModules\InputModule.h"
 #include "CoreSystems\AudioSystem.h"
 #include "CoreSystems\InputSystem.h"
 #include "WorldConstants.h"
+#include "XmlParser.h"
 
 #ifdef RUN_TESTS
 
 namespace nabitest::Examples
 {
+	// --- Test Audio ---
+
+	namespace 
+	{
+		typedef TestAudio::AudioIDs AudioIDs;
+		REFLECT_ENUM_UNDERLYING_BEGIN_DEFAULT(AudioIDs)
+			REFLECT_ENUM_VALUE(AudioIDs::BingoBangoBongo, "BingoBangoBongo")
+			REFLECT_ENUM_VALUE(AudioIDs::BingoBangoBongoTwo, "BingoBangoBongoTwo")
+		REFLECT_ENUM_END(AudioIDs)
+	}
+
 	auto constexpr c_AudioID = static_cast<ecs::SComp::AudioStateComponent::AudioID>(TestAudio::AudioIDs::BingoBangoBongo);
+	auto constexpr c_AnotherAudioID = static_cast<ecs::SComp::AudioStateComponent::AudioID>(TestAudio::AudioIDs::BingoBangoBongoTwo);
 
 	TestAudio::TestAudio(nabi::Context& context)
 		: m_Context(context)
+		, m_AssetBank(std::make_unique<TestAssetBank>(context))
 		, m_AudioEmitterEntity(entt::null)
 	{
 	}
@@ -32,10 +49,15 @@ namespace nabitest::Examples
 		//ecs::AudioModule::DestroyAllVoices(m_Context);
 		// UPDATE 13/06/23 - I put these in ~NabiCore. The audio voice pool is also now created there as well
 
-		// Think about how a StopAudioEffect function would be written
-		// Gotta make it so that audio resources follow the same flow as others, ie with an asset bank (see todo.txt for this stuff)
-		// Also gotta add in the reflection and stuff for the audio components + think about how the resource flow is going to work
+		// Think about how a StopAudioEffect function would be written (we already have voice.stop, but we need to hang on to the effect so can call it)
+		// Gotta make it so that audio resources follow the same flow as others, ie with an asset bank (see todo.txt for this stuff) 
+		// Also gotta add in the reflection and stuff for the audio components + think about how the resource flow is going to work 
 		//	- Audio resource components should have a map structure of audio id - audio path i recon
+
+		// Should really make it so that the loop is not something that is done by loading.. instead when playing
+
+		// Comments in audio code
+		// FINAL TODO (for audio...) - AUDIO TESTS!
 	}
 
 	bool TestAudio::Init()
@@ -47,14 +69,12 @@ namespace nabitest::Examples
 
 		// --- Load Audio ---
 
-		using namespace nabi::Audio;
+		//ecs::AudioResourceComponent audioResource = {};
+		//audioResource.m_Resources.emplace(c_AudioID, "Tests/Data/Audio/bingo_bango_bongo_bish_bash_bosh.wav");
+		//m_Context.m_Registry.emplace<ecs::AudioResourceComponent>(m_Context.m_Registry.create(), audioResource);
 
-		std::string const path = "Tests/Data/Audio/bingo_bango_bongo_bish_bash_bosh.wav";
-		AudioCommand::LoadSettings loadSettings; // = AudioCommand::c_DefaultLoadSettings
-		loadSettings.m_Loop = false;
-
-		//ecs::AudioModule::InitSourceVoicePool(m_Context, 10u, 10u);
-		ecs::AudioModule::LoadAudioEffect(m_Context, c_AudioID, path, loadSettings);
+		ParseXmlAudioResource();
+		m_AssetBank->LoadAssets();
 
 		// --- Create an audio emitter component ---
 
@@ -76,6 +96,7 @@ namespace nabitest::Examples
 		using namespace nabi::Input;
 		InputState const wKeyState = ecs::InputModule::GetKeyboardKey(m_Context, InputCode::Key_W);
 		InputState const eKeyState = ecs::InputModule::GetKeyboardKey(m_Context, InputCode::Key_E);
+		InputState const rKeyState = ecs::InputModule::GetKeyboardKey(m_Context, InputCode::Key_R);
 
 		if (wKeyState == InputState::Pressed)
 		{
@@ -86,6 +107,10 @@ namespace nabitest::Examples
 			auto& audioEmitterComponent = m_Context.m_Registry.get<ecs::AudioEmitterComponent>(m_AudioEmitterEntity);
 			ecs::AudioModule::Play3DAudioEffect(m_Context, audioEmitterComponent, c_AudioID, ecs::AudioModule::c_DefaultPlaySettings);
 		}
+		if (rKeyState == InputState::Pressed)
+		{
+			ecs::AudioModule::Play2DAudioEffect(m_Context, c_AnotherAudioID, ecs::AudioModule::c_DefaultPlaySettings);
+		}
 
 		return true;
 	}
@@ -94,6 +119,74 @@ namespace nabitest::Examples
 	{
 		return false;
 	}
+
+	void TestAudio::ParseXmlAudioResource()
+	{
+		nabi::Reflection::XmlParser xmlParser{};
+		std::string const docPath = "Tests/Data/Audio/test_audio_entities.xml";
+
+		pugi::xml_document const doc = xmlParser.LoadDocument(docPath);
+		xmlParser.ParseEntities(doc, m_Context.m_Registry);
+	}
+
+	// --- Asset Bank ---
+
+	TestAudio::TestAssetBank::TestAssetBank(nabi::Context& context)
+		: AssetBank(context)
+		, m_AudioEffectBank(context)
+	{
+		
+	}
+
+	TestAudio::TestAssetBank::~TestAssetBank()
+	{
+		UnloadAssets();
+	}
+
+	bool TestAudio::TestAssetBank::LoadAssets()
+	{
+		bool result = true;
+		result &= LoadAudioEffects();
+
+		return result;
+	}
+
+	bool TestAudio::TestAssetBank::UnloadAssets()
+	{
+		m_AudioEffectBank.Clear();
+
+		return true;
+	}
+
+	bool TestAudio::TestAssetBank::LoadAudioEffects()
+	{
+		m_Context.m_Registry.view<ecs::AudioResourceComponent /*const?*/>()
+			.each([&](entt::entity const entity, auto& audioResourceComponent)
+				{
+					for (auto const [audioID, audioPath] : audioResourceComponent.m_Resources.Get())
+					{
+						nabi::Resource::ResourceRef<nabi::Audio::AudioEffect> audioResource = m_AudioEffectBank.LoadResource(audioPath);
+						ecs::AudioModule::MapLoadedAudioEffectToID(m_Context, audioID, audioResource);
+					}
+				});
+
+		return true;
+	}
 } // namespace nabitest::Examples
 
 #endif // ifdef RUN_TESTS
+
+/*
+* I hope I can make the approach I am currently using work...
+* Update: We can! But the solution is kinda jank as well xD If only I could reflect containers properly... Should of put more time into this!!!
+* 
+		ecs::AudioResourceComponent::ResourceContainer const& audioResources = audioResourceComponent.m_AudioResources;
+		for (ecs::AudioResourceComponent::ResourceContainer::ConstituentContainer const& entry : audioResources.m_Entries)
+		{
+			auto const audioID = nabi::Reflection::EnumConverter::StringToEnumUnderlyingValue<TestAudio::AudioIDs>(entry.at(0u));
+			std::string const& audioPath = entry.at(1u);
+
+			nabi::Resource::ResourceRef<nabi::Audio::AudioEffect> resource = m_AudioEffectBank.LoadResource(audioPath);
+			ecs::AudioModule::MapLoadedAudioEffectToID(m_Context, audioID, resource);
+		}
+*/

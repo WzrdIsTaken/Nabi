@@ -148,6 +148,33 @@
 	; } \
 	CREATE_REFLECTOR_END(system)
 
+// --- Container Reflection ---
+// So... containers. tl;dr past ben didn't implement container because he thought they wouldn't be needed... present ben has realised otherwise.
+// It would be some effort to make the existing refection system work with containers, but as custom types are supported we can do this hack.
+// Basically, create a custom type which wraps a container and have a Get method as well as some standardised container FromString functions (see StringConverter.h).
+// This solution really isn't great, but it does work. Entt supports reflecting containers and templates, so if I ever do this again then I should actually use that functionality.
+// In the short term, this solution could be improved by overloading the dot (.) operator and returning the underlying container when we do containerWrapperType.
+// However, as far as I can see this isn't supported yet.
+#define CREATE_CONTAINER_WRAPPER(containerWrapperType, containerType, fromStringFunc) \
+	struct containerWrapperType final \
+	{ \
+		containerType m_Container; \
+		\
+		static containerWrapperType FromString(std::string const& string) NABI_NOEXCEPT \
+		{ \
+			containerWrapperType result = {}; \
+			result.m_Container = fromStringFunc(string); \
+			\
+			return result; \
+		} \
+		\
+		inline containerType const& Get() const NABI_NOEXCEPT { return m_Container; } \
+		inline containerType& GetNonConst()     NABI_NOEXCEPT { return m_Container; } \
+	};
+#define CREATE_CONTAINER_WRAPPER_WITH_MEMBER_DECLARATION(containerWrapperType, memberName, containerType, fromStringFunc) \
+	CREATE_CONTAINER_WRAPPER(containerWrapperType, containerType, fromStringFunc) \
+	containerWrapperType memberName;
+
 // --- Enum Reflection ---
 // A macro to handle the reflection of enums. Works in basically the same way as the others user facing wise.
 // However, to get the enum reflected data (eg, enum value -> string name) use the functions defined in EnumConverter.
@@ -219,3 +246,23 @@ namespace nabi::Reflection
 #define REFLECT_UI_SCENE_END(sceneName) \
 	; } \
 	CREATE_REFLECTOR_END(sceneName)
+
+/*
+* Just want to archive this because its kinda cool. This was my first idea for hacking in containers:
+* Can use like ContainerWrapper<T, decltype(Func)>
+	template<typename Container, typename FromStringFunc>
+	struct ContainerWrapper final
+	{
+		Container m_Container;
+
+		static ContainerWrapper FromString(std::string const& string) NABI_NOEXCEPT
+		{
+			ContainerWrapper result = {};
+			FromStringFunc fromStringFunc;
+
+			result.m_Container = fromStringFunc(string);
+			return result;
+		}
+	};
+* See CREATE_CONTAINER_WRAPPER for the solution I used
+*/

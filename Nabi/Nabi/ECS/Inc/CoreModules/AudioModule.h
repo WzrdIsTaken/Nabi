@@ -34,8 +34,7 @@ namespace ecs::AudioModule
 
 	// --- Loading ---
 
-	void LoadAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, std::string const& path, 
-		nabi::Audio::AudioCommand::LoadSettings const& loadSettings);
+	void MapLoadedAudioEffectToID(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, nabi::Resource::ResourceRef<nabi::Audio::AudioEffect> const audioEffect);
 
 	// --- Playing ---
 

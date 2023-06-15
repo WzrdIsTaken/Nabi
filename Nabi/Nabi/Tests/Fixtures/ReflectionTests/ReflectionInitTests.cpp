@@ -143,6 +143,8 @@ namespace nabitest::ReflectionTests
 	}
 
 	/*
+	Update 15/06/23 - Container reflection was hacked in with CREATE_CONTAINER_WRAPPER. See AudioResourceComponent for an example. 
+
 	Container support is currently not implemented in the reflection system.
 	I was doing this in the past, then realised I didn't actually need it. 
 	The way I was doing it was with a jank macro solution. This is not the play! Entt supports container reflection, we just have to use it.

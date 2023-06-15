@@ -1,19 +1,11 @@
 #pragma once
 #include "EngineCore.h"
 
-// Forward Declarations
-namespace entt
-{
-	class meta_any;
-	struct meta_data;
+#include "entt.h"
 
-	template<typename Char>
-	class basic_hashed_string;
-	using hashed_string = basic_hashed_string<char>;
-}
+#include "StringUtils.h"
 
-// Handles the conversion of strings to types, and includes the basic type FromString methods
-
+// Handles the conversion of strings to types, and includes the basic type + container FromString methods
 namespace nabi::Reflection::StringConverter
 {
 	/// <summary>
@@ -25,6 +17,9 @@ namespace nabi::Reflection::StringConverter
 	/// <param name="metaMember">- The meta property on the meta object to set to the  converted property's value</param>
 	void ConvertFromString(std::string const& propertyValue, entt::hashed_string const& propertyTypeHash,
 						   entt::meta_any& metaObject, entt::meta_data const& metaMember) NABI_NOEXCEPT;
+	// Helper function for the above ^ , just pulls out the actual calling the function logic so can be used elsewhere
+	entt::meta_any CallFromStringFunction(entt::meta_type const& dataType, std::string const& dataValue, entt::hashed_string const& propertyTypeHash,
+		entt::meta_any* const metaObject = nullptr, entt::meta_data const* const metaMember = nullptr) NABI_NOEXCEPT;
 
 	/// <summary>
 	/// Extracts the type from a namespace + type. Eg: MyNamespace::MyType -> MyType.
@@ -34,6 +29,44 @@ namespace nabi::Reflection::StringConverter
 	/// <param name="typeInfoName">- The full type name</param>
 	[[nodiscard]] std::string ExtractTypeName(std::string_view const typeInfoName) NABI_NOEXCEPT;
 	void ExtractTypeName(std::string& typeInfoName) NABI_NOEXCEPT;
+
+	/// <summary>
+	/// Checks if a value could be an enum and if so converts it to an the underlying enum's type of T.
+	/// Why only underlying types? Because in the only situations we need to call this code (see FromString<uint>)
+	/// we need the underlying type. The way we check if something could be an enum is if it has the "::" characters.
+	/// Because the type the reflected value is being assigned to is an underlying type, not the enum itself,
+	/// we need the full enum name (unlike other enum from strings) to allow us to convert it. 
+	/// </summary>
+	/// <typeparam name="T">- The underlying type of the enum</typeparam>
+	/// <param name="string">- The string version of the enum. Note it must be the full enum name</param>
+	/// <param name="value">- Will be set to a value if the conversion to enum was successful</param>
+	/// <returns>If the conversion was successful</returns>
+	template<typename T>
+	bool CheckIfValueCouldBeEnum(std::string const& string, T* const value) NABI_NOEXCEPT
+	{
+		if (string.find("::") != std::string::npos)
+		{
+			size_t const firstColon     = string.find_first_of(':');
+			size_t const secondColon    = firstColon + 1u;
+			size_t const firstCharacter = string.find_first_not_of(' ');
+			size_t const lastCharacter  = string.find_last_not_of(' ');
+
+			std::string const enumName = string.substr(firstCharacter, firstColon);
+			std::string const enumValue = string.substr(secondColon + 1u, lastCharacter);
+
+			entt::hashed_string const enumNameHashed = entt::hashed_string(enumName.c_str());
+			entt::meta_type const enumType = entt::resolve(enumNameHashed);
+			entt::meta_any const result = CallFromStringFunction(enumType, enumValue, enumNameHashed);
+
+			if (result && value)
+			{
+				*value = result.cast<T>();
+			}
+			return true;
+		}
+
+		return false;
+	}
 
 	/// <summary>
 	/// This specialised template functions convert a string to a type. They are used to support basic type reflection.
@@ -57,6 +90,36 @@ namespace nabi::Reflection::StringConverter
 	[[nodiscard]] int FromString<int>(std::string const& string) NABI_NOEXCEPT
 	{
 		int const result = std::stoi(string);
+		return result;
+	}
+
+	// uint
+	template<>
+	[[nodiscard]] unsigned int FromString<unsigned int>(std::string const& string) NABI_NOEXCEPT
+	{
+		/*
+		  Ok this is super jank. So - what happens if we make a type engine side which all enums game side will be, for example
+		  "AudioID" (AudioStateComponent.h) or "CollisionID" (ColliderComponent.h). Well, in the reflection code which uses it we
+		  will be dealing with the underlying type, not the enum. Therefore, when ConvertFromString is called it won't be able to 
+		  go from the string enum name, to the underlying enum type. 
+
+		  My (bad!) solution for this is to use this CheckIfValueCouldBeEnum function in all base type FromString functions which
+		  I might make an enum a type of. This code can't go in ConvertFromString because if eg the underlying enum type is part of
+		  a container, then ConvertFromString will be called for the container but not the underlying type, only FromString
+		  will be called for the underlying type.
+
+		  So, if a type of unsigned int's string value contains the characters "::", then we check if it could be an enum. If it is,
+		  then we use that value instead of the direct string -> unsigned int conversion. 
+
+		  Yes, this is kinda bot.
+		*/
+
+		unsigned int result;
+		if (!CheckIfValueCouldBeEnum(string, &result))
+		{
+			result = std::stoul(string);
+		}
+
 		return result;
 	}
 
@@ -109,4 +172,61 @@ namespace nabi::Reflection::StringConverter
 		std::string const result = string;
 		return result;
 	}
+
+	/// <summary>
+	/// The functions below can be used to convert std containers from a string.
+	/// Container values are separated by commas (,) and entries by the pipe (|)
+	/// For example, for a map data could look like "x, y | a, b"
+	/// </summary>
+	
+	namespace Containers
+	{
+		char constexpr c_EntryDelimiter = '|';
+		char constexpr c_ValueDelimiter = ',';
+	} // namespace Containers
+
+	template<typename Key, typename Value>
+	[[nodiscard]] std::map<Key, Value> StdMapFromString(std::string const& string) NABI_NOEXCEPT
+	{
+		std::map<Key, Value> result = {};
+
+		// Split the string into key value pairs
+		nabi::StringUtils::SplitSettings splitSettings = nabi::StringUtils::c_DefaultSplitSettings;
+		splitSettings.m_Delimiter = Containers::c_EntryDelimiter;
+		std::vector<std::string_view> const keyValuePairs = nabi::StringUtils::SplitString(string, splitSettings);
+
+		// Loop through the entries and split them
+		for (std::string_view const keyValuePair : keyValuePairs)
+		{
+			// Split the key value pairs into the key and value
+			splitSettings.m_Delimiter = Containers::c_ValueDelimiter;
+			splitSettings.m_ExpectedValues = 2u;
+			std::vector<std::string_view> const splitKeyValuePair = nabi::StringUtils::SplitString(keyValuePair, splitSettings);
+
+			// Add the key / value to the map
+			std::string_view const key   = splitKeyValuePair.at(0u);
+			std::string_view const value = splitKeyValuePair.at(1u);
+
+			result.emplace(
+				nabi::Reflection::StringConverter::FromString<Key  >(std::string(key.data(),   key.length())),
+				nabi::Reflection::StringConverter::FromString<Value>(std::string(value.data(), value.length()))
+			);
+		}
+
+		return result;
+	}
 } // namespace nabi::Reflection::StringConverter
+
+/*
+* Could use before CheckIfValueCouldBeEnum. Will keep these around in case I need a quick copy paste
+namespace entt
+{
+	class meta_any;
+	class meta_type;
+	struct meta_data;
+
+	template<typename Char>
+	class basic_hashed_string;
+	using hashed_string = basic_hashed_string<char>;
+}
+*/

@@ -20,22 +20,29 @@ namespace ecs::AudioModule
 				nabi::Audio::AudioSourceVoice* const audioSourceVoice = GetFirstReadySourceVoiceFromPool(context, voicePool);
 				if (audioSourceVoice)
 				{
-					nabi::Audio::AudioEffect& audioEffect = effect->second;
-					context.m_AudioCommand->LoadAudioVoice(audioEffect, *audioSourceVoice);
-
-					IXAudio2SourceVoice* const sourceVoice = audioSourceVoice->GetSourceVoice();
-					if (configureSourceVoice)
+					nabi::Resource::ResourceRef<nabi::Audio::AudioEffect> const audioEffect = effect->second;
+					if (audioEffect.IsValid())
 					{
-						(*configureSourceVoice)(*audioSourceVoice);
-					}
+						context.m_AudioCommand->LoadAudioVoice(*audioEffect.GetResourceNonConst(), *audioSourceVoice);
 
-					if (playSettings.m_Volume.has_value())
+						IXAudio2SourceVoice* const sourceVoice = audioSourceVoice->GetSourceVoice();
+						if (configureSourceVoice)
+						{
+							(*configureSourceVoice)(*audioSourceVoice);
+						}
+
+						if (playSettings.m_Volume.has_value())
+						{
+							sourceVoice->SetVolume(playSettings.m_Volume.value());
+						}
+						// ...any other settings
+
+						sourceVoice->Start();
+					}
+					else
 					{
-						sourceVoice->SetVolume(playSettings.m_Volume.value());
+						ASSERT_FAIL("Trying to play an audio effect with ID " << WRAP(audioID, "'") << "but its null! Did the resource get removed a resource bank?");
 					}
-					// ...any other settings
-
-					sourceVoice->Start();
 				}
 			}
 			else
@@ -65,7 +72,15 @@ namespace ecs::AudioModule
 
 		for (auto& [audioID, audioEffect] : audioEffects)
 		{
-			context.m_AudioCommand->DestroyAudioEffect(audioEffect);
+			if (audioEffect.IsValid())
+			{
+				context.m_AudioCommand->DestroyAudioEffect(*audioEffect.GetResourceNonConst());
+			}
+			else
+			{
+				LOG(LOG_PREP, LOG_ERROR, LOG_CATEGORY_AUDIO <<
+					"Tried to destroy an audio effect, but the audio effect was null. This may result in a bad shutdown when xaudio terminates" << ENDLINE);
+			}
 		}
 	}
 
@@ -107,23 +122,12 @@ namespace ecs::AudioModule
 
 	// 
 
-	void LoadAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, std::string const& path, 
-		nabi::Audio::AudioCommand::LoadSettings const& loadSettings)
+	void MapLoadedAudioEffectToID(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, nabi::Resource::ResourceRef<nabi::Audio::AudioEffect> const audioEffect)
 	{
+		// TODO ASSERT HERE OR ANOTHER FUNC TO CHECK IF THE AUDIO EFFECT IS ALREADY MAPPED
+
 		SComp::AudioStateComponent::AudioEffectLookup& audioEffects = GetAudioStateComponent(context).m_AudioEffects;
-		bool const effectAlreadyLoaded = audioEffects.find(audioID) != audioEffects.end();
-
-		if (!effectAlreadyLoaded)
-		{
-			nabi::Audio::AudioEffect audioEffect;
-			context.m_AudioCommand->LoadAudioEffect(audioEffect, path, loadSettings);
-
-			audioEffects.emplace(audioID, std::move(audioEffect));
-		}
-		else
-		{
-			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_AUDIO << "Loading an audio effect with ID " << WRAP(audioID, "'") << " but its already loaded" << ENDLINE);
-		}
+		audioEffects.emplace(audioID, audioEffect);
 	}
 
 	// 
@@ -147,3 +151,26 @@ namespace ecs::AudioModule
 			});
 	}
 } // namespace ecs::AudioModule
+
+/*
+* This logic is now handled by a special ResourceLoader, it is deprecated
+* 
+	void LoadAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, std::string const& path,
+		nabi::Audio::AudioCommand::LoadSettings const& loadSettings)
+	{
+		SComp::AudioStateComponent::AudioEffectLookup& audioEffects = GetAudioStateComponent(context).m_AudioEffects;
+		bool const effectAlreadyLoaded = audioEffects.find(audioID) != audioEffects.end();
+
+		if (!effectAlreadyLoaded)
+		{
+			nabi::Audio::AudioEffect audioEffect;
+			context.m_AudioCommand->LoadAudioEffect(audioEffect, path, loadSettings);
+
+			audioEffects.emplace(audioID, std::move(audioEffect));
+		}
+		else
+		{
+			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_AUDIO << "Loading an audio effect with ID " << WRAP(audioID, "'") << " but its already loaded" << ENDLINE);
+		}
+	}
+*/

@@ -248,6 +248,9 @@
     <Filter Include="Audio\Src">
       <UniqueIdentifier>{d7d5b257-91c4-41dd-bb7c-89e4d4657302}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Data\Audio">
+      <UniqueIdentifier>{a99a05ca-14e7-4ff3-a1a0-0718fd2c462e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -487,6 +490,12 @@
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreSystems\AudioSystem.cpp">
       <Filter>ECS\Src\CoreSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\Src\AudioEffect.cpp">
+      <Filter>Audio\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\AudioResourceComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -896,6 +905,9 @@
     </Xml>
     <Xml Include="Tests\Data\Input\test_ui_entities.xml">
       <Filter>Tests\Data\Input</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Audio\test_audio_entities.xml">
+      <Filter>Tests\Data\Audio</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

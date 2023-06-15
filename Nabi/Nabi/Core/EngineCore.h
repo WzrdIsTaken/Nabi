@@ -7,6 +7,7 @@
 #include <exception>
 #include <functional>
 #include <optional>
+#include <map>
 #include <memory>
 #include <string>
 #include <sstream>
