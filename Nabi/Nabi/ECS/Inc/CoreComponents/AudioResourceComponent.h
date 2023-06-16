@@ -8,5 +8,10 @@ namespace ecs
 	struct AudioResourceComponent final : nabi::ECS::ComponentBase
 	{
 		REFLECTED_MAP(m_Resources, SComp::AudioStateComponent::AudioID, std::string);
+
+		AudioResourceComponent()
+			: m_Resources{ {} }
+		{
+		}
 	};
 } // namespace ecs

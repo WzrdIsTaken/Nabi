@@ -10,6 +10,8 @@
 
 #define TSINGLETON_INSTANCE(_class)
 
+#define REFLECT_CONTAINER
 #define REFLECTED_MAP
+#define REFLECTED_VECTOR
 
 // I will add things to this file as I remember to click the vs prompt! :D

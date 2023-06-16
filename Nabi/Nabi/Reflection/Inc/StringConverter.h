@@ -177,6 +177,20 @@ namespace nabi::Reflection::StringConverter
 	/// The functions below can be used to convert std containers from a string.
 	/// Container values are separated by commas (,) and entries by the pipe (|)
 	/// For example, for a map data could look like "x, y | a, b"
+	/// 
+	/// If you get an error like "nabi::Reflection::StringConverter::FromString<nabitest::MyCustomDataType>': must return a value" it probably
+	/// means that you tried to use a custom type in a container. This is not currently supported. 
+	/// Consider using multiple containers and indexing into them. Eg:
+	/// vec1 { 1, 2, 3 }
+	/// vec2 { 4.0, 5.0, 6.0 }
+	/// auto customType = { vec1[0], vec2[1] } 
+	/// This is definitely going to be faster than implementing custom type support for the (possible) few cases where reflected custom types in containers are needed.
+	/// Reflected a nested custom type (eg, struct MyTypeOne { struct MyTypeTwo // reflect this } don't work for the same reason. 
+	/// tl;dr, FromString is called to turn the string into a type, but it only is templated for primitive types.
+	/// A solution to this could be making the all custom type FromString methods a template specialization, eg in MyTypeTwo define a method FromString<MyTypeTwo>
+	/// rather than reflecting the FromString method and finding/calling it for custom type deserialization.
+	/// This would allow the base FromString method call to 'find' custom types. Tbh this doesn't actually sound too bad of a refactor... 
+	/// I didn't think of doing this (obv..) when I was writing the reflection code for the first time. I'll make a note.
 	/// </summary>
 	
 	namespace Containers
@@ -211,6 +225,23 @@ namespace nabi::Reflection::StringConverter
 				nabi::Reflection::StringConverter::FromString<Key  >(std::string(key.data(),   key.length())),
 				nabi::Reflection::StringConverter::FromString<Value>(std::string(value.data(), value.length()))
 			);
+		}
+
+		return result;
+	}
+
+	template<typename T>
+	[[nodiscard]] std::vector<T> StdVectorFromString(std::string const& string) NABI_NOEXCEPT
+	{
+		std::vector<T> result = {};
+
+		nabi::StringUtils::SplitSettings splitSettings = nabi::StringUtils::c_DefaultSplitSettings;
+		splitSettings.m_Delimiter = Containers::c_ValueDelimiter;
+		std::vector<std::string_view> const values = nabi::StringUtils::SplitString(string, splitSettings);
+
+		for (std::string_view const value : values)
+		{
+			result.emplace_back(nabi::Reflection::StringConverter::FromString<T>(std::string(value.data(), value.length())));
 		}
 
 		return result;

@@ -180,18 +180,21 @@
 	CREATE_CONTAINER_WRAPPER(containerWrapperType, containerType, fromStringFunc, __VA_ARGS__) \
 	containerWrapperType memberName;
 
+// Small helper macro
+#define CONCAT_CONTAINER_NAME(containerName) CONCAT(ContainerWrapper_, containerName)
+
 // Need this one in the cpp!!
-#define CREATE_CONTAINER_REFLECTOR(containerName, ... /*If the container is nested, need that type here (eg: TypeOne || TypeOne::TypeTwo*/) \
-	namespace \
-	{ \
-		typedef CONCAT(CONCAT(__VA_ARGS__, ::), CONCAT(containerName, _ContainerWrapper)) CONCAT(containerName, _ContainerWrapper); \
-		REFLECT_DATA_TYPE_DEFAULT(CONCAT(containerName, _ContainerWrapper)); \
-	}
+#define REFLECT_CONTAINER(containerName, ... /*If the container is nested, need that type here (eg: TypeOne || TypeOne::TypeTwo*/) \
+	typedef CONCAT(CONCAT(__VA_ARGS__, ::), CONCAT_CONTAINER_NAME(containerName)) CONCAT_CONTAINER_NAME(containerName); \
+	REFLECT_DATA_TYPE_DEFAULT(CONCAT_CONTAINER_NAME(containerName))
 
 // Helper macros for specific containers
 #define REFLECTED_MAP(mapName, ... /*the template types of the map*/) \
-	CREATE_CONTAINER_WRAPPER_WITH_MEMBER_DECLARATION(CONCAT(mapName, _ContainerWrapper), mapName, std::map, \
+	CREATE_CONTAINER_WRAPPER_WITH_MEMBER_DECLARATION(CONCAT_CONTAINER_NAME(mapName), mapName, std::map, \
 		nabi::Reflection::StringConverter::StdMapFromString, __VA_ARGS__)
+#define REFLECTED_VECTOR(vectorName, ... /*" "*/) \
+	CREATE_CONTAINER_WRAPPER_WITH_MEMBER_DECLARATION(CONCAT_CONTAINER_NAME(vectorName), vectorName, std::vector, \
+		nabi::Reflection::StringConverter::StdVectorFromString, __VA_ARGS__)
 
 // --- Enum Reflection ---
 // A macro to handle the reflection of enums. Works in basically the same way as the others user facing wise.

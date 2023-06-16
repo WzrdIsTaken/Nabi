@@ -45,19 +45,20 @@ namespace nabitest::ECS
 
 	struct MockComponentWithContainers final : public nabi::ECS::ComponentBase
 	{
-		// Note for future ben looking at this code confused - See ReflectionInitTests, line 172.
-		// Past ben never implemented container reflection.
-
-		// However, as of 15/06/23 container reflection can be hacked in with CREATE_CONTAINER_WRAPPER. See AudioResourceComponent for an example.
-
 		MockComponentWithContainers()
-			: m_IntVector{1, 2, 3}
-			, m_CustomTypeVector{{0.1, true}, {0.2, false}}
+			: m_IntVector{{ 0, 2, 3 }} // Refected containers have to be defaulted like this, because the underlying container is wrapped in another struct
+			, m_StringVector{{"Hello!"}}
+			, m_IntMap{{{1, 2}, {3, 4}}}
+			//, m_CustomTypeVector{ {{0.1, true}, {0.2, false}} }
 		{
 		}
 
-		std::vector<int> m_IntVector;
-		std::vector<MockCustomDataType> m_CustomTypeVector;
+		REFLECTED_VECTOR(m_IntVector, int);
+		REFLECTED_VECTOR(m_StringVector, std::string);
+		REFLECTED_MAP(m_IntMap, int, int);
+
+		// Containers with custom types are not currently supported. See the comment in StringConverter.h to see how they could be.
+		//REFLECTED_VECTOR(m_CustomTypeVector, MockCustomDataType);
 	};
 } // namespace nabitest::ECS
 

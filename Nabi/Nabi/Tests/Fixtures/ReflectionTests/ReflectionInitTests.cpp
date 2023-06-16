@@ -142,16 +142,6 @@ namespace nabitest::ReflectionTests
 		EXPECT_TRUE(int3Equal);
 	}
 
-	/*
-	Update 15/06/23 - Container reflection was hacked in with CREATE_CONTAINER_WRAPPER. See AudioResourceComponent for an example. 
-
-	Container support is currently not implemented in the reflection system.
-	I was doing this in the past, then realised I didn't actually need it. 
-	The way I was doing it was with a jank macro solution. This is not the play! Entt supports container reflection, we just have to use it.
-	https://github.com/skypjack/entt/wiki/Crash-Course:-runtime-reflection-system#container-support
-	I didn't want to use this originally because I think it would require rewriting some of the reflection system. However, the more I did
-	the macro approach the worse it got - so I if this is ever needed I think we'll just have to bite the bullet.
-	
 	TEST(ReflectionTests, ParseContainerEntities)
 	{
 		// Mock objects
@@ -170,7 +160,59 @@ namespace nabitest::ReflectionTests
 		Comparison<size_t> numberOfEntities(1, registry.alive());
 		COMPAIR_EQ(numberOfEntities);
 
-		// Iterate over the registery and check for MockComponentWithDirectXTypes
+		// Iterate over the registery and check for MockComponentWithContainers
+		auto mockComponentView = registry.view<MockComponentWithContainers>();
+
+		Comparison<std::vector<int>> intVector({ 2, 4, 8 });
+		Comparison<std::vector<std::string>> stringVector({ "Hello!" });
+		Comparison<std::map<int, int>> intMap({ std::pair(0, 9), std::pair(8, 7) });
+
+		for (auto [entity, mockComponent] : mockComponentView.each())
+		{
+			intVector.m_Actual = mockComponent.m_IntVector.Get();
+			stringVector.m_Actual = mockComponent.m_StringVector.Get();
+			intMap.m_Actual = mockComponent.m_IntMap.Get();
+		}
+
+		// Test!
+		COMPAIR_EQ(intVector);
+		COMPAIR_EQ(stringVector);
+		COMPAIR_EQ(intMap);
+	}
+} // namespace nabitest::ReflectionTests
+
+#endif // #ifdef RUN_TESTS
+
+/*
+	Update 15/06/23 - Container reflection was hacked in with CREATE_CONTAINER_WRAPPER. See AudioResourceComponent for an example.
+	Update 16/06/23 - I've just written a test for reflected containers, see above!
+
+	Container support is currently not implemented in the reflection system.
+	I was doing this in the past, then realised I didn't actually need it.
+	The way I was doing it was with a jank macro solution. This is not the play! Entt supports container reflection, we just have to use it.
+	https://github.com/skypjack/entt/wiki/Crash-Course:-runtime-reflection-system#container-support
+	I didn't want to use this originally because I think it would require rewriting some of the reflection system. However, the more I did
+	the macro approach the worse it got - so I if this is ever needed I think we'll just have to bite the bullet.
+
+	TEST(ReflectionTests, ParseContainerEntities)
+	{
+		// Mock objects
+		nabi::Context context;
+		context.m_Registry = {};
+
+		std::string const docPath = "Tests/Data/Reflection/test_container_entity_file.xml";
+		entt::registry& registry = context.m_Registry;
+
+		// Deserialize data files
+		nabi::Reflection::XmlParser xmlParser{};
+		pugi::xml_document const doc = xmlParser.LoadDocument(docPath);
+		xmlParser.ParseEntities(doc, context.m_Registry);
+
+		// Check that this is only one entity in the registry
+		Comparison<size_t> numberOfEntities(1, registry.alive());
+		COMPAIR_EQ(numberOfEntities);
+
+		// Iterate over the registery and check for MockComponentWithContainers
 		auto mockComponentView = registry.view<MockComponentWithContainers>();
 
 		Comparison<std::vector<int>> intVector({ 2, 4, 8 });
@@ -186,7 +228,4 @@ namespace nabitest::ReflectionTests
 		COMPAIR_EQ(intVector);
 		COMPAIR_EQ(customTypeVector);
 	}
-	*/
-} // namespace nabitest::ReflectionTests
-
-#endif // #ifdef RUN_TESTS
+*/

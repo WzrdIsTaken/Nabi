@@ -21,9 +21,16 @@ namespace nabitest::ECS
 		REFLECT_COMPONENT_PROPERTY(MockComponentWithDirectXTypes::m_Int3, "Int3")
 	REFLECT_COMPONENT_END(MockComponentWithDirectXTypes)
 
+	REFLECT_CONTAINER(m_IntVector, MockComponentWithContainers)
+	REFLECT_CONTAINER(m_StringVector, MockComponentWithContainers)
+	REFLECT_CONTAINER(m_IntMap, MockComponentWithContainers)
+	//REFLECT_CONTAINER(m_CustomTypeVector, MockComponentWithContainers)
+
 	REFLECT_COMPONENT_BEGIN(MockComponentWithContainers, "MockComponentWithContainers")
 		REFLECT_COMPONENT_PROPERTY(MockComponentWithContainers::m_IntVector, "IntVector")
-		REFLECT_COMPONENT_PROPERTY(MockComponentWithContainers::m_CustomTypeVector, "CustomTypeVector")
+		REFLECT_COMPONENT_PROPERTY(MockComponentWithContainers::m_StringVector, "StringVector")
+		REFLECT_COMPONENT_PROPERTY(MockComponentWithContainers::m_IntMap, "IntMap")
+		//REFLECT_COMPONENT_PROPERTY(MockComponentWithContainers::m_CustomTypeVector, "CustomTypeVector")
 	REFLECT_COMPONENT_END(MockComponentWithContainers)
 } // namespace nabitest::ECS
 
