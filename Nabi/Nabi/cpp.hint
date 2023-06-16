@@ -10,4 +10,6 @@
 
 #define TSINGLETON_INSTANCE(_class)
 
+#define REFLECTED_MAP
+
 // I will add things to this file as I remember to click the vs prompt! :D

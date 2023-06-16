@@ -5,14 +5,8 @@
 
 namespace ecs
 {
-#define KEY_VALUE SComp::AudioStateComponent::AudioID, std::string
-
 	struct AudioResourceComponent final : nabi::ECS::ComponentBase
 	{
-		typedef std::map<KEY_VALUE> ResourceContainer;
-		CREATE_CONTAINER_WRAPPER_WITH_MEMBER_DECLARATION(AudioResourceContainerWrapper, m_Resources, 
-			ResourceContainer, nabi::Reflection::StringConverter::StdMapFromString<KEY_VALUE>);
+		REFLECTED_MAP(m_Resources, SComp::AudioStateComponent::AudioID, std::string);
 	};
-	
-#undef KEY_VALUE
 } // namespace ecs

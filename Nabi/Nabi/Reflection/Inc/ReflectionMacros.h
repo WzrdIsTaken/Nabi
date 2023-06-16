@@ -2,6 +2,9 @@
 #include "EngineCore.h"
 
 // Macros to aid in the reflection of components, systems and data types
+// If I could re-do one thing in this project... I think it would be the reflection system. I have learned a lot making one 
+// (well, in this case building on top of entts - I made a small basic one with primitive types only and I thought "that was well hard, 
+// as I am using entt anyway lets use its system xD") but damn there is a lot of janky stuff!!
 
 // --- Reflector Class ---
 // The reflector class contains a pseudo static constructor which calls the InitReflection method - which does exactly what you think.
@@ -155,25 +158,40 @@
 // This solution really isn't great, but it does work. Entt supports reflecting containers and templates, so if I ever do this again then I should actually use that functionality.
 // In the short term, this solution could be improved by overloading the dot (.) operator and returning the underlying container when we do containerWrapperType.
 // However, as far as I can see this isn't supported yet.
-#define CREATE_CONTAINER_WRAPPER(containerWrapperType, containerType, fromStringFunc) \
+// Also, see https://stackoverflow.com/questions/2294933/c-macro-and-templates
+#define CREATE_CONTAINER_WRAPPER(containerWrapperType, containerType, fromStringFunc, ... /*the template type(s) of the container*/) \
 	struct containerWrapperType final \
 	{ \
-		containerType m_Container; \
+		typedef containerType<__VA_ARGS__> ContainerType; \
+		ContainerType m_Container; \
 		\
 		static containerWrapperType FromString(std::string const& string) NABI_NOEXCEPT \
 		{ \
 			containerWrapperType result = {}; \
-			result.m_Container = fromStringFunc(string); \
+			result.m_Container = fromStringFunc<__VA_ARGS__>(string); \
 			\
 			return result; \
 		} \
 		\
-		inline containerType const& Get() const NABI_NOEXCEPT { return m_Container; } \
-		inline containerType& GetNonConst()     NABI_NOEXCEPT { return m_Container; } \
+		inline ContainerType const& Get() const NABI_NOEXCEPT { return m_Container; } \
+		inline ContainerType& GetNonConst()     NABI_NOEXCEPT { return m_Container; } \
 	};
-#define CREATE_CONTAINER_WRAPPER_WITH_MEMBER_DECLARATION(containerWrapperType, memberName, containerType, fromStringFunc) \
-	CREATE_CONTAINER_WRAPPER(containerWrapperType, containerType, fromStringFunc) \
+#define CREATE_CONTAINER_WRAPPER_WITH_MEMBER_DECLARATION(containerWrapperType, memberName, containerType, fromStringFunc, ... /*" "*/) \
+	CREATE_CONTAINER_WRAPPER(containerWrapperType, containerType, fromStringFunc, __VA_ARGS__) \
 	containerWrapperType memberName;
+
+// Need this one in the cpp!!
+#define CREATE_CONTAINER_REFLECTOR(containerName, ... /*If the container is nested, need that type here (eg: TypeOne || TypeOne::TypeTwo*/) \
+	namespace \
+	{ \
+		typedef CONCAT(CONCAT(__VA_ARGS__, ::), CONCAT(containerName, _ContainerWrapper)) CONCAT(containerName, _ContainerWrapper); \
+		REFLECT_DATA_TYPE_DEFAULT(CONCAT(containerName, _ContainerWrapper)); \
+	}
+
+// Helper macros for specific containers
+#define REFLECTED_MAP(mapName, ... /*the template types of the map*/) \
+	CREATE_CONTAINER_WRAPPER_WITH_MEMBER_DECLARATION(CONCAT(mapName, _ContainerWrapper), mapName, std::map, \
+		nabi::Reflection::StringConverter::StdMapFromString, __VA_ARGS__)
 
 // --- Enum Reflection ---
 // A macro to handle the reflection of enums. Works in basically the same way as the others user facing wise.

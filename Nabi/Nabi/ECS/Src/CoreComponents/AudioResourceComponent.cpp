@@ -4,8 +4,7 @@
 
 namespace ecs
 {
-	typedef AudioResourceComponent::AudioResourceContainerWrapper AudioResourceContainerWrapper;
-	REFLECT_DATA_TYPE_DEFAULT(AudioResourceContainerWrapper)
+	CREATE_CONTAINER_REFLECTOR(m_Resources, AudioResourceComponent)
 
 	REFLECT_COMPONENT_BEGIN_DEFAULT(AudioResourceComponent)
 		REFLECT_COMPONENT_PROPERTY(AudioResourceComponent::m_Resources, "Resources")

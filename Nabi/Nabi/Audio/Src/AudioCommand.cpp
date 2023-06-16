@@ -86,6 +86,8 @@ namespace nabi::Audio
 		{
 			audioEffect.m_Buffer.LoopCount = XAUDIO2_LOOP_INFINITE;
 		}
+
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_AUDIO << "Loaded an audio effect from path " << filepath << ENDLINE);
 	}
 
 	void AudioCommand::LoadAudioVoice(AudioEffect& audioEffect, AudioSourceVoice& audioSourceVoice) const NABI_NOEXCEPT
