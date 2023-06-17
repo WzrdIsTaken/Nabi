@@ -228,6 +228,9 @@
     <ClCompile Include="Rendering\Src\Shaders\PixelShader.cpp" />
     <ClCompile Include="Rendering\Src\Shaders\VertexShader.cpp" />
     <ClCompile Include="Rendering\Src\Textures\Texture.cpp" />
+    <ClCompile Include="Tests\Fixtures\AudioTests\AudioInitTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\AudioTests\AudioPlayingTests.cpp" />
+    <ClCompile Include="Tests\Fixtures\AudioTests\AudioUpdateTests.cpp" />
     <ClCompile Include="Tests\Fixtures\DebugTests\LoggingTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ECSTests\SystemEventsTests.cpp" />
     <ClCompile Include="Tests\Fixtures\InputTests\InputStateTests.cpp" />

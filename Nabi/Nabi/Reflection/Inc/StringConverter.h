@@ -188,7 +188,6 @@ namespace nabi::Reflection::StringConverter
 	/// Reflected a nested custom type (eg, struct MyTypeOne { struct MyTypeTwo // reflect this } don't work for the same reason. 
 	/// tl;dr, FromString is called to turn the string into a type, but it only is templated for primitive types.
 	/// A solution to this could be making the all custom type FromString methods a template specialization, eg in MyTypeTwo define a method FromString<MyTypeTwo>
-	/// rather than reflecting the FromString method and finding/calling it for custom type deserialization.
 	/// This would allow the base FromString method call to 'find' custom types. Tbh this doesn't actually sound too bad of a refactor... 
 	/// I didn't think of doing this (obv..) when I was writing the reflection code for the first time. I'll make a note.
 	/// </summary>

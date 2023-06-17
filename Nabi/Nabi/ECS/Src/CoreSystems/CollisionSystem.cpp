@@ -17,6 +17,9 @@
 
 namespace ecs
 {
+	REFLECT_SYSTEM_BEGIN_DEFAULT(CollisionSystem)
+	RELFECT_SYSTEM_END(CollisionSystem)
+
 	CollisionSystem::CollisionSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId)
 		: SystemBase(context, systemId, systemGroupId)
 	{

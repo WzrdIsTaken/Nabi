@@ -44,8 +44,19 @@ namespace nabi::Audio
 
     AudioCommand::~AudioCommand() NABI_NOEXCEPT
     {
-		m_XAudioObjects.m_MasteringVoice->DestroyVoice(); m_XAudioObjects.m_MasteringVoice = nullptr;
-		m_XAudioObjects.m_XAudio2->StopEngine();          m_XAudioObjects.m_XAudio2 = nullptr;
+		ASSERT(m_XAudioObjects.m_MasteringVoice, "Trying to shut down xaudio but m_MasteringVoice was null. This may result in a bad application exit");
+		if (m_XAudioObjects.m_MasteringVoice)
+		{
+			m_XAudioObjects.m_MasteringVoice->DestroyVoice(); 
+			m_XAudioObjects.m_MasteringVoice = nullptr;
+		}
+
+		ASSERT(m_XAudioObjects.m_XAudio2, "Trying to shut down xaudio but m_XAudio2 was null. This may result in a bad application exit");
+		if (m_XAudioObjects.m_XAudio2)
+		{
+			m_XAudioObjects.m_XAudio2->StopEngine();         
+			m_XAudioObjects.m_XAudio2 = nullptr;
+		}
     }
 
 	void AudioCommand::LoadAudioEffect(AudioEffect& audioEffect, std::string const& filepath, LoadSettings const& loadSettings) const NABI_NOEXCEPT

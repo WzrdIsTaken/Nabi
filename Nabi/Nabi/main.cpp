@@ -32,6 +32,8 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 	// --- Initial Nabi Setup ---
 
+	DX_ASSERT(CoInitializeEx(nullptr, COINIT_MULTITHREADED));
+
 	// Create a console window
 #ifdef USE_DEBUG_UTILS
 	UINT const consoleMaxLines = 4096u;
@@ -55,9 +57,9 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 	// Run Tests
 #ifdef RUN_TESTS
-	// Set the log level to error because otherwise it spams the console when tests are run
+	// Set the log level to warning because otherwise it spams the console when tests are run
 #ifdef USE_DEBUG_UTILS
-	Logger::Instance()->SetLogLevel(LOG_ERROR);
+	Logger::Instance()->SetLogLevel(LOG_WARN);
 #endif // #ifdef USE_DEBUG_UTILS
 
 	// Run all tests

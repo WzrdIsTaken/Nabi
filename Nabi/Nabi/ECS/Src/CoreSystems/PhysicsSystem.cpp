@@ -8,6 +8,9 @@
 
 namespace ecs
 {
+	REFLECT_SYSTEM_BEGIN_DEFAULT(PhysicsSystem)
+	RELFECT_SYSTEM_END(PhysicsSystem)
+
 	PhysicsSystem::PhysicsSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId)
 		: SystemBase(context, systemId, systemGroupId)
 	{

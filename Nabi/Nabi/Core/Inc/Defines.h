@@ -9,6 +9,7 @@
 
 #ifdef _DEBUG
 	#define RUN_TESTS		 // gMock Tests
+	//#define RUN_SLOW_TESTS   // Any tests which take over ~10ms to run. Make sure to run before commiting
 	#define USE_DEBUG_UTILS  // Asserts + Logging + Sneaky hacks
 #else
 	// Can shift around the defines if need to test stuff

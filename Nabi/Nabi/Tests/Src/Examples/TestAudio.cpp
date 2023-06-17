@@ -50,16 +50,9 @@ namespace nabitest::Examples
 		// UPDATE 13/06/23 - I put these in ~NabiCore. The audio voice pool is also now created there as well
 
 		// Think about how a StopAudioEffect function would be written (we already have voice.stop, but we need to hang on to the effect so can call it)
-		// Gotta make it so that audio resources follow the same flow as others, ie with an asset bank (see todo.txt for this stuff) 
-		// Also gotta add in the reflection and stuff for the audio components + think about how the resource flow is going to work 
-		//	- Audio resource components should have a map structure of audio id - audio path i recon
+
 
 		// Should really make it so that the loop is not something that is done by loading.. instead when playing
-
-		// check other test examples still work (made some sweeping changes) DONE
-		// audio module todo DONE
-		// Comments in audio code DONE
-		// FINAL TODO (for audio...) - AUDIO TESTS! 
 	}
 
 	bool TestAudio::Init()

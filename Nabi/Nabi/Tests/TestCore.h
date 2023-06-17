@@ -15,7 +15,10 @@
 // Helpers
 #include "Helpers/Comparison.h"
 
-// Using - I thought this might be good so in the tests every test thing exists at the same level + its easy to differentiate between mock ecs stuff and 'real' ecs stuff 
 #ifdef RUN_TESTS
+	// Using - I thought this might be good so in the tests every test thing exists at the same level + its easy to differentiate between mock ecs stuff and 'real' ecs stuff 
 	using namespace nabitest::ECS;
+
+	#define LOG_NOT_RUNNING_SLOW_TEST_WARNING \
+		LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_TEST << "Not running slow test " << WRAP(__FUNCTION__, "'") << " - make sure this is done before committing" << ENDLINE);
 #endif // ifdef RUN_TESTS

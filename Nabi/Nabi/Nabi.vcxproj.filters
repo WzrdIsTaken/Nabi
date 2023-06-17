@@ -251,6 +251,9 @@
     <Filter Include="Tests\Data\Audio">
       <UniqueIdentifier>{a99a05ca-14e7-4ff3-a1a0-0718fd2c462e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Fixtures\AudioTests">
+      <UniqueIdentifier>{d05a5cf3-2831-4ca9-accb-978d161e59a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -499,6 +502,15 @@
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreComponents\AudioEmitterComponent.cpp">
       <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\AudioTests\AudioInitTests.cpp">
+      <Filter>Tests\Fixtures\AudioTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\AudioTests\AudioUpdateTests.cpp">
+      <Filter>Tests\Fixtures\AudioTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Fixtures\AudioTests\AudioPlayingTests.cpp">
+      <Filter>Tests\Fixtures\AudioTests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

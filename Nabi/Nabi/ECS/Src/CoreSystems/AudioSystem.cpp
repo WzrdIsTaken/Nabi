@@ -10,6 +10,9 @@
 
 namespace ecs
 {
+	REFLECT_SYSTEM_BEGIN_DEFAULT(AudioSystem)
+	RELFECT_SYSTEM_END(AudioSystem)
+
 	AudioSystem::AudioSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId)
 		: SystemBase(context, systemId, systemGroupId)
 	{
