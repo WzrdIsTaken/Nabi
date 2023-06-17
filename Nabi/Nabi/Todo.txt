@@ -6,6 +6,9 @@ Current:
 
 // --- Critical Priority ---
 - Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
+    - "There are some jank bits, there are some bits I sorely wish I had done very differently, but you know what - I count that as a success, because it means I've learned something.
+       If I thought everything was perfect and I did everything right all the time then, well, I probably haven't grown as a developer."
+    - See the comment in StringConverter about FromString template specialization. That should go in the write up
 - Once the test stuff is removed from NabiCore, make sure the engine compiles in release
 
 - Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown (i think this is to do with rendering..?). Also can tidy up this todo txt
@@ -13,24 +16,31 @@ Current:
 
 // --- High Priority ---
 
-- Audio <--  
 - Threading
 
-- Do I need to call CoInitializeEx(nullptr, COINIT_MULTITHREADED); on startup?
 - New namespace for resource components. Eg have SComp::, Tags:: and should have Resource::? ecs::Resouce::~ Should I split up these into resource/tag/data folders?
     - Just Have CoreComponents [all data components live here], then resource / tag component folders?
     - Also split out all components into seperate files. Rather than eg DrawableComponents
 - GraphicsComponent -> GraphicsStateComponent
 - Test audio looping (AudioCommand::LoadSettings)
 
-- Audio data should be stored in an asset bank. Need a custom loader and whatever. Rather than going in the audio module
-    - Make sure that the audio bank doesnt assert if the resource is loaded more than once. it should ONLY log info. not even a warn
+- do i want the core ecs namespace to be "ecs?" should it be nabi something..? no... should it be something else..?
+- should i leave more comments in the core systems/components/modules?
+
+- Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func)
 
 - Too much NABI_NOEXCEPT? noexcept and nodiscard in core ecs stuff?
 - Make it so that LOG has to take in a category and a end? (eg, LOG_CATEGORY_AUDIO and NEWLINE )?
+    - and a LOG_ENDLINE macro (can just be ENDLINE)
 
 - I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
   go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research
+
+- should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
+
+- sprite component cpp + reflection?
+
+- is it possible to fix the "expected a ')'" error with REFLECT_CONTAINER? it compiles/works fine.. if not, then move this to the 'nice to have' section
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -75,8 +85,17 @@ Structure Stuff
 
 - Log to file functionality for Logger
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
+- Make it so we dont have to do the typedef thing for reflecting nested types (ie types which have :: in their name)
+- Allow reflecting nested custom types and custom types in containers. See the comment in StringConverter.h
+- Make it so that the loop is not something that is done by loading.. instead when playing. Could possibly solve this problem nicely by setting a callback on the voice..? 
 
 Archive:
+- Audio <-- DONE! :) 17/06/23 @ 22:38 one more feature to go (i hope.........) come on ben
+- Audio tests
+- Audio data should be stored in an asset bank. Need a custom loader and whatever. Rather than going in the audio module
+    - Make sure that the audio bank doesnt assert if the resource is loaded more than once. it should ONLY log info. not even a warn (tbh, not even that...)
+        - with entity inheritance and whatever, this could be logged a lot. would be trace category probs
+- Do I need to call CoInitializeEx(nullptr, COINIT_MULTITHREADED); on startup? YES, done
 - Gotta read the docs. As the voices are in a pool now, do I even need to destroy them? they will just be cleaned up at the end anyway. [yes and done]
 - Great progress today! Keep it up. Next up is fix this (^) I recon, + make sure shutting down is anyways nice with no errors
 - Is there a audio engine . shutdown or similar I need to call>

@@ -48,8 +48,6 @@ namespace nabitest::Examples
 		//ecs::AudioModule::DestroyAllEffects(m_Context);
 		//ecs::AudioModule::DestroyAllVoices(m_Context);
 		// UPDATE 13/06/23 - I put these in ~NabiCore. The audio voice pool is also now created there as well
-
-		// Should really make it so that the loop is not something that is done by loading.. instead when playing
 	}
 
 	bool TestAudio::Init()
