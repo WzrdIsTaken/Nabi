@@ -49,9 +49,6 @@ namespace nabitest::Examples
 		//ecs::AudioModule::DestroyAllVoices(m_Context);
 		// UPDATE 13/06/23 - I put these in ~NabiCore. The audio voice pool is also now created there as well
 
-		// Think about how a StopAudioEffect function would be written (we already have voice.stop, but we need to hang on to the effect so can call it)
-
-
 		// Should really make it so that the loop is not something that is done by loading.. instead when playing
 	}
 
@@ -92,6 +89,7 @@ namespace nabitest::Examples
 		InputState const wKeyState = ecs::InputModule::GetKeyboardKey(m_Context, InputCode::Key_W);
 		InputState const eKeyState = ecs::InputModule::GetKeyboardKey(m_Context, InputCode::Key_E);
 		InputState const rKeyState = ecs::InputModule::GetKeyboardKey(m_Context, InputCode::Key_R);
+		InputState const tKeyState = ecs::InputModule::GetKeyboardKey(m_Context, InputCode::Key_T);
 
 		if (wKeyState == InputState::Pressed)
 		{
@@ -104,7 +102,18 @@ namespace nabitest::Examples
 		}
 		if (rKeyState == InputState::Pressed)
 		{
-			ecs::AudioModule::Play2DAudioEffect(m_Context, c_AnotherAudioID, ecs::AudioModule::c_DefaultPlaySettings);
+			ecs::SComp::AudioStateComponent::AudioSource* const source =
+				ecs::AudioModule::Play2DAudioEffect(m_Context, c_AnotherAudioID, ecs::AudioModule::c_DefaultPlaySettings);
+
+			if (source)
+			{
+				ecs::AudioModule::StopAudioEffect(m_Context, *source);
+			}
+		}
+		if (tKeyState == InputState::Pressed)
+		{
+			ecs::AudioModule::StopAll2DAudioEffectsByID(m_Context, c_AudioID);
+			ecs::AudioModule::StopAll3DAudioEffectsByID(m_Context, c_AudioID);
 		}
 
 		return true;

@@ -10,8 +10,22 @@ namespace ecs::SComp
 	struct AudioStateComponent final : public nabi::ECS::ComponentBase
 	{
 		typedef uint32_t AudioID; // The enum which holds sounds should be of this type, and reflected with REFLECT_ENUM_UNDERLYING
+		static AudioID constexpr c_NullAudioID = std::numeric_limits<AudioID>::max();
+
+		struct AudioSource final
+		{
+			AudioID m_ID;
+			nabi::Audio::AudioSourceVoice m_Voice;
+
+			AudioSource()
+				: m_ID(c_NullAudioID)
+				, m_Voice{}
+			{
+			}
+		};
+
 		typedef std::unordered_map<AudioID, nabi::Resource::ResourceRef<nabi::Audio::AudioEffect>> AudioEffectLookup;
-		typedef std::vector<nabi::Audio::AudioSourceVoice> SourceVoicePool;
+		typedef std::vector<AudioSource> SourceVoicePool;
 
 		AudioEffectLookup m_AudioEffects;
 		SourceVoicePool m_2DSourceVoicePool;

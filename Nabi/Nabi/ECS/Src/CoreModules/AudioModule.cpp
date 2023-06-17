@@ -8,27 +8,30 @@ namespace ecs::AudioModule
 {
 	namespace
 	{
-		void PlayAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, 
+		SComp::AudioStateComponent::AudioSource* const PlayAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID,
 			PlaySettings const& playSettings, SComp::AudioStateComponent::SourceVoicePool& voicePool, 
 			std::optional<std::function<void(nabi::Audio::AudioSourceVoice&)>> configureSourceVoice)
 		{
+			SComp::AudioStateComponent::AudioSource* selectedAudioSource = nullptr;
 			SComp::AudioStateComponent::AudioEffectLookup& audioEffects = GetAudioStateComponent(context).m_AudioEffects;
 
 			auto effect = audioEffects.find(audioID);
 			if (effect != audioEffects.end())
 			{
-				nabi::Audio::AudioSourceVoice* const audioSourceVoice = GetFirstReadySourceVoiceFromPool(context, voicePool);
-				if (audioSourceVoice)
+				SComp::AudioStateComponent::AudioSource* const audioSource = GetFirstReadyAudioSourceFromPool(context, voicePool);
+				if (audioSource)
 				{
 					nabi::Resource::ResourceRef<nabi::Audio::AudioEffect> const audioEffect = effect->second;
 					if (audioEffect.IsValid())
 					{
-						context.m_AudioCommand->LoadAudioVoice(*audioEffect.GetResourceNonConst(), *audioSourceVoice);
+						audioSource->m_ID = audioID;
+						context.m_AudioCommand->LoadAudioVoice(*audioEffect.GetResourceNonConst(), audioSource->m_Voice);
 
-						IXAudio2SourceVoice* const sourceVoice = audioSourceVoice->GetSourceVoice();
+						nabi::Audio::AudioSourceVoice& audioSourceVoice = audioSource->m_Voice;
+						IXAudio2SourceVoice* const sourceVoice = audioSourceVoice.GetSourceVoice();
 						if (configureSourceVoice)
 						{
-							(*configureSourceVoice)(*audioSourceVoice);
+							(*configureSourceVoice)(audioSourceVoice);
 						}
 
 						if (playSettings.m_Volume.has_value())
@@ -37,6 +40,7 @@ namespace ecs::AudioModule
 						}
 						// ...any other settings
 
+						selectedAudioSource = audioSource;
 						sourceVoice->Start();
 					}
 					else
@@ -48,6 +52,20 @@ namespace ecs::AudioModule
 			else
 			{
 				ASSERT_FAIL("Trying to play an audio effect with ID " << WRAP(audioID, "'") << " but no effect with that id is loaded");
+			}
+
+			return selectedAudioSource;
+		}
+
+		void StopAllAudioEffectsByID(nabi::Context const& context, SComp::AudioStateComponent::AudioID const audioID,
+			SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool)
+		{
+			for (auto& audioSource : sourceVoicePool)
+			{
+				if (audioSource.m_ID == audioID)
+				{
+					StopAudioEffect(context, audioSource);
+				}
 			}
 		}
 	}
@@ -91,7 +109,8 @@ namespace ecs::AudioModule
 			{
 				for (auto& sourceVoice : sourceVoicePool)
 				{
-					context.m_AudioCommand->DestroyAudioVoice(sourceVoice);
+					sourceVoice.m_ID = SComp::AudioStateComponent::c_NullAudioID;
+					context.m_AudioCommand->DestroyAudioVoice(sourceVoice.m_Voice);
 				}
 			};
 
@@ -99,25 +118,26 @@ namespace ecs::AudioModule
 		destroyAllVoicesHelper(GetAudioStateComponent(context).m_3DSourceVoicePool);
 	}
 
-	nabi::Audio::AudioSourceVoice* GetFirstReadySourceVoiceFromPool(nabi::Context& /*context*/, SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool)
+	SComp::AudioStateComponent::AudioSource* GetFirstReadyAudioSourceFromPool(nabi::Context& /*context*/, SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool)
 	{
-		nabi::Audio::AudioSourceVoice* audioSourceVoice = nullptr;
+		SComp::AudioStateComponent::AudioSource* audioSource = nullptr;
 
 		ASSERT(!sourceVoicePool.empty(), "Trying to get a source voice from the pool, but the pool is empty");
 
-		for (auto& sourceVoice : sourceVoicePool)
+		for (auto& source : sourceVoicePool)
 		{
-			if (sourceVoice.IsReady())
+			if (source.m_Voice.IsReady())
 			{
-				audioSourceVoice = &sourceVoice;
+				source.m_ID = SComp::AudioStateComponent::c_NullAudioID;
+				audioSource = &source;
 				break;
 			}
 		}
 
-		ASSERT(audioSourceVoice, "No available audio source voices! The audio clip may not play on time, or not at all");
+		ASSERT(audioSource, "No available audio source voices! The audio clip may not play on time, or not at all");
 		// To fix this ^, just increase AudioStateComponent::m_SourceVoicePool's size (via the call to InitSourceVoicePool)
 
-		return audioSourceVoice;
+		return audioSource;
 	}
 
 	// 
@@ -133,15 +153,15 @@ namespace ecs::AudioModule
 
 	// 
 
-	void Play2DAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings)
+	SComp::AudioStateComponent::AudioSource* const Play2DAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings)
 	{
-		PlayAudioEffect(context, audioID, playSettings, GetAudioStateComponent(context).m_2DSourceVoicePool, std::nullopt /*no custom play behaviour required*/);
+		return PlayAudioEffect(context, audioID, playSettings, GetAudioStateComponent(context).m_2DSourceVoicePool, std::nullopt /*no custom play behaviour required*/);
 	}
 
-	void Play3DAudioEffect(nabi::Context& context, AudioEmitterComponent& audioEmitterComponent, 
+	SComp::AudioStateComponent::AudioSource* const Play3DAudioEffect(nabi::Context& context, AudioEmitterComponent& audioEmitterComponent,
 		SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings)
 	{
-		PlayAudioEffect(context, audioID, playSettings, GetAudioStateComponent(context).m_3DSourceVoicePool,
+		return PlayAudioEffect(context, audioID, playSettings, GetAudioStateComponent(context).m_3DSourceVoicePool,
 			[&context, &audioEmitterComponent](nabi::Audio::AudioSourceVoice& audioSourceVoice) -> void
 			{
 				context.m_AudioCommand->Calculate3DSoundProperties(
@@ -150,6 +170,32 @@ namespace ecs::AudioModule
 					audioEmitterComponent.m_DSPSettings
 				);
 			});
+	}
+
+	void StopAudioEffect(nabi::Context const& /*context*/, SComp::AudioStateComponent::AudioSource& audioSource)
+	{
+		IXAudio2SourceVoice* const sourceVoice = audioSource.m_Voice.GetSourceVoice();
+
+		if (sourceVoice)
+		{
+			audioSource.m_ID = SComp::AudioStateComponent::c_NullAudioID;
+			DX_ASSERT(sourceVoice->Stop());
+			DX_ASSERT(sourceVoice->FlushSourceBuffers());
+		}
+		else
+		{
+			ASSERT_FAIL("Trying to stop an audio effect, but its IXAudio2SourceVoice is null");
+		}
+	}
+
+	void StopAll2DAudioEffectsByID(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID)
+	{
+		StopAllAudioEffectsByID(context, audioID, GetAudioStateComponent(context).m_2DSourceVoicePool);
+	}
+
+	void StopAll3DAudioEffectsByID(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID)
+	{
+		StopAllAudioEffectsByID(context, audioID, GetAudioStateComponent(context).m_3DSourceVoicePool);
 	}
 } // namespace ecs::AudioModule
 

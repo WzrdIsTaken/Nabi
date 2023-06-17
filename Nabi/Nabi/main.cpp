@@ -36,7 +36,7 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 	// Create a console window
 #ifdef USE_DEBUG_UTILS
-	UINT const consoleMaxLines = 4096u;
+	UINT constexpr consoleMaxLines = 4096u;
 	nabi::AllocateConsole(consoleMaxLines);
 #endif // #ifdef USE_DEBUG_UTILS
 
@@ -94,6 +94,8 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 #ifdef USE_DEBUG_UTILS
 	nabi::ReleaseConsole();
 #endif // #ifdef USE_DEBUG_UTILS
+
+	CoUninitialize();
 
 	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE << "Shutting down Nabi with code " << appRunResult << ENDLINE);
 	return appRunResult;

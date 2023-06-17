@@ -30,7 +30,7 @@ namespace ecs::AudioModule
 	void DestroyAllEffects(nabi::Context& context);
 	void DestroyAllVoices(nabi::Context& context);
 
-	nabi::Audio::AudioSourceVoice* GetFirstReadySourceVoiceFromPool(nabi::Context& context, SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool);
+	SComp::AudioStateComponent::AudioSource* GetFirstReadyAudioSourceFromPool(nabi::Context& context, SComp::AudioStateComponent::SourceVoicePool& sourceVoicePool);
 
 	// --- Loading ---
 
@@ -38,9 +38,13 @@ namespace ecs::AudioModule
 
 	// --- Playing ---
 
-	void Play2DAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings);
-	void Play3DAudioEffect(nabi::Context& context, AudioEmitterComponent& audioEmitterComponent,
+	SComp::AudioStateComponent::AudioSource* const Play2DAudioEffect(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings);
+	SComp::AudioStateComponent::AudioSource* const Play3DAudioEffect(nabi::Context& context, AudioEmitterComponent& audioEmitterComponent,
 		SComp::AudioStateComponent::AudioID const audioID, PlaySettings const& playSettings);
+
+	void StopAudioEffect(nabi::Context const& context, SComp::AudioStateComponent::AudioSource& audioSource);
+	void StopAll2DAudioEffectsByID(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID);
+	void StopAll3DAudioEffectsByID(nabi::Context& context, SComp::AudioStateComponent::AudioID const audioID);
 
 	// --- State ---
 
