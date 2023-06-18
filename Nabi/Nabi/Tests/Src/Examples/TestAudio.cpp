@@ -6,7 +6,7 @@
 
 #include "AudioSourceVoice.h"
 #include "CoreComponents\AudioEmitterComponent.h"
-#include "CoreComponents\AudioResourceComponent.h"
+#include "CoreComponents\ResourceComponents\AudioResourceComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\AudioModule.h"
 #include "CoreModules\InputModule.h"
@@ -162,7 +162,7 @@ namespace nabitest::Examples
 
 	bool TestAudio::TestAssetBank::LoadAudioEffects()
 	{
-		m_Context.m_Registry.view<ecs::AudioResourceComponent /*const?*/>()
+		m_Context.m_Registry.view<ecs::RComp::AudioResourceComponent /*const?*/>()
 			.each([&](entt::entity const entity, auto& audioResourceComponent)
 				{
 					for (auto const [audioID, audioPath] : audioResourceComponent.m_Resources.Get())

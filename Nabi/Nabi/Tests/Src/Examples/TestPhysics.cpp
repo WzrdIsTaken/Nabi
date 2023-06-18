@@ -3,6 +3,7 @@
 #include "Examples\TestPhysics.h"
 
 #include "CoreComponents\RigidbodyComponent.h"
+#include "CoreComponents\ResourceComponents\ModelResourceComponent.h"
 #include "CoreModules\InputModule.h"
 #include "CoreModules\PhysicsModule.h"
 #include "CoreModules\ReflectionModule.h"
@@ -191,7 +192,7 @@ namespace nabitest::Examples
 		transformComponent.m_Scale = { 0.25f, 0.25f, 0.25f };
 
 		// Rendering
-		ecs::ModelResourceComponent modelComponent = {};
+		ecs::RComp::ModelResourceComponent modelComponent = {};
 		modelComponent.m_MeshPath = "PrimativeCube=1x1x1";
 		modelComponent.m_TexturePath = creationSettings.m_TexturePath;
 		modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShaderSkybox.cso";
@@ -215,7 +216,7 @@ namespace nabitest::Examples
 
 		// Add everything!
 		m_Context.m_Registry.emplace<ecs::TransformComponent>(entity, transformComponent);
-		m_Context.m_Registry.emplace<ecs::ModelResourceComponent>(entity, modelComponent);
+		m_Context.m_Registry.emplace<ecs::RComp::ModelResourceComponent>(entity, modelComponent);
 		m_Context.m_Registry.emplace<ecs::RigidbodyComponent>(entity, rigidbodyComponent);
 		m_Context.m_Registry.emplace<ecs::ColliderComponent>(entity, colliderComponent);
 
@@ -295,7 +296,7 @@ namespace nabitest::Examples
 		renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_3D);
 
 		// Iterate through all the entities with model components
-		m_Context.m_Registry.view<ecs::ModelResourceComponent>()
+		m_Context.m_Registry.view<ecs::RComp::ModelResourceComponent>()
 			.each([&](entt::entity const entity, auto const& modelResourceComponent)
 				{
 					// Mesh
@@ -324,7 +325,7 @@ namespace nabitest::Examples
 					m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
 
 					// Tag
-					m_Context.m_Registry.emplace_or_replace<ecs::Tags::DrawPerspective>(entity);
+					m_Context.m_Registry.emplace_or_replace<ecs::TComp::DrawPerspectiveTagComponent>(entity);
 				});
 
 		return true;

@@ -1,7 +1,7 @@
 #pragma once
 #include "Core.h"
 
-#include "CoreComponents\UIComponents.h"
+#include "CoreComponents\UISceneComponent.h"
 
 namespace ecs::SComp
 {

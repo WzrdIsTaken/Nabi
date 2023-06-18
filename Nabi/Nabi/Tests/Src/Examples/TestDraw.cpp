@@ -3,9 +3,12 @@
 #include "Examples\TestDraw.h"
 
 #include "Containers\Colour.h"
-#include "CoreComponents\DrawableComponents.h"
 #include "CoreComponents\LightComponent.h"
+#include "CoreComponents\ResourceComponents\ModelResourceComponent.h"
+#include "CoreComponents\ResourceComponents\SpriteResourceComponent.h"
+#include "CoreComponents\ResourceComponents\TextResourceComponent.h"
 #include "CoreComponents\SpatialHierarchyComponent.h"
+#include "CoreComponents\TextComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\TextModule.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
@@ -44,7 +47,7 @@ namespace nabitest::Examples
 			entt::entity testEntity = m_Context.m_Registry.create();
 
 			// Create a model component
-			ecs::ModelResourceComponent modelComponent = {};
+			ecs::RComp::ModelResourceComponent modelComponent = {};
 			modelComponent.m_MeshPath = "Tests/Data/Rendering/ball_model.obj";
 			modelComponent.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
 			modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader3D.cso";
@@ -57,7 +60,7 @@ namespace nabitest::Examples
 			transformComponent.m_Scale = { 1, 1, 1 };
 
 			// Add the model component and a transform to the entity
-			m_Context.m_Registry.emplace<ecs::ModelResourceComponent>(testEntity, modelComponent);
+			m_Context.m_Registry.emplace<ecs::RComp::ModelResourceComponent>(testEntity, modelComponent);
 			m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
 
 			// --- Create a light ---
@@ -95,7 +98,7 @@ namespace nabitest::Examples
 			entt::entity testEntity = m_Context.m_Registry.create();
 
 			// Create a sprite component
-			ecs::SpriteResourceComponent spriteComponent = {};
+			ecs::RComp::SpriteResourceComponent spriteComponent = {};
 			spriteComponent.m_ImagePath = "Tests/Data/Rendering/sprite.png"; // font.png
 			spriteComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
 			spriteComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
@@ -107,7 +110,7 @@ namespace nabitest::Examples
 			transformComponent.m_Scale = { 0.5, 0.5, 0.5 };
 
 			// Add the sprite component and a transform to the entity
-			m_Context.m_Registry.emplace<ecs::SpriteResourceComponent>(testEntity, spriteComponent);
+			m_Context.m_Registry.emplace<ecs::RComp::SpriteResourceComponent>(testEntity, spriteComponent);
 			m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
 		}
 #pragma endregion
@@ -118,7 +121,7 @@ namespace nabitest::Examples
 			entt::entity testEntity = m_Context.m_EntityCreator->CreateEntity(nullptr);
 
 			// Create the text component
-			ecs::TextResourceComponent textComponent;
+			ecs::RComp::TextResourceComponent textComponent;
 			textComponent.m_FontPath = "Tests/Data/Rendering/font.png";
 			textComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
 			textComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
@@ -135,7 +138,7 @@ namespace nabitest::Examples
 			transformComponent.m_Scale = { 0.2f, 0.2f, 0.2f };
 
 			// Add the text component and a transform to the entity
-			m_Context.m_Registry.emplace<ecs::TextResourceComponent>(testEntity, textComponent);
+			m_Context.m_Registry.emplace<ecs::RComp::TextResourceComponent>(testEntity, textComponent);
 			m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
 		}
 #pragma endregion
@@ -145,7 +148,7 @@ namespace nabitest::Examples
 		entt::entity testEntity = m_Context.m_Registry.create();
 
 		// Create a model component
-		ecs::ModelResourceComponent modelComponent = {};
+		ecs::RComp::ModelResourceComponent modelComponent = {};
 		modelComponent.m_MeshPath = "PrimativeCube=15x15x15";
 		modelComponent.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
 		modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShaderSkybox.cso";
@@ -158,7 +161,7 @@ namespace nabitest::Examples
 		transformComponent.m_Scale = { 0.25f, 0.25f, 0.25f }; // { 0.25f, 0.25f, 0.25f };
 
 		// Add the model component and a transform to the entity
-		m_Context.m_Registry.emplace<ecs::ModelResourceComponent>(testEntity, modelComponent);
+		m_Context.m_Registry.emplace<ecs::RComp::ModelResourceComponent>(testEntity, modelComponent);
 		m_Context.m_Registry.emplace<ecs::TransformComponent>(testEntity, transformComponent);
 #pragma endregion
 
@@ -253,7 +256,7 @@ namespace nabitest::Examples
 		renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_3D);
 
 		// Iterate through all the entities with model components
-		m_Context.m_Registry.view<ecs::ModelResourceComponent>()
+		m_Context.m_Registry.view<ecs::RComp::ModelResourceComponent>()
 			.each([&](entt::entity const entity, auto const& modelResourceComponent)
 				{
 					// Mesh
@@ -282,7 +285,7 @@ namespace nabitest::Examples
 					m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
 
 					// Tag
-					m_Context.m_Registry.emplace_or_replace<ecs::Tags::DrawPerspective>(entity);
+					m_Context.m_Registry.emplace_or_replace<ecs::TComp::DrawPerspectiveTagComponent>(entity);
 				});
 
 		return true;
@@ -305,7 +308,7 @@ namespace nabitest::Examples
 		renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_2D);
 
 		// Iterate through all the entities with sprite components
-		m_Context.m_Registry.view<ecs::SpriteResourceComponent>()
+		m_Context.m_Registry.view<ecs::RComp::SpriteResourceComponent>()
 			.each([&](entt::entity const entity, auto const& spriteResourceComponent)
 				{
 					// Sprite
@@ -335,7 +338,7 @@ namespace nabitest::Examples
 					m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
 
 					// Tag
-					m_Context.m_Registry.emplace_or_replace<ecs::Tags::DrawOrthographic>(entity);
+					m_Context.m_Registry.emplace_or_replace<ecs::TComp::DrawOrthographicTagComponent>(entity);
 
 #pragma region Test get texture dims
 					{
@@ -363,7 +366,7 @@ namespace nabitest::Examples
 		RenderBufferLoader& renderBufferLoader = m_RenderBufferBank.GetLoader();
 		renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_2D);
 
-		m_Context.m_Registry.view<ecs::TransformComponent, ecs::TextResourceComponent>()
+		m_Context.m_Registry.view<ecs::TransformComponent, ecs::RComp::TextResourceComponent>()
 			.each([&](entt::entity const entity, auto const& transformComponent, auto const& textResourceComponent)
 				{
 					int const textPoolSize = 16;
@@ -431,7 +434,7 @@ namespace nabitest::Examples
 						m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(characterEntity, textureComponent);
 
 						// Tag
-						m_Context.m_Registry.emplace_or_replace<ecs::Tags::DrawOrthographic>(characterEntity);
+						m_Context.m_Registry.emplace_or_replace<ecs::TComp::DrawOrthographicTagComponent>(characterEntity);
 
 						textComponent.m_Characters.push_back(characterEntity);
 					}

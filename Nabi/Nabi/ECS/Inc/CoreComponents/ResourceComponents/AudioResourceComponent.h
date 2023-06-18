@@ -3,7 +3,7 @@
 
 #include "CoreSingletonComponents\AudioStateComponent.h"
 
-namespace ecs
+namespace ecs::RComp
 {
 	struct AudioResourceComponent final : nabi::ECS::ComponentBase
 	{
@@ -14,4 +14,4 @@ namespace ecs
 		{
 		}
 	};
-} // namespace ecs
+} // namespace ecs::RComp

@@ -43,13 +43,13 @@ namespace ecs
 	void RenderSystem::RenderPerspective(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent)
 	{
 		CameraIndex::Enum constexpr camera = CameraIndex::Perspective;
-		RenderInternal<Tags::DrawPerspective>(graphicsComponent, cameraGroupComponent, camera);
+		RenderInternal<TComp::DrawPerspectiveTagComponent>(graphicsComponent, cameraGroupComponent, camera);
 	}
 
 	void RenderSystem::RenderOrthographic(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent)
 	{
 		CameraIndex::Enum constexpr camera = CameraIndex::Orthographic;
-		RenderInternal<Tags::DrawOrthographic>(graphicsComponent, cameraGroupComponent, camera);
+		RenderInternal<TComp::DrawOrthographicTagComponent>(graphicsComponent, cameraGroupComponent, camera);
 	}
 
 #ifdef USE_DEBUG_UTILS

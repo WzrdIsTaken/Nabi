@@ -254,6 +254,21 @@
     <Filter Include="Tests\Fixtures\AudioTests">
       <UniqueIdentifier>{d05a5cf3-2831-4ca9-accb-978d161e59a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ECS\Inc\CoreComponents\ResourceComponents">
+      <UniqueIdentifier>{d2acf663-07c7-4802-98c4-fe77a89e9e23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Inc\CoreComponents\TagComponents">
+      <UniqueIdentifier>{0ec23115-9b92-417c-afea-806fe925fed7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Src\CoreComponents\ResourceComponents">
+      <UniqueIdentifier>{93324886-3691-473c-9d43-fdcd0d1de7d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Inc\CoreComponents\BaseComponents">
+      <UniqueIdentifier>{b756ea2a-5bdf-4210-a577-e04c8e6a74d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Src\CoreComponents\TagComponents">
+      <UniqueIdentifier>{0a1a81d3-b76d-4827-8a6d-521c304e8f10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -344,9 +359,6 @@
     <ClCompile Include="Libraries\Src\WICTextureLoader\WICTextureLoader.cpp">
       <Filter>Libraries\Src\WICTextureLoader</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Src\CoreComponents\DrawableComponents.cpp">
-      <Filter>ECS\Src\CoreComponents</Filter>
-    </ClCompile>
     <ClCompile Include="Tests\Src\Examples\TestDraw.cpp">
       <Filter>Tests\Src\Examples</Filter>
     </ClCompile>
@@ -422,7 +434,7 @@
     <ClCompile Include="Tests\Fixtures\InputTests\InputStateTests.cpp">
       <Filter>Tests\Fixtures\InputTests</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Src\CoreComponents\UIComponents.cpp">
+    <ClCompile Include="ECS\Src\CoreComponents\UISceneComponent.cpp">
       <Filter>ECS\Src\CoreComponents</Filter>
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreSystems\UISystem.cpp">
@@ -497,9 +509,6 @@
     <ClCompile Include="Audio\Src\AudioEffect.cpp">
       <Filter>Audio\Src</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Src\CoreComponents\AudioResourceComponent.cpp">
-      <Filter>ECS\Src\CoreComponents</Filter>
-    </ClCompile>
     <ClCompile Include="ECS\Src\CoreComponents\AudioEmitterComponent.cpp">
       <Filter>ECS\Src\CoreComponents</Filter>
     </ClCompile>
@@ -511,6 +520,27 @@
     </ClCompile>
     <ClCompile Include="Tests\Fixtures\AudioTests\AudioPlayingTests.cpp">
       <Filter>Tests\Fixtures\AudioTests</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\ResourceComponents\AudioResourceComponent.cpp">
+      <Filter>ECS\Src\CoreComponents\ResourceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\ResourceComponents\TextResourceComponent.cpp">
+      <Filter>ECS\Src\CoreComponents\ResourceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\ResourceComponents\SpriteResourceComponent.cpp">
+      <Filter>ECS\Src\CoreComponents\ResourceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\ResourceComponents\ModelResourceComponent.cpp">
+      <Filter>ECS\Src\CoreComponents\ResourceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\TagComponents\DrawOrthographicTagComponent.cpp">
+      <Filter>ECS\Src\CoreComponents\TagComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\TagComponents\DrawPerspectiveTagComponent.cpp">
+      <Filter>ECS\Src\CoreComponents\TagComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Src\CoreComponents\ButtonComponent.cpp">
+      <Filter>ECS\Src\CoreComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -686,9 +716,6 @@
     <ClInclude Include="Libraries\Inc\WICTextureLoader\WICTextureLoader.h">
       <Filter>Libraries\Inc\WICTextureLoader</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\Inc\CoreComponents\DrawableComponents.h">
-      <Filter>ECS\Inc\CoreComponents</Filter>
-    </ClInclude>
     <ClInclude Include="Tests\Inc\Examples\IExample.h">
       <Filter>Tests\Inc\Examples</Filter>
     </ClInclude>
@@ -777,7 +804,7 @@
     <ClInclude Include="Tests\Inc\Examples\TestInput.h">
       <Filter>Tests\Inc\Examples</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\Inc\CoreComponents\UIComponents.h">
+    <ClInclude Include="ECS\Inc\CoreComponents\UISceneComponent.h">
       <Filter>ECS\Inc\CoreComponents</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\UIStateComponent.h">
@@ -870,9 +897,6 @@
     <ClInclude Include="Audio\Inc\AudioEffect.h">
       <Filter>Audio\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\Inc\CoreComponents\AudioResourceComponent.h">
-      <Filter>ECS\Inc\CoreComponents</Filter>
-    </ClInclude>
     <ClInclude Include="ECS\Inc\CoreModules\AudioModule.h">
       <Filter>ECS\Inc\CoreModules</Filter>
     </ClInclude>
@@ -884,6 +908,42 @@
     </ClInclude>
     <ClInclude Include="Core\Inc\WorldConstants.h">
       <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\ResourceComponents\AudioResourceComponent.h">
+      <Filter>ECS\Inc\CoreComponents\ResourceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\ResourceComponents\ModelResourceComponent.h">
+      <Filter>ECS\Inc\CoreComponents\ResourceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\ResourceComponents\SpriteResourceComponent.h">
+      <Filter>ECS\Inc\CoreComponents\ResourceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\ResourceComponents\TextResourceComponent.h">
+      <Filter>ECS\Inc\CoreComponents\ResourceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\TagComponents\DrawPerspectiveTagComponent.h">
+      <Filter>ECS\Inc\CoreComponents\TagComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\TagComponents\DrawOrthographicTagComponent.h">
+      <Filter>ECS\Inc\CoreComponents\TagComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\TextComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\BufferComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\ShaderComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\TextureComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\BaseComponents\UIElementComponentBase.h">
+      <Filter>ECS\Inc\CoreComponents\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreComponents\ButtonComponent.h">
+      <Filter>ECS\Inc\CoreComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

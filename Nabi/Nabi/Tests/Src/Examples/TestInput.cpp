@@ -4,8 +4,9 @@
 
 #include "pugixml.hpp"
 
+#include "CoreComponents\ButtonComponent.h"
 #include "CoreComponents\EntityInfoComponent.h"
-#include "CoreComponents\UIComponents.h"
+#include "CoreComponents\UISceneComponent.h"
 #include "CoreModules\InputModule.h"
 #include "CoreModules\UIModule.h"
 #include "InputCodes.h"

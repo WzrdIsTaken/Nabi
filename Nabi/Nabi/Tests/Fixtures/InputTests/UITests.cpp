@@ -1,6 +1,7 @@
 #include "TestCore.h"
 
-#include "CoreComponents\UIComponents.h"
+#include "CoreComponents\ButtonComponent.h"
+#include "CoreComponents\UISceneComponent.h"
 #include "CoreSingletonComponents\UIStateComponent.h"
 #include "CoreSystems\UISystem.h"
 

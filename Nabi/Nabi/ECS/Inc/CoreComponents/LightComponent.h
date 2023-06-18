@@ -30,10 +30,12 @@ namespace ecs
 	struct SpotLightComponent final : public nabi::ECS::ComponentBase, 
 		public LightingProperties
 	{
+		// (currently unused)
 	};
 
 	struct PointLightComponent final : public nabi::ECS::ComponentBase, 
 		public LightingProperties
 	{
+		// (currently unused)
 	};
 } // namespace ecs

@@ -16,29 +16,24 @@ Current:
 
 // --- High Priority ---
 
-- Threading
+- These next: Will be painful, but... worth it
+- Too much NABI_NOEXCEPT? noexcept and nodiscard in core ecs stuff?
+- Make it so that LOG has to take in a category and a end? (eg, LOG_CATEGORY_AUDIO and NEWLINE )?
+    - and a LOG_ENDLINE macro (can just be ENDLINE)
 
-- New namespace for resource components. Eg have SComp::, Tags:: and should have Resource::? ecs::Resouce::~ Should I split up these into resource/tag/data folders?
-    - Just Have CoreComponents [all data components live here], then resource / tag component folders?
-    - Also split out all components into seperate files. Rather than eg DrawableComponents
-- GraphicsComponent -> GraphicsStateComponent
-- Test audio looping (AudioCommand::LoadSettings)
+- these todos... then threading... then... done? dont be afraid to push the todos back into a 'refactor' branch
+- Threading
+- Put everything together in a game core / project setup how you want it example
+    - should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
+    - should tags be assigned in xml, or when the model / sprite is loaded in? I think xml
 
 - do i want the core ecs namespace to be "ecs?" should it be nabi something..? no... should it be something else..?
 - should i leave more comments in the core systems/components/modules?
 
 - Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func)
 
-- Too much NABI_NOEXCEPT? noexcept and nodiscard in core ecs stuff?
-- Make it so that LOG has to take in a category and a end? (eg, LOG_CATEGORY_AUDIO and NEWLINE )?
-    - and a LOG_ENDLINE macro (can just be ENDLINE)
-
 - I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
   go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research
-
-- should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
-
-- sprite component cpp + reflection?
 
 - is it possible to fix the "expected a ')'" error with REFLECT_CONTAINER? it compiles/works fine.. if not, then move this to the 'nice to have' section
 
@@ -90,7 +85,13 @@ Structure Stuff
 - Make it so that the loop is not something that is done by loading.. instead when playing. Could possibly solve this problem nicely by setting a callback on the voice..? 
 
 Archive:
+- sprite component cpp + reflection?
+- GraphicsComponent -> GraphicsStateComponent (nah... i dont think so..? its not really state like the others... i think?)
+- New namespace for resource components. Eg have SComp::, Tags:: and should have Resource::? ecs::Resouce::~ Should I split up these into resource/tag/data folders? YES DONE
+    - Just Have CoreComponents [all data components live here], then resource / tag component folders?
+    - Also split out all components into seperate files. Rather than eg DrawableComponents
 - Audio <-- DONE! :) 17/06/23 @ 22:38 one more feature to go (i hope.........) come on ben
+- Test audio looping (AudioCommand::LoadSettings)
 - Audio tests
 - Audio data should be stored in an asset bank. Need a custom loader and whatever. Rather than going in the audio module
     - Make sure that the audio bank doesnt assert if the resource is loaded more than once. it should ONLY log info. not even a warn (tbh, not even that...)

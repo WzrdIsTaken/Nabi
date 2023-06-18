@@ -1,10 +1,14 @@
 #pragma once
 #include "Core.h"
 
+#include "CoreComponents\BufferComponent.h"
 #include "CoreComponents\CameraComponent.h"
-#include "CoreComponents\DrawableComponents.h"
+#include "CoreComponents\ShaderComponent.h"
+#include "CoreComponents\TextureComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"
+#include "CoreComponents\TagComponents\DrawOrthographicTagComponent.h"
+#include "CoreComponents\TagComponents\DrawPerspectiveTagComponent.h"
 #include "ResourceWrappers.h"
 
 namespace ecs
@@ -25,7 +29,7 @@ namespace ecs
 	private:
 		// What actually does the rendering
 		template<typename T>
-		using ValidTags = typename std::enable_if<std::is_same<T, Tags::DrawPerspective>::value || std::is_same<T, Tags::DrawOrthographic>::value>::type;
+		using ValidTags = typename std::enable_if<std::is_same<T, TComp::DrawOrthographicTagComponent>::value || std::is_same<T, TComp::DrawPerspectiveTagComponent>::value>::type;
 
 		template<typename RenderableTag, typename = ValidTags<RenderableTag>>
 		void RenderInternal(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameras, CameraIndex::Enum const cameraType)
