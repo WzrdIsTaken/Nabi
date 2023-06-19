@@ -2,8 +2,6 @@
 
 #include "entt.h"
 
-#include <any>
-
 #include "AudioCommand.h"
 #include "EntityCreator.h"
 #include "NabiEventsManager.h"

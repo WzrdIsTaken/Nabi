@@ -3,6 +3,7 @@
 // A collection of core includes to make life easier
 
 // --- Standard Lib ---
+#include <any>
 #include <bitset>
 #include <cstdint>
 #include <stack>

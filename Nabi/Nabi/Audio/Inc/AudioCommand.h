@@ -51,6 +51,8 @@ namespace nabi::Audio
 		inline UINT GetInputChannelCount() const NABI_NOEXCEPT { return m_XAudioObjects.m_MasteringVoiceDetails.InputChannels; }
 
 	private:
+		DELETE_COPY_MOVE_CONSTRUCTORS(AudioCommand)
+
 		static DWORD constexpr c_FourccRIFF = 'FFIR';
 		static DWORD constexpr c_FourccDATA = 'atad';
 		static DWORD constexpr c_FourccFMT  = ' tmf';
