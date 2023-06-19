@@ -84,7 +84,7 @@
 
 #define FULL_LOCATION  __FILE__ << " " << __LINE__ << " "
 #define SHORT_LOCATION \
-	std::string(__FILE__).substr(std::string(__FILE__).find_last_of('\\') + 1, std::string(__FILE__).size()) << " " << __LINE__ <<
+	std::string(__FILE__).substr(std::string(__FILE__).find_last_of('\\') + 1u, std::string(__FILE__).size()) << " " << __LINE__ <<
 
 #define SHORT_LOCATION_END(line) SPACE(4 - std::string(TOSTRING(line)).length()) // Because of the way these macros work, we have to do this pass __LINE__ in TOSTRING stuff
 #define LEVEL_MESSAGE_DIVIDER ": "
@@ -97,6 +97,7 @@
 #define LOG_FATAL   "FATAL ERROR"
 
 #define LOG_END ENDLINE
+#define LOG_END_NEWLINE NEWLINE
 #define LOG_END_BLANK ""
 #define NEWLINE "\n"
 #define ENDLINE std::endl

@@ -678,7 +678,7 @@ namespace objl
 					pathtomat += algorithm::tail(curline);
 
 #ifdef OBJL_CONSOLE_OUTPUT
-					LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_RENDERING, "Found materials in: " << pathtomat, NEWLINE);
+					LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_RENDERING, "Found materials in: " << pathtomat, LOG_END_NEWLINE);
 #endif
 
 					// Load Materials
