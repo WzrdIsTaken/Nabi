@@ -87,7 +87,7 @@ namespace ecs::EntityModule
 		EntityGroup::Group const& entities = entityGroup.GetGroup();
 
 		ASSERT(entities.empty() || entities.size() == 1u, "FindFirstEntityByName trying to return more than one entity!");
-		CONDITIONAL_LOG(entities.empty(), LOG_PREP, LOG_INFO, LOG_CATEGORY_ECS << "FindFirstEntityByName didn't return any results!" << ENDLINE);
+		CONDITIONAL_LOG(entities.empty(), LOG_PREP, LOG_INFO, LOG_CATEGORY_ECS, "FindFirstEntityByName didn't return any results!", LOG_END);
 
 		entt::entity firstEntityByName = entt::null;
 		if (!entities.empty())

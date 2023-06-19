@@ -20,5 +20,5 @@
 	using namespace nabitest::ECS;
 
 	#define LOG_NOT_RUNNING_SLOW_TEST_WARNING \
-		LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_TEST << "Not running slow test " << WRAP(__FUNCTION__, "'") << " - make sure this is done before committing" << ENDLINE);
+		LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_TEST, "Not running slow test " << WRAP(__FUNCTION__, "'") << " - make sure this is done before committing", LOG_END);
 #endif // ifdef RUN_TESTS

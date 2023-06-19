@@ -34,8 +34,8 @@ namespace nabi
 		ASSERT_CODE
 		(
 			bool const deltaTimeIsMax = nabi::MathUtils::Approximity(m_DeltaTime, c_MaxDeltaTime);
-			CONDITIONAL_LOG(deltaTimeIsMax, LOG_PREP, LOG_WARN, LOG_CATEGORY_CORE <<
-				"Delta time is being capped to its maximum value (" << c_MaxDeltaTime << ")!" << ENDLINE);
+			CONDITIONAL_LOG(deltaTimeIsMax, LOG_PREP, LOG_WARN, LOG_CATEGORY_CORE, 
+				"Delta time is being capped to its maximum value (" << c_MaxDeltaTime << ")!", LOG_END);
 		)
 
 		// Fixed delta time

@@ -175,7 +175,7 @@ namespace nabi::Rendering
 		constantBuffer.m_Buffer = buffer;
 		constantBuffer.m_ByteWidth = byteWidth;
 
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a constant buffer of size " << bufferDesc.ByteWidth << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING, "Created a constant buffer of size " << bufferDesc.ByteWidth, LOG_END);
 		return constantBuffer;
 	}
 
@@ -199,7 +199,7 @@ namespace nabi::Rendering
 		indexBuffer.m_Buffer = buffer;
 		indexBuffer.m_ByteWidth = bufferDesc.ByteWidth;
 
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created an index buffer of size " << bufferDesc.ByteWidth << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING, "Created an index buffer of size " << bufferDesc.ByteWidth, LOG_END);
 		return indexBuffer;
 	}
 
@@ -225,7 +225,7 @@ namespace nabi::Rendering
 		vertexBuffer.m_Stride = sizeof(Vertex);
 		vertexBuffer.m_Offset = 0u;
 
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a vertex buffer of size " << bufferDesc.ByteWidth << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING, "Created a vertex buffer of size " << bufferDesc.ByteWidth, LOG_END);
 		return vertexBuffer;
 	}
 
@@ -243,7 +243,7 @@ namespace nabi::Rendering
 		PixelShader shader = {};
 		shader.m_Shader = pixelShader;
 
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a pixel shader with path " << WRAP(filePath, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING, "Created a pixel shader with path " << WRAP(filePath, "'"), LOG_END);
 		return shader;
 	}
 
@@ -265,7 +265,7 @@ namespace nabi::Rendering
 		shader.m_Shader = vertexShader;
 		shader.m_Layout = inputLayout;
 
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a vertex shader with path " << WRAP(filePath, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING, "Created a vertex shader with path " << WRAP(filePath, "'"), LOG_END);
 		return shader;
 	}
 
@@ -281,7 +281,7 @@ namespace nabi::Rendering
 		texture.m_Texture = shaderResourceView;
 		texture.m_Slot = 0u;
 
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a texture with path " << WRAP(filePath, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING, "Created a texture with path " << WRAP(filePath, "'"), LOG_END);
 		return texture;
 	}
 
@@ -308,7 +308,7 @@ namespace nabi::Rendering
 		Sampler sampler = {};
 		sampler.m_Sampler = samplerState;
 
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Created a sampler" << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING, "Created a sampler", LOG_END);
 		return sampler;
 	}
 
@@ -473,7 +473,7 @@ namespace nabi::Rendering
 		// I have left my first attept at window resizing below. It works, but there are a couple of DirectX warnings.
 		// Note that also if this wants to be implemented in the future, then the camera's matrices must also be updated with the new width/height
 
-		LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_RENDERING << "Note! Full window resizing functionality it not currently implemented" << ENDLINE);
+		LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_RENDERING, "Note! Full window resizing functionality it not currently implemented", LOG_END);
 		return false;
 
 		/*

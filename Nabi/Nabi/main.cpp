@@ -74,13 +74,13 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	Logger::Instance()->SetLogLevel(LOG_INFO);
 #endif // #ifdef USE_DEBUG_UTILS
 
-	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE << "All tests run. Initializing Nabi..." << NEWLINE << ENDLINE);
+	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE, "All tests run. Initializing Nabi..." << NEWLINE, LOG_END);
 #endif // #ifdef RUN_TESTS
 
 	// --- Init Nabi ---
 
 	nabi::NabiCore app = nabi::NabiCore(hInstance, nabi::nabiCoreDefaultSettings);
-	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE << "Nabi has initialized successfully!" << NEWLINE << ENDLINE);
+	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE, "Nabi has initialized successfully!" << NEWLINE, LOG_END);
 
 	int appRunResult = app.Init();
 	ASSERT(appRunResult == NABI_SUCCESS, "The app failed to initialize!");
@@ -97,6 +97,6 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 	CoUninitialize();
 
-	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE << "Shutting down Nabi with code " << appRunResult << ENDLINE);
+	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE, "Shutting down Nabi with code " << appRunResult, LOG_END);
 	return appRunResult;
 }

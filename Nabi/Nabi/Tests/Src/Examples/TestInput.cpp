@@ -83,7 +83,7 @@ namespace nabitest::Examples
 				bool const clickInsideElement = ecs::UIModule::CheckIfMouseIsOverElement(m_Context, mockElementPosition, mockElementDims);
 				if (clickInsideElement)
 				{
-					LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST << "Click inside mock element!" << ENDLINE);
+					LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST, "Click inside mock element!", LOG_END);
 				}
 			}
 		}
@@ -119,7 +119,7 @@ namespace nabitest::Examples
 
 		if (!stateString.empty())
 		{
-			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST << WRAP(keyName, "'") << " is " << stateString << "!" << ENDLINE);
+			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST, WRAP(keyName, "'") << " is " << stateString << "!", LOG_END);
 		}
 	}
 
@@ -166,7 +166,7 @@ namespace nabitest::Examples
 
 	void TestButtonResponseOne(nabi::Context& /*context*/, entt::entity const /*uiEntity*/)
 	{
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST << "Button one was clicked!" << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST, "Button one was clicked!", LOG_END);
 	}
 
 	void TestButtonResponseTwo(nabi::Context& context, entt::entity const /*uiEntity*/)
@@ -174,7 +174,7 @@ namespace nabitest::Examples
 		//context.m_Registry.destroy(entt::entity(7));
 		//context.m_Registry.destroy(entt::entity(4));
 
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST << "Button two was clicked!" << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST, "Button two was clicked!", LOG_END);
 	}
 } // namespace nabitest::Examples
 

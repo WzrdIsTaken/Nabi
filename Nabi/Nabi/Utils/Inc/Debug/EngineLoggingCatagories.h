@@ -10,3 +10,5 @@
 #define LOG_CATEGORY_TEST       "[Test] "
 #define LOG_CATEGORY_UI         "[UI] "
 #define LOG_CATEGORY_WINDOWS    "[Windows] " 
+
+#define BLANK_LOG_CATEGORY      ""

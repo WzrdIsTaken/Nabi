@@ -490,13 +490,13 @@ namespace objl
 				{
 					if (!meshname.empty())
 					{
-						LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_RENDERING
-							<< "\r- " << meshname
-							<< "\t| vertices > " << Positions.size()
+						LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_RENDERING,
+							   "\r- "             << meshname
+							<< "\t| vertices > "  << Positions.size()
 							<< "\t| texcoords > " << TCoords.size()
-							<< "\t| normals > " << Normals.size()
+							<< "\t| normals > "   << Normals.size()
 							<< "\t| triangles > " << (Vertices.size() / 3)
-							<< (!MeshMatNames.empty() ? "\t| material: " + MeshMatNames.back() : "") << ENDLINE);
+							<< (!MeshMatNames.empty() ? "\t| material: " + MeshMatNames.back() : ""), LOG_END);
 					}
 				}
 #endif
@@ -678,7 +678,7 @@ namespace objl
 					pathtomat += algorithm::tail(curline);
 
 #ifdef OBJL_CONSOLE_OUTPUT
-					LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_RENDERING << "Found materials in: " << pathtomat << NEWLINE);
+					LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_RENDERING, "Found materials in: " << pathtomat, NEWLINE);
 #endif
 
 					// Load Materials

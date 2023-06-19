@@ -138,7 +138,7 @@ namespace nabitest::Examples
 				settings
 			);
 
-			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST << "Raycast " << (result ? "hit" : "didn't hit") << ENDLINE);
+			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST, "Raycast " << (result ? "hit" : "didn't hit"), LOG_END);
 		}
 
 		if (wKeyState == InputState::Held)
@@ -226,18 +226,18 @@ namespace nabitest::Examples
 
 	void TestPhysics::TestCollisionEnterCallback(nabi::Context& /*context*/, entt::entity const /*lhs*/, entt::entity const /*rhs*/)
 	{
-		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_TEST << "OnCollisionEnter!" << ENDLINE);
+		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_TEST, "OnCollisionEnter!", LOG_END);
 	}
 
 	void TestPhysics::TestCollisionExitCallback(nabi::Context& /*context*/, entt::entity const /*lhs*/, entt::entity const /*rhs*/)
 	{
-		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_TEST << "OnCollisionExit!" << ENDLINE);
+		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_TEST, "OnCollisionExit!", LOG_END);
 	}
 
 	void TestPhysics::TestVoidFunc(nabi::Context& /*context*/, entt::entity const /*lhs*/, entt::entity const /*rhs*/)
 	{
 		// Actually won't see in Init for an explanation
-		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_TEST << "Does something, hopefully" << ENDLINE);
+		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_TEST, "Does something, hopefully", LOG_END);
 	}
 
 	// --- Assets ---

@@ -97,7 +97,7 @@ namespace ecs::UIModule
 		SComp::UIStorageComponent& uiStorage = GetUIStorageComponent(context);
 		if (HasSticky(uiStorage, sticky))
 		{
-			LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_UI << "Overriding an existing sticky's  (" << sticky << ") value!" << ENDLINE);
+			LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_UI, "Overriding an existing sticky's  (" << sticky << ") value!", LOG_END);
 			uiStorage.m_Storage.at(sticky) = value;
 		}
 		else
@@ -109,14 +109,14 @@ namespace ecs::UIModule
 
 	inline void ClearSticky(nabi::Context& context, SComp::UIStorageComponent::Sticky const sticky)
 	{
-		CONDITIONAL_LOG(!HasSticky(context, sticky), LOG_PREP, LOG_INFO, LOG_CATEGORY_UI << "Clearing a sticky (" << sticky << ") which doesn't exist!" << ENDLINE);
+		CONDITIONAL_LOG(!HasSticky(context, sticky), LOG_PREP, LOG_INFO, LOG_CATEGORY_UI, "Clearing a sticky (" << sticky << ") which doesn't exist!", LOG_END);
 
 		SComp::UIStorageComponent& uiStorage = GetUIStorageComponent(context);
 		uiStorage.m_Storage.erase(sticky);
 	};
 	inline void ClearStickies(nabi::Context& context)
 	{
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_UI << "Clearing all stickies from UIStorage!" << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_UI, "Clearing all stickies from UIStorage!", LOG_END);
 
 		SComp::UIStorageComponent& uiStorage = GetUIStorageComponent(context);
 		uiStorage.m_Storage.clear();

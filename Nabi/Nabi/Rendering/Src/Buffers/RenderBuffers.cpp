@@ -30,7 +30,7 @@ namespace nabi::Rendering
 				result = Load2DSprite(resourcePath, context);
 				break;
 			case LoadMode::Undefined:
-				LOG(LOG_PREP, LOG_ERROR, LOG_CATEGORY_RENDERING << "LoadMode is undefined! Did you forget to set it?" << ENDLINE);
+				LOG(LOG_PREP, LOG_ERROR, LOG_CATEGORY_RENDERING, "LoadMode is undefined! Did you forget to set it?", LOG_END);
 				[[fallthrough]];
 			default:
 				ASSERT_FAIL("Unspecified LoadMode!");
@@ -87,8 +87,8 @@ namespace nabi::Rendering
 			}
 
 			// Log the successful load of the model
-			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Loaded a model with path " << WRAP(resourcePath, "'") << ". " <<
-				"Model has " << meshData.m_Vertices.size() << " vertices and " << meshData.m_Triangles.size() << " triangles." << ENDLINE);
+			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING, "Loaded a model with path " << WRAP(resourcePath, "'") << ". " <<
+				"Model has " << meshData.m_Vertices.size() << " vertices and " << meshData.m_Triangles.size() << " triangles.", LOG_END);
 		}
 
 		// Create an index and vertex buffer for the mesh (would have already returned the empty mesh by this point is the load failed)
@@ -241,7 +241,7 @@ namespace nabi::Rendering
 
 		// Currently in Nabi normals aren't used for 2d sprites
 
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING << "Loaded a sprite with path " << WRAP(resourcePath, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_RENDERING, "Loaded a sprite with path " << WRAP(resourcePath, "'"), LOG_END);
 
 		// Create the buffers
 		IndexBufferLoader const indexBufferLoader;

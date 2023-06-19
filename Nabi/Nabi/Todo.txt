@@ -16,12 +16,10 @@ Current:
 
 // --- High Priority ---
 
-- These next: Will be painful, but... worth it
+- These next: Will be painful, but... worth it 
 - Too much NABI_NOEXCEPT? noexcept and nodiscard in core ecs stuff?
-- Make it so that LOG has to take in a category and a end? (eg, LOG_CATEGORY_AUDIO and NEWLINE )?
-    - and a LOG_ENDLINE macro (can just be ENDLINE)
 
-- these todos... then threading... then... done? dont be afraid to push the todos back into a 'refactor' branch
+- these todos... then threading... then... done? dont be afraid to push the todos back into a 'refactor' branch 
 - Threading
 - Put everything together in a game core / project setup how you want it example
     - should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
@@ -36,6 +34,7 @@ Current:
   go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research
 
 - is it possible to fix the "expected a ')'" error with REFLECT_CONTAINER? it compiles/works fine.. if not, then move this to the 'nice to have' section
+- why does the sprite component exist in the repro?
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -85,6 +84,8 @@ Structure Stuff
 - Make it so that the loop is not something that is done by loading.. instead when playing. Could possibly solve this problem nicely by setting a callback on the voice..? 
 
 Archive:
+- Make it so that LOG has to take in a category and a end? (eg, LOG_CATEGORY_AUDIO and NEWLINE )?
+    - and a LOG_ENDLINE macro (can just be ENDLINE)
 - sprite component cpp + reflection?
 - GraphicsComponent -> GraphicsStateComponent (nah... i dont think so..? its not really state like the others... i think?)
 - New namespace for resource components. Eg have SComp::, Tags:: and should have Resource::? ecs::Resouce::~ Should I split up these into resource/tag/data folders? YES DONE

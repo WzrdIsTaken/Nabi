@@ -40,12 +40,12 @@
 
 #define STATIC_ASSERT(...) static_assert(__VA_ARGS__);
 
-#define LOG(prep, severity, message) \
+#define LOG(prep, severity, category, message, end) \
 		{ \
 			using nabi::DebugUtils::Logger; \
 			\
 			std::ostringstream debugStream; \
-			debugStream << prep << severity << LEVEL_MESSAGE_DIVIDER << message; \
+			debugStream << prep << severity << LEVEL_MESSAGE_DIVIDER << category << message << end; \
 			\
 			if (Logger::IsInstanceValid()) \
 			{ \
@@ -56,10 +56,10 @@
 				LOG_RAW(debugStream); \
 			} \
 		}
-#define CONDITIONAL_LOG(condition, prep, severity, message) \
+#define CONDITIONAL_LOG(condition, prep, severity, category, message, end) \
 	if ((condition)) \
 	{ \
-		LOG(prep, severity, message); \
+		LOG(prep, severity, category, message, end); \
 	}
 
 #define LOG_RAW(message) nabi::DebugUtils::Logger::LogRaw(message);
@@ -76,7 +76,7 @@
 				assertStream << messagePrefix << LEVEL_MESSAGE_DIVIDER << message; \
 				std::string const assertMessage = assertStream.str(); \
 				\
-				LOG(LOG_PREP, logLevel, message << ENDLINE); \
+				LOG(LOG_PREP, logLevel, BLANK_LOG_CATEGORY, message, LOG_END); \
 				_RPTF0(_CRT_ASSERT, assertMessage.c_str()); \
 			} \
 		} while (false)
@@ -96,6 +96,8 @@
 #define LOG_ERROR   "ERROR"
 #define LOG_FATAL   "FATAL ERROR"
 
+#define LOG_END ENDLINE
+#define LOG_END_BLANK ""
 #define NEWLINE "\n"
 #define ENDLINE std::endl
 #define WRAP(item, wrapCharacter) wrapCharacter << item << wrapCharacter

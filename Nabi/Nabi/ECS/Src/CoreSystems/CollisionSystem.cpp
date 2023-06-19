@@ -87,8 +87,8 @@ namespace ecs
 				{
 					// Get the AABB rhs collider
 					PhysicsModule::ReassignAABBFromCollisionComponents(rhsAABB, rhsTransformComponent, rhsColliderComponent);
-					LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION <<
-						CollisionSolvers::AABBToString(lhsAABB, "LHS:") + " | " + CollisionSolvers::AABBToString(rhsAABB, "RHS:") << ENDLINE);
+					LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION, 
+						CollisionSolvers::AABBToString(lhsAABB, "LHS:") + " | " + CollisionSolvers::AABBToString(rhsAABB, "RHS:"), LOG_END);
 
 					// Check if the AABBs are intersecting
 					dx::XMFLOAT3 const& otherMinExtents = lhsAABB.m_MinExtents;
@@ -119,7 +119,7 @@ namespace ecs
 						(
 							static uint64_t collisionCount = 0ull;
 							++collisionCount;
-							LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Broad Phase - Collision! Count: " << collisionCount << ENDLINE);
+							LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION, "Broad Phase - Collision! Count: " << collisionCount, LOG_END);
 						)
 
 #ifdef ENABLE_NARROW_PHASE
@@ -182,8 +182,8 @@ namespace ecs
 
 		if (collisionState == CollisionState::Colliding         && !presentInCurrentCollisions)
 		{
-			LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Collision Enter: " <<
-				GetEntityUUIDAsString(lhsData.m_Entity) << "-" << GetEntityUUIDAsString(rhsData.m_Entity) << ENDLINE);
+			LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION, "Collision Enter: " <<
+				GetEntityUUIDAsString(lhsData.m_Entity) << "-" << GetEntityUUIDAsString(rhsData.m_Entity), LOG_END);
 
 			currentCollisions.emplace_back(collisionPair);
 
@@ -192,8 +192,8 @@ namespace ecs
 		}
 		else if (collisionState == CollisionState::NotColliding && presentInCurrentCollisions)
 		{
-			LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Collision Exit: " <<
-				GetEntityUUIDAsString(lhsData.m_Entity) << "-" << GetEntityUUIDAsString(rhsData.m_Entity) << ENDLINE);
+			LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION, "Collision Exit: " <<
+				GetEntityUUIDAsString(lhsData.m_Entity) << "-" << GetEntityUUIDAsString(rhsData.m_Entity), LOG_END);
 
 			currentCollisions.erase(it);
 
@@ -206,8 +206,8 @@ namespace ecs
 	{
 		dx::XMFLOAT3 const resultant = nabi::DirectXUtils::Float3Multiply(collision.m_Normal, collision.m_Depth);
 		float const inverseDt = 1.0f / dt;
-		LOG(LOG_PREP, LOG_TRACE, "Narrow Phase - Normal: " << nabi::DirectXUtils::Float3ToString(collision.m_Normal) <<
-			" | Depth: " << collision.m_Depth << " | Normal * Depth = " << nabi::DirectXUtils::Float3ToString(resultant) << ENDLINE);
+		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION, "Narrow Phase - Normal: " << nabi::DirectXUtils::Float3ToString(collision.m_Normal) <<
+			" | Depth: " << collision.m_Depth << " | Normal * Depth = " << nabi::DirectXUtils::Float3ToString(resultant), LOG_END);
 
 		// Transform adjustment
 		TransformComponent& transform = data.m_TransformComponent;
@@ -270,8 +270,8 @@ namespace ecs
 	(
 
 		using namespace nabi::Utils::DirectXUtils;
-		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION << "Narrow Phase - LHS Collision Normal: " << Float3ToString(lhsCollision.m_Normal)
+		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_COLLISION, "Narrow Phase - LHS Collision Normal: " << Float3ToString(lhsCollision.m_Normal)
 			<< " | Depth: " << Float3ToString(lhsCollisionDepth) <<    " - RHS Collision Normal: " << Float3ToString(rhsCollision.m_Normal)
-			<< " | Depth: " << Float3ToString(rhsCollisionDepth) << ENDLINE);
+			<< " | Depth: " << Float3ToString(rhsCollisionDepth), LOG_END);
 	)
 */

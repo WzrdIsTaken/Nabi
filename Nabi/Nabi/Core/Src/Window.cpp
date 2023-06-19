@@ -81,7 +81,7 @@ namespace nabi
 
 	Window::WindowsMsg& Window::GetOrAddEvent(UINT const messageId) NABI_NOEXCEPT
 	{
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_WINDOWS << "Registering a new windows event listener with message id " << messageId << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_WINDOWS, "Registering a new windows event listener with message id " << messageId, LOG_END);
 
 		if (auto const messageEvent = FindMsgItr(messageId, FindMode::Find); IsMsgItrValid(messageEvent))
 		{
@@ -100,7 +100,7 @@ namespace nabi
 
 	bool Window::RemoveEvent(UINT const messageId) NABI_NOEXCEPT
 	{
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_WINDOWS << "Unregistering a windows event listener with message id " << messageId << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_WINDOWS, "Unregistering a windows event listener with message id " << messageId, LOG_END);
 
 		if (auto const messageEvent = FindMsgItr(messageId, FindMode::Remove); IsMsgItrValid(messageEvent))
 		{
@@ -172,8 +172,8 @@ namespace nabi
 		// Notify subscribers of any messages
 		if (auto const messageEvent = FindMsgItr(msg, FindMode::Find); IsMsgItrValid(messageEvent))
 		{
-			LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_WINDOWS << "Publishing a message with id " << msg << 
-				". wParam: " << wParam << " lParam: " << lParam << ENDLINE);
+			LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_WINDOWS, "Publishing a message with id " << msg << 
+				". wParam: " << wParam << " lParam: " << lParam, LOG_END);
 
 			messageEvent->m_Event.publish(wParam, lParam);
 		}

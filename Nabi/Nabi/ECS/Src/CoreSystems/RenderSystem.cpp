@@ -72,14 +72,14 @@ namespace ecs
 		std::ostringstream logMessage;
 
 		logMessage <<
-			LOG_CATEGORY_RENDERING << "The model on entity " << WRAP(entityName, "'") << " has a: " << NEWLINE
-			"Model Matrix of          : " << MatrixToString(m_DebugModelMatrix)                     << NEWLINE
-			"View Matrix of           : " << MatrixToString(m_DebugViewMatrix)                      << NEWLINE
-			"Projection Matrix of     : " << MatrixToString(m_DebugProjectionMatrix)                << NEWLINE
+			"The model on entity "        << WRAP(entityName, "'") << " has a: "     << NEWLINE
+			"Model Matrix of          : " << MatrixToString(m_DebugModelMatrix)      << NEWLINE
+			"View Matrix of           : " << MatrixToString(m_DebugViewMatrix)       << NEWLINE
+			"Projection Matrix of     : " << MatrixToString(m_DebugProjectionMatrix) << NEWLINE
 			"And a resultant matrix of: " << MatrixToString(result);
 
 		// Log
-		LOG(LOG_PREP, LOG_TRACE, logMessage.str() << ENDLINE);
+		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_RENDERING, logMessage.str(), LOG_END);
 	}
 #endif // USE_DEBUG_UTILS
 } // namespace ecs

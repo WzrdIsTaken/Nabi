@@ -20,7 +20,7 @@ namespace nabi::Reflection
 	{
 		// Load the route document
 		pugi::xml_document const routeDoc = LoadDocument(routeDocPath);
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION << "Loaded a route document " << WRAP(routeDocPath, "'") << " successfully!" << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION, "Loaded a route document " << WRAP(routeDocPath, "'") << " successfully!", LOG_END);
 
 		// Cache the context's registry
 		entt::registry& registry = context.m_Registry;
@@ -35,7 +35,7 @@ namespace nabi::Reflection
 			// Go through each of the path nodes and load the doc associated with them
 			std::string_view const path = pathNode.attribute(c_ValueAttribute.c_str()).value();
 			pugi::xml_document const dataDoc = LoadDocument(path);
-			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION << "Loaded a data document " << WRAP(path, "'") << " successfully!" << ENDLINE);
+			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION, "Loaded a data document " << WRAP(path, "'") << " successfully!", LOG_END);
 
 			// Take a peak at the type of that document
 			std::string_view const docType = dataDoc.first_child().name();
@@ -93,7 +93,7 @@ namespace nabi::Reflection
 		// Get the system group's id
 		std::string_view const systemGroupId = doc.first_child().attribute(c_IdAttribute.c_str()).value();
 		entt::hashed_string const systemGroupIdHash = entt::hashed_string(systemGroupId.data());
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION << "Found a system group with id " << WRAP(systemGroupId, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION, "Found a system group with id " << WRAP(systemGroupId, "'"), LOG_END);
 
 		// Iterate through all of the systems in the group
 		for (pugi::xml_node const systemNode : doc.child(c_SystemGroupAttribute.c_str()))
@@ -104,7 +104,7 @@ namespace nabi::Reflection
 				// Get the system's id
 				std::string_view const systemId = systemNode.attribute(c_IdAttribute.c_str()).value();
 				entt::hashed_string const systemIdHash = entt::hashed_string(systemId.data());
-				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << LOG_CATEGORY_REFLECTION << "Created a system with id " << WRAP(systemId, "'") << ENDLINE);
+				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << LOG_CATEGORY_REFLECTION, "Created a system with id " << WRAP(systemId, "'"), LOG_END);
 
 				// Construct the system
  
@@ -134,7 +134,7 @@ namespace nabi::Reflection
 		// Get the entity group's id
 		std::string_view const entityGroupId = doc.first_child().attribute(c_IdAttribute.c_str()).value();
 		entt::hashed_string const entityGroupIdHash = entt::hashed_string(entityGroupId.data());
-		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION << "Found a entity group with id " << WRAP(entityGroupId, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION, "Found a entity group with id " << WRAP(entityGroupId, "'"), LOG_END);
 
 		// Stores the entity node if it is marked for delayed creation
 		std::vector<pugi::xml_node> delayedCreationEntities; // i would like to make this a std::reference_wrapper, but something funcky is going on when i use it
@@ -188,7 +188,7 @@ namespace nabi::Reflection
 	{
 		// Get the entity template's name
 		std::string const entityTemplateName = entityTemplateNode.attribute(c_IdAttribute.c_str()).value();
-		LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << LOG_CATEGORY_REFLECTION << "Found an entity template with name " << WRAP(entityTemplateName, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << LOG_CATEGORY_REFLECTION, "Found an entity template with name " << WRAP(entityTemplateName, "'"), LOG_END);
 		ASSERT(m_EntityTemplates.find(entityTemplateName) == m_EntityTemplates.end(), "Adding an entity template with an id which is currently in use!");
 
 		// Create an entry in m_EntityTemplates and get a reference to the templates components
@@ -205,7 +205,7 @@ namespace nabi::Reflection
 		{
 			// Find the entity template's template
 			pugi::char_t const* const entityTemplateParentName = entityTemplate.value();
-			LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << LOG_CATEGORY_REFLECTION << "It inherits from " << WRAP(entityTemplateParentName, "'") << ENDLINE);
+			LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << LOG_CATEGORY_REFLECTION, "It inherits from " << WRAP(entityTemplateParentName, "'"), LOG_END);
 
 			ASSERT_FATAL(m_EntityTemplates.find(entityTemplateParentName) != m_EntityTemplates.end(),
 				"A template with the id " << WRAP(entityTemplateParentName, "'") << " does not exist in m_EntityTemplates!");
@@ -227,7 +227,7 @@ namespace nabi::Reflection
 		// Create an entity
 		entt::entity const entity = registery.create();
 		std::string_view const entityId = entityNode.attribute(c_IdAttribute.c_str()).value();
-		LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << LOG_CATEGORY_REFLECTION << "Created an entity with name " << WRAP(entityId, "'") << ENDLINE);
+		LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << LOG_CATEGORY_REFLECTION, "Created an entity with name " << WRAP(entityId, "'"), LOG_END);
 
 		// Create a collection of all the entities components
 		std::vector<ComponentData> entityComponents{};
@@ -311,8 +311,8 @@ namespace nabi::Reflection
 
 				// Push back the created component into the entity's component list
 				entityComponents.push_back(component);
-				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << LOG_CATEGORY_REFLECTION << "Found a component on the entity with id " 
-					<< WRAP(component.m_Id.data(), "'") << ENDLINE);
+				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_2) << LOG_CATEGORY_REFLECTION, "Found a component on the entity with id " 
+					<< WRAP(component.m_Id.data(), "'"), LOG_END);
 			}
 		}
 	}

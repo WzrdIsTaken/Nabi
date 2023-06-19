@@ -96,8 +96,8 @@ namespace ecs::AudioModule
 			}
 			else
 			{
-				LOG(LOG_PREP, LOG_ERROR, LOG_CATEGORY_AUDIO <<
-					"Tried to destroy an audio effect, but the audio effect was null. This may result in a bad shutdown when xaudio terminates" << ENDLINE);
+				LOG(LOG_PREP, LOG_ERROR, LOG_CATEGORY_AUDIO, 
+					"Tried to destroy an audio effect, but the audio effect was null. This may result in a bad shutdown when xaudio terminates", LOG_END);
 			}
 		}
 	}
