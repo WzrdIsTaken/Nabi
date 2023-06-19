@@ -14,25 +14,21 @@ Current:
 - Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown (i think this is to do with rendering..?). Also can tidy up this todo txt
     - When nothing is being drawn I dont get the error
 
+Refactor Branch:
+- Too much NABI_NOEXCEPT? noexcept and nodiscard in core ecs stuff?
+- do i want the core ecs namespace to be "ecs?" should it be nabi something..? no... should it be something else..? i think ecs is fine though
+- should i leave more comments in the core systems/components/modules?
+- I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
+  go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research
+
 // --- High Priority ---
 
-- These next: Will be painful, but... worth it 
-- Too much NABI_NOEXCEPT? noexcept and nodiscard in core ecs stuff?
-
-- these todos... then threading... then... done? dont be afraid to push the todos back into a 'refactor' branch 
 - Threading
 - Put everything together in a game core / project setup how you want it example
     - should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
     - should tags be assigned in xml, or when the model / sprite is loaded in? I think xml
 
-- do i want the core ecs namespace to be "ecs?" should it be nabi something..? no... should it be something else..?
-- should i leave more comments in the core systems/components/modules?
-
-- Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func)
-
-- I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
-  go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research
-
+- Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func (see what we did for the audio id))
 - is it possible to fix the "expected a ')'" error with REFLECT_CONTAINER? it compiles/works fine.. if not, then move this to the 'nice to have' section
 - why does the sprite component exist in the repro?
 
