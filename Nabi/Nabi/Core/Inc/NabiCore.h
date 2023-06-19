@@ -18,6 +18,8 @@
 	#include "Examples\TestDraw.h"
 	#include "Examples\TestInput.h"
 	#include "Examples\TestPhysics.h"
+	#include "Examples\TestThreading.h"
+	// There is no TestReflection as it was the first thing I did. However, there are plenty of unit tests
 
 	// Just call the Example's Init/Update/Render functions at the end of the matching NabiCore function
 #endif // ifdef INCLUDE_EXAMPLES
@@ -72,7 +74,7 @@ namespace nabi
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)
 
-		nabitest::Examples::TestAudio test_Input;
+		nabitest::Examples::TestThreading test_Input;
 	};
 } // namespace nabi
 

@@ -269,6 +269,15 @@
     <Filter Include="ECS\Src\CoreComponents\TagComponents">
       <UniqueIdentifier>{0a1a81d3-b76d-4827-8a6d-521c304e8f10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Threading">
+      <UniqueIdentifier>{d991bd86-7c8c-4608-83f5-ab1968759cf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threading\Inc">
+      <UniqueIdentifier>{9d80781c-d991-419a-bfd1-ce508818fe08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threading\Src">
+      <UniqueIdentifier>{c949a568-7af9-4756-835d-1856ffca4bf7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -541,6 +550,9 @@
     </ClCompile>
     <ClCompile Include="ECS\Src\CoreComponents\ButtonComponent.cpp">
       <Filter>ECS\Src\CoreComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Examples\TestThreading.cpp">
+      <Filter>Tests\Src\Examples</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -944,6 +956,9 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreComponents\ButtonComponent.h">
       <Filter>ECS\Inc\CoreComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Examples\TestThreading.h">
+      <Filter>Tests\Inc\Examples</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

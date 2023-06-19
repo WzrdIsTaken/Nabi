@@ -3,6 +3,7 @@
 
 #include "CoreSystems\UISystem.h"
 
+#include "CoreComponents\ButtonComponent.h"
 #include "CoreModules\EntityModule.h"
 #include "CoreModules\InputModule.h"
 #include "CoreModules\ReflectionModule.h"
@@ -50,7 +51,7 @@ namespace ecs
 			// Could perhaps use syntax like this, and then check which component isn't null: 
 			// auto [button, slider] = m_Context.m_Registry.try_get<ButtonComponent, SliderComponent>(entity);
 
-			UIElementComponentBase& uiElement = m_Context.m_Registry.get<ButtonComponent>(entity);
+			BComp::UIElementComponentBase& uiElement = m_Context.m_Registry.get<ButtonComponent>(entity);
 
 			if (uiElement.m_Interactable && uiElement.m_Active)
 			{
@@ -90,7 +91,7 @@ namespace ecs
 			for (SelectedUIElement const& uiElement : selectedUiElements)
 			{
 				entt::entity const uiEntity = uiElement.m_Entity;
-				UIElementComponentBase& uiElementComponent = uiElement.m_Element.get();
+				BComp::UIElementComponentBase& uiElementComponent = uiElement.m_Element.get();
 
 				uiElementComponent.m_Selected = false;
 

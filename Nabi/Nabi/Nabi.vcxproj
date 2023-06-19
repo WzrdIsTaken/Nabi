@@ -254,6 +254,7 @@
     <ClCompile Include="Tests\Src\Examples\TestDraw.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestInput.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestPhysics.cpp" />
+    <ClCompile Include="Tests\Src\Examples\TestThreading.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockComponent.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockCustomDataType.cpp" />
     <ClCompile Include="Tests\Src\MockObjects\MockEnum.cpp" />
@@ -383,6 +384,7 @@
     <ClInclude Include="Tests\Inc\Examples\IExample.h" />
     <ClInclude Include="Tests\Inc\Examples\TestInput.h" />
     <ClInclude Include="Tests\Inc\Examples\TestPhysics.h" />
+    <ClInclude Include="Tests\Inc\Examples\TestThreading.h" />
     <ClInclude Include="Tests\Inc\Helpers\Comparison.h" />
     <ClInclude Include="Tests\Inc\MockObjects\MockComponent.h" />
     <ClInclude Include="Tests\Inc\MockObjects\MockCustomDataType.h" />

@@ -20,6 +20,8 @@ Refactor Branch:
 - should i leave more comments in the core systems/components/modules?
 - I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
   go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research
+- Add "Memory" to the development roadmap readme with soontm
+- Should the wincore in include go before or after standard lib? remove the comment in core.h
 
 // --- High Priority ---
 

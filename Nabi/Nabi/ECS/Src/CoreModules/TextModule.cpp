@@ -2,8 +2,9 @@
 
 #include "CoreModules\TextModule.h"
 
-#include "CoreComponents\DrawableComponents.h"
+#include "CoreComponents\BufferComponent.h"
 #include "CoreComponents\SpatialHierarchyComponent.h"
+#include "CoreComponents\TextComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\EntityModule.h"
 #include "DirectXUtils.h"
@@ -65,7 +66,7 @@ namespace ecs::TextModule
 					{
 						UVs const characterUvs = CalculateCharacterUvs(context, newCharacter, textComponent.m_AsciiShift, textComponent.m_TextureAtlas);
 
-						ecs::BufferComponent const characterBufferComponent = context.m_Registry.get<ecs::BufferComponent>(entity);
+						BufferComponent const characterBufferComponent = context.m_Registry.get<BufferComponent>(entity);
 						std::shared_ptr<RenderBuffers const> const characterBuffers = characterBufferComponent.m_BufferResource.GetResource();
 
 						wrl::ComPtr<ID3D11Buffer> const characterVertexBuffer = characterBuffers->m_VertexBuffer.m_Buffer;

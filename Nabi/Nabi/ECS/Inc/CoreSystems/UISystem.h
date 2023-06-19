@@ -4,10 +4,10 @@
 #include "InputCodes.h"
 #include "InputState.h"
 
-namespace ecs
+namespace ecs::BComp
 {
 	struct UIElementComponentBase;
-} // namespace ecs
+} // namespace ecs::BComp
 
 namespace ecs
 {
@@ -23,7 +23,7 @@ namespace ecs
 		struct SelectedUIElement
 		{
 			entt::entity m_Entity;
-			std::reference_wrapper<UIElementComponentBase> m_Element;
+			std::reference_wrapper<BComp::UIElementComponentBase> m_Element;
 		};
 		struct InputInfo
 		{
