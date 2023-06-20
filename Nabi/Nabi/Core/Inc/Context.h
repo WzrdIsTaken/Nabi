@@ -6,6 +6,7 @@
 #include "EntityCreator.h"
 #include "NabiEventsManager.h"
 #include "RenderCommand.h"
+#include "ThreadCommand.h"
 #include "Window.h"
 
 namespace nabi
@@ -34,10 +35,9 @@ namespace nabi
 
 		std::unique_ptr<ECS::EntityCreator> m_EntityCreator;
 
-		// Graphic
+		// Commands
 		std::unique_ptr<Rendering::RenderCommand> m_RenderCommand;
-
-		// Audio
 		std::unique_ptr<Audio::AudioCommand> m_AudioCommand;
+		std::unique_ptr<Threading::ThreadCommand> m_ThreadCommand;
 	};
 } // namespace nabi

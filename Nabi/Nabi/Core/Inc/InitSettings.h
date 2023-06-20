@@ -57,15 +57,27 @@ namespace nabi
 		.m_NabiCoreParseDocuments = DataSettings::NabiCoreParseMode::None
 	};
 
+	// --- Threading Settings ---
+	struct ThreadingSettings final
+	{
+		unsigned int m_ThreadPoolSize;
+	};
+
+	ThreadingSettings const c_ThreadingDefaultSettings = {
+		.m_ThreadPoolSize = 8u // Limited to std::thread::hardware_concurrency() in ThreadCommand
+	};
+
 	// --- Nabi Core Settings ---
 	struct NabiCoreSettings final
 	{
 		WindowSettings m_WindowSettings;
 		DataSettings m_DataSettings;
+		ThreadingSettings m_ThreadingSettings;
 	};
 
 	NabiCoreSettings const nabiCoreDefaultSettings = {
 		.m_WindowSettings = c_WindowDefaultSettings,
-		.m_DataSettings = c_DataDefaultSettings
+		.m_DataSettings   = c_DataDefaultSettings,
+		.m_ThreadingSettings = c_ThreadingDefaultSettings
 	};
 } // namespace nabi

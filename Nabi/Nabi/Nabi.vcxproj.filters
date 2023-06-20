@@ -278,6 +278,9 @@
     <Filter Include="Threading\Src">
       <UniqueIdentifier>{c949a568-7af9-4756-835d-1856ffca4bf7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Libraries\Inc\thread_pool">
+      <UniqueIdentifier>{d8c82ca3-b116-48cd-a61c-950368a126ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -553,6 +556,9 @@
     </ClCompile>
     <ClCompile Include="Tests\Src\Examples\TestThreading.cpp">
       <Filter>Tests\Src\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="Threading\Src\ThreadCommand.cpp">
+      <Filter>Threading\Src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -959,6 +965,21 @@
     </ClInclude>
     <ClInclude Include="Tests\Inc\Examples\TestThreading.h">
       <Filter>Tests\Inc\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="Threading\Inc\LockCriticalSection.h">
+      <Filter>Threading\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Threading\Inc\ThreadingObjects.h">
+      <Filter>Threading\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Inc\thread_pool\thread_pool.h">
+      <Filter>Libraries\Inc\thread_pool</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Inc\thread_pool\thread_safe_queue.h">
+      <Filter>Libraries\Inc\thread_pool</Filter>
+    </ClInclude>
+    <ClInclude Include="Threading\Inc\ThreadCommand.h">
+      <Filter>Threading\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

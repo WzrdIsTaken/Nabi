@@ -30,6 +30,9 @@ Refactor Branch:
     - should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
     - should tags be assigned in xml, or when the model / sprite is loaded in? I think xml
 
+- Comments in engine threading code + explanation of why we used a library
+- should the thread pool be a ptr in threadingobjects?
+
 - Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func (see what we did for the audio id))
 - is it possible to fix the "expected a ')'" error with REFLECT_CONTAINER? it compiles/works fine.. if not, then move this to the 'nice to have' section
 - why does the sprite component exist in the repro?

@@ -5,6 +5,11 @@
 
 #ifdef RUN_TESTS
 
+namespace ecs
+{
+	class InputSystem;
+} // namespace ecs
+
 namespace nabitest::Examples
 {
 	class TestThreading final : public IExample
@@ -18,7 +23,13 @@ namespace nabitest::Examples
 		bool Render() override;
 
 	private:
+		void VoidFunc() const;
+		int IntFunc() const;
+		float ParamFunc(float const f) const;
+		void ThreadInsideAThreadFunc() const;
+
 		nabi::Context& m_Context;
+		std::unique_ptr<ecs::InputSystem> m_InputSystem;
 	};
 } // namespace nabitest::Examples
 

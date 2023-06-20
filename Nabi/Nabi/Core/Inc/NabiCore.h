@@ -8,6 +8,7 @@
 #include "DXObjects.h"
 #include "GameTime.h"
 #include "InitSettings.h"
+#include "ThreadingObjects.h"
 #include "WindowEventsListener.h"
 #include "XAudioObjects.h"
 
@@ -59,9 +60,10 @@ namespace nabi
 		HINSTANCE const m_hInstance;
 		WindowEventsListener m_WindowEventsListener;
 
-		// DirectX
+		// Commands
 		Rendering::DXObjects m_DXObjects;
 		Audio::XAudioObjects m_XAudioObjects;
+		Threading::ThreadingObjects m_ThreadingObjects;
 
 		// Nabi
 		Context m_Context;

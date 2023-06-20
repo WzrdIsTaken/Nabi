@@ -45,11 +45,10 @@ namespace nabi
 
 		m_Context.m_EntityCreator = std::make_unique<ECS::EntityCreator>(m_Context.m_Registry);
 
-		// Rendering
+		// Commands
 		m_Context.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Context.m_Window->GetHWND(), initSettings.m_WindowSettings);
-
-		// Audio
 		m_Context.m_AudioCommand = std::make_unique<Audio::AudioCommand>(m_XAudioObjects);
+		m_Context.m_ThreadCommand = std::make_unique<Threading::ThreadCommand>(m_ThreadingObjects, initSettings.m_ThreadingSettings);
 
 		// --- Setup windows events ---
 		m_WindowEventsListener.RegisterEvents();
