@@ -294,5 +294,6 @@ Remember:
 - cool syntax: normal ? (normal->x = (normal->x < 0.0f) ? -1.0f : 1.0f) : 0;
 - find it vs remove it for erase https://stackoverflow.com/a/24011727
 - 0xFFFF
+- When a member function is defined inside a class or struct definition, it is considered an inline function by default (eg operator </())
 
 idk why this is here really but as i say, i like everything in one place :D

@@ -9,7 +9,17 @@ namespace nabi::Threading
 {
 	struct ThreadingObjects final
 	{
-		typedef dp::thread_pool<dp::details::default_function_type, std::jthread> DefaultThreadPool;
+	private:
+		typedef dp::details::default_function_type FunctionType;
+		typedef std::jthread ThreadType;
+		typedef dp::thread_pool<FunctionType, ThreadType> DefaultThreadPool;
+
+		// a wip soontm idea
+		//typedef dp::thread_safe_queue<FunctionType> DpQueueType;
+		//typedef thread_safe_priority_queue<FunctionType> PriorityQueueType; 
+		//typedef dp::thread_pool<FunctionType, ThreadType, PriorityQueueType> PriorityThreadPool;
+
+	public:
 		typedef DefaultThreadPool ThreadPool;
 
 		CRITICAL_SECTION m_CriticalSection;
