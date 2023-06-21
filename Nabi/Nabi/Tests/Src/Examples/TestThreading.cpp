@@ -80,11 +80,23 @@ namespace nabitest::Examples
 					ThreadInsideAThreadFunc();
 				});
 
-			// Next up - review written code, test the lock critical section stuff
-			// try putting the render thread etc on another thread?
+			// Next up - review written code, test the lock critical section stuff DONE
+			// try putting the render thread etc on another thread? DONE
 			// task priorities? can i just modiify the lib code to use a prioty deque? [not worth the effort]
 
-			// look into ENTT_USE_ATOMIC / entts multithreading needs
+			// look into ENTT_USE_ATOMIC / entts multithreading needs <---THIS
+
+			// TODO need to check we have enough threads for this and handle if we dont?? DONE
+			// Saw the "getting fixed dt but run sim is false" assert while idiling. remove this assert and make it a log warn? <---THIS
+			//	- if did this also have to probs bump the slow test log to error and the main test log filter to error as well..
+			// then can also remove the ifdef debug utils random stuff in collision tests <---THIS
+
+			// test parsing xml data on another thread <---THIS
+			// test loading data at runtime (eg new rendering data) <---THIS
+			// always maintain non core functionality multithread capabilties so we can roll back if needed YE
+			// need a task thread? NO i dont think so
+
+			// WHY did we have to change the speed. deeper underlying problem? <---THIS
 		}
 		return true;
 	}

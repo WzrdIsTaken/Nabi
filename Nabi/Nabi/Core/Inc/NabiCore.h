@@ -46,6 +46,7 @@ namespace nabi
 
 	protected:
 		virtual void Update() /*const?*/ NABI_NOEXCEPT;
+		virtual void FixedUpdate() /*const?*/ NABI_NOEXCEPT;
 		virtual void Render() /*const?*/ NABI_NOEXCEPT;
 
 		bool InitGraphicsEntity() NABI_NOEXCEPT;
@@ -76,7 +77,7 @@ namespace nabi
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)
 
-		nabitest::Examples::TestThreading test_Input;
+		nabitest::Examples::TestPhysics test_Input;
 	};
 } // namespace nabi
 

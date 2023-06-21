@@ -100,7 +100,7 @@ namespace nabitest::Examples
 		ecs::RigidbodyComponent& playerEntityRigidbody = m_Context.m_Registry.get<ecs::RigidbodyComponent>(m_PlayerEntity);
 		ecs::TransformComponent& playerEntityTransform = m_Context.m_Registry.get<ecs::TransformComponent>(m_PlayerEntity);
 
-		float constexpr testEntitySpeed = 0.1f;
+		float constexpr testEntitySpeed = 5.0f;
 		float constexpr testEntityRotation = 0.1f;
 		bool constexpr adjustRotation = false;
 
@@ -143,32 +143,32 @@ namespace nabitest::Examples
 
 		if (wKeyState == InputState::Held)
 		{
-			playerEntityRigidbody.m_Velocity.y += testEntitySpeed;
+			playerEntityRigidbody.m_Velocity.y += testEntitySpeed * GetGameTime();
 			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation; 
 		}
 		if (sKeyState == InputState::Held)
 		{
-			playerEntityRigidbody.m_Velocity.y -= testEntitySpeed;
+			playerEntityRigidbody.m_Velocity.y -= testEntitySpeed * GetGameTime();
 			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
 		}
 		if (aKeyState == InputState::Held)
 		{
-			playerEntityRigidbody.m_Velocity.x -= testEntitySpeed;
+			playerEntityRigidbody.m_Velocity.x -= testEntitySpeed * GetGameTime();
 			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.y += testEntityRotation;
 		}
 		if (dKeyState == InputState::Held)
 		{
-			playerEntityRigidbody.m_Velocity.x += testEntitySpeed;
+			playerEntityRigidbody.m_Velocity.x += testEntitySpeed * GetGameTime();
 			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.y -= testEntityRotation;
 		}
 		if (qKeyState == InputState::Held)
 		{
-			playerEntityRigidbody.m_Velocity.z -= testEntitySpeed;
+			playerEntityRigidbody.m_Velocity.z -= testEntitySpeed * GetGameTime();
 			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
 		}
 		if (eKeyState == InputState::Held)
 		{
-			playerEntityRigidbody.m_Velocity.z += testEntitySpeed;
+			playerEntityRigidbody.m_Velocity.z += testEntitySpeed * GetGameTime();
 			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation;
 		}
 
@@ -178,6 +178,11 @@ namespace nabitest::Examples
 	bool TestPhysics::Render()
 	{
 		return false;
+	}
+
+	void TestPhysics::SetGameTime(nabi::GameTime const* gametime)
+	{
+		m_TestGameTime = gametime;
 	}
 
 	entt::entity TestPhysics::CreateCollisionEntity(CollisionEntitySettings const& creationSettings) const
@@ -238,6 +243,11 @@ namespace nabitest::Examples
 	{
 		// Actually won't see in Init for an explanation
 		LOG(LOG_PREP, LOG_TRACE, LOG_CATEGORY_TEST, "Does something, hopefully", LOG_END);
+	}
+
+	float TestPhysics::GetGameTime() const
+	{
+		return m_TestGameTime ? static_cast<float>(m_TestGameTime->GetDeltaTime()) : 1.0f;
 	}
 
 	// --- Assets ---

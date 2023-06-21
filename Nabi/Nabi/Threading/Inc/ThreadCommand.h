@@ -93,8 +93,37 @@ namespace nabi::Threading
 		DELETE_COPY_MOVE_CONSTRUCTORS(ThreadCommand)
 
 #ifdef USE_DEBUG_UTILS
+		struct TaskStatistics final
+		{
+			std::unordered_map<TaskDuration, unsigned int> m_TasksStartedByDuration;
+			std::unordered_map<TaskPriority, unsigned int> m_TasksStartedByPriority;
+
+
+			TaskStatistics()
+				: m_TasksStartedByDuration
+					{
+						{ TaskDuration::Lifetime, 0u },
+						{ TaskDuration::Long,     0u },
+						{ TaskDuration::Medium,   0u },
+						{ TaskDuration::Short,    0u }
+					}
+				, m_TasksStartedByPriority
+					{
+						{ TaskPriority::Critical, 0u },
+						{ TaskPriority::High,     0u },
+						{ TaskPriority::Medium,   0u },
+						{ TaskPriority::Low,      0u }
+					}
+			{
+			}
+
+			void UpdateTaskStatistics(std::string const& taskName, TaskDuration const taskDuration, TaskPriority const taskPriority) NABI_NOEXCEPT;
+		};
+
 		void LogTaskEnqueueMessage(std::string const& action, std::string const& taskName, 
 			TaskDuration const taskDuration, TaskPriority const taskPriority) const NABI_NOEXCEPT;
+
+		mutable TaskStatistics m_TaskStatistics; // mutable because EnqueueTask(Detach) is const
 #endif // ifdef USE_DEBUG_UTILS
 
 		ThreadingObjects& m_ThreadingObjects;

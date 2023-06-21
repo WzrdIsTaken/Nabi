@@ -2,6 +2,9 @@
 
 // A little clunky, but these guys can be used to toggle on / off different engine features
 
+#define USE_EVENT_SYSTEM_UPDATE
+#define USE_CORE_FUNCTIONALITY_MULTITHREADING
+
 #define ENGINE_DEVELOPMENT
 
 #define NABI_SUCCESS 0

@@ -29,6 +29,8 @@ namespace nabitest::Examples
 		bool Update() override;
 		bool Render() override;
 
+		void SetGameTime(nabi::GameTime const* gametime);
+
 	private:
 		class SimpleAssetBank final : nabi::Resource::AssetBank
 		{
@@ -68,6 +70,7 @@ namespace nabitest::Examples
 		static void TestCollisionEnterCallback(nabi::Context& context, entt::entity const lhs, entt::entity const rhs);
 		static void TestCollisionExitCallback(nabi::Context& context, entt::entity const lhs, entt::entity const rhs);
 		void TestVoidFunc(nabi::Context& context, entt::entity const lhs, entt::entity const rhs);
+		float GetGameTime() const;
 
 		nabi::Context& m_Context;
 
@@ -79,6 +82,7 @@ namespace nabitest::Examples
 		std::unique_ptr<SimpleAssetBank> m_AssetBank;
 
 		entt::entity m_PlayerEntity;
+		nabi::GameTime const* m_TestGameTime; // hack to test multithreading
 	};
 } // namespace nabitest::Examples
 

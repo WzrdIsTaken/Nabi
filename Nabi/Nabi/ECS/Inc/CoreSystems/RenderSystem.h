@@ -11,6 +11,8 @@
 #include "CoreComponents\TagComponents\DrawPerspectiveTagComponent.h"
 #include "ResourceWrappers.h"
 
+#define CHECK_IF_RESOURCES_ARE_VALID
+
 namespace ecs
 {
 	class RenderSystem final : public nabi::ECS::SystemBase
@@ -109,29 +111,44 @@ namespace ecs
 						using namespace nabi::Rendering;
 						using namespace nabi::Resource;
 
-						// Get the drawable data
-						std::shared_ptr<RenderBuffers const> const bufferResource = bufferComponent.m_BufferResource.GetResource();
-						IndexBuffer const& indexBuffer = bufferResource->m_IndexBuffer;
-						VertexBuffer const& vertexBuffer = bufferResource->m_VertexBuffer;
-						UINT const triangleCount = m_Context.m_RenderCommand->ExtractTriangleCountFromIndexBuffer(indexBuffer);
+						ResourceRef<RenderBuffers> const& bufferResourceRef = bufferComponent.m_BufferResource;
+						ResourceRef<PixelShader> const& pixelShaderResourceRef = shaderComponent.m_PixelShaderResource;
+						ResourceRef<VertexShader> const& vertexShaderResourceRef = shaderComponent.m_VertexShaderResource;
+						ResourceRef<Texture> const& textureResourceRef = textureComponent.m_TextureResource;
 
-						// Get the shader data
-						std::shared_ptr<PixelShader const> const pixelShaderResource = shaderComponent.m_PixelShaderResource.GetResource();
-						std::shared_ptr<VertexShader const> const vertexShaderResource = shaderComponent.m_VertexShaderResource.GetResource();
+#ifdef CHECK_IF_RESOURCES_ARE_VALID
+						bool const resourcesAreValid =
+							bufferResourceRef.IsValid()       &&
+							pixelShaderResourceRef.IsValid()  &&
+							vertexShaderResourceRef.IsValid() &&
+							textureResourceRef.IsValid();
+						if (resourcesAreValid)
+#endif //ifdef CHECK_IF_RESOURCES_ARE_VALID
+						{ 
+							// Get the drawable data
+							std::shared_ptr<RenderBuffers const> const& bufferResource = bufferResourceRef.GetResource();
+							IndexBuffer const& indexBuffer = bufferResource->m_IndexBuffer;
+							VertexBuffer const& vertexBuffer = bufferResource->m_VertexBuffer;
+							UINT const triangleCount = m_Context.m_RenderCommand->ExtractTriangleCountFromIndexBuffer(indexBuffer);
 
-						// Get the texture data
-						std::shared_ptr<Texture const> const textureResource = textureComponent.m_TextureResource.GetResource();
+							// Get the shader data
+							std::shared_ptr<PixelShader const> const& pixelShaderResource = pixelShaderResourceRef.GetResource();
+							std::shared_ptr<VertexShader const> const& vertexShaderResource = vertexShaderResourceRef.GetResource();
 
-						// Bind the resources to the pipeline
-						m_Context.m_RenderCommand->BindIndexBuffer(indexBuffer);
-						m_Context.m_RenderCommand->BindVertexBuffer(vertexBuffer);
+							// Get the texture data
+							std::shared_ptr<Texture const> const& textureResource = textureResourceRef.GetResource();
 
-						m_Context.m_RenderCommand->BindPixelShader(*pixelShaderResource);
-						m_Context.m_RenderCommand->BindVertexShader(*vertexShaderResource);
-						m_Context.m_RenderCommand->BindTexture(*textureResource);
+							// Bind the resources to the pipeline
+							m_Context.m_RenderCommand->BindIndexBuffer(indexBuffer);
+							m_Context.m_RenderCommand->BindVertexBuffer(vertexBuffer);
 
-						// Draw!
-						m_Context.m_RenderCommand->DrawIndexed(triangleCount);
+							m_Context.m_RenderCommand->BindPixelShader(*pixelShaderResource);
+							m_Context.m_RenderCommand->BindVertexShader(*vertexShaderResource);
+							m_Context.m_RenderCommand->BindTexture(*textureResource);
+
+							// Draw!
+							m_Context.m_RenderCommand->DrawIndexed(triangleCount);
+						}
 					});
 		}
 
@@ -146,3 +163,5 @@ namespace ecs
 		REFLECT_PRIVATES(RenderSystem)
 	};
 } // namespace ecs
+
+#undef CHECK_IF_RESOURCES_ARE_VALID // in render() this check could go at the top of the view lambda but that would ruin the aesthetic :p

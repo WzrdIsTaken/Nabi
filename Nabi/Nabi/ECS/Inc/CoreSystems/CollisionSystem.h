@@ -23,7 +23,7 @@ namespace ecs
 		CollisionSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId);
 		~CollisionSystem();
 
-		void Update(nabi::GameTime const& gameTime);
+		void FixedUpdate(nabi::GameTime const& gameTime);
 
 	private:
 		struct CollisionEventData final

@@ -2,7 +2,6 @@
 
 #include "GameTime.h"
 
-#include "DebugUtils.h"
 #include "MathUtils.h"
 
 namespace nabi
@@ -19,7 +18,7 @@ namespace nabi
 
 		// Fixed delta time
 		, m_FixedDeltaTimeAccumulator(0.0)
-		, m_FixedDeltaTime(c_FixedTimeStep)
+		, m_RunSimulation(false)
 	{
 	}
 
@@ -42,29 +41,22 @@ namespace nabi
 		m_FixedDeltaTimeAccumulator += m_DeltaTime;
 		if (m_FixedDeltaTimeAccumulator >= c_FixedTimeStep)
 		{
-			m_FixedDeltaTime = c_FixedTimeStep;
+			if (!m_RunSimulation)
+			{
+				m_RunSimulation = true;
+			}
+
 			m_FixedDeltaTimeAccumulator -= c_FixedTimeStep;
 		}
 		else
 		{
-			// Really, the simulation should only run if m_FixedDeltaTimeAccumulator >= c_FixedTimeStep
-			// rather than doing this jankness. This wouldn't actually be very hard - just add a FixedUpdate event
-
-			Interval constexpr smallestPositiveValue = std::numeric_limits<Interval>::epsilon();
-			m_FixedDeltaTime = smallestPositiveValue;
+			if (m_RunSimulation)
+			{
+				m_RunSimulation = false;
+			}
 		}
 
 		m_PreviousTime = m_CurrentTime;
-	}
-
-	GameTime::Interval GameTime::GetDeltaTime() const
-	{
-		return m_DeltaTime;
-	}
-
-	GameTime::Interval GameTime::GetFixedDeltaTime() const
-	{
-		return m_FixedDeltaTime;
 	}
 
 	GameTime::Interval GameTime::GetStartUpTime() const

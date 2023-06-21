@@ -88,18 +88,62 @@ namespace nabi
 	int NabiCore::Run() NABI_NOEXCEPT
 	{
 		static bool runGame = true;
+
+#ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
+		size_t constexpr requiredThreadsForLifetimeTasks = 2u;
+		size_t constexpr minimumRequiredThreads = requiredThreadsForLifetimeTasks + 1u; // One thread is used by threadpool (xaudio manages its own threads)
+		ASSERT_FATAL(m_Context.m_ThreadCommand->GetThreadPoolSize() > minimumRequiredThreads,
+			"USE_CORE_FUNCTIONALITY_MULTITHREADING is defined, but the number of threads in the pool isn't sufficient to support this functionality. " <<
+			"The pool size is " << m_Context.m_ThreadCommand->GetThreadPoolSize() << " and the minimum required threads is " << minimumRequiredThreads << 
+			". Consider increasing the number of threads in the pool (InitSettings.h->ThreadingSettings) or undefining USE_CORE_FUNCTIONALITY_MULTITHREADING (Defines.h).");
+
+		std::vector<std::future<bool>> lifetimeTaskFutures;
+		lifetimeTaskFutures.reserve(requiredThreadsForLifetimeTasks);
+
+		lifetimeTaskFutures.emplace_back(m_Context.m_ThreadCommand->EnqueueTask("Render", LIFETIME_TASK, CRITICAL_PRIORITY,
+			[&]() -> bool
+			{
+				while (runGame)
+				{
+					Render();
+				}
+				return true;
+			}));
+		lifetimeTaskFutures.emplace_back(m_Context.m_ThreadCommand->EnqueueTask("Simulation", LIFETIME_TASK, CRITICAL_PRIORITY,
+			[&]() -> bool
+			{
+				while (runGame)
+				{
+					FixedUpdate();
+				}
+				return true;
+			}));
+#endif // ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
+
 		while (runGame)
 		{
 			if (std::optional<int> const errorCode = Window::ProcessMessages())
 			{
 				// If the optional has a value, it means we received a WP_QUIT message
+
+				runGame = false;
+#ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
+				// Wait for all lifetime tasks to finish before shutting down
+				for (auto& future : lifetimeTaskFutures)
+				{
+					future.wait();
+				}
+#endif // ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
+
 				return errorCode.value();
 			}
 
 			m_GameTime.Tick();
-
 			Update();
+#ifndef USE_CORE_FUNCTIONALITY_MULTITHREADING
+			FixedUpdate();
 			Render();
+#endif // ifndef USE_CORE_FUNCTIONALITY_MULTITHREADING
 		}
 
 		// If we get to here, somethings gone wrong
@@ -113,7 +157,18 @@ namespace nabi
 #endif // ifdef USE_META_SYSTEM_UPDATE
 
 		// TEST
+		test_Input.SetGameTime(&m_GameTime);
 		test_Input.Update();
+	}
+
+	void NabiCore::FixedUpdate() NABI_NOEXCEPT
+	{
+		if (m_GameTime.RunSimulation())
+		{
+#ifdef USE_EVENT_SYSTEM_UPDATE
+			m_Context.m_NabiEventsManager.FireSystemFixedUpdateEvent(m_GameTime);
+#endif // ifdef USE_META_SYSTEM_UPDATE
+		}
 	}
 
 	void NabiCore::Render() NABI_NOEXCEPT

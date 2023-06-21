@@ -23,15 +23,15 @@ namespace ecs
 	CollisionSystem::CollisionSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId)
 		: SystemBase(context, systemId, systemGroupId)
 	{
-		REGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(CollisionSystem)
+		REGISTER_SYSTEM_FIXED_UPDATE_EVENT_SUBSCRIBER(CollisionSystem)
 	}
 
 	CollisionSystem::~CollisionSystem()
 	{
-		UNREGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(CollisionSystem)
+		UNREGISTER_SYSTEM_FIXED_UPDATE_EVENT_SUBSCRIBER(CollisionSystem)
 	}
 
-	void CollisionSystem::Update(nabi::GameTime const& gameTime)
+	void CollisionSystem::FixedUpdate(nabi::GameTime const& gameTime)
 	{
 		float const dt = static_cast<float>(gameTime.GetFixedDeltaTime());
 		BroadPhase(dt);

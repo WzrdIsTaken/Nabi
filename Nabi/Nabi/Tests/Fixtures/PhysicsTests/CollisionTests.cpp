@@ -11,7 +11,12 @@ namespace nabitest::PhysicsTests
 	void TickAndExpect(ecs::CollisionSystem& collisionSystem, ecs::SComp::CollisionStateComponent const& collisionStateComponent, size_t const expected)
 	{
 		nabi::GameTime gameTime = {};
-		collisionSystem.Update(gameTime);
+#ifdef USE_DEBUG_UTILS
+		gameTime.ForceRunSimulationState(true);
+#else
+		// panic?
+#endif // ifdef USE_DEBUG_UTILS
+		collisionSystem.FixedUpdate(gameTime);
 
 		Comparison<size_t> collidingEntities(expected);
 		collidingEntities.m_Actual = collisionStateComponent.m_CurrentCollisions.size();

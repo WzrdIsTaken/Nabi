@@ -1,6 +1,8 @@
 #pragma once
 #include "EngineCore.h"
 
+#include "DebugUtils.h"
+
 namespace nabi
 {
 	class GameTime final
@@ -17,11 +19,31 @@ namespace nabi
 		/// Updates delta time and fixed delta time. Should be called every frame
 		/// </summary>
 		void Tick() NABI_NOEXCEPT;
+		/// <summary>
+		/// Checks if m_FixedDeltaTimeAccumulator >= c_FixedTimeStep. If this is true, then FixedUpdate should be called.
+		/// Otherwise, it shouldn't
+		/// </summary>
+		/// <returns>Whether to run the physics simulation</returns>
+		inline bool RunSimulation() const NABI_NOEXCEPT { return m_RunSimulation; };
 
 		// Getters for all the cool time stuff this class holds
-		Interval GetDeltaTime() const NABI_NOEXCEPT;
-		Interval GetFixedDeltaTime() const NABI_NOEXCEPT;
+		inline Interval GetDeltaTime() const NABI_NOEXCEPT 
+		{
+			return m_DeltaTime;
+		};
+#ifndef USE_DEBUG_UTILS
+		constexpr
+#endif // ifndef USE_DEBUG_UTILS
+		inline Interval GetFixedDeltaTime() const NABI_NOEXCEPT
+		{
+			ASSERT(RunSimulation(), "Getting FixedDeltaTime but RunSimulation is false");
+			return c_FixedTimeStep;
+		};
 		Interval GetStartUpTime() const NABI_NOEXCEPT;
+
+#ifdef USE_DEBUG_UTILS
+		inline void ForceRunSimulationState(bool runSimulation) NABI_NOEXCEPT { m_RunSimulation = runSimulation; };
+#endif // ifdef USE_DEBUG_UTILS
 		
 	private:
 		static Interval constexpr c_MaxDeltaTime = 0.1;
@@ -35,6 +57,6 @@ namespace nabi
 		Interval m_DeltaTime;
 
 		Interval m_FixedDeltaTimeAccumulator;
-		Interval m_FixedDeltaTime;
+		bool m_RunSimulation;
 	};
 } // namespace nabi

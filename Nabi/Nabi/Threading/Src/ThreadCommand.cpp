@@ -8,6 +8,9 @@ namespace nabi::Threading
 {
 	ThreadCommand::ThreadCommand(ThreadingObjects& threadingObjects, ThreadingSettings const& threadingSettings) NABI_NOEXCEPT
 		: m_ThreadingObjects(threadingObjects)
+#ifdef USE_DEBUG_UTILS
+		, m_TaskStatistics{}
+#endif // ifdef USE_DEBUG_UTILS
 	{
 		unsigned int const maxHardwareThreads = std::thread::hardware_concurrency();
 		unsigned int threadPoolSize = threadingSettings.m_ThreadPoolSize;
@@ -32,6 +35,20 @@ namespace nabi::Threading
 	}
 
 #ifdef USE_DEBUG_UTILS
+	void ThreadCommand::TaskStatistics::UpdateTaskStatistics(std::string const& taskName, TaskDuration const taskDuration, TaskPriority const taskPriority) NABI_NOEXCEPT
+	{
+		if (m_TasksStartedByDuration.contains(taskDuration) && m_TasksStartedByPriority.contains(taskPriority))
+		{
+			++m_TasksStartedByDuration.at(taskDuration);
+			++m_TasksStartedByPriority.at(taskPriority);
+		}
+		else
+		{
+			LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_THREADING, "Trying to track a task " << WRAP(taskName, "\"") <<
+				" with an unrecognised duration or priority", LOG_END);
+		}
+	}
+
 	void ThreadCommand::LogTaskEnqueueMessage(std::string const& action, std::string const& taskName, 
 		TaskDuration const taskDuration, TaskPriority const taskPriority) const NABI_NOEXCEPT
 	{
@@ -59,6 +76,9 @@ namespace nabi::Threading
 			LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_THREADING, "Starting a task " << WRAP(taskName, "\"") << 
 				" with an unrecognised duration or priority", LOG_END);
 		}
+
+		m_TaskStatistics.UpdateTaskStatistics(taskName, taskDuration, taskPriority);
 	}
-#endif // ifdef USE_DEBUG_UTILS
+#endif 
+	// ifdef USE_DEBUG_UTILS
 } // namespace nabi::Threading
