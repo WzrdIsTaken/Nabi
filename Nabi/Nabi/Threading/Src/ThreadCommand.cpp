@@ -50,7 +50,7 @@ namespace nabi::Threading
 		if (taskDurationToString.contains(taskDuration) && traskPriorityToString.contains(taskPriority))
 		{
 			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_THREADING, action << " a " <<
-				taskDurationToString .at(taskDuration) << ", "              <<
+				taskDurationToString .at(taskDuration) << " length, "       <<
 				traskPriorityToString.at(taskPriority) << " priority task " <<
 				WRAP(taskName, "\""), LOG_END);
 		}
