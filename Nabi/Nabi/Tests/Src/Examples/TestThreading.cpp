@@ -81,12 +81,10 @@ namespace nabitest::Examples
 				});
 
 			// Next up - review written code, test the lock critical section stuff
-			// there was a crash when i stopped the program when threads were running (might have solved with the reset call)
 			// try putting the render thread etc on another thread?
-			// task priorities? can i just modiify the lib code to use a prioty deque?
+			// task priorities? can i just modiify the lib code to use a prioty deque? [not worth the effort]
 
-			// reflect the enums used in ThreadCommand, then use enum to string to make the log messages about when a task is enqueued better
-			// "enquired and detached a long running, high prioerity task "NAME""
+			// look into ENTT_USE_ATOMIC / entts multithreading needs
 		}
 		return true;
 	}

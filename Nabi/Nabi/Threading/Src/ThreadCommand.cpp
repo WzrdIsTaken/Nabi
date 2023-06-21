@@ -30,4 +30,35 @@ namespace nabi::Threading
 		m_ThreadingObjects.m_ThreadPool.reset();
 		DeleteCriticalSection(&m_ThreadingObjects.m_CriticalSection);
 	}
+
+#ifdef USE_DEBUG_UTILS
+	void ThreadCommand::LogTaskEnqueueMessage(std::string const& action, std::string const& taskName, 
+		TaskDuration const taskDuration, TaskPriority const taskPriority) const NABI_NOEXCEPT
+	{
+		// It would be better to use Reflection::EnumConverter::EnumToString<TaskDuration>(taskDuration) here, 
+		// but currently that functionality is not implemented and not worth doing for this debug use case
+
+		static std::unordered_map<TaskDuration, std::string> const taskDurationToString =  {
+			{ TaskDuration::Lifetime, "lifetime" }, { TaskDuration::Long,  "long"  },
+			{ TaskDuration::Medium,   "medium"   }, { TaskDuration::Short, "short" },
+		};
+		static std::unordered_map<TaskPriority, std::string> const traskPriorityToString = {
+			{ TaskPriority::Critical, "critical" }, { TaskPriority::High, "high"   },
+			{ TaskPriority::Medium,   "medium"   }, { TaskPriority::Low,  "low"    },
+		};
+
+		if (taskDurationToString.contains(taskDuration) && traskPriorityToString.contains(taskPriority))
+		{
+			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_THREADING, action << " a " <<
+				taskDurationToString .at(taskDuration) << ", "              <<
+				traskPriorityToString.at(taskPriority) << " priority task " <<
+				WRAP(taskName, "\""), LOG_END);
+		}
+		else
+		{
+			LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_THREADING, "Starting a task " << WRAP(taskName, "\"") << 
+				" with an unrecognised duration or priority", LOG_END);
+		}
+	}
+#endif // ifdef USE_DEBUG_UTILS
 } // namespace nabi::Threading

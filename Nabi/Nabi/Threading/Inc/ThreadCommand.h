@@ -21,23 +21,28 @@ namespace nabi::Threading
 #define MEDIUM_PRIORITY   nabi::Threading::ThreadCommand::TaskPriority::Medium
 #define LOW_PRIORITY      nabi::Threading::ThreadCommand::TaskPriority::Low
 
+	/// <summary>
+	/// Manages a thread pool submits tasks to a priority queue 
+	/// Note - it is possible that the thread pool will be null on shutdown and so a task won't be queued. Hence 'if (m_ThreadingObjects.m_ThreadPool)'.
+	/// However, this isn't a problem. If the log message appears while the program is running though... then yeah it might well be a problem :p
+	/// </summary>
 	class ThreadCommand final
 	{
 	public:
-		enum class TaskDuration : int
+		enum class TaskDuration : unsigned int
 		{
-			Lifetime,
-			Long,
-			Medium,
-			Short,
+			Lifetime = 1u,
+			Long     = 2u,
+			Medium   = 3u,
+			Short    = 4u,
 			ENUM_COUNT
 		};
-		enum class TaskPriority : int
+		enum class TaskPriority : unsigned int
 		{
-			Critical,
-			High,
-			Medium,
-			Low,
+			Critical = 1u,
+			High     = 2u,
+			Medium   = 3u,
+			Low      = 4u,
 			ENUM_COUNT
 		};
 
@@ -45,22 +50,33 @@ namespace nabi::Threading
 		~ThreadCommand();
 
 		template <typename Function, typename... Args, typename ReturnType = std::invoke_result_t<Function&&, Args &&...>> requires std::invocable<Function, Args...>
-		[[nodiscard]] inline std::future<ReturnType> EnqueueTask(std::string const& taskName, TaskDuration const /*taskDuration*/, TaskPriority const /*taskPriority*/, 
+		[[nodiscard]] inline std::future<ReturnType> EnqueueTask(std::string const& taskName, TaskDuration const taskDuration, TaskPriority const taskPriority, 
 			Function function, Args... args) const NABI_NOEXCEPT
 		{
-			ASSERT_FATAL(m_ThreadingObjects.m_ThreadPool, "Trying to enqueue a task but the thread pool is null");
-			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_THREADING, "Enqueued a task " << WRAP(taskName, "'"), LOG_END);
-
-			return m_ThreadingObjects.m_ThreadPool->enqueue(std::forward<Function>(function), std::forward<Args>(args)...);
+			if (m_ThreadingObjects.m_ThreadPool)
+			{
+				ASSERT_CODE(LogTaskEnqueueMessage("Enqueued", taskName, taskDuration, taskPriority));
+				return m_ThreadingObjects.m_ThreadPool->enqueue(std::forward<Function>(function), std::forward<Args>(args)...);
+			}
+			else
+			{
+				LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_THREADING, "Trying to enqueue a task but the thread pool is null", LOG_END);
+				return {};
+			}
 		}
 		template <typename Function, typename... Args> requires std::invocable<Function, Args...> && std::is_same_v<void, std::invoke_result_t<Function&&, Args &&...>>
-		[[nodiscard]] inline void EnqueueTaskDetach(std::string const& taskName, TaskDuration const /*taskDuration*/, TaskPriority const /*taskPriority*/,
+		[[nodiscard]] inline void EnqueueTaskDetach(std::string const& taskName, TaskDuration const taskDuration, TaskPriority const taskPriority, 
 			Function function, Args... args) const NABI_NOEXCEPT
 		{
-			ASSERT_FATAL(m_ThreadingObjects.m_ThreadPool, "Trying to enqueue a task but the thread pool is null");
-			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_THREADING, "Enqueued and detached a task " << WRAP(taskName, "'"), LOG_END);
-
-			m_ThreadingObjects.m_ThreadPool->enqueue_detach(std::forward<Function>(function), std::forward<Args>(args)...);
+			if (m_ThreadingObjects.m_ThreadPool)
+			{
+				ASSERT_CODE(LogTaskEnqueueMessage("Enqueued and detached", taskName, taskDuration, taskPriority));
+				m_ThreadingObjects.m_ThreadPool->enqueue_detach(std::forward<Function>(function), std::forward<Args>(args)...);
+			}
+			else
+			{
+				LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_THREADING, "Trying to enqueue and detach a task but the thread pool is null", LOG_END);
+			}
 		}
 
 		[[nodiscard]] inline CRITICAL_SECTION& GetCriticalSection() const NABI_NOEXCEPT
@@ -75,6 +91,11 @@ namespace nabi::Threading
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(ThreadCommand)
+
+#ifdef USE_DEBUG_UTILS
+		void LogTaskEnqueueMessage(std::string const& action, std::string const& taskName, 
+			TaskDuration const taskDuration, TaskPriority const taskPriority) const NABI_NOEXCEPT;
+#endif // ifdef USE_DEBUG_UTILS
 
 		ThreadingObjects& m_ThreadingObjects;
 	};
