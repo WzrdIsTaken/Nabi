@@ -63,7 +63,7 @@
 	}
 
 #define LOG_RAW(message) nabi::DebugUtils::Logger::LogRaw(message);
-#define FAST_LOG(message) LOG(LOG_PREP, LOG_INFO, message << ENDLINE); // for when you just want to quickly write a log message to check something. deliberately not accounted for in release
+#define FAST_LOG(message) LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST, message, LOG_END); // for when you just want to quickly write a log message to check something. deliberately not accounted for in release
 
 #define FUNCTION_NOT_IMPLEMENTED ASSERT_FAIL("The function " << __FUNCTION__  << " is not implemented!");
 #endif // ifndef USE_DEBUG_UTILS
