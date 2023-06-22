@@ -79,6 +79,5 @@ namespace nabi::Threading
 
 		m_TaskStatistics.UpdateTaskStatistics(taskName, taskDuration, taskPriority);
 	}
-#endif 
-	// ifdef USE_DEBUG_UTILS
+#endif // ifdef USE_DEBUG_UTILS
 } // namespace nabi::Threading

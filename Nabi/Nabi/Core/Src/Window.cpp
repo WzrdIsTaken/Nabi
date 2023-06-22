@@ -137,6 +137,11 @@ namespace nabi
 		return m_hWnd;
 	}
 
+	void Window::SetWindowTitle(std::wstring const& windowName) const NABI_NOEXCEPT
+	{
+		DX_ASSERT(SetWindowText(m_hWnd, windowName.c_str()));
+	}
+
 	LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) NABI_NOEXCEPT
 	{
 		// If the message is about handling window setup, handle that separately

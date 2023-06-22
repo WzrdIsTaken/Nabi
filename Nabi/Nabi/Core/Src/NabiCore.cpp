@@ -87,36 +87,35 @@ namespace nabi
 
 	int NabiCore::Run() NABI_NOEXCEPT
 	{
-		static bool runGame = true;
+		bool runGame = true;
 
 #ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
 		size_t constexpr requiredThreadsForLifetimeTasks = 2u;
-		size_t constexpr minimumRequiredThreads = requiredThreadsForLifetimeTasks + 1u; // One thread is used by threadpool (xaudio manages its own threads)
+		
+		ASSERT_CODE(size_t constexpr minimumRequiredThreads = requiredThreadsForLifetimeTasks + 1u); // One thread is used by threadpool (xaudio manages its own threads)
 		ASSERT_FATAL(m_Context.m_ThreadCommand->GetThreadPoolSize() > minimumRequiredThreads,
 			"USE_CORE_FUNCTIONALITY_MULTITHREADING is defined, but the number of threads in the pool isn't sufficient to support this functionality. " <<
 			"The pool size is " << m_Context.m_ThreadCommand->GetThreadPoolSize() << " and the minimum required threads is " << minimumRequiredThreads << 
 			". Consider increasing the number of threads in the pool (InitSettings.h->ThreadingSettings) or undefining USE_CORE_FUNCTIONALITY_MULTITHREADING (Defines.h).");
 
-		std::vector<std::future<bool>> lifetimeTaskFutures;
+		std::vector<std::future<void>> lifetimeTaskFutures;
 		lifetimeTaskFutures.reserve(requiredThreadsForLifetimeTasks);
 
 		lifetimeTaskFutures.emplace_back(m_Context.m_ThreadCommand->EnqueueTask("Render", LIFETIME_TASK, CRITICAL_PRIORITY,
-			[&]() -> bool
+			[&]() -> void
 			{
 				while (runGame)
 				{
 					Render();
 				}
-				return true;
 			}));
 		lifetimeTaskFutures.emplace_back(m_Context.m_ThreadCommand->EnqueueTask("Simulation", LIFETIME_TASK, CRITICAL_PRIORITY,
-			[&]() -> bool
+			[&]() -> void
 			{
 				while (runGame)
 				{
 					FixedUpdate();
 				}
-				return true;
 			}));
 #endif // ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
 
@@ -129,7 +128,7 @@ namespace nabi
 				runGame = false;
 #ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
 				// Wait for all lifetime tasks to finish before shutting down
-				for (auto& future : lifetimeTaskFutures)
+				for (auto const& future : lifetimeTaskFutures)
 				{
 					future.wait();
 				}
@@ -138,12 +137,22 @@ namespace nabi
 				return errorCode.value();
 			}
 
-			m_GameTime.Tick();
 			Update();
 #ifndef USE_CORE_FUNCTIONALITY_MULTITHREADING
 			FixedUpdate();
 			Render();
 #endif // ifndef USE_CORE_FUNCTIONALITY_MULTITHREADING
+
+#ifdef USE_DEBUG_UTILS
+			std::wstring performanceStats = L" -";
+			performanceStats += L" TPS: " + std::to_wstring(m_GameTime.GetTps());
+			performanceStats += L" FPS: " + std::to_wstring(m_GameTime.GetFps());
+			//performanceStats += L"Time since last simulation tick: " + std::to_wstring(m_GameTime.GetLastSimulationTick());
+
+			m_Context.m_Window->SetWindowTitle(
+				m_InitSettings.m_WindowSettings.m_WindowName + performanceStats
+			);
+#endif // ifdef USE_DEBUG_UTILS
 		}
 
 		// If we get to here, somethings gone wrong
@@ -152,6 +161,8 @@ namespace nabi
 
 	void NabiCore::Update() NABI_NOEXCEPT
 	{
+		m_GameTime.Tick();
+
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		m_Context.m_NabiEventsManager.FireSystemUpdateEvent(m_GameTime);
 #endif // ifdef USE_META_SYSTEM_UPDATE
@@ -173,6 +184,8 @@ namespace nabi
 
 	void NabiCore::Render() NABI_NOEXCEPT
 	{
+		m_GameTime.TickFrame();
+
 		m_Context.m_RenderCommand->BeginFrame();
 
 #ifdef USE_EVENT_SYSTEM_UPDATE

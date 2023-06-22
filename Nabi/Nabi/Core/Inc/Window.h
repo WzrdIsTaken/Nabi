@@ -62,6 +62,11 @@ namespace nabi
 		/// </summary>
 		[[nodiscard]] HWND const GetHWND() const NABI_NOEXCEPT;
 
+		/// <summary>
+		/// Sets the window title
+		/// </summary>
+		void SetWindowTitle(std::wstring const& windowName) const NABI_NOEXCEPT;
+
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(Window)
 

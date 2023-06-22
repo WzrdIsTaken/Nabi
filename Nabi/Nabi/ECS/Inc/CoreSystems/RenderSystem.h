@@ -11,10 +11,10 @@
 #include "CoreComponents\TagComponents\DrawPerspectiveTagComponent.h"
 #include "ResourceWrappers.h"
 
-#define CHECK_IF_RESOURCES_ARE_VALID
-
 namespace ecs
 {
+	//#define CHECK_IF_RESOURCES_ARE_VALID
+
 	class RenderSystem final : public nabi::ECS::SystemBase
 	{
 	public:
@@ -149,6 +149,12 @@ namespace ecs
 							// Draw!
 							m_Context.m_RenderCommand->DrawIndexed(triangleCount);
 						}
+#ifdef CHECK_IF_RESOURCES_ARE_VALID
+						else
+						{
+							LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_RENDERING, "Trying to draw an entity with invalid resources", LOG_END);
+						}
+#endif //ifdef CHECK_IF_RESOURCES_ARE_VALID
 					});
 		}
 
@@ -162,6 +168,6 @@ namespace ecs
 
 		REFLECT_PRIVATES(RenderSystem)
 	};
-} // namespace ecs
 
 #undef CHECK_IF_RESOURCES_ARE_VALID // in render() this check could go at the top of the view lambda but that would ruin the aesthetic :p
+} // namespace ecs
