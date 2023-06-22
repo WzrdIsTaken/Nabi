@@ -44,42 +44,48 @@ namespace nabitest::Examples
 			.func<&TestPhysics::TestVoidFunc>("Void"_hs);
 
 		// --- Entities ---
+		
+		auto result = m_Context.m_ThreadCommand->EnqueueTask("LoadEntities", MEDIUM_TASK, CRITICAL_PRIORITY, [&]() -> void
+		{
+			// Player Entity
+			CollisionEntitySettings playerSettings = {};
+			playerSettings.m_Position = { 0.0f, 0.0f, 0.0f };
+			playerSettings.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
+			playerSettings.m_CollisionMask = c_PlayerMask;
+			playerSettings.m_ColliderType = ecs::ColliderComponent::ColliderType::Sphere;
+			playerSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Dynamic;
+			playerSettings.m_ColliderSize = { 0.3f, 0.3f, 0.3f };
+			playerSettings.m_GravityScale = 0.0f; // 1.0f
+			m_PlayerEntity = CreateCollisionEntity(playerSettings);
 
-		// Player Entity
-		CollisionEntitySettings playerSettings = {};
-		playerSettings.m_Position = { 0.0f, 0.0f, 0.0f };
-		playerSettings.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
-		playerSettings.m_CollisionMask = c_PlayerMask;
-		playerSettings.m_ColliderType = ecs::ColliderComponent::ColliderType::Sphere;
-		playerSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Dynamic;
-		playerSettings.m_ColliderSize = { 0.3f, 0.3f, 0.3f };
-		playerSettings.m_GravityScale = 0.0f; // 1.0f
-		m_PlayerEntity = CreateCollisionEntity(playerSettings);
+			// - Collision Entities
+			CollisionEntitySettings dynamicColliderSettings = {};
+			dynamicColliderSettings.m_Position = { 1.0f, 0.0f, 0.0f }; // 0.0f, -1.0f, 0.0f
+			dynamicColliderSettings.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
+			dynamicColliderSettings.m_CollisionMask = c_ObjectMask;
+			dynamicColliderSettings.m_ColliderType = ecs::ColliderComponent::ColliderType::Cube;
+			dynamicColliderSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Dynamic; // Static
+			dynamicColliderSettings.m_ColliderSize = { 0.625f, 0.625f, 0.625f }; // 10.0f, 0.625f, 0.625f
+			dynamicColliderSettings.m_GravityScale = 0.0f;
+			CreateCollisionEntity(dynamicColliderSettings);
 
-		// - Collision Entities
-		CollisionEntitySettings dynamicColliderSettings = {};
-		dynamicColliderSettings.m_Position = { 1.0f, 0.0f, 0.0f }; // 0.0f, -1.0f, 0.0f
-		dynamicColliderSettings.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
-		dynamicColliderSettings.m_CollisionMask = c_ObjectMask;
-		dynamicColliderSettings.m_ColliderType = ecs::ColliderComponent::ColliderType::Cube;
-		dynamicColliderSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Dynamic; // Static
-		dynamicColliderSettings.m_ColliderSize = { 0.625f, 0.625f, 0.625f }; // 10.0f, 0.625f, 0.625f
-		dynamicColliderSettings.m_GravityScale = 0.0f;
-		CreateCollisionEntity(dynamicColliderSettings);
+			CollisionEntitySettings staticColliderSettings = dynamicColliderSettings;
+			staticColliderSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Static;
+			staticColliderSettings.m_Position = { -1.0f, 0.0f, 0.0f };
+			CreateCollisionEntity(staticColliderSettings);
 
-		CollisionEntitySettings staticColliderSettings = dynamicColliderSettings;
-		staticColliderSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Static;
-		staticColliderSettings.m_Position = { -1.0f, 0.0f, 0.0f };
-		CreateCollisionEntity(staticColliderSettings);
+			CollisionEntitySettings raycastableColliderSettings = staticColliderSettings;
+			raycastableColliderSettings.m_Position = { 1.25f, 1.0f, 0.0f };
+			raycastableColliderSettings.m_CollisionMask = c_RaycastMask;
+			CreateCollisionEntity(raycastableColliderSettings);
 
-		CollisionEntitySettings raycastableColliderSettings = staticColliderSettings;
-		raycastableColliderSettings.m_Position = { 1.25f, 1.0f, 0.0f };
-		raycastableColliderSettings.m_CollisionMask = c_RaycastMask;
-		CreateCollisionEntity(raycastableColliderSettings);
+			// --- Assets ---
+			m_AssetBank = std::make_unique<SimpleAssetBank>(m_Context);
+			m_AssetBank->LoadAssets();
+		}
+		); result.wait();
 
-		// --- Assets ---
-		m_AssetBank = std::make_unique<SimpleAssetBank>(m_Context);
-		m_AssetBank->LoadAssets();
+		// Multithreaded loading works fine (i think...)! Before or after NabiCore::Init. Just make sure to wait for the result, otherwise could get null data.
 
 		return true;
 	}

@@ -14,7 +14,7 @@ Current:
 - Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown (i think this is to do with rendering..?). Also can tidy up this todo txt
     - When nothing is being drawn I dont get the error
 
-Refactor Branch:
+Refactor / demo (or seperate branch for this) Branch:
 - Too much NABI_NOEXCEPT? noexcept and nodiscard in core ecs stuff?
 - do i want the core ecs namespace to be "ecs?" should it be nabi something..? no... should it be something else..? i think ecs is fine though
 - should i leave more comments in the core systems/components/modules?
@@ -23,6 +23,7 @@ Refactor Branch:
 - Add "Memory" to the development roadmap readme with soontm
 - Should the wincore in include go before or after standard lib? remove the comment in core.h
 - in nabicore update/fixedupdate/render const? decide + remove the /*comment*/
+- stress test nabi! Make loads of asteroids or something and player that can move around. test all of nabis features
 
 // --- High Priority ---
 
@@ -37,6 +38,14 @@ Refactor Branch:
 - Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func (see what we did for the audio id))
 - is it possible to fix the "expected a ')'" error with REFLECT_CONTAINER? it compiles/works fine.. if not, then move this to the 'nice to have' section
 - why does the sprite component exist in the repro?
+
+- TEST loading in ui elements from xml. see test_ui_entities. has it broke? the button isn't responding..?
+
+- Saw the "getting fixed dt but run sim is false" assert while idiling. remove this assert and make it a log warn?
+    - I guess its possible to see this assert in normal situaions if the threads get out of sync slightly..?
+        - I've made multiple changes since then though and haven't seem the assert again. Perhaps something to consider if I do see it again
+
+- look into ENTT_USE_ATOMIC / entts multithreading needs
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -86,6 +95,10 @@ Structure Stuff
 - Make it so that the loop is not something that is done by loading.. instead when playing. Could possibly solve this problem nicely by setting a callback on the voice..? 
 
 Archive:
+- i think this already works but make sure
+    - test parsing xml data on another thread
+    - test loading data at runtime (eg new rendering data)
+- WHY did we have to change the speed. deeper underlying problem? fixed
 - Make it so that LOG has to take in a category and a end? (eg, LOG_CATEGORY_AUDIO and NEWLINE )?
     - and a LOG_ENDLINE macro (can just be ENDLINE)
 - sprite component cpp + reflection?

@@ -76,6 +76,12 @@ namespace nabi
 		initializationSuccessful &= InitAudioEntity();
 
 		// Parse xml
+		/*
+		* We have to be careful about multithreading this data because some components have an on_construct event which gets
+		* a singleton component (init'ed above) associated with them. A possible idea is to set the default load entity
+		* group to be some lightweight data (eg, for a loading screen) and then after NabiCore::Init is called in GameCore::Init
+		* load the rest of the resources on another thread.
+		*/
 		initializationSuccessful &= ParseECSData();
 
 		// TEST
@@ -144,6 +150,16 @@ namespace nabi
 #endif // ifndef USE_CORE_FUNCTIONALITY_MULTITHREADING
 
 #ifdef USE_DEBUG_UTILS
+			/*
+			* As of 22/06/23 the TPS of the application when multithreading is ~4000. Thats... a lot of ticks.
+			* Talking to Sam: "TPS will naturally come down as you add more work to each update and a 
+			* higher tick rate will result in a more responsive game. Limiting the tick rate is something to 
+			* consider for mobile platforms where battery would be an issue or if the cpu gets too hot". 
+			* 
+			* If the tick rate is still crazy high later in development or my cpu is really picking up, 
+			* limiting the TPS might be something to consider.
+			*/
+
 			std::wstring performanceStats = L" -";
 			performanceStats += L" TPS: " + std::to_wstring(m_GameTime.GetTps());
 			performanceStats += L" FPS: " + std::to_wstring(m_GameTime.GetFps());

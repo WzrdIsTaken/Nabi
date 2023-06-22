@@ -14,7 +14,9 @@ namespace nabitest::PhysicsTests
 #ifdef USE_DEBUG_UTILS
 		gameTime.ForceRunSimulationState(true);
 #else
-		// panic?
+		// panic? i dont see an EXPECT_ASSERT marco in this version of gmock... debug utils + run tests are *meant* to be interdependent.... >:(
+		// ngl i dont even know if the assert in GetFixedDeltaTime is wanted.. should it just be a log? if i make it a log, I can get rid of this jank
+		// we'll see..
 #endif // ifdef USE_DEBUG_UTILS
 		collisionSystem.FixedUpdate(gameTime);
 
