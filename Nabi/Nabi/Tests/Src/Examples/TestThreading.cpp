@@ -8,9 +8,12 @@
 
 #ifdef RUN_TESTS
 
+// This example is a lot shorter than the others.
+// For other (and probably better) examples of ThreadCommand being used see NabiCore and TestPhysics.
+
 namespace nabitest::Examples
 {
-	long long constexpr c_ThreadSleepTime = 2000;
+	long long constexpr c_ThreadSleepTime = 2000ll;
 
 	TestThreading::TestThreading(nabi::Context& context)
 		: m_Context(context)

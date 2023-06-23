@@ -11,11 +11,16 @@ Current:
 - Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
     - "There are some jank bits, there are some bits I sorely wish I had done very differently, but you know what - I count that as a success, because it means I've learned something.
        If I thought everything was perfect and I did everything right all the time then, well, I probably haven't grown as a developer."
-    - See the comment in StringConverter about FromString template specialization. That should go in the write up
+    - See the comment in StringConverter about FromString template specialization. That should go in the write up + the jankness which is container reflection
 - Once the test stuff is removed from NabiCore, make sure the engine compiles in release
 
 - Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown (i think this is to do with rendering..?). Also can tidy up this todo txt
     - When nothing is being drawn I dont get the error
+
+- Fix container reflection so it works nicely? do this after the demo etc. If you don't have the time or the will (remember, we have other stuff todo before korea)
+  just move this to the nice to have section and make sure its in the write up
+
+// --- High Priority ---
 
 Refactor / demo (or seperate branch for this) Branch:
 - Too much NABI_NOEXCEPT? noexcept and nodiscard in core ecs stuff?
@@ -27,25 +32,14 @@ Refactor / demo (or seperate branch for this) Branch:
 - Add "Memory" to the development roadmap readme with soontm. if doing memory management as dis can do some test work in in?
 - Should the wincore in include go before or after standard lib? remove the comment in core.h
 - in nabicore update/fixedupdate/render const? decide + remove the /*comment*/
-- stress test nabi! Make loads of asteroids or something and player that can move around. test all of nabis features
 
-// --- High Priority ---
-
-- Threading
 - Put everything together in a game core / project setup how you want it example
+    - then right a stress test for it
+        - define out the examples in nabicore.. remove the example/test_ calls.. crazy
+        - Make loads of asteroids or something and player that can move around. test all of nabis features
+        - Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func (see what we did for the audio id))
     - should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
-    - should tags be assigned in xml, or when the model / sprite is loaded in? I think xml
-
-- Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func (see what we did for the audio id))
-- is it possible to fix the "expected a ')'" error with REFLECT_CONTAINER? it compiles/works fine.. if not, then move this to the 'nice to have' section
-- why does the sprite component exist in the repro?
-
-- TEST loading in ui elements from xml. see test_ui_entities. has it broke? the button isn't responding..?
-
-- look into ENTT_USE_ATOMIC / entts multithreading needs
-
-- Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? (i think it does exist and im just dumb)
-    - Try overriding entt assert with my ver
+    - should render tags be assigned in xml, or when the model / sprite is loaded in? I think xml
 
 Structure Stuff
 - [[nodiscard]] tag in game code?
@@ -65,8 +59,9 @@ Structure Stuff
   and I don't want to go down that road right now!
 
 - Find and fix that incomplete type not allowed (can we do a seperate thing to what we did in google test in entt.h?)
-  (ngl i don't think this is possible.. and might well just be visual studio doing visual studio things. if i have an idea i'll do it, but for now i'm 
-   decreasing its priority)
+  (ngl i don't think this is possible.. and might well just be visual studio doing visual studio things. if i have an idea i'll do it, but for now i'm decreasing its priority)
+- look into ENTT_USE_ATOMIC / entts multithreading needs
+    - I don't think this is needed (rn..), but here is the link if it is https://github.com/skypjack/entt/wiki/Crash-Course:-configuration#entt_use_atomic
 
 // --- Nice to have stuff / random ideas ---
 
@@ -75,8 +70,16 @@ Structure Stuff
 - Make it so we dont have to do the typedef thing for reflecting nested types (ie types which have :: in their name)
 - Allow reflecting nested custom types and custom types in containers. See the comment in StringConverter.h
 - Make it so that the loop is not something that is done by loading.. instead when playing. Could possibly solve this problem nicely by setting a callback on the voice..? 
+- Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? (i think it does exist and im just dumb)
+    - Try overriding entt assert with my version
+    - I think registry::get might just not have any assert logic and the code is too beyond my tired self to add
 
 Archive:
+- is it possible to fix the "expected a ')'" error with REFLECT_CONTAINER? it compiles/works fine.. if not, then move this to the 'nice to have' section
+    - I think this is just caused by the macro maddness which is the hacked in container reflection as it compiles file.
+- why does the sprite component exist in the repro? because it was on disk.. i must have misclicked deleting it and pressed remove instead
+- TEST loading in ui elements from xml. see test_ui_entities. has it broke? the button isn't responding..? NOPE im just dumb
+    - actually look at which ui scenes are enabled / disabled, and what the ui buttons are bounds to in xml..
 - Cleaning up old todos:
     - work how why listeners arent being called for the lighting system. also needs to be either the light or transform component changed
     - Forward declare the enums (PixelShader, VertexShader) or switch to enum class (actually cant use enum class in all cases. disable the warning about unscoped enum)
