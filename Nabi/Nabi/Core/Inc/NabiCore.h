@@ -61,7 +61,7 @@ namespace nabi
 		HINSTANCE const m_hInstance;
 		WindowEventsListener m_WindowEventsListener;
 
-		// Commands
+		// Core Objects
 		Rendering::DXObjects m_DXObjects;
 		Audio::XAudioObjects m_XAudioObjects;
 		Threading::ThreadingObjects m_ThreadingObjects;

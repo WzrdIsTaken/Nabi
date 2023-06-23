@@ -26,7 +26,7 @@ namespace nabi::Rendering
 #endif // ifdef USE_DEBUG_UTILS
 	};
 
-	DXObjects const dxObjectsDefaultSettings
+	DXObjects const c_DXObjectsDefaultSettings
 	{
 		.m_Device = nullptr,
 		.m_SwapChain = nullptr,

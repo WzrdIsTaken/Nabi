@@ -24,12 +24,17 @@ namespace nabi
 		: m_hInstance(hInstance)
 		, m_WindowEventsListener(m_Context, initSettings.m_WindowSettings)
 
-		// Direct X
-		, m_DXObjects(Rendering::dxObjectsDefaultSettings)
+		// Core Objects
+		, m_DXObjects(Rendering::c_DXObjectsDefaultSettings)
+		, m_XAudioObjects(Audio::c_XAudioObjectsDefaultSettings)
+		, m_ThreadingObjects{/*Threading::c_ThreadingObjectsDefaultSettings (thread_pool has deleted copy constructors)*/}
 
 		// Nabi
 		, m_Context{}
 		, m_GameTime{}
+#ifdef USE_EVENT_SYSTEM_UPDATE
+		, m_Systems{}
+#endif // ifdef USE_EVENT_SYSTEM_UPDATE
 		, m_InitSettings(initSettings)
 
 		// TEST
@@ -45,7 +50,7 @@ namespace nabi
 
 		m_Context.m_EntityCreator = std::make_unique<ECS::EntityCreator>(m_Context.m_Registry);
 
-		// Commands
+		// Commands (set up with Core Objects)
 		m_Context.m_RenderCommand = std::make_unique<Rendering::RenderCommand>(m_DXObjects, m_Context.m_Window->GetHWND(), initSettings.m_WindowSettings);
 		m_Context.m_AudioCommand = std::make_unique<Audio::AudioCommand>(m_XAudioObjects);
 		m_Context.m_ThreadCommand = std::make_unique<Threading::ThreadCommand>(m_ThreadingObjects, initSettings.m_ThreadingSettings);

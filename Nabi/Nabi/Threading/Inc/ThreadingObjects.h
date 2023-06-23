@@ -34,7 +34,7 @@ namespace nabi::Threading
 		std::unique_ptr<ThreadPool> m_ThreadPool;
 	};
 
-	ThreadingObjects const c_ThreadingObjects
+	ThreadingObjects const c_ThreadingObjectsDefaultSettings
 	{
 		.m_CriticalSection = {},
 		.m_ThreadPool = nullptr
