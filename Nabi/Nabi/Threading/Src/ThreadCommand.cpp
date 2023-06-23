@@ -40,7 +40,7 @@ namespace nabi::Threading
 
 	// --- Task Statistics ---
 #ifdef USE_DEBUG_UTILS
-	ThreadCommand::TaskStatistics::TaskStatistics()
+	ThreadCommand::TaskStatistics::TaskStatistics() NABI_NOEXCEPT
 		: m_TaskDurationStats
 		{
 			{ TaskDuration::Lifetime, { "lifetime", 0u } },
@@ -59,7 +59,7 @@ namespace nabi::Threading
 	}
 
 	void ThreadCommand::TaskStatistics::NewTaskEnqueued(std::string const& action, std::string const& taskName, 
-		TaskDuration const taskDuration, TaskPriority const taskPriority)
+		TaskDuration const taskDuration, TaskPriority const taskPriority) NABI_NOEXCEPT
 	{
 		if (CheckTaskEnumIsValid(taskName, taskDuration, m_TaskDurationStats) && 
 			CheckTaskEnumIsValid(taskName, taskPriority, m_TaskPriorityStats))
@@ -70,7 +70,7 @@ namespace nabi::Threading
 	}
 
 	void ThreadCommand::TaskStatistics::LogTaskEnqueueMessage(std::string const& action, std::string const& taskName, 
-		TaskDuration const taskDuration, TaskPriority const taskPriority) const
+		TaskDuration const taskDuration, TaskPriority const taskPriority) const NABI_NOEXCEPT
 	{
 		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_THREADING, action << " a "             <<
 			m_TaskDurationStats.at(taskDuration).m_TaskName    << " length, "       <<

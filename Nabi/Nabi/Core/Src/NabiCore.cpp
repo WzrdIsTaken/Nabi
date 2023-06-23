@@ -64,7 +64,7 @@ namespace nabi
 		m_WindowEventsListener.UnRegisterEvents();
 	}
 
-	int NabiCore::Init() NABI_NOEXCEPT
+	int NabiCore::Init()
 	{
 		bool initializationSuccessful = true;
 
@@ -91,7 +91,7 @@ namespace nabi
 		return initializationSuccessful ? NABI_SUCCESS : NABI_FAIL;
 	}
 
-	int NabiCore::Run() NABI_NOEXCEPT
+	int NabiCore::Run()
 	{
 		bool runGame = true;
 

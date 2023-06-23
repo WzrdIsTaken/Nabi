@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "TypeUtils.h"
+#include "Defines.h"
 
 namespace nabi::StringUtils
 {

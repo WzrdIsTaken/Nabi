@@ -1,6 +1,8 @@
 #pragma once
 
-#include "TypeUtils.h"
+#include <cmath>
+
+#include "Defines.h"
 
 namespace nabi::MathUtils
 {

@@ -2,14 +2,6 @@
 
 #include <functional>
 
-#include "Defines.h"
-
-#ifndef USE_DEBUG_UTILS
-    #define NABI_NOEXCEPT noexcept
-#else
-    #define NABI_NOEXCEPT
-#endif // ifndef USE_DEBUG_UTLS
-
 #define DELETE_COPY_MOVE_CONSTRUCTORS(type) \
     DELETE_COPY_CONSTRUCTORS(type) \
     DELETE_MOVE_CONSTRUCTORS(type)

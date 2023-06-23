@@ -4,7 +4,7 @@
 
 #include "entt.h"
 
-#include "TypeUtils.h"
+#include "Defines.h"
 
 namespace nabi::ECSUtils
 {

@@ -51,13 +51,13 @@ namespace nabi::Reflection
 		/// Should ideally be called once at the end of xml parsing and used to set up EntityCreator
 		/// </summary>
 		/// <returns>The entity template store</returns>
-		[[nodiscard]] inline EntityTemplateStore const& GetEntityTemplateStore() const { return m_EntityTemplates; } NABI_NOEXCEPT;
+		[[nodiscard]] inline EntityTemplateStore const& GetEntityTemplateStore() const NABI_NOEXCEPT { return m_EntityTemplates; };
 		/// <summary>
 		/// Gets the all of the entity groups that have been read.
 		/// Should ideally be called once at the end of xml parsing and used to set up EntityCreator
 		/// </summary>
 		/// <returns>The entity group store</returns>
-		[[nodiscard]] inline EntityGroupStore const& GetEntityGroupStore() const { return m_EntityGroups; } NABI_NOEXCEPT;
+		[[nodiscard]] inline EntityGroupStore const& GetEntityGroupStore() const NABI_NOEXCEPT { return m_EntityGroups; };
 
 		/// <summary>
 		/// Parses a document containing singleton data. Note: Currently not implemented.

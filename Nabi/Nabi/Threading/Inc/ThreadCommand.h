@@ -130,7 +130,7 @@ namespace nabi::Threading
 			void UpdateTaskStatistics(TaskDuration const taskDuration, TaskPriority const taskPriority) NABI_NOEXCEPT;
 
 			template<typename T, typename = std::enable_if<std::is_same<T, TaskDuration>::value || std::is_same<T, TaskPriority>::value>::type>
-			bool CheckTaskEnumIsValid(std::string const& taskName, T const _enum, std::map<T, TaskInfo> const& map)
+			[[nodiscard]] bool CheckTaskEnumIsValid(std::string const& taskName, T const _enum, std::map<T, TaskInfo> const& map) const NABI_NOEXCEPT
 			{
 				bool const valid = map.contains(_enum);
 				if (!valid)
