@@ -23,6 +23,8 @@ namespace nabi::Threading
 
 	/// <summary>
 	/// Manages a thread pool submits tasks to a priority queue 
+	/// Currently task priority isn't accounted for. I'm using macros not constexprs because I think the purple looks cool
+	/// 
 	/// Note - it is possible that the thread pool will be null on shutdown and so a task won't be queued. Hence 'if (m_ThreadingObjects.m_ThreadPool)'.
 	/// However, this isn't a problem. If the log message appears while the program is running though... then yeah it might well be a problem :p
 	/// </summary>
@@ -49,13 +51,17 @@ namespace nabi::Threading
 		ThreadCommand(ThreadingObjects& threadingObjects, ThreadingSettings const& threadingSettings) NABI_NOEXCEPT;
 		~ThreadCommand();
 
+		/// <summary>
+		/// Adds a task to the task queue and returns a std::future with its result. Use for tasks which return values, or tasks where the operation needs
+		/// to be complete before other code can continue. The result can be waited on with the blocking calls std::future::get() or std::future::wait().
+		/// </summary>
 		template <typename Function, typename... Args, typename ReturnType = std::invoke_result_t<Function&&, Args &&...>> requires std::invocable<Function, Args...>
 		[[nodiscard]] inline std::future<ReturnType> EnqueueTask(std::string const& taskName, TaskDuration const taskDuration, TaskPriority const taskPriority, 
 			Function function, Args... args) const NABI_NOEXCEPT
 		{
 			if (m_ThreadingObjects.m_ThreadPool)
 			{
-				ASSERT_CODE(LogTaskEnqueueMessage("Enqueued", taskName, taskDuration, taskPriority));
+				ASSERT_CODE(m_TaskStatistics.NewTaskEnqueued("Enqueued", taskName, taskDuration, taskPriority));
 				return m_ThreadingObjects.m_ThreadPool->enqueue(std::forward<Function>(function), std::forward<Args>(args)...);
 			}
 			else
@@ -64,13 +70,16 @@ namespace nabi::Threading
 				return {};
 			}
 		}
+		/// <summary>
+		/// Adds a task to the task queue. Does not return a future. Use for tasks where no code directly relies on its execution. 
+		/// </summary>
 		template <typename Function, typename... Args> requires std::invocable<Function, Args...> && std::is_same_v<void, std::invoke_result_t<Function&&, Args &&...>>
 		[[nodiscard]] inline void EnqueueTaskDetach(std::string const& taskName, TaskDuration const taskDuration, TaskPriority const taskPriority, 
 			Function function, Args... args) const NABI_NOEXCEPT
 		{
 			if (m_ThreadingObjects.m_ThreadPool)
 			{
-				ASSERT_CODE(LogTaskEnqueueMessage("Enqueued and detached", taskName, taskDuration, taskPriority));
+				ASSERT_CODE(m_TaskStatistics.NewTaskEnqueued("Enqueued and detached", taskName, taskDuration, taskPriority));
 				m_ThreadingObjects.m_ThreadPool->enqueue_detach(std::forward<Function>(function), std::forward<Args>(args)...);
 			}
 			else
@@ -89,39 +98,53 @@ namespace nabi::Threading
 			return m_ThreadingObjects.m_ThreadPool->size(); 
 		};
 
+#ifdef USE_DEBUG_UTILS
+		inline std::string GetTaskStatistics() const NABI_NOEXCEPT { return m_TaskStatistics.GetStatistics(); };
+#endif // ifdef USE_DEBUG_UTILS
+
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(ThreadCommand)
 
 #ifdef USE_DEBUG_UTILS
-		struct TaskStatistics final
+		/// <summary>
+		/// Tracks what tasks have been started
+		/// </summary>
+		class TaskStatistics final
 		{
-			std::unordered_map<TaskDuration, unsigned int> m_TasksStartedByDuration;
-			std::unordered_map<TaskPriority, unsigned int> m_TasksStartedByPriority;
+		public:
+			TaskStatistics() NABI_NOEXCEPT;
 
+			void NewTaskEnqueued(std::string const& action, std::string const& taskName,
+				TaskDuration const taskDuration, TaskPriority const taskPriority) NABI_NOEXCEPT;
+			[[nodiscard]] std::string GetStatistics() const NABI_NOEXCEPT;
 
-			TaskStatistics()
-				: m_TasksStartedByDuration
-					{
-						{ TaskDuration::Lifetime, 0u },
-						{ TaskDuration::Long,     0u },
-						{ TaskDuration::Medium,   0u },
-						{ TaskDuration::Short,    0u }
-					}
-				, m_TasksStartedByPriority
-					{
-						{ TaskPriority::Critical, 0u },
-						{ TaskPriority::High,     0u },
-						{ TaskPriority::Medium,   0u },
-						{ TaskPriority::Low,      0u }
-					}
+		private:
+			struct TaskInfo final
 			{
+				std::string m_TaskName;
+				unsigned int m_StartedCount;
+			};
+
+			void LogTaskEnqueueMessage(std::string const& action, std::string const& taskName,
+				TaskDuration const taskDuration, TaskPriority const taskPriority) const NABI_NOEXCEPT;
+			void UpdateTaskStatistics(TaskDuration const taskDuration, TaskPriority const taskPriority) NABI_NOEXCEPT;
+
+			template<typename T, typename = std::enable_if<std::is_same<T, TaskDuration>::value || std::is_same<T, TaskPriority>::value>::type>
+			bool CheckTaskEnumIsValid(std::string const& taskName, T const _enum, std::map<T, TaskInfo> const& map)
+			{
+				bool const valid = map.contains(_enum);
+				if (!valid)
+				{
+					LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_THREADING, "Trying to track a task " << 
+						WRAP(taskName, "\"") << " with an unrecognised TaskDuration or TaskPriority", LOG_END);
+				}
+
+				return valid;
 			}
 
-			void UpdateTaskStatistics(std::string const& taskName, TaskDuration const taskDuration, TaskPriority const taskPriority) NABI_NOEXCEPT;
+			std::map<TaskDuration, TaskInfo> m_TaskDurationStats;
+			std::map<TaskPriority, TaskInfo> m_TaskPriorityStats;
 		};
-
-		void LogTaskEnqueueMessage(std::string const& action, std::string const& taskName, 
-			TaskDuration const taskDuration, TaskPriority const taskPriority) const NABI_NOEXCEPT;
 
 		mutable TaskStatistics m_TaskStatistics; // mutable because EnqueueTask(Detach) is const
 #endif // ifdef USE_DEBUG_UTILS

@@ -7,6 +7,14 @@
 
 namespace nabi::Threading
 {
+	/// <summary>
+	/// Holds all the items needed for multithreading support
+	/// Stored in NabiCore, initialized in ThreadCommand
+	/// 
+	/// I opted to use a thread pool libary because:
+	///		- 1) Time / convenience (a basic threadpool is pretty small anyway)
+	///		- 2) Threading can cause some nasty bugs / crashes so I wanted a tested solution
+	/// </summary>
 	struct ThreadingObjects final
 	{
 	private:

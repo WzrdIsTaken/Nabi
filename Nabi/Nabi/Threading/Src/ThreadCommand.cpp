@@ -6,6 +6,8 @@
 
 namespace nabi::Threading
 {
+	// --- Thread Command ---
+
 	ThreadCommand::ThreadCommand(ThreadingObjects& threadingObjects, ThreadingSettings const& threadingSettings) NABI_NOEXCEPT
 		: m_ThreadingObjects(threadingObjects)
 #ifdef USE_DEBUG_UTILS
@@ -30,54 +32,85 @@ namespace nabi::Threading
 
 	ThreadCommand::~ThreadCommand()
 	{
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_THREADING, GetTaskStatistics(), LOG_END);
+
 		m_ThreadingObjects.m_ThreadPool.reset();
 		DeleteCriticalSection(&m_ThreadingObjects.m_CriticalSection);
 	}
 
+	// --- Task Statistics ---
 #ifdef USE_DEBUG_UTILS
-	void ThreadCommand::TaskStatistics::UpdateTaskStatistics(std::string const& taskName, TaskDuration const taskDuration, TaskPriority const taskPriority) NABI_NOEXCEPT
-	{
-		if (m_TasksStartedByDuration.contains(taskDuration) && m_TasksStartedByPriority.contains(taskPriority))
+	ThreadCommand::TaskStatistics::TaskStatistics()
+		: m_TaskDurationStats
 		{
-			++m_TasksStartedByDuration.at(taskDuration);
-			++m_TasksStartedByPriority.at(taskPriority);
+			{ TaskDuration::Lifetime, { "lifetime", 0u } },
+			{ TaskDuration::Long,     { "long",     0u } },
+			{ TaskDuration::Medium,   { "medium",   0u } },
+			{ TaskDuration::Short,    { "short",    0u } }
 		}
-		else
+		, m_TaskPriorityStats
 		{
-			LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_THREADING, "Trying to track a task " << WRAP(taskName, "\"") <<
-				" with an unrecognised duration or priority", LOG_END);
+			{ TaskPriority::Critical, { "critical", 0u } },
+			{ TaskPriority::High,     { "high",     0u } },
+			{ TaskPriority::Medium,   { "medium",   0u } },
+			{ TaskPriority::Low,      { "low",      0u } }
+		}
+	{
+	}
+
+	void ThreadCommand::TaskStatistics::NewTaskEnqueued(std::string const& action, std::string const& taskName, 
+		TaskDuration const taskDuration, TaskPriority const taskPriority)
+	{
+		if (CheckTaskEnumIsValid(taskName, taskDuration, m_TaskDurationStats) && 
+			CheckTaskEnumIsValid(taskName, taskPriority, m_TaskPriorityStats))
+		{
+			LogTaskEnqueueMessage(action, taskName, taskDuration, taskPriority);
+			UpdateTaskStatistics(taskDuration, taskPriority);
 		}
 	}
 
-	void ThreadCommand::LogTaskEnqueueMessage(std::string const& action, std::string const& taskName, 
-		TaskDuration const taskDuration, TaskPriority const taskPriority) const NABI_NOEXCEPT
+	void ThreadCommand::TaskStatistics::LogTaskEnqueueMessage(std::string const& action, std::string const& taskName, 
+		TaskDuration const taskDuration, TaskPriority const taskPriority) const
 	{
-		// It would be better to use Reflection::EnumConverter::EnumToString<TaskDuration>(taskDuration) here, 
-		// but currently that functionality is not implemented and not worth doing for this debug use case
+		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_THREADING, action << " a "             <<
+			m_TaskDurationStats.at(taskDuration).m_TaskName    << " length, "       <<
+			m_TaskPriorityStats.at(taskPriority).m_TaskName    << " priority task " <<
+			WRAP(taskName, "\""), LOG_END);
+	}
 
-		static std::unordered_map<TaskDuration, std::string> const taskDurationToString =  {
-			{ TaskDuration::Lifetime, "lifetime" }, { TaskDuration::Long,  "long"  },
-			{ TaskDuration::Medium,   "medium"   }, { TaskDuration::Short, "short" },
-		};
-		static std::unordered_map<TaskPriority, std::string> const traskPriorityToString = {
-			{ TaskPriority::Critical, "critical" }, { TaskPriority::High, "high"   },
-			{ TaskPriority::Medium,   "medium"   }, { TaskPriority::Low,  "low"    },
-		};
+	void ThreadCommand::TaskStatistics::UpdateTaskStatistics(TaskDuration const taskDuration, TaskPriority const taskPriority) NABI_NOEXCEPT
+	{
+		++m_TaskDurationStats.at(taskDuration).m_StartedCount;
+		++m_TaskPriorityStats.at(taskPriority).m_StartedCount;
+	}
 
-		if (taskDurationToString.contains(taskDuration) && traskPriorityToString.contains(taskPriority))
+	std::string ThreadCommand::TaskStatistics::GetStatistics() const NABI_NOEXCEPT
+	{
+		auto GetStatisticsHelper =
+			[](std::ostringstream& stream, std::string const& statistic, auto const& statisticsMap)
+			{
+				constexpr size_t longestTaskName = 8u;
+
+				stream << "Tasks started by " << statistic << ":" << NEWLINE;
+				for (auto const& [stat, info] : statisticsMap)
+				{
+					stream << info.m_TaskName << SPACE(8 - info.m_TaskName.length()) << " - " << info.m_StartedCount << NEWLINE;
+				}
+			};
+
+		std::ostringstream statistics;
+		statistics << "Application Threading Statistics:" << NEWLINE;
+
+		GetStatisticsHelper(statistics, "duration", m_TaskDurationStats);
+		GetStatisticsHelper(statistics, "priority", m_TaskPriorityStats);
+		
+		std::string result = statistics.str();
+		if (!result.empty())
 		{
-			LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_THREADING, action << " a " <<
-				taskDurationToString .at(taskDuration) << " length, "       <<
-				traskPriorityToString.at(taskPriority) << " priority task " <<
-				WRAP(taskName, "\""), LOG_END);
+			// Removes the final NEWLINE character
+			result.pop_back();
 		}
-		else
-		{
-			LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_THREADING, "Starting a task " << WRAP(taskName, "\"") << 
-				" with an unrecognised duration or priority", LOG_END);
-		}
-
-		m_TaskStatistics.UpdateTaskStatistics(taskName, taskDuration, taskPriority);
+		return result;
 	}
 #endif // ifdef USE_DEBUG_UTILS
 } // namespace nabi::Threading

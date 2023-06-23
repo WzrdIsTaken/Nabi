@@ -14,6 +14,10 @@
 
 namespace nabi::Threading
 {
+	/// <summary>
+	/// Locks a scope of code to prevent race / multiple write / etc issues
+	/// Can be used conveniently through the LOCK_CRITICAL_SECTION macro defined above
+	/// </summary>
 	class LockCriticalSection final
 	{
 	public:

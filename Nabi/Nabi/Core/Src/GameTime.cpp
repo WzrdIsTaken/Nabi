@@ -25,8 +25,10 @@ namespace nabi
 
 	void GameTime::Tick() NABI_NOEXCEPT
 	{
+		TimePoint const now = Clock::now();
+
 		// Delta time
-		m_DeltaTimeTracker.Tick();
+		m_DeltaTimeTracker.Tick(now, c_MaxDeltaTime);
 
 		ASSERT_CODE
 		(
@@ -41,7 +43,7 @@ namespace nabi
 		{
 			if (!m_RunSimulation)
 			{
-				m_LastSimulationTick = Clock::now();
+				m_LastSimulationTick = now;
 				m_RunSimulation = true;
 			}
 
@@ -58,12 +60,28 @@ namespace nabi
 
 	void GameTime::TickFrame() NABI_NOEXCEPT
 	{
-		m_FrameTimeTracker.Tick();
+		m_FrameTimeTracker.Tick(Clock::now(), c_MaxFrameTime);
+	}
+
+	GameTime::Interval GameTime::GetStartUpTime() const NABI_NOEXCEPT
+	{
+		return GetTimeDifferenceAsInterval(Clock::now(), m_StartUpTime);
+	}
+
+	GameTime::Interval GameTime::GetLastSimulationTick() const NABI_NOEXCEPT
+	{
+		return GetTimeDifferenceAsInterval(Clock::now(), m_LastSimulationTick);
+	}
+
+	GameTime::Interval GameTime::GetTimeDifferenceAsInterval(TimePoint const& timePointOne, TimePoint const& timePointTwo) const NABI_NOEXCEPT
+	{
+		auto timeDifference = (timePointOne - timePointTwo).count();
+		Interval const timeDifferenceAsInterval = static_cast<Interval>(timeDifference);
+
+		return timeDifferenceAsInterval;
 	}
 
 	// --- Time Tracker ---
-	// Could it be useful to pass in the current time to Tick()?
-	// Also, is it bad we are using c_MaxDeltaTime for FrameTime as well? (as of now, FrameTime isn't used though - only fps for performace tracking)
 
 	GameTime::TimeTracker::TimeTracker(TimePoint const& currentTime) NABI_NOEXCEPT
 		// Tick/Frame time
@@ -79,19 +97,19 @@ namespace nabi
 	{
 	}
 
-	void GameTime::TimeTracker::Tick() NABI_NOEXCEPT
+	void GameTime::TimeTracker::Tick(TimePoint const& currentTime, Interval const maxTimeStep) NABI_NOEXCEPT
 	{
-		UpdateTime();
+		UpdateTime(currentTime, maxTimeStep);
 		UpdateTicks();
 	}
 
-	void GameTime::TimeTracker::UpdateTime() NABI_NOEXCEPT
+	void GameTime::TimeTracker::UpdateTime(TimePoint const& currentTime, Interval const maxTimeStep) NABI_NOEXCEPT
 	{
 		m_PreviousTime = m_CurrentTime;
-		m_CurrentTime = Clock::now();
+		m_CurrentTime = currentTime;
 
 	    m_ElapsedTime = m_CurrentTime - m_PreviousTime;
-		m_Time = std::fmin(m_ElapsedTime.count(), c_MaxDeltaTime);
+		m_Time = std::fmin(m_ElapsedTime.count(), maxTimeStep);
 	}
 
 	void GameTime::TimeTracker::UpdateTicks() NABI_NOEXCEPT
@@ -102,7 +120,7 @@ namespace nabi
 		Interval const elapsedTime = m_TickElapsedTime.count();
 		if (elapsedTime >= 1.0)
 		{
-			m_Ticks = static_cast<uint32_t>(m_TickCount / elapsedTime);
+			m_Ticks = static_cast<Ticks>(m_TickCount / elapsedTime);
 			m_TickCount = 0u;
 			m_TickElapsedTime = Duration(0.0);
 		}

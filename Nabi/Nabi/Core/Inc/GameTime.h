@@ -37,20 +37,20 @@ namespace nabi
 		{
 			return m_DeltaTimeTracker.GetTime();
 		};
+		[[nodiscard]] /*constexpr*/ inline Interval GetFixedDeltaTime() const NABI_NOEXCEPT
+		{
+			CONDITIONAL_LOG(!RunSimulation(), LOG_PREP, LOG_WARN, LOG_CATEGORY_CORE, "Getting FixedDeltaTime but RunSimulation is false", LOG_END);
+			return c_FixedTimeStep;
+		};
 		[[nodiscard]] inline Interval GetFrameTime() const NABI_NOEXCEPT
 		{
 			return m_FrameTimeTracker.GetTime();
 		}
-		[[nodiscard]] /*constexpr*/ inline Interval GetFixedDeltaTime() const NABI_NOEXCEPT
-		{
-			ASSERT(RunSimulation(), "Getting FixedDeltaTime but RunSimulation is false");
-			return c_FixedTimeStep;
-		};
 
 		[[nodiscard]] inline Ticks GetTps() const NABI_NOEXCEPT { return m_DeltaTimeTracker.GetTicks(); };
 		[[nodiscard]] inline Ticks GetFps() const NABI_NOEXCEPT { return m_FrameTimeTracker.GetTicks(); };
-		[[nodiscard]] inline Interval GetStartUpTime() const NABI_NOEXCEPT        { return static_cast<Interval>((Clock::now() - m_StartUpTime).count()); };
-		[[nodiscard]] inline Interval GetLastSimulationTick() const NABI_NOEXCEPT { return static_cast<Interval>((Clock::now() - m_LastSimulationTick).count()); };
+		[[nodiscard]] Interval GetStartUpTime() const NABI_NOEXCEPT;
+		[[nodiscard]] Interval GetLastSimulationTick() const NABI_NOEXCEPT;
 
 #ifdef USE_DEBUG_UTILS
 		inline void ForceRunSimulationState(bool runSimulation) NABI_NOEXCEPT { m_RunSimulation = runSimulation; };
@@ -59,18 +59,19 @@ namespace nabi
 	private:
 		static Interval constexpr c_MaxDeltaTime  = 0.1;
 		static Interval constexpr c_FixedTimeStep = 1.0 / 60.0; // 60 fps
+		static Interval constexpr c_MaxFrameTime = std::numeric_limits<Interval>::max(); // i'm not sure what this value should be
 
 		class TimeTracker final
 		{
 		public:
 			TimeTracker(TimePoint const& currentTime) NABI_NOEXCEPT;
-			void Tick() NABI_NOEXCEPT;
+			void Tick(TimePoint const& currentTime, Interval const maxTimeStep) NABI_NOEXCEPT;
 
 			[[nodiscard]] inline Interval GetTime() const NABI_NOEXCEPT { return m_Time; };
 			[[nodiscard]] inline Ticks GetTicks() const NABI_NOEXCEPT { return m_Ticks; };
 
 		private:
-			void UpdateTime() NABI_NOEXCEPT;
+			void UpdateTime(TimePoint const& currentTime, Interval const maxTimeStep) NABI_NOEXCEPT;
 			void UpdateTicks() NABI_NOEXCEPT;
 
 			TimePoint m_CurrentTime;
@@ -83,6 +84,8 @@ namespace nabi
 			Ticks m_TickCount;
 			Ticks m_Ticks;
 		};
+
+		Interval GetTimeDifferenceAsInterval(TimePoint const& timePointOne, TimePoint const& timePointTwo) const NABI_NOEXCEPT;
 
 		TimePoint m_StartUpTime;
 		TimePoint m_LastSimulationTick;
