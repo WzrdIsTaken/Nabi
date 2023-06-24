@@ -8,6 +8,7 @@ Sam, Jake, Brandon, Matt
 Current:
 
 // --- Remember when you actually do an assignment... ---
+- If the game code is in another solution, try having a GameCore file which includes Core and is set at the pre compiled header.
 - Have all entity groups / event calls etc as constexpr in a file
 
 // --- Critical Priority ---
@@ -22,17 +23,12 @@ Current:
 
 - Fix container reflection so it works nicely? do this after the demo etc. If you don't have the time or the will (remember, we have other stuff todo before korea)
   just move this to the nice to have section and make sure its in the write up
-- make sure all high prio/critica prio tasks are done / organised and this section looks empty
+- make sure all high prio/critica prio tasks are done / organised and this section looks empty. will be nice!
 
 // --- High Priority ---
 
-Refactor / demo (or seperate branch for this) Branch:
-- I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
-  go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research
-    - for standard includes in core/enginecore/etc is it dumb to have like a standard.h file with all the standard includes i use? can include here and in enginecore*/
-- Add "Memory" to the development roadmap readme with soontm. if doing memory management as dis can do some test work in in? actually it can be "work in progress.." we might do memory management for fyp
-
-- Put everything together in a game core / project setup how you want it example
+- Make a new demo branch and then Put everything together in a game core / project setup how you want it example
+    - make a new solution for this? or should it live in nabi
     - then right a stress test for it
         - define out the examples in nabicore.. remove the example/test_ calls.. crazy
         - Make loads of asteroids or something and player that can move around. test all of nabis features
@@ -67,6 +63,13 @@ Refactor / demo (or seperate branch for this) Branch:
 - use doxygen comment style?
 
 Archive:
+- Add "Memory" to the development roadmap readme with soontm. if doing memory management as dis can do some test work in in? actually it can be "work in progress.." we might do memory management for fyp
+- I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
+  go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research
+    - for standard includes in core/enginecore/etc is it dumb to have like a standard.h file with all the standard includes i use? can include here and in enginecore*/
+    - YEAH this was defo a dumb idea. but i don't want to touch anything incase it breaks. I don't think I can make core a pch header in this project
+      because every file would need it. but perhaps if the actual game code is in another soltuion i could do it. I'll leave a note.
+      I don't know where I got the idea to wack all the things in core.. but its too late to reverse it now (for better or worse) without a lot of pain 
 - Should the wincore in include go before or after standard lib? remove the comment in core.h
     - hoesntly i'll just leave it how it is. its been compiling and working all this time so... don't touch it! same with the todo "Wincore above Enginecore?"
 - in nabicore update/fixedupdate/render const? decide + remove the /*comment*/ 
