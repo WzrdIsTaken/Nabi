@@ -408,6 +408,7 @@
     <ClInclude Include="Utils\Inc\MathUtils.h" />
     <ClInclude Include="Utils\Inc\StringUtils.h" />
     <ClInclude Include="Utils\Inc\TestUtils.h" />
+    <ClInclude Include="Utils\Inc\TimeUtils.h" />
     <ClInclude Include="Utils\Inc\TypeUtils.h" />
     <ClInclude Include="Utils\Inc\UtilClasses\Logger.h" />
   </ItemGroup>

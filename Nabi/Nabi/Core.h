@@ -10,7 +10,7 @@
 #include <string>
 
 // --- Windows / DirectX ---
-#include "WinCore.h" // TODO (have to double check if this should go before or after standard)
+#include "WinCore.h"
 #include "DirectXCore.h"
 
 #pragma comment(lib, "XInput.lib") 

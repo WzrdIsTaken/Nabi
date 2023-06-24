@@ -45,9 +45,9 @@ namespace nabi
 		[[nodiscard]] inline Context& GetContext() NABI_NOEXCEPT { return m_Context; }
 
 	protected:
-		virtual void Update() /*const?*/ NABI_NOEXCEPT;
-		virtual void FixedUpdate() /*const?*/ NABI_NOEXCEPT;
-		virtual void Render() /*const?*/ NABI_NOEXCEPT;
+		virtual void Update() NABI_NOEXCEPT;
+		virtual void FixedUpdate() NABI_NOEXCEPT;
+		virtual void Render() NABI_NOEXCEPT;
 
 		bool InitGraphicsEntity() NABI_NOEXCEPT;
 		bool InitDxPipeline() NABI_NOEXCEPT;

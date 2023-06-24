@@ -3,6 +3,7 @@
 #include "GameTime.h"
 
 #include "MathUtils.h"
+#include "TimeUtils.h"
 
 namespace nabi
 {
@@ -65,20 +66,12 @@ namespace nabi
 
 	GameTime::Interval GameTime::GetStartUpTime() const NABI_NOEXCEPT
 	{
-		return GetTimeDifferenceAsInterval(Clock::now(), m_StartUpTime);
+		return TimeUtils::GetTimeDifference<Interval>(Clock::now(), m_StartUpTime);
 	}
 
 	GameTime::Interval GameTime::GetLastSimulationTick() const NABI_NOEXCEPT
 	{
-		return GetTimeDifferenceAsInterval(Clock::now(), m_LastSimulationTick);
-	}
-
-	GameTime::Interval GameTime::GetTimeDifferenceAsInterval(TimePoint const& timePointOne, TimePoint const& timePointTwo) const NABI_NOEXCEPT
-	{
-		auto timeDifference = (timePointOne - timePointTwo).count();
-		Interval const timeDifferenceAsInterval = static_cast<Interval>(timeDifference);
-
-		return timeDifferenceAsInterval;
+		return TimeUtils::GetTimeDifference<Interval>(Clock::now(), m_LastSimulationTick);
 	}
 
 	// --- Time Tracker ---

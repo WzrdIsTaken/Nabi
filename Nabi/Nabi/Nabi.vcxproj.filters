@@ -981,6 +981,9 @@
     <ClInclude Include="Threading\Inc\ThreadCommand.h">
       <Filter>Threading\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\Inc\TimeUtils.h">
+      <Filter>Utils\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

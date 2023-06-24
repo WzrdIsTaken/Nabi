@@ -84,9 +84,7 @@ namespace nabi
 			Ticks m_TickCount;
 			Ticks m_Ticks;
 		};
-
-		Interval GetTimeDifferenceAsInterval(TimePoint const& timePointOne, TimePoint const& timePointTwo) const NABI_NOEXCEPT;
-
+		
 		TimePoint m_StartUpTime;
 		TimePoint m_LastSimulationTick;
 

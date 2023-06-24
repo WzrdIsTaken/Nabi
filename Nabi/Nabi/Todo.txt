@@ -7,6 +7,9 @@ Sam, Jake, Brandon, Matt
 
 Current:
 
+// --- Remember when you actually do an assignment... ---
+- Have all entity groups / event calls etc as constexpr in a file
+
 // --- Critical Priority ---
 - Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
     - "There are some jank bits, there are some bits I sorely wish I had done very differently, but you know what - I count that as a success, because it means I've learned something.
@@ -19,18 +22,15 @@ Current:
 
 - Fix container reflection so it works nicely? do this after the demo etc. If you don't have the time or the will (remember, we have other stuff todo before korea)
   just move this to the nice to have section and make sure its in the write up
+- make sure all high prio/critica prio tasks are done / organised and this section looks empty
 
 // --- High Priority ---
 
 Refactor / demo (or seperate branch for this) Branch:
-- do i want the core ecs namespace to be "ecs?" should it be nabi something..? no... should it be something else..? i think ecs is fine though
-- should i leave more comments in the core systems/components/modules?
 - I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
   go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research
     - for standard includes in core/enginecore/etc is it dumb to have like a standard.h file with all the standard includes i use? can include here and in enginecore*/
-- Add "Memory" to the development roadmap readme with soontm. if doing memory management as dis can do some test work in in?
-- Should the wincore in include go before or after standard lib? remove the comment in core.h
-- in nabicore update/fixedupdate/render const? decide + remove the /*comment*/
+- Add "Memory" to the development roadmap readme with soontm. if doing memory management as dis can do some test work in in? actually it can be "work in progress.." we might do memory management for fyp
 
 - Put everything together in a game core / project setup how you want it example
     - then right a stress test for it
@@ -40,13 +40,6 @@ Refactor / demo (or seperate branch for this) Branch:
     - should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
     - should render tags be assigned in xml, or when the model / sprite is loaded in? I think xml
 
-Structure Stuff
-- [[nodiscard]] tag in game code?
-- Have all entity groups / event calls etc as constexpr in a file
-- Core should be pch
-- Wincore above Enginecore?
-- use doxygen comment style?
-
 // --- Low Priority ---
 
 - When we make a GameCore, can use m_WindowEventsListener to stop the game rendering when its minimised. might still want it to update thou? idk
@@ -54,11 +47,6 @@ Structure Stuff
 	- two lights is acc fine. ngl in all off my projects i wont want complex lighting, so i think what we've got is ok
 - The entity clone appending of "_clone" to the entity name might be broken somehow. This isnt super high prio though as the entity group looks ok, and thats more important
 - Inline string converter From[Type] functions?
-- It might be possible to make Singleton's use a static constructor to init themselves as well? But when I did a quick attempt I got a lot of scary linker errors
-  and I don't want to go down that road right now!
-
-- Find and fix that incomplete type not allowed (can we do a seperate thing to what we did in google test in entt.h?)
-  (ngl i don't think this is possible.. and might well just be visual studio doing visual studio things. if i have an idea i'll do it, but for now i'm decreasing its priority)
 - look into ENTT_USE_ATOMIC / entts multithreading needs
     - I don't think this is needed (rn..), but here is the link if it is https://github.com/skypjack/entt/wiki/Crash-Course:-configuration#entt_use_atomic
 
@@ -72,8 +60,23 @@ Structure Stuff
 - Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? (i think it does exist and im just dumb)
     - Try overriding entt assert with my version
     - I think registry::get might just not have any assert logic and the code is too beyond my tired self to add
+- It might be possible to make Singleton's use a static constructor to init themselves as well? But when I did a quick attempt I got a lot of scary linker errors
+  and I don't want to go down that road right now!
+- Find and fix that incomplete type not allowed (can we do a seperate thing to what we did in google test in entt.h?)
+  (ngl i don't think this is possible.. and might well just be visual studio doing visual studio things. if i have an idea i'll do it, but for now i'm decreasing its priority)
+- use doxygen comment style?
 
 Archive:
+- Should the wincore in include go before or after standard lib? remove the comment in core.h
+    - hoesntly i'll just leave it how it is. its been compiling and working all this time so... don't touch it! same with the todo "Wincore above Enginecore?"
+- in nabicore update/fixedupdate/render const? decide + remove the /*comment*/ 
+    - nope they cant/it would be anoying if someone overrode them anyway
+- should i leave more comments in the core systems/components/modules?
+    - honestly, probs should - but i think its pretty obvious rn. Anyway, all the functionality is used in the examples / tests and stuff/
+      and besides, i probs wont have the time or inclination to write any big comments when i write the ecs code for uni projects.. i'll
+      just (try to) write self commenting code and wack a comment in if i do anything odd
+- do i want the core ecs namespace to be "ecs?" should it be nabi something..? no... should it be something else..? i think ecs is fine though
+    - ecs is fine. what else would it be? cant be something to specific as that will change game to game.. nah ecs is fine
 - Too much NABI_NOEXCEPT? noexcept and *nodiscard* in core ecs stuff?  - consider nodiscard now [decided to use it]
 - is it possible to fix the "expected a ')'" error with REFLECT_CONTAINER? it compiles/works fine.. if not, then move this to the 'nice to have' section
     - I think this is just caused by the macro maddness which is the hacked in container reflection as it compiles file.
