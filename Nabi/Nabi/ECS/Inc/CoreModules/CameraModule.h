@@ -8,7 +8,7 @@ namespace ecs
 
 namespace ecs::CameraModule
 {
-	struct DefaultCameraValuesSettings
+	struct DefaultCameraValuesSettings final
 	{
 		float m_WindowWidth = 800.0f;
 		float m_WindowHeight = 600.0f;

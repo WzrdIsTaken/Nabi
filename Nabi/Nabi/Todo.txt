@@ -23,7 +23,6 @@ Current:
 // --- High Priority ---
 
 Refactor / demo (or seperate branch for this) Branch:
-- Too much NABI_NOEXCEPT? noexcept and nodiscard in core ecs stuff?
 - do i want the core ecs namespace to be "ecs?" should it be nabi something..? no... should it be something else..? i think ecs is fine though
 - should i leave more comments in the core systems/components/modules?
 - I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
@@ -75,6 +74,7 @@ Structure Stuff
     - I think registry::get might just not have any assert logic and the code is too beyond my tired self to add
 
 Archive:
+- Too much NABI_NOEXCEPT? noexcept and *nodiscard* in core ecs stuff?  - consider nodiscard now [decided to use it]
 - is it possible to fix the "expected a ')'" error with REFLECT_CONTAINER? it compiles/works fine.. if not, then move this to the 'nice to have' section
     - I think this is just caused by the macro maddness which is the hacked in container reflection as it compiles file.
 - why does the sprite component exist in the repro? because it was on disk.. i must have misclicked deleting it and pressed remove instead

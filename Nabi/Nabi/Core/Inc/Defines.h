@@ -25,6 +25,26 @@
 
 // Defines based off other defines!
 #ifndef USE_NABI_NOEXCEPT
+	/*
+	* About noexcept...
+	* So, when I first started developing nabi I heard that functions marked as noexcept can have performace improvements 
+	* and the compiler will generate less code for them (so the file size would be smaller) as it doesn't need to create
+	* any exception handling code. Therefore, I started just marking every function as noexcept behind a define.
+	* 
+	* The thought was that if games made with nabi are ever distributed, then it could be enabled to eke out a tiny bit 
+	* more performance. But as I developed nabi, I became more on the fence about this decision. 
+	* However, I kept going with the style out of habit.
+	*
+	* Now at the end of nabi's development, I think I may have made a mistake. I didn't properly understand noexcept and when to
+	* use it. I think I understand more now, and I should use noexcept more like const - so show intent more than anything, but it
+	* would take a decent chunk of time to completely removed noexcept and I'm still a tiny bit unsure.. Running nabi with this
+	* define enabled works fine at any rate (though I think I'll leave it undefined for now..).
+	* 
+	* So, I'll leave it in for the engine code - but won't use it any more for game code. I will only use noexcept when I want 
+	* to show intent rather than just sticking it everywhere. 
+	* noexcept can be just one of many learnings that have come from making nabi...
+	*/
+
 	#define NABI_NOEXCEPT 
 #else
 	#define NABI_NOEXCEPT noexcept

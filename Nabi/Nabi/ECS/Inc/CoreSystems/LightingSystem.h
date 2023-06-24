@@ -32,7 +32,7 @@ namespace ecs
 		void OnLightCreated(entt::registry& registry, entt::entity entity);
 		void OnLightUpdated(entt::registry& registry, entt::entity entity);
 		void OnLightDestroyed(entt::registry& registry, entt::entity entity);
-		SComp::LightStateComponent& GetLightStateComponent() const;
+		[[nodiscard]] SComp::LightStateComponent& GetLightStateComponent() const;
 
 		REFLECT_PRIVATES(LightingSystem)
 	};

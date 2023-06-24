@@ -32,8 +32,8 @@ namespace ecs
 		void ComputeLinearVelocity(RigidbodyComponent& rigidbodyComponent, float const dt) const;
 		void ComputeAngularVelocity(RigidbodyComponent& rigidbodyComponent, float const dt) const;
 
-		dx::XMFLOAT3 ComputeForce(RigidbodyComponent const& rigidbodyComponent) const;
-		dx::XMFLOAT3 ComputeAcceleration(RigidbodyComponent const& rigidbodyComponent, dx::XMFLOAT3 const& force) const;
+		[[nodiscard]] dx::XMFLOAT3 ComputeForce(RigidbodyComponent const& rigidbodyComponent) const;
+		[[nodiscard]] dx::XMFLOAT3 ComputeAcceleration(RigidbodyComponent const& rigidbodyComponent, dx::XMFLOAT3 const& force) const;
 
 		void AccountForDrag(dx::XMFLOAT3& velocity, float const drag, float const dt) const;
 

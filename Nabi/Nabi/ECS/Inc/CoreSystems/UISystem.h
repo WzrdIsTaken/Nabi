@@ -32,7 +32,7 @@ namespace ecs
 			nabi::Input::Controller m_Controller;
 		};
 
-		nabi::Input::InputState GetInput(InputInfo const inputInfo, InputInfo const altInputInfo) const;
+		[[nodiscard]] nabi::Input::InputState GetInput(InputInfo const inputInfo, InputInfo const altInputInfo) const;
 
 		void OnUISceneCreated(entt::registry& registry, entt::entity entity);
 		void OnUISceneDestroyed(entt::registry& registry, entt::entity entity);
