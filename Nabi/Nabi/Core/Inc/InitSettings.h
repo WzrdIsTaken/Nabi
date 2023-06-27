@@ -75,7 +75,7 @@ namespace nabi
 		ThreadingSettings m_ThreadingSettings;
 	};
 
-	NabiCoreSettings const nabiCoreDefaultSettings = {
+	NabiCoreSettings const c_NabiCoreDefaultSettings = {
 		.m_WindowSettings = c_WindowDefaultSettings,
 		.m_DataSettings   = c_DataDefaultSettings,
 		.m_ThreadingSettings = c_ThreadingDefaultSettings

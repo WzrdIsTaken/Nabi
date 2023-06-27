@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<route id="DemoRoute">
+  <!-- Systems -->
+  <file id="Systems" value="Tests/Data/Demo/demo_systems.xml" />
+
+  <!-- Entities -->
+  <!-- Soon tm -->
+</route>

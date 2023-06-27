@@ -14,89 +14,26 @@
 	These are the header guards. They guard every header in this project, keeping the lands of Nabi safe.
 */
 
-#include "Core.h"
+#include "Main.h"
 
-#include "shellapi.h" // For CommandLineToArgvW
-
-#include "Console.h"
-#include "InitSettings.h"
-#include "NabiCore.h"
+#include "Demo\Demo.h"
 
 int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
 {
-	// --- Application Setup ---
+    nabi::NabiCoreSettings nabiCoreSettings = nabi::c_NabiCoreDefaultSettings;
+    nabiCoreSettings.m_DataSettings.m_RouteDocument = "Tests/Data/Demo/demo_route.xml";
+    nabiCoreSettings.m_DataSettings.m_NabiCoreParseDocuments = nabi::DataSettings::NabiCoreParseMode::All;
 
-	// Get argc + argv
-	int argc;
-	LPWSTR* argv = CommandLineToArgvW(lpCmdLine, &argc); // Prev used GetCommandLineW()
+    nabi::NabiMainParams const nabiParams =
+    {
+        nabiCoreSettings
+    };
+    
+    nabi::WinMainParams const winParams =
+    {
+        hInstance, hPrevInstance, lpCmdLine, nShowCmd
+    };
 
-	// --- Initial Nabi Setup ---
-
-	DX_ASSERT(CoInitializeEx(nullptr, COINIT_MULTITHREADED));
-
-	// Create a console window
-#ifdef USE_DEBUG_UTILS
-	UINT constexpr consoleMaxLines = 4096u;
-	nabi::AllocateConsole(consoleMaxLines);
-#endif // #ifdef USE_DEBUG_UTILS
-
-	// Setup Debug Utils
-#ifdef USE_DEBUG_UTILS
-	// Without calling this function, the assert dialogue window doesn't appear
-	_CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_WNDW);
-
-	// Set up the logger
-	using nabi::DebugUtils::Logger;
-	Logger::CreateInstance();
-#endif // #ifdef USE_DEBUG_UTILS
-
-	// Seed random
-	nabi::MathUtils::SeedRandom();
-
-	// --- Run Tests ---
-
-	// Run Tests
-#ifdef RUN_TESTS
-	// Set the log level to warning because otherwise it spams the console when tests are run
-#ifdef USE_DEBUG_UTILS
-	Logger::Instance()->SetLogLevel(LOG_WARN);
-#endif // #ifdef USE_DEBUG_UTILS
-
-	// Run all tests
-	::testing::InitGoogleTest(&argc, argv);
-	int const testResults = RUN_ALL_TESTS();
-
-	// Assert if any of the tests failed
-	ASSERT(testResults == NABI_SUCCESS, "One or more of the tests failed! See the console output for details, or run the test explorer.");
-
-	// Set the log level back to all
-#ifdef USE_DEBUG_UTILS
-	Logger::Instance()->SetLogLevel(LOG_INFO);
-#endif // #ifdef USE_DEBUG_UTILS
-
-	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE, "All tests run. Initializing Nabi..." << NEWLINE, LOG_END);
-#endif // #ifdef RUN_TESTS
-
-	// --- Init Nabi ---
-
-	nabi::NabiCore app = nabi::NabiCore(hInstance, nabi::nabiCoreDefaultSettings);
-	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE, "Nabi has initialized successfully!" << NEWLINE, LOG_END);
-
-	int appRunResult = app.Init();
-	ASSERT(appRunResult == NABI_SUCCESS, "The app failed to initialize!");
-
-	appRunResult = app.Run();
-	ASSERT(appRunResult == NABI_SUCCESS, "The app hit an error while running!");
-
-	// --- Shutdown Nabi ---
-
-	// Destroy the console
-#ifdef USE_DEBUG_UTILS
-	nabi::ReleaseConsole();
-#endif // #ifdef USE_DEBUG_UTILS
-
-	CoUninitialize();
-
-	LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE, "Shutting down Nabi with code " << appRunResult, LOG_END);
-	return appRunResult;
+    int const result = nabi::Main<demo::Demo>(nabiParams, winParams);
+    return result;
 }

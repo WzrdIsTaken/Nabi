@@ -36,9 +36,6 @@ namespace nabi
 		, m_Systems{}
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
 		, m_InitSettings(initSettings)
-
-		// TEST
-		, test_Input(m_Context)
 	{
 		// --- Setup the Context ---
 		// Core
@@ -88,9 +85,6 @@ namespace nabi
 		* load the rest of the resources on another thread.
 		*/
 		initializationSuccessful &= ParseECSData();
-
-		// TEST
-		test_Input.Init();
 
 		// Return result
 		return initializationSuccessful ? NABI_SUCCESS : NABI_FAIL;
@@ -187,10 +181,6 @@ namespace nabi
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		m_Context.m_NabiEventsManager.FireSystemUpdateEvent(m_GameTime);
 #endif // ifdef USE_META_SYSTEM_UPDATE
-
-		// TEST
-		test_Input.SetGameTime(&m_GameTime);
-		test_Input.Update();
 	}
 
 	void NabiCore::FixedUpdate() NABI_NOEXCEPT
@@ -212,9 +202,6 @@ namespace nabi
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		m_Context.m_NabiEventsManager.FireSystemRenderEvent(m_GameTime);
 #endif // ifdef USE_META_SYSTEM_UPDATE
-
-		// TEST
-		test_Input.Render();
 
 		m_Context.m_RenderCommand->EndFrame();
 	}

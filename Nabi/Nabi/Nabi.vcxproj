@@ -250,6 +250,7 @@
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp" />
     <ClCompile Include="Tests\Fixtures\RenderingTests\RenderingCreationTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ResourceTests\ResourceLoadTests.cpp" />
+    <ClCompile Include="Tests\Src\Demo\Demo.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestAudio.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestDraw.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestInput.cpp" />
@@ -282,6 +283,7 @@
     <ClInclude Include="Core\Inc\Defines.h" />
     <ClInclude Include="Core\Inc\GameTime.h" />
     <ClInclude Include="Core\Inc\InitSettings.h" />
+    <ClInclude Include="Core\Inc\Main.h" />
     <ClInclude Include="Core\Inc\NabiCore.h" />
     <ClInclude Include="Core\Inc\NabiEventsManager.h" />
     <ClInclude Include="Core\Inc\Window.h" />
@@ -382,6 +384,8 @@
     <ClInclude Include="Resource\Inc\ResourceWrappers.h" />
     <ClInclude Include="Resource\Inc\ResourceBank.h" />
     <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h" />
+    <ClInclude Include="Tests\Inc\Demo\Demo.h" />
+    <ClInclude Include="Tests\Inc\Demo\DemoCore.h" />
     <ClInclude Include="Tests\Inc\Examples\TestAudio.h" />
     <ClInclude Include="Tests\Inc\Examples\TestDraw.h" />
     <ClInclude Include="Tests\Inc\Examples\IExample.h" />
@@ -422,6 +426,8 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Tests\Data\Audio\test_audio_entities.xml" />
+    <Xml Include="Tests\Data\Demo\demo_route.xml" />
+    <Xml Include="Tests\Data\Demo\demo_systems.xml" />
     <Xml Include="Tests\Data\Input\test_ui_entities.xml" />
     <Xml Include="Tests\Data\Reflection\test_container_entity_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_debug_entity_file.xml" />

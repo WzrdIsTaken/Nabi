@@ -281,6 +281,15 @@
     <Filter Include="Libraries\Inc\thread_pool">
       <UniqueIdentifier>{d8c82ca3-b116-48cd-a61c-950368a126ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Inc\Demo">
+      <UniqueIdentifier>{8b3685aa-e146-45d2-99eb-bb41b93dda97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src\Demo">
+      <UniqueIdentifier>{fe48be7e-bcbe-4eac-92d3-00d3527c0f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Data\Demo">
+      <UniqueIdentifier>{99d704fb-3862-443b-8680-1bc516ccb487}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -559,6 +568,9 @@
     </ClCompile>
     <ClCompile Include="Threading\Src\ThreadCommand.cpp">
       <Filter>Threading\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Demo\Demo.cpp">
+      <Filter>Tests\Src\Demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -984,6 +996,15 @@
     <ClInclude Include="Utils\Inc\TimeUtils.h">
       <Filter>Utils\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\DemoCore.h">
+      <Filter>Tests\Inc\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\Demo.h">
+      <Filter>Tests\Inc\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Inc\Main.h">
+      <Filter>Core\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -1022,6 +1043,12 @@
     </Xml>
     <Xml Include="Tests\Data\Audio\test_audio_entities.xml">
       <Filter>Tests\Data\Audio</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Demo\demo_route.xml">
+      <Filter>Tests\Data\Demo</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Demo\demo_systems.xml">
+      <Filter>Tests\Data\Demo</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

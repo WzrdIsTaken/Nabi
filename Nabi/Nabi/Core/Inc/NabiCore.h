@@ -13,7 +13,7 @@
 #include "XAudioObjects.h"
 
 // Used to test / develop Nabi's core features
-#define INCLUDE_NABI_EXAMPLES
+//#define INCLUDE_NABI_EXAMPLES
 #ifdef INCLUDE_NABI_EXAMPLES
 	#include "Examples\TestAudio.h"
 	#include "Examples\TestDraw.h"
@@ -76,8 +76,6 @@ namespace nabi
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(NabiCore)
-
-		nabitest::Examples::TestPhysics test_Input;
 	};
 } // namespace nabi
 
