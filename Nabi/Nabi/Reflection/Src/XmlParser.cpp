@@ -12,6 +12,7 @@
 #include "ReflectionGlobals.h"
 #include "ReflectionHelpers.h"
 #include "StringConverter.h"
+#include "StringStore.h"
 #include "TestUtils.h"
 
 namespace nabi::Reflection
@@ -348,10 +349,10 @@ namespace nabi::Reflection
 			}
 		}
 
-		std::string_view const nodeId = node.attribute(c_IdAttribute.c_str()).value();
+		std::string const& nodeId = StringStore::Instance()->Add(node.attribute(c_IdAttribute.c_str()).value());
 
 		MetaECSTypeData ecsTypeData; // Note - MetaECSTypeData can refer to a System or a Component
-		ecsTypeData.m_Id = entt::hashed_string(nodeId.data());
+		ecsTypeData.m_Id = entt::hashed_string(nodeId.c_str());
 		ecsTypeData.m_Properties = componentProperties;
 
 		return ecsTypeData;
@@ -359,12 +360,12 @@ namespace nabi::Reflection
 
 	PropertyData XmlParser::CreatePropertyData(pugi::xml_node const& node) const NABI_NOEXCEPT
 	{
-		std::string_view const nodeId = node.attribute(c_IdAttribute.c_str()).value();
-		std::string_view const nodeValue = node.attribute(c_ValueAttribute.c_str()).value();
+		std::string const& nodeId = StringStore::Instance()->Add(node.attribute(c_IdAttribute.c_str()).value());
+		std::string const& nodeValue = StringStore::Instance()->Add(node.attribute(c_ValueAttribute.c_str()).value());
 
 		PropertyData propertyData;
-		propertyData.m_Id = entt::hashed_string(nodeId.data());
-		propertyData.m_Value = entt::hashed_string(nodeValue.data());
+		propertyData.m_Id = entt::hashed_string(nodeId.c_str());
+		propertyData.m_Value = entt::hashed_string(nodeValue.c_str());
 
 		return propertyData;
 	}

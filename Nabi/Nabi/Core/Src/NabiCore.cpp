@@ -352,8 +352,8 @@ namespace nabi
 				"Using NabiCore's parse xml functionality but not system event updating is not defined. Systems will fall out of scope, and will not update.");
 #endif // USE_EVENT_SYSTEM_UPDATE
 
-			m_Context.m_EntityCreator->AssignEntityTemplateStore(std::move(xmlParser.GetEntityTemplateStore()));
-			m_Context.m_EntityCreator->AssignEntityGroupStore(std::move(xmlParser.GetEntityGroupStore()));
+			m_Context.m_EntityCreator->AssignEntityTemplateStore(std::move(const_cast<Reflection::EntityTemplateStore&>(xmlParser.GetEntityTemplateStore())));
+			m_Context.m_EntityCreator->AssignEntityGroupStore(std::move(const_cast<Reflection::EntityGroupStore&>(xmlParser.GetEntityGroupStore())));
 		}
 
 		return true;

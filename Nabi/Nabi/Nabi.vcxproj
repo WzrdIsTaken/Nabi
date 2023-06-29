@@ -222,6 +222,7 @@
     <ClCompile Include="Reflection\Src\BaseTypeReflection.cpp" />
     <ClCompile Include="Reflection\Src\EntityCreation.cpp" />
     <ClCompile Include="Reflection\Src\StringConverter.cpp" />
+    <ClCompile Include="Reflection\Src\StringStore.cpp" />
     <ClCompile Include="Reflection\Src\XmlParser.cpp" />
     <ClCompile Include="Rendering\Src\Buffers\ConstantBuffer.cpp" />
     <ClCompile Include="Rendering\Src\Buffers\IndexBuffer.cpp" />
@@ -369,6 +370,7 @@
     <ClInclude Include="Reflection\Inc\ReflectionHelpers.h" />
     <ClInclude Include="Reflection\Inc\ReflectionMacros.h" />
     <ClInclude Include="Reflection\Inc\StringConverter.h" />
+    <ClInclude Include="Reflection\Inc\StringStore.h" />
     <ClInclude Include="Reflection\Inc\XmlParser.h" />
     <ClInclude Include="Rendering\Inc\Buffers\ConstantBuffer.h" />
     <ClInclude Include="Rendering\Inc\Buffers\IndexBuffer.h" />

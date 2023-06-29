@@ -620,6 +620,9 @@
     <ClCompile Include="Tests\Src\Demo\Core\Demo.cpp">
       <Filter>Tests\Src\Demo\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Reflection\Src\StringStore.cpp">
+      <Filter>Reflection\Src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -1064,6 +1067,9 @@
     </ClInclude>
     <ClInclude Include="Tests\Inc\Demo\Core\Demo.h">
       <Filter>Tests\Inc\Demo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Inc\StringStore.h">
+      <Filter>Reflection\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

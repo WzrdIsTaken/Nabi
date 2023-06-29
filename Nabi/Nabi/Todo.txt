@@ -16,6 +16,8 @@ Current:
     - "There are some jank bits, there are some bits I sorely wish I had done very differently, but you know what - I count that as a success, because it means I've learned something.
        If I thought everything was perfect and I did everything right all the time then, well, I probably haven't grown as a developer."
     - See the comment in StringConverter about FromString template specialization. That should go in the write up + the jankness which is container reflection
+    - xml parser/just generally the whole reflection systems string handling. could i have done it all with ids?
+        - could have defo done it all with ids...... cba to refactor now i thikn
 
     - Probs should have multiple projects.. but cba..? explain issues had/honestly yeah just cba
         - just put nabi in its own folder and have one solution/proj
@@ -58,6 +60,7 @@ Current:
     - we will probs just always use these shaders anyway
     - make to note down all usage places before the change, and switch them all over
 - Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
+- nabi::Templates -> nabi::Patterns? Namespace like the folder
 
 - how should we handle demo singleton components?
 - have demomodule?

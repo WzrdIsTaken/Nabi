@@ -3,6 +3,7 @@
 #include "BaseTypeReflection.h"
 
 #include "ReflectionCore.h"
+#include "StringStore.h"
 
 namespace nabi::Reflection
 {
@@ -98,16 +99,11 @@ namespace nabi::Reflection::EnttTypes
 
 	REFLECT_DATA_TYPE_CUSTOM(hashed_string, "basic_hashed_string<char>", HashedString::FromString)
 
-	// This is because: 
-	// Hashed strings don't copy their input string, only take a pointer. So when the string parsed from xml goes out of scope, the hashed string's 'data' will become invalid.
-	// This is the best way I can think so solve this right now. Its not great, but at least its nice and tucked away..
-	static std::vector<std::string> s_StringStore;
-
 	namespace HashedString
 	{
 		hashed_string FromString(std::string const& source) NABI_NOEXCEPT
 		{
-			std::string const& storedSourceStr = s_StringStore.emplace_back(source);
+			std::string const& storedSourceStr = StringStore::Instance()->Add(source);
 			hashed_string const result = hashed_string(storedSourceStr.c_str());
 			return result;
 		}

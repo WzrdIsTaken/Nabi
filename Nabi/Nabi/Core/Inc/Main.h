@@ -6,6 +6,7 @@
 #include "Console.h"
 #include "InitSettings.h"
 #include "NabiCore.h"
+#include "StringStore.h"
 
 namespace nabi
 {
@@ -53,7 +54,8 @@ namespace nabi
 		Logger::CreateInstance();
 #endif // #ifdef USE_DEBUG_UTILS
 
-		// Seed random
+		// Create Nabi objects
+		nabi::Reflection::StringStore::CreateInstance(); // ):
 		nabi::MathUtils::SeedRandom();
 
 		// --- Run Tests ---
@@ -68,6 +70,7 @@ namespace nabi
 		// Run all tests
 		::testing::InitGoogleTest(&argc, argv);
 		int const testResults = RUN_ALL_TESTS();
+		nabi::Reflection::StringStore::Instance()->Clear();
 
 		// Assert if any of the tests failed
 		ASSERT(testResults == NABI_SUCCESS, "One or more of the tests failed! See the console output for details, or run the test explorer.");
