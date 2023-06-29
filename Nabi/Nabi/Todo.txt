@@ -16,6 +16,18 @@ Current:
     - "There are some jank bits, there are some bits I sorely wish I had done very differently, but you know what - I count that as a success, because it means I've learned something.
        If I thought everything was perfect and I did everything right all the time then, well, I probably haven't grown as a developer."
     - See the comment in StringConverter about FromString template specialization. That should go in the write up + the jankness which is container reflection
+
+    - Probs should have multiple projects.. but cba..? explain issues had/honestly yeah just cba
+        - just put nabi in its own folder and have one solution/proj
+        - acc i just realised what the problem could of been. perhaps go round 2 with this later. game running too fast xd?
+        - have googletest package installed soltuion wide?
+        - do this when you test setting up a new solution from scratch. its esaier to work out any kinks when the 'stuff which can go wrong' size is smaller
+            - and then we can just create the demo class from another solution and see if that runs, if it does
+              create a super basic other class which inherits from nabicore and see if that runs. if it doest - we are set!
+                - When we do this, we can just follow this tutorial to make things easy: 
+                    - https://youtu.be/Wt4dxDNmDA8 (remember the new2 doc and chilli tomato noodle's video for proj settings)
+                    - AND we can make sure googletest is included on a solution level, not a project one. i think it is actually best to have the demo in this proj so we can test thigns out
+
 - Once the test stuff is removed from NabiCore, make sure the engine compiles in release
 
 - Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown (i think this is to do with rendering..?). Also can tidy up this todo txt
@@ -35,6 +47,20 @@ Current:
         - Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func (see what we did for the audio id))
     - should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
     - should render tags be assigned in xml, or when the model / sprite is loaded in? I think xml
+
+- Remember to comment out INCLUDE_DEMO at the end, and do a second pass of the multiproject thing. See the txt file "new2" in downloads for some wip notes
+
+- i dont know if im a fan of how the demo files are structured...
+- remember in the game solution to make Gamecore pch
+
+- should system's constructor take a const reference to the hashed string? i think so...
+- move rendering shaders out of TestData/Rendering etc. Make a new main level folder like "Shaders" and put them in
+    - we will probs just always use these shaders anyway
+    - make to note down all usage places before the change, and switch them all over
+- Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
+
+- how should we handle demo singleton components?
+- have demomodule?
 
 // --- Low Priority ---
 

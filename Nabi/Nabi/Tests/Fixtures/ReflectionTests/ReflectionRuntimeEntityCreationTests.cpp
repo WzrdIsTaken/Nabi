@@ -34,7 +34,7 @@ namespace nabitest::ReflectionTests
 		entityStore.emplace(entityTemplatePair);
 
 		EntityCreator entityCreator(registry);
-		entityCreator.AssignEntityStore(std::move(entityStore));
+		entityCreator.AssignEntityTemplateStore(std::move(entityStore));
 
 		// --- Entity Creation ---
 
@@ -132,7 +132,7 @@ namespace nabitest::ReflectionTests
 		entityGroupStore = xmlParser.GetEntityGroupStore();
 
 		EntityCreator entityCreator(registry);
-		entityCreator.AssignEntityStore(std::move(entityTemplateStore));
+		entityCreator.AssignEntityTemplateStore(std::move(entityTemplateStore));
 		entityCreator.AssignEntityGroupStore(std::move(entityGroupStore));
 
 		// Create an entity group

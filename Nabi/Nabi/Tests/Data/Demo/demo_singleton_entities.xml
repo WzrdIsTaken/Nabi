@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<entity_group id="DemoSingletonEntities">
+  <entity id="DemoSingletonEntity">
+    <component id="DemoPropertiesComponent">
+      <property id="AsteriodCount" value="100" />
+      <property id="AsteriodSpawnRadius" value="1000" />
+    </component>
+  </entity>
+</entity_group>

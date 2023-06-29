@@ -1,11 +1,11 @@
 #pragma once
-#include "DemoCore.h"
-
-#include "NabiCore.h"
+#include "Demo\DemoCore.h"
 
 #ifdef INCLUDE_DEMO
 
-namespace demo
+#include "NabiCore.h"
+
+namespace core
 {
 	class Demo final : public nabi::NabiCore
 	{
@@ -14,8 +14,7 @@ namespace demo
 		~Demo() override;
 
 		int Init() override;
-		int Run() override;
 	};
-} // namespace demo
+} // namespace core
 
 #endif // ifdef INCLUDE_DEMO

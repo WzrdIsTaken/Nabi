@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<entity_group id="DemoTemplateEntities">
+  <entity_template id="AsteroidEntityTemplate">
+    <component id="AsteroidComponent">
+    </component>
+    <component id="TransformComponent">
+    </component>
+    
+    <component id="ModelResourceComponent">
+      <property id="MeshPath" value="Tests/Data/Rendering/ball_model.obj" />
+      <property id="TexturePath" value="Tests/Data/Rendering/ball_texture.png" />
+      <property id="PixelShaderPath" value="Tests/Data/Rendering/PixelShader3D.cso" />
+      <property id="VertexShaderPath" value="Tests/Data/Rendering/VertexShader3D.cso" />
+    </component>
+    <component id="DrawPerspectiveTagComponent" />
+  </entity_template>
+</entity_group>

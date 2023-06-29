@@ -290,6 +290,42 @@
     <Filter Include="Tests\Data\Demo">
       <UniqueIdentifier>{99d704fb-3862-443b-8680-1bc516ccb487}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Inc\Demo\ECS">
+      <UniqueIdentifier>{b8e28363-960b-4fc0-b9ef-d05259287998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Inc\Demo\ECS\Modules">
+      <UniqueIdentifier>{2fe0af00-f013-4432-b935-a2133163580f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Inc\Demo\ECS\Systems">
+      <UniqueIdentifier>{47dfd5a5-e7f0-4ee1-8b59-5d689658f5f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Inc\Demo\ECS\SingletonComponents">
+      <UniqueIdentifier>{2145db35-75b0-4e67-b8cf-7715568fd078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Inc\Demo\ECS\Components">
+      <UniqueIdentifier>{3e221cf0-35e6-451f-ac39-0bc7fa6539a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src\Demo\ECS">
+      <UniqueIdentifier>{f54a4224-05e0-45d9-b389-4059bf002f74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src\Demo\ECS\Modules">
+      <UniqueIdentifier>{40c3fd66-e680-46d0-8710-159b87e79a20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src\Demo\ECS\Systems">
+      <UniqueIdentifier>{87af6541-5a7a-4ec4-819a-142695fc9a03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src\Demo\ECS\SingletonComponents">
+      <UniqueIdentifier>{260a0d5c-5af7-419e-a010-2ba9819c8d8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src\Demo\ECS\Components">
+      <UniqueIdentifier>{7674da46-deed-495b-9632-9163cf3ab64c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Inc\Demo\Core">
+      <UniqueIdentifier>{4e471c79-2bda-4e17-b72d-d01ed08ef3a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src\Demo\Core">
+      <UniqueIdentifier>{08fcebcf-1f6d-4e8f-9d08-f919c965952c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -569,8 +605,20 @@
     <ClCompile Include="Threading\Src\ThreadCommand.cpp">
       <Filter>Threading\Src</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\Src\Demo\Demo.cpp">
-      <Filter>Tests\Src\Demo</Filter>
+    <ClCompile Include="Tests\Src\Demo\ECS\Systems\AsteroidSystem.cpp">
+      <Filter>Tests\Src\Demo\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Demo\ECS\SingletonComponents\DemoPropertiesComponent.cpp">
+      <Filter>Tests\Src\Demo\ECS\SingletonComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Demo\ECS\Components\AsteroidComponent.cpp">
+      <Filter>Tests\Src\Demo\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Demo\ECS\Modules\DemoModule.cpp">
+      <Filter>Tests\Src\Demo\ECS\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Demo\Core\Demo.cpp">
+      <Filter>Tests\Src\Demo\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -999,11 +1047,23 @@
     <ClInclude Include="Tests\Inc\Demo\DemoCore.h">
       <Filter>Tests\Inc\Demo</Filter>
     </ClInclude>
-    <ClInclude Include="Tests\Inc\Demo\Demo.h">
-      <Filter>Tests\Inc\Demo</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Inc\Main.h">
       <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\ECS\Systems\AsteroidSystem.h">
+      <Filter>Tests\Inc\Demo\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\ECS\SingletonComponents\DemoPropertiesComponent.h">
+      <Filter>Tests\Inc\Demo\ECS\SingletonComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\ECS\Components\AsteroidComponent.h">
+      <Filter>Tests\Inc\Demo\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\ECS\Modules\DemoModule.h">
+      <Filter>Tests\Inc\Demo\ECS\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\Core\Demo.h">
+      <Filter>Tests\Inc\Demo\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1048,6 +1108,15 @@
       <Filter>Tests\Data\Demo</Filter>
     </Xml>
     <Xml Include="Tests\Data\Demo\demo_systems.xml">
+      <Filter>Tests\Data\Demo</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Demo\demo_singleton_entities.xml">
+      <Filter>Tests\Data\Demo</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Demo\demo_template_entities.xml">
+      <Filter>Tests\Data\Demo</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Demo\demo_entities.xml">
       <Filter>Tests\Data\Demo</Filter>
     </Xml>
   </ItemGroup>

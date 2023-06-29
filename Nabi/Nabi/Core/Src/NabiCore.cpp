@@ -340,6 +340,7 @@ namespace nabi
 				break;
 			default:
 				ASSERT_FAIL("Using an unexpected DataSettings::NabiCoreParseMode!");
+				break;
 
 				// (examples of parsing both systems and components separately can be found in RefectionTests/)
 			}
@@ -350,6 +351,9 @@ namespace nabi
 			ASSERT(parseMode == ParseMode::All || parseMode == ParseMode::Systems,
 				"Using NabiCore's parse xml functionality but not system event updating is not defined. Systems will fall out of scope, and will not update.");
 #endif // USE_EVENT_SYSTEM_UPDATE
+
+			m_Context.m_EntityCreator->AssignEntityTemplateStore(std::move(xmlParser.GetEntityTemplateStore()));
+			m_Context.m_EntityCreator->AssignEntityGroupStore(std::move(xmlParser.GetEntityGroupStore()));
 		}
 
 		return true;

@@ -36,7 +36,7 @@ namespace nabi::ECS
 		};
 
 		EntityCreator(entt::registry& registry) NABI_NOEXCEPT;
-		void AssignEntityStore(EntityTemplateStore const&& entityTemplateStore) NABI_NOEXCEPT;
+		void AssignEntityTemplateStore(EntityTemplateStore const&& entityTemplateStore) NABI_NOEXCEPT;
 		void AssignEntityGroupStore(EntityGroupStore const&& entityGroupStore) NABI_NOEXCEPT;
 
 		/// <summary>

@@ -16,7 +16,7 @@
 
 #include "Main.h"
 
-#include "Demo\Demo.h"
+#include "Demo\Core\Demo.h"
 
 int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -34,6 +34,6 @@ int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
         hInstance, hPrevInstance, lpCmdLine, nShowCmd
     };
 
-    int const result = nabi::Main<demo::Demo>(nabiParams, winParams);
+    int const result = nabi::Main<core::Demo>(nabiParams, winParams);
     return result;
 }

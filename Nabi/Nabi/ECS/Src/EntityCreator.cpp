@@ -15,7 +15,7 @@ namespace nabi::ECS
 	{
 	}
 
-	void EntityCreator::AssignEntityStore(EntityTemplateStore const&& entityTemplateStore) NABI_NOEXCEPT
+	void EntityCreator::AssignEntityTemplateStore(EntityTemplateStore const&& entityTemplateStore) NABI_NOEXCEPT
 	{
 		m_EntityTemplateStore = entityTemplateStore;
 	}
