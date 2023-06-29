@@ -26,9 +26,7 @@ namespace ecs::EntityModule
 		ASSERT(view.size() == 1u, 
 			"Singleton components are expected to only be on one entity. Found the component 'T' on " << view.size() << " entities.");
 
-		entt::entity const singletonEntity = *view.begin();
-		T const& singletonComponent = context.m_Registry.get<T>(singletonEntity);
-
+		T const& singletonComponent = context.m_Registry.get<T>(view.front());
 		return singletonComponent;
 	}
 	template<typename T>

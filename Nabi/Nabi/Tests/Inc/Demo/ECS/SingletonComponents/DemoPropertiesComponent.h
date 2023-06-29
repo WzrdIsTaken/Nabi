@@ -7,12 +7,12 @@ namespace ecs::SComp
 {
 	struct DemoPropertiesComponent final : nabi::ECS::ComponentBase
 	{
-		unsigned int m_AsteriodCount;
-		float m_AsteriodSpawnRadius;
+		unsigned int m_AsteroidsPerAxis;
+		float m_AsteroidSpacing;
 
 		DemoPropertiesComponent()
-			: m_AsteriodCount(0u)
-			, m_AsteriodSpawnRadius(0.0f)
+			: m_AsteroidsPerAxis(0u)
+			, m_AsteroidSpacing(0.0f)
 		{
 		}
 	};

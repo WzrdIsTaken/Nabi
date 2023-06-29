@@ -34,7 +34,10 @@ namespace nabi::Reflection
 		StringStore() NABI_NOEXCEPT;
 		~StringStore();
 
-		[[nodiscard]] std::string const& Add(std::string_view const string) NABI_NOEXCEPT;
+		[[nodiscard]] inline std::string const& Add(std::string_view const string) NABI_NOEXCEPT
+		{
+			return m_Store.emplace_back(string);
+		};
 		void Clear() NABI_NOEXCEPT;
 
 	private:

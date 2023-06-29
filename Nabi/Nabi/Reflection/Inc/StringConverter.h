@@ -245,6 +245,23 @@ namespace nabi::Reflection::StringConverter
 
 		return result;
 	}
+
+	/// <summary>
+	/// Converts the type T to a reflection friendly string format.
+	/// Eg, a custom type would be converted to value1, value2, value3 etc
+	/// 
+	/// I'm going to try my custom type template specialisation idea with this
+	/// function. If it works out / I have time - I'll convert FromString to 
+	/// do the same. Fingers crossed! I'll add these overrides as I need them.
+	/// </summary>
+	template<typename T>
+	[[nodiscard]] static std::string ToString(T const& type) NABI_NOEXCEPT { return "yo~!"; };
+
+	template<>
+	[[nodiscard]] std::string ToString<float>(float const& type) NABI_NOEXCEPT
+	{
+		return std::to_string(type);
+	}
 } // namespace nabi::Reflection::StringConverter
 
 /*

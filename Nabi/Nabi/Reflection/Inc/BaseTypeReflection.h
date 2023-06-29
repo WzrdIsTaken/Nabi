@@ -5,6 +5,8 @@
 
 #include "entt.h"
 
+#include "StringConverter.h"
+
 namespace nabi::Reflection
 {
 	/// <summary>
@@ -60,3 +62,14 @@ namespace nabi::Reflection::EnttTypes
 		entt::hashed_string FromString(std::string const& source) NABI_NOEXCEPT;
 	} // namespace HashedString
 } // namespace nabi::Reflection::EnttTypes
+
+// ToString functions (must be in the StringConverter namespace)
+namespace nabi::Reflection::StringConverter
+{
+	template<>
+	[[nodiscard]] std::string ToString<dx::XMFLOAT3>(dx::XMFLOAT3 const& type) NABI_NOEXCEPT
+	{
+		return ToString<float>(type.x) + "," + ToString<float>(type.y) + "," + ToString<float>(type.z);
+	}
+} // namespace nabi::Reflection::StringConverter
+

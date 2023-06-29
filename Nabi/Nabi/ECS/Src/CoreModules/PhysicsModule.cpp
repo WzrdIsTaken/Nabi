@@ -89,25 +89,28 @@ namespace ecs::PhysicsModule
 		nabi::Physics::AABB& lhsAABB, nabi::Physics::AABB& rhsAABB)
 	{
 		auto view = context.m_Registry.view<TransformComponent, RigidbodyComponent, ColliderComponent const>();
-		view.storage<TransformComponent const>().sort(
-			[&context, comparisonAxis, &lhsAABB, &rhsAABB](entt::entity const lhs, entt::entity const rhs)
-			{
-				TransformComponent const& lhsTransform = context.m_Registry.get<TransformComponent>(lhs);
-				TransformComponent const& rhsTransform = context.m_Registry.get<TransformComponent>(rhs);
+		if (view.front() != entt::null)
+		{
+			view.storage<TransformComponent const>().sort(
+				[&context, comparisonAxis, &lhsAABB, &rhsAABB](entt::entity const lhs, entt::entity const rhs)
+				{
+					TransformComponent const& lhsTransform = context.m_Registry.get<TransformComponent>(lhs);
+					TransformComponent const& rhsTransform = context.m_Registry.get<TransformComponent>(rhs);
 
-				ColliderComponent const& lhsCollider = context.m_Registry.get<ColliderComponent>(lhs);
-				ColliderComponent const& rhsCollider = context.m_Registry.get<ColliderComponent>(rhs);
+					ColliderComponent const& lhsCollider = context.m_Registry.get<ColliderComponent>(lhs);
+					ColliderComponent const& rhsCollider = context.m_Registry.get<ColliderComponent>(rhs);
 
-				ReassignAABBFromCollisionComponents(lhsAABB, lhsTransform, lhsCollider);
-				ReassignAABBFromCollisionComponents(rhsAABB, rhsTransform, rhsCollider);
+					ReassignAABBFromCollisionComponents(lhsAABB, lhsTransform, lhsCollider);
+					ReassignAABBFromCollisionComponents(rhsAABB, rhsTransform, rhsCollider);
 
-				float const lhsMaxVariance = GetVarianceValue(lhsAABB.m_MinExtents, comparisonAxis);
-				float const rhsMaxVariance = GetVarianceValue(rhsAABB.m_MinExtents, comparisonAxis);
+					float const lhsMaxVariance = GetVarianceValue(lhsAABB.m_MinExtents, comparisonAxis);
+					float const rhsMaxVariance = GetVarianceValue(rhsAABB.m_MinExtents, comparisonAxis);
 
-				return lhsMaxVariance < rhsMaxVariance;
-			});
-		view = view.use<TransformComponent>();
-
+					return lhsMaxVariance < rhsMaxVariance;
+				});
+			view = view.use<TransformComponent>();
+		}
+		
 		return view;
 	}
 

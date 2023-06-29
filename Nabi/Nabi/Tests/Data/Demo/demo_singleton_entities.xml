@@ -3,8 +3,8 @@
 <entity_group id="DemoSingletonEntities">
   <entity id="DemoSingletonEntity">
     <component id="DemoPropertiesComponent">
-      <property id="AsteriodCount" value="100" />
-      <property id="AsteriodSpawnRadius" value="1000" />
+      <property id="AsteroidsPerAxis" value="10" />
+      <property id="AsteroidSpacing" value="10" />
     </component>
   </entity>
 </entity_group>

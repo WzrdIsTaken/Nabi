@@ -7,8 +7,8 @@
 namespace ecs::SComp
 {
 	REFLECT_COMPONENT_BEGIN_DEFAULT(DemoPropertiesComponent)
-		REFLECT_COMPONENT_PROPERTY(DemoPropertiesComponent::m_AsteriodCount, "AsteriodCount")
-		REFLECT_COMPONENT_PROPERTY(DemoPropertiesComponent::m_AsteriodSpawnRadius, "AsteriodSpawnRadius")
+		REFLECT_COMPONENT_PROPERTY(DemoPropertiesComponent::m_AsteroidsPerAxis, "AsteroidsPerAxis")
+		REFLECT_COMPONENT_PROPERTY(DemoPropertiesComponent::m_AsteroidSpacing, "AsteroidSpacing")
 	REFLECT_COMPONENT_END(DemoPropertiesComponent)
 } // namespace ecs::SComp
 
