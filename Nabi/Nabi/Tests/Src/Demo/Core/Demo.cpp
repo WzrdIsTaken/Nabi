@@ -8,11 +8,6 @@
 
 namespace core
 {
-	Demo::~Demo()
-	{
-		nabi::NabiCore::~NabiCore();
-	}
-
 	int Demo::Init()
 	{
 		int const result = nabi::NabiCore::Init();

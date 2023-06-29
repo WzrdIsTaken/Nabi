@@ -51,19 +51,18 @@ Current:
     - should render tags be assigned in xml, or when the model / sprite is loaded in? I think xml
 
 - Remember to comment out INCLUDE_DEMO at the end, and do a second pass of the multiproject thing. See the txt file "new2" in downloads for some wip notes
-
-- i dont know if im a fan of how the demo files are structured...
+    - make sure all demo code has the include_demo macro
 - remember in the game solution to make Gamecore pch
 
 - should system's constructor take a const reference to the hashed string? i think so...
+    - when doing this, make sure any systems which dont use gametime but have it passed in have it commented out /*gameTime*/ eg audio system
 - move rendering shaders out of TestData/Rendering etc. Make a new main level folder like "Shaders" and put them in
     - we will probs just always use these shaders anyway
     - make to note down all usage places before the change, and switch them all over
 - Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
 - nabi::Templates -> nabi::Patterns? Namespace like the folder
 
-- how should we handle demo singleton components?
-- have demomodule?
+- REMEMEBER! Turn back on multithreading and see what happens
 
 // --- Low Priority ---
 
@@ -92,6 +91,9 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- i dont know if im a fan of how the demo files are structured...
+- how should we handle demo singleton components?
+- have demomodule?
 - Add "Memory" to the development roadmap readme with soontm. if doing memory management as dis can do some test work in in? actually it can be "work in progress.." we might do memory management for fyp
 - I think having all the standard includes in one place might actually be dumb.. unless they are pch? Research this. Perhaps standard incldues only should 
   go in pch cos we have the different engine/game levels. but pch is only cpp right..? idk research

@@ -32,7 +32,7 @@ namespace nabi::Reflection
 	{
 	public:
 		StringStore() NABI_NOEXCEPT;
-		~StringStore();
+		~StringStore() = default;
 
 		[[nodiscard]] inline std::string const& Add(std::string_view const string) NABI_NOEXCEPT
 		{

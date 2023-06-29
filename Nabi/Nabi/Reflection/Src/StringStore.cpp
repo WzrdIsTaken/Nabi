@@ -13,11 +13,6 @@ namespace nabi::Reflection
 	{
 	}
 
-	StringStore::~StringStore()
-	{
-		Clear();
-	}
-
 	void StringStore::Clear() NABI_NOEXCEPT
 	{
 		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION, 

@@ -11,9 +11,9 @@ namespace core
 	{
 	public:
 		using nabi::NabiCore::NabiCore;
-		~Demo() override;
+		~Demo() override = default;
 
-		int Init() override;
+		[[nodiscard]] int Init() override;
 	};
 } // namespace core
 
