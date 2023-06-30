@@ -8,10 +8,18 @@
 
 namespace core
 {
+	Demo::Demo(HINSTANCE const hInstance, nabi::NabiCoreSettings const& initSettings)
+		: nabi::NabiCore(hInstance, initSettings)
+		, m_AssetBank(std::make_unique<DemoAssetBank>(m_Context))
+	{
+	}
+
 	int Demo::Init()
 	{
-		int const result = nabi::NabiCore::Init();
+		int result = nabi::NabiCore::Init();
+		
 		ecs::DemoModule::StartDemo(m_Context);
+		result &= static_cast<int>(m_AssetBank->LoadAssets());
 
 		return result;
 	}

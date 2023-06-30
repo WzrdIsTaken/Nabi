@@ -8,6 +8,7 @@ namespace ecs
 	struct AsteroidComponent final : public nabi::ECS::ComponentBase
 	{
 		// properties here
+		// constructor here
 	};
 } // namespace ecs
 

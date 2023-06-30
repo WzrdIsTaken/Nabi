@@ -1,10 +1,7 @@
 #pragma once
 #include "Core.h"
 
-namespace ecs
-{
-	struct CameraComponent;
-} // namespace ecs
+#include "CoreComponents\CameraComponent.h"
 
 namespace ecs::CameraModule
 {
@@ -23,4 +20,24 @@ namespace ecs::CameraModule
 	};
 
 	void DefaultCameraValues(nabi::Context const& context, CameraComponent& camera, DefaultCameraValuesSettings const& defaultSettings);
+
+	[[nodiscard]] inline CameraComponent const& GetMainPerspectiveCameraComponent(nabi::Context const& context)
+	{
+		return context.m_Registry.get<CameraGroupComponent>(context.m_SingletonEntites
+			.at(nabi::Context::SingletonEntities::Graphic)).m_Cameras.at(CameraIndex::Perspective);
+	}
+	[[nodiscard]] inline CameraComponent& GetMainPerspectiveCameraComponent(nabi::Context& context)
+	{
+		return const_cast<ecs::CameraComponent&>(GetMainPerspectiveCameraComponent(const_cast<nabi::Context const&>(context)));
+	}
+
+	[[nodiscard]] inline CameraComponent const& GetMainOrthographicCameraComponent(nabi::Context const& context)
+	{
+		return context.m_Registry.get<CameraGroupComponent>(context.m_SingletonEntites
+			.at(nabi::Context::SingletonEntities::Graphic)).m_Cameras.at(CameraIndex::Orthographic);
+	}
+	[[nodiscard]] inline CameraComponent& GetMainOrthographicCameraComponent(nabi::Context& context)
+	{
+		return const_cast<ecs::CameraComponent&>(GetMainOrthographicCameraComponent(const_cast<nabi::Context const&>(context)));
+	}
 } // namespace ecs::CameraModule

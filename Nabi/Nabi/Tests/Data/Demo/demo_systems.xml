@@ -11,5 +11,6 @@
   <system id="UISystem" />
   
   <!-- Demo (game) Systems -->
-  
+  <system id="AsteroidSystem" />
+  <system id="PlayerSystem" />
 </system_group>

@@ -8,7 +8,7 @@
     </component>
     
     <component id="ModelResourceComponent">
-      <property id="MeshPath" value="Tests/Data/Rendering/ball_model.obj" />
+      <property id="MeshPath" value="PrimativeCube=1x1x1" /> <!-- Tests/Data/Rendering/ball_model.obj -->
       <property id="TexturePath" value="Tests/Data/Rendering/ball_texture.png" />
       <property id="PixelShaderPath" value="Tests/Data/Rendering/PixelShader3D.cso" />
       <property id="VertexShaderPath" value="Tests/Data/Rendering/VertexShader3D.cso" />

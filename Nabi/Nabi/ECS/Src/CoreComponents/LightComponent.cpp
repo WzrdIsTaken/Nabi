@@ -5,8 +5,8 @@
 namespace ecs
 {
 	REFLECT_COMPONENT_BEGIN_DEFAULT(DirectionalLightComponent)
-		REFLECT_COMPONENT_PROPERTY(DirectionalLightComponent::m_Direction, "Position")
-		REFLECT_COMPONENT_PROPERTY(DirectionalLightComponent::m_Colour, "Target")
+		REFLECT_COMPONENT_PROPERTY(DirectionalLightComponent::m_Direction, "Direction")
+		REFLECT_COMPONENT_PROPERTY(DirectionalLightComponent::m_Colour, "Colour")
 		REFLECT_COMPONENT_PROPERTY(DirectionalLightComponent::m_Intensity, "Intensity")
 
 		REFLECT_COMPONENT_PROPERTY(DirectionalLightComponent::m_AmbientIntensity, "AmbientIntensity")

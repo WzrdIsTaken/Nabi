@@ -623,6 +623,15 @@
     <ClCompile Include="Reflection\Src\StringStore.cpp">
       <Filter>Reflection\Src</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\Src\Demo\Core\DemoAssetBank.cpp">
+      <Filter>Tests\Src\Demo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Demo\ECS\Components\PlayerComponent.cpp">
+      <Filter>Tests\Src\Demo\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Demo\ECS\Systems\PlayerSystem.cpp">
+      <Filter>Tests\Src\Demo\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -1070,6 +1079,15 @@
     </ClInclude>
     <ClInclude Include="Reflection\Inc\StringStore.h">
       <Filter>Reflection\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\Core\DemoAssetBank.h">
+      <Filter>Tests\Inc\Demo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\ECS\Components\PlayerComponent.h">
+      <Filter>Tests\Inc\Demo\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\ECS\Systems\PlayerSystem.h">
+      <Filter>Tests\Inc\Demo\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

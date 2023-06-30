@@ -131,13 +131,13 @@ namespace ecs
 
 	void LightingSystem::OnLightCreated(entt::registry& /*registry*/, entt::entity /*entity*/)
 	{
-		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
-		++lightStateComponent.m_LightCount;
+		SComp::LightStateComponent* const lightStateComponent = GetLightStateComponent();
+		if (lightStateComponent) ++lightStateComponent->m_LightCount;
 
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		ENABLE_SYSTEM_RENDER(LightingSystem);
 #else
-		lightStateComponent.m_UpdateLights = true;
+		if (lightStateComponent) lightStateComponent->m_UpdateLights = true;
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
@@ -146,26 +146,31 @@ namespace ecs
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		ENABLE_SYSTEM_RENDER(LightingSystem);
 #else
-		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
-		lightStateComponent.m_UpdateLights = true;
+		SComp::LightStateComponent* const lightStateComponent = GetLightStateComponent();
+		if (lightStateComponent) lightStateComponent->m_UpdateLights = true;
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
 	void LightingSystem::OnLightDestroyed(entt::registry& /*registry*/, entt::entity /*entity*/)
 	{
-		SComp::LightStateComponent& lightStateComponent = GetLightStateComponent();
-		--lightStateComponent.m_LightCount;
+		SComp::LightStateComponent* const lightStateComponent = GetLightStateComponent();
+		if (lightStateComponent) --lightStateComponent->m_LightCount;
 
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		ENABLE_SYSTEM_RENDER(LightingSystem);
 #else
-		lightStateComponent.m_UpdateLights = true;
+		if (lightStateComponent) lightStateComponent->m_UpdateLights = true;
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
-	SComp::LightStateComponent& LightingSystem::GetLightStateComponent() const
+	SComp::LightStateComponent* const LightingSystem::GetLightStateComponent() const
 	{
+		// I had to change this function to use a ptr because on shutdown registry.get will fail.
+		// However, the whole of this system's logic could be improved. I've now learned (since
+		// doing the collision system) that we can iterate through a view and don't need to 
+		// hold onto the current light count like I do in this system.
+
 		entt::entity const graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
-		return m_Context.m_Registry.get<SComp::LightStateComponent>(graphicEntity);
+		return m_Context.m_Registry.try_get<SComp::LightStateComponent>(graphicEntity);
 	}
 } // namespace ecs

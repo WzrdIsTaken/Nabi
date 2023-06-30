@@ -2,8 +2,6 @@
 
 #include "CoreModules\CameraModule.h"
 
-#include "CoreComponents\CameraComponent.h"
-
 namespace ecs::CameraModule
 {
 	void DefaultCameraValues(nabi::Context const& /*context*/, ecs::CameraComponent& cameraComponent, DefaultCameraValuesSettings const& defaultSettings)
