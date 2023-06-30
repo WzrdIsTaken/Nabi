@@ -30,60 +30,53 @@ namespace nabi
 
 		// --- Application Setup ---
 
-		// Get argc + argv
 		int argc;
 		LPWSTR* argv = CommandLineToArgvW(winParams.m_lpCmdLine, &argc); // Prev used GetCommandLineW()
 
-		// --- Initial Nabi Setup ---
-
 		DX_ASSERT(CoInitializeEx(nullptr, COINIT_MULTITHREADED));
+
+		// --- Nabi Setup ---
 
 		// Create a console window
 #ifdef USE_DEBUG_UTILS
 		UINT constexpr consoleMaxLines = 4096u;
-		nabi::AllocateConsole(consoleMaxLines);
+		AllocateConsole(consoleMaxLines);
 #endif // #ifdef USE_DEBUG_UTILS
 
 		// Setup Debug Utils
 #ifdef USE_DEBUG_UTILS
-	// Without calling this function, the assert dialogue window doesn't appear
-		_CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_WNDW);
-
-		// Set up the logger
-		using nabi::DebugUtils::Logger;
-		Logger::CreateInstance();
+		_CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_WNDW); // Without calling this function, the assert dialogue window doesn't appear
+		DebugUtils::Logger::CreateInstance();
 #endif // #ifdef USE_DEBUG_UTILS
 
-		// Create Nabi objects
-		nabi::Reflection::StringStore::CreateInstance(); // ):
-		nabi::MathUtils::SeedRandom();
+		// Setup Nabi's global stuff
+		Reflection::StringStore::CreateInstance(); // ):
+		MathUtils::SeedRandom();
 
 		// --- Run Tests ---
 
-		// Run Tests
 #ifdef RUN_TESTS
-	// Set the log level to warning because otherwise it spams the console when tests are run
+		// Set the log level to warning because otherwise it spams the console when tests are run
 #ifdef USE_DEBUG_UTILS
-		Logger::Instance()->SetLogLevel(LOG_WARN);
+		DebugUtils::Logger::Instance()->SetLogLevel(LOG_WARN);
 #endif // #ifdef USE_DEBUG_UTILS
 
-		// Run all tests
+		// Run tests
 		::testing::InitGoogleTest(&argc, argv);
 		int const testResults = RUN_ALL_TESTS();
-		nabi::Reflection::StringStore::Instance()->Clear();
 
-		// Assert if any of the tests failed
 		ASSERT(testResults == NABI_SUCCESS, "One or more of the tests failed! See the console output for details, or run the test explorer.");
 
-		// Set the log level back to all
+		// Reset Nabi after tests
+		Reflection::StringStore::Instance()->Clear();
 #ifdef USE_DEBUG_UTILS
-		Logger::Instance()->SetLogLevel(LOG_INFO);
+		DebugUtils::Logger::Instance()->SetLogLevel(LOG_INFO);
 #endif // #ifdef USE_DEBUG_UTILS
 
 		LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE, "All tests run. Initializing Nabi..." << NEWLINE, LOG_END);
 #endif // #ifdef RUN_TESTS
 
-		// --- Init Nabi ---
+		// --- Nabi Initialization ---
 
 		auto app = T(winParams.m_hInstance, nabiParams.m_CoreSettings);
 		LOG(NEWLINE << LOG_PREP, LOG_INFO, LOG_CATEGORY_CORE, "Nabi has initialized successfully!" << NEWLINE, LOG_END);
@@ -94,12 +87,13 @@ namespace nabi
 		appRunResult = app.Run();
 		ASSERT(appRunResult == NABI_SUCCESS, "The app hit an error while running!");
 
-		// --- Shutdown Nabi ---
+		// --- Nabi Shutdown ---
 
-		// Destroy the console
 #ifdef USE_DEBUG_UTILS
-		nabi::ReleaseConsole();
+		ReleaseConsole();
 #endif // #ifdef USE_DEBUG_UTILS
+
+		// --- Application Shutdown ---
 
 		CoUninitialize();
 
@@ -107,3 +101,6 @@ namespace nabi
 		return appRunResult;
     }
 } // namespace nabi
+
+// If we need another Nabi level singleton, I'll make a CreateSingletons() func to group them together. But I don't think we will..
+// Note - we cannot have a cpp file called "Main" because there is already "main.cpp".
