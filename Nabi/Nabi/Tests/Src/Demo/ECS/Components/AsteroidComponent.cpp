@@ -7,6 +7,8 @@
 namespace ecs
 {
 	REFLECT_COMPONENT_BEGIN_DEFAULT(AsteroidComponent)
+		REFLECT_COMPONENT_PROPERTY(AsteroidComponent::m_SpinDirection, "SpinDirection")
+		REFLECT_COMPONENT_PROPERTY(AsteroidComponent::m_SpinSpeed, "SpinSpeed")
 	REFLECT_COMPONENT_END(AsteroidComponent)
 } // namespace ecs
 

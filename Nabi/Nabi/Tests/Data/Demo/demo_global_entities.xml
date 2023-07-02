@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<entity_group id="DemoGlobalEntities">
+  <entity id="Sun">
+    <component id="TransformComponent">
+      <property id="Position" value="0, 100, 0" />
+    </component>
+    <component id="DirectionalLightComponent">
+      <property id="Direction" value="-10, 0, -20" />
+      <property id="Colour" value="255, 255, 255" />
+    </component>
+  </entity>
+
+  <entity id="Player">
+    <component id="TransformComponent">
+      <property id="Position" value="0, 0, 0" />
+    </component>
+    <component id="RigidbodyComponent">
+    </component>
+    <!--
+    <component id="ColliderComponent">
+    </component> causes crash
+    -->
+    <component id="PlayerComponent">
+    </component>
+  </entity>
+</entity_group>

@@ -156,7 +156,7 @@ namespace nabi::Reflection
 				{
 					// Check if the entity is marked for delayed creation
 					bool isEntityMarkedForDelayedCreation = false;
-					if (auto attribute = entityNode.attribute(c_DelayCreationAttribute.c_str()); 
+					if (auto const attribute = entityNode.attribute(c_DelayCreationAttribute.c_str()); 
 						attribute != nullptr && StringConverter::FromString<bool>(attribute.value()))
 					{
 						isEntityMarkedForDelayedCreation = true;
@@ -272,10 +272,14 @@ namespace nabi::Reflection
 	{
 		ASSERT(propertyNode.attribute(c_ComponentAttribute.c_str()), "The property node doesn't have a component ref!");
 
+		// (we don't care about propertyComponentRef string, it isn't used in any 'game time' reflection creation)
+		std::string const& propertyIdStr = StringStore::Instance()->Add(propertyNode.attribute(c_IdAttribute.c_str()).value());
+		std::string const& propertyValueStr = StringStore::Instance()->Add(propertyNode.attribute(c_ValueAttribute.c_str()).value());
+
 		// Get infomation about the property
 		entt::hashed_string const propertyComponentRef = entt::hashed_string(propertyNode.attribute(c_ComponentAttribute.c_str()).value());
-		entt::hashed_string const propertyId = entt::hashed_string(propertyNode.attribute(c_IdAttribute.c_str()).value());
-		entt::hashed_string const propertyValue = entt::hashed_string(propertyNode.attribute(c_ValueAttribute.c_str()).value());
+		entt::hashed_string const propertyId = entt::hashed_string(propertyIdStr.c_str());
+		entt::hashed_string const propertyValue = entt::hashed_string(propertyValueStr.c_str());
 
 		Creation::OverrideEntityComponents(
 			componentData,        // Components on the entity

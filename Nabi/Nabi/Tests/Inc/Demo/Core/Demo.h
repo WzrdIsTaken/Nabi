@@ -22,7 +22,11 @@ namespace core
 
 		[[nodiscard]] int Init() override;
 
+		void RefreshLoadedAssets() const;
+
 	private:
+		DELETE_COPY_MOVE_CONSTRUCTORS(Demo)
+
 		std::unique_ptr<DemoAssetBank> m_AssetBank;
 	};
 } // namespace core

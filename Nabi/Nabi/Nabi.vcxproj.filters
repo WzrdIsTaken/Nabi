@@ -1143,6 +1143,9 @@
     <Xml Include="Tests\Data\Demo\demo_entities.xml">
       <Filter>Tests\Data\Demo</Filter>
     </Xml>
+    <Xml Include="Tests\Data\Demo\demo_global_entities.xml">
+      <Filter>Tests\Data\Demo</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Nabi.rc">

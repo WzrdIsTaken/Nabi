@@ -62,7 +62,11 @@ Current:
 - Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
 - nabi::Templates -> nabi::Patterns? Namespace like the folder
 
-- REMEMEBER! Turn back on multithreading and see what happens
+- make a note for future ben that in an emtpty proj turn off multitheading in defines to start
+- perhaps remove the log warn about getting fixed dt if sim is false if youve noticed no problems with it
+
+- actually make sure the inclues for standard are only what they need be>?
+- make asset bank have a typdef uint64 for bitfield asset type and have the load/unload asset functions take in that type
 
 // --- Low Priority ---
 
@@ -91,6 +95,7 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- REMEMEBER! Turn back on multithreading and see what happens
 - i dont know if im a fan of how the demo files are structured...
 - how should we handle demo singleton components?
 - have demomodule?

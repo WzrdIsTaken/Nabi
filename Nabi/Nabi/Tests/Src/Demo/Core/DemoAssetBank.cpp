@@ -59,7 +59,7 @@ namespace core
 
 	bool DemoAssetBank::LoadModels()
 	{
-		SetRenderBankProperties(RenderableTypes::Model);
+		SetRenderBankProperties(AssetType::Model);
 
 		m_Context.m_Registry.view<ecs::RComp::ModelResourceComponent>()
 			.each([&](entt::entity const entity, auto const& modelResourceComponent)
@@ -83,7 +83,7 @@ namespace core
 
 	bool DemoAssetBank::LoadSprites()
 	{
-		SetRenderBankProperties(RenderableTypes::Sprite);
+		SetRenderBankProperties(AssetType::Sprite);
 		FAST_LOG("Implement me!");
 
 		// would it be too bad to make the renderable loading a macro ? cos the m_Mesh/Sprite path is different
@@ -94,7 +94,7 @@ namespace core
 
 	bool DemoAssetBank::LoadText()
 	{
-		SetRenderBankProperties(RenderableTypes::Text);
+		SetRenderBankProperties(AssetType::Text);
 		FAST_LOG("Implement me!");
 
 		return true;
@@ -107,7 +107,7 @@ namespace core
 		return true;
 	}
 
-	void DemoAssetBank::SetRenderBankProperties(RenderableTypes const renderableType)
+	void DemoAssetBank::SetRenderBankProperties(AssetType const renderableType)
 	{
 		using namespace nabi::Rendering;
 
@@ -117,7 +117,7 @@ namespace core
 
 		switch (renderableType)
 		{
-		case RenderableTypes::Model:
+		case AssetType::Model:
 			{
 				renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_3D);
 				vertexShaderLoader.SetInputLayout(Layouts::c_MeshInputLayout);
@@ -125,9 +125,9 @@ namespace core
 				pixelShaderLoader.SetConstantBuffers({ ConstantBufferIndex::PerLightChange });
 			}
 			break;
-		case RenderableTypes::Sprite:
+		case AssetType::Sprite:
 			[[fallthrough]]; // (Each text character is just a sprite)
-		case RenderableTypes::Text:
+		case AssetType::Text:
 			{
 				renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_2D);
 				vertexShaderLoader.SetInputLayout(Layouts::c_SpriteInputLayout);

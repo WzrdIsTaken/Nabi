@@ -7,5 +7,6 @@
   <!-- Entities -->
   <file id="SingletonEntities" value ="Tests/Data/Demo/demo_singleton_entities.xml" />
   <file id="TemplateEntities" value ="Tests/Data/Demo/demo_template_entities.xml" />
+  <file id="GlobalEntities" value ="Tests/Data/Demo/demo_global_entities.xml" />
   <file id="Entities" value ="Tests/Data/Demo/demo_entities.xml" />
 </route>

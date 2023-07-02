@@ -26,6 +26,7 @@ namespace nabi
 		};
 
 		// Core
+		void* const m_CorePointer = nullptr;
 		std::unique_ptr<Window> m_Window;
 		NabiEventsManager m_NabiEventsManager;
 

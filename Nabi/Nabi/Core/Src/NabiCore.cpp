@@ -30,7 +30,7 @@ namespace nabi
 		, m_ThreadingObjects{/*Threading::c_ThreadingObjectsDefaultSettings (thread_pool has deleted copy constructors)*/}
 
 		// Nabi
-		, m_Context{}
+		, m_Context{this /*<-- m_CorePointer*/}
 		, m_GameTime{}
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		, m_Systems{}
@@ -40,6 +40,7 @@ namespace nabi
 		// --- Setup the Context ---
 		// Core
 		m_Context.m_Window = std::make_unique<Window>(m_hInstance, initSettings.m_WindowSettings);
+		m_Context.m_NabiEventsManager = {};
 
 		// Entity
 		m_Context.m_Registry = {};

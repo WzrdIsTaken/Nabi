@@ -3,16 +3,18 @@
 
 #ifdef INCLUDE_DEMO
 
+#include "InputCodes.h"
+
 namespace ecs::SComp
 {
 	struct DemoPropertiesComponent final : nabi::ECS::ComponentBase
 	{
-		unsigned int m_AsteroidsPerAxis;
-		float m_AsteroidSpacing;
+		nabi::Input::InputCode m_LoadAsteroidGroupKey;
+		nabi::Input::InputCode m_UnloadAsteroidGroupKey;
 
 		DemoPropertiesComponent()
-			: m_AsteroidsPerAxis(0u)
-			, m_AsteroidSpacing(0.0f)
+			: m_LoadAsteroidGroupKey(nabi::Input::InputCode::Key_O)
+			, m_UnloadAsteroidGroupKey(nabi::Input::InputCode::Key_P)
 		{
 		}
 	};

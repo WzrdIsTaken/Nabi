@@ -7,8 +7,14 @@ namespace ecs
 {
 	struct AsteroidComponent final : public nabi::ECS::ComponentBase
 	{
-		// properties here
-		// constructor here
+		dx::XMFLOAT3 m_SpinDirection;
+		float m_SpinSpeed;
+
+		AsteroidComponent()
+			: m_SpinDirection{ 0.0f, 0.0f, 0.0f }
+			, m_SpinSpeed(0.0f)
+		{
+		}
 	};
 } // namespace ecs
 

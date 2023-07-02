@@ -17,11 +17,32 @@ namespace core
 	int Demo::Init()
 	{
 		int result = nabi::NabiCore::Init();
-		
-		ecs::DemoModule::StartDemo(m_Context);
 		result &= static_cast<int>(m_AssetBank->LoadAssets());
 
 		return result;
+	}
+
+	void Demo::RefreshLoadedAssets() const
+	{
+		/*
+		  In a real project, this function should take in a enum bitfield and asset bank will only refresh 
+		  assets which match the bitfield. See notes section at the top of DemoAssetBank.h
+
+		  Eg:
+
+		  auto constexpr assetsToRefresh = core::AssetType::Mesh;
+		  RefreshLoadedAssets(assetsToRefresh);
+
+		  LoadAssets() should also be wrapped in an assert.
+
+		  The use case for this is that:
+			- Entity templates are created with the resource components
+			- When they are created as part of a group, those components need to be replaced with the real thing
+				- Eg: ModelResourceComponent -> Buffer/Shader/Texture component
+			- This will be fast because the resources have already been loaded.
+		*/
+
+		m_AssetBank->LoadAssets();
 	}
 } // namespace core
 

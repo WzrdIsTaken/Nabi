@@ -3,6 +3,7 @@
 <entity_group id="DemoTemplateEntities">
   <entity_template id="AsteroidEntityTemplate">
     <component id="AsteroidComponent">
+      <property id="SpinSpeed" value="1" />
     </component>
     <component id="TransformComponent">
     </component>

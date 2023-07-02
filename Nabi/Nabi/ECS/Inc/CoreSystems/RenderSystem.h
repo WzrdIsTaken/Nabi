@@ -13,7 +13,7 @@
 
 namespace ecs
 {
-	//#define CHECK_IF_RESOURCES_ARE_VALID
+	#define CHECK_IF_RESOURCES_ARE_VALID
 
 	class RenderSystem final : public nabi::ECS::SystemBase
 	{

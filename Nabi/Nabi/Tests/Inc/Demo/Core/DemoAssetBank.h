@@ -2,6 +2,9 @@
 #include "Demo\DemoCore.h"
 
 // honestly can just copy/paste this for real projects? perhaps some slight changes if i can think of better ways to do things..
+// Notes:
+// - LoadAssets should take in AssetType bitfield and switch off the enum
+// - There should also be a RefreshAssets function (see Demo.cpp::RefreshLoadedAssets comment) which does a similar thing
 
 #ifdef INCLUDE_DEMO
 
@@ -15,6 +18,17 @@
 
 namespace core
 {
+	enum class AssetType : uint64_t
+	{
+		Model  = 1 << 1,
+		Sprite = 1 << 2,
+		Text   = 1 << 3,
+		Audio  = 1 << 4,
+
+		All = ~0
+	};
+	DEFINE_ENUM_FLAG_OPERATORS(AssetType)
+
 	class DemoAssetBank final : public nabi::Resource::AssetBank
 	{
 	public:
@@ -35,14 +49,6 @@ namespace core
 #pragma region Render Banks
 		static size_t constexpr c_RenderBankCapacity = 5u;
 
-		enum class RenderableTypes : int
-		{
-			Model,
-			Sprite,
-			Text,
-			ENUM_COUNT
-		};
-
 		struct RenderablePaths final
 		{
 			std::string const& m_AssetPath;
@@ -51,7 +57,7 @@ namespace core
 			std::string const& m_TexturePath;
 		};
 
-		void SetRenderBankProperties(RenderableTypes const renderableType);
+		void SetRenderBankProperties(AssetType const renderableType);
 		void LoadRenderable(RenderablePaths const& renderablePaths, entt::entity const entity, std::optional<std::function<void()>> preLoadOperation);
 
 		nabi::Resource::ResourceBank<nabi::Rendering::Mesh,         nabi::Rendering::RenderBufferLoader, c_RenderBankCapacity> m_RenderBufferBank;

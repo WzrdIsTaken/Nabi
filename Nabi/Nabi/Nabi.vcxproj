@@ -443,6 +443,7 @@
   <ItemGroup>
     <Xml Include="Tests\Data\Audio\test_audio_entities.xml" />
     <Xml Include="Tests\Data\Demo\demo_entities.xml" />
+    <Xml Include="Tests\Data\Demo\demo_global_entities.xml" />
     <Xml Include="Tests\Data\Demo\demo_singleton_entities.xml" />
     <Xml Include="Tests\Data\Demo\demo_route.xml" />
     <Xml Include="Tests\Data\Demo\demo_systems.xml" />

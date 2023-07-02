@@ -60,6 +60,8 @@ namespace ecs
 		{
 			rigidbodyComponent.m_Velocity.y -= playerComponent.m_Speed * dt;
 		}
+		
+		// TODO - if there a better way of writing this logic?
 	}
 } // namespace ecs
 
