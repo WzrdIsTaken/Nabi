@@ -2,6 +2,8 @@
 
 #ifdef INCLUDE_DEMO
 
+#include "Demo\Core\DemoAssetBank.h"
+
 #include "CoreComponents\ResourceComponents\AudioResourceComponent.h"
 #include "CoreComponents\ResourceComponents\ModelResourceComponent.h"
 #include "CoreComponents\ResourceComponents\SpriteResourceComponent.h"
@@ -9,8 +11,6 @@
 #include "CoreComponents\BufferComponent.h"
 #include "CoreComponents\ShaderComponent.h"
 #include "CoreComponents\TextureComponent.h"
-
-#include "Demo\Core\DemoAssetBank.h"
 
 namespace core
 {
@@ -35,14 +35,15 @@ namespace core
 		UnloadAssets();
 	}
 
-	bool DemoAssetBank::LoadAssets()
+	bool DemoAssetBank::LoadAssets(AssetType const assetType)
 	{
 		bool loadingSuccessful = true;
-		loadingSuccessful &= LoadModels();
-		loadingSuccessful &= LoadSprites();
-		loadingSuccessful &= LoadText();
-		loadingSuccessful &= LoadAudio();
 
+		if (ValidAssetType(assetType, AssetType::Model))  loadingSuccessful &= LoadModels();
+		if (ValidAssetType(assetType, AssetType::Sprite)) loadingSuccessful &= LoadSprites();
+		if (ValidAssetType(assetType, AssetType::Text))   loadingSuccessful &= LoadText();
+		if (ValidAssetType(assetType, AssetType::Audio))  loadingSuccessful &= LoadAudio();
+		
 		return loadingSuccessful;
 	}
 

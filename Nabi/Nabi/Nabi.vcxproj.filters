@@ -1089,6 +1089,9 @@
     <ClInclude Include="Tests\Inc\Demo\ECS\Systems\PlayerSystem.h">
       <Filter>Tests\Inc\Demo\ECS\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\Core\AssetTypes.h">
+      <Filter>Tests\Inc\Demo\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -8,6 +8,16 @@ namespace nabi
 
 namespace nabi::Resource
 {
+	// I think it could be better to allow some flexibility here. 
+	// Eg loading assets via a bitfield (see DemoAssetBank for an example)
+//#define FORCE_PURE_LOAD_UNLOAD_FUNCTIONS
+
+#ifdef FORCE_PURE_LOAD_UNLOAD_FUNCTIONS
+	#define LOAD_UNLOAD_IMPLEMENTATION = 0;
+#else
+	#define LOAD_UNLOAD_IMPLEMENTATION { return false; };
+#endif //ifdef FORCE_PURE_LOAD_UNLOAD_FUNCTIONS
+
 	class AssetBank abstract
 	{
 	public:
@@ -17,8 +27,8 @@ namespace nabi::Resource
 		}
 		virtual ~AssetBank() {}
 
-		virtual bool LoadAssets()   = 0;
-		virtual bool UnloadAssets() = 0;
+		virtual bool LoadAssets()   LOAD_UNLOAD_IMPLEMENTATION
+		virtual bool UnloadAssets() LOAD_UNLOAD_IMPLEMENTATION
 
 	protected:
 		nabi::Context& m_Context;
@@ -26,4 +36,7 @@ namespace nabi::Resource
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(AssetBank)
 	};
+
+#undef LOAD_UNLOAD_IMPLEMENTATION
+#undef FORCE_PURE_LOAD_UNLOAD_FUNCTIONS
 } // namespace nabi::Resource

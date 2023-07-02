@@ -2,9 +2,7 @@
 #include "Demo\DemoCore.h"
 
 // honestly can just copy/paste this for real projects? perhaps some slight changes if i can think of better ways to do things..
-// Notes:
-// - LoadAssets should take in AssetType bitfield and switch off the enum
-// - There should also be a RefreshAssets function (see Demo.cpp::RefreshLoadedAssets comment) which does a similar thing
+// + probs should tidy it up a bit
 
 #ifdef INCLUDE_DEMO
 
@@ -16,30 +14,28 @@
 #include "ResourceBank.h"
 #include "Textures\Texture.h"
 
+#include "Demo\Core\AssetTypes.h"
+
 namespace core
 {
-	enum class AssetType : uint64_t
-	{
-		Model  = 1 << 1,
-		Sprite = 1 << 2,
-		Text   = 1 << 3,
-		Audio  = 1 << 4,
-
-		All = ~0
-	};
-	DEFINE_ENUM_FLAG_OPERATORS(AssetType)
-
 	class DemoAssetBank final : public nabi::Resource::AssetBank
 	{
 	public:
 		DemoAssetBank(nabi::Context& context);
 		~DemoAssetBank() override;
 
-		bool LoadAssets() override;
-		bool UnloadAssets() override;
+		bool LoadAssets(AssetType const assetType);
+		bool UnloadAssets(); // unloading assets is currently only supported as a bulk operation
+
+		inline bool RefreshLoadedAssets(AssetType const assetType) { return LoadAssets(assetType); };
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(DemoAssetBank)
+
+		constexpr inline bool ValidAssetType(AssetType const assetTypeOne, AssetType const assetTypeTwo) const noexcept 
+		{ 
+			return static_cast<bool>(assetTypeOne & assetTypeTwo);
+		}
 
 		bool LoadModels();
 		bool LoadSprites();

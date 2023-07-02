@@ -5,7 +5,7 @@
 
 #include "NabiCore.h"
 
-#include "DemoAssetBank.h"
+#include "DemoAssetBank.h" // c++ didn't like me forward declaring this
 
 namespace nabi
 {
@@ -22,7 +22,7 @@ namespace core
 
 		[[nodiscard]] int Init() override;
 
-		void RefreshLoadedAssets() const;
+		void RefreshLoadedAssets(core::AssetType const assetType) const;
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(Demo)

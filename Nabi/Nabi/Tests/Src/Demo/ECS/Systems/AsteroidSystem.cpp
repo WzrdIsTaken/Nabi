@@ -9,6 +9,7 @@
 #include "CoreModules\InputModule.h"
 #include "DirectXUtils.h"
 
+#include "Demo\Core\AssetTypes.h"
 #include "Demo\Core\Demo.h"
 #include "Demo\ECS\Components\AsteroidComponent.h"
 #include "Demo\ECS\SingletonComponents\DemoPropertiesComponent.h"
@@ -58,7 +59,7 @@ namespace ecs
 		if (loadAsteroidGroupKeyState == nabi::Input::InputState::Pressed)
 		{
 			m_Context.m_EntityCreator->CreateEntityGroup(c_AsteroidGroupName.data());
-			reinterpret_cast<core::Demo* const>(m_Context.m_CorePointer)->RefreshLoadedAssets(); // See Demo.cpp::RefreshLoadedAssets for explanation
+			reinterpret_cast<core::Demo* const>(m_Context.m_CorePointer)->RefreshLoadedAssets(core::AssetType::Model); // See Demo.cpp::RefreshLoadedAssets for an explanation
 
 		}
 		if (unloadAsteroidGroupKeyState == nabi::Input::InputState::Pressed)

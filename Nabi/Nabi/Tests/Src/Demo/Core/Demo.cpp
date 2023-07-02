@@ -4,7 +4,7 @@
 
 #include "Demo\Core\Demo.h"
 
-#include "Demo\ECS\Modules\DemoModule.h"
+#include "Demo\Core\AssetTypes.h"
 
 namespace core
 {
@@ -17,32 +17,21 @@ namespace core
 	int Demo::Init()
 	{
 		int result = nabi::NabiCore::Init();
-		result &= static_cast<int>(m_AssetBank->LoadAssets());
+		result &= static_cast<int>(m_AssetBank->LoadAssets(core::AssetType::All));
 
 		return result;
 	}
 
-	void Demo::RefreshLoadedAssets() const
+	void Demo::RefreshLoadedAssets(core::AssetType const assetType) const
 	{
 		/*
-		  In a real project, this function should take in a enum bitfield and asset bank will only refresh 
-		  assets which match the bitfield. See notes section at the top of DemoAssetBank.h
-
-		  Eg:
-
-		  auto constexpr assetsToRefresh = core::AssetType::Mesh;
-		  RefreshLoadedAssets(assetsToRefresh);
-
-		  LoadAssets() should also be wrapped in an assert.
-
-		  The use case for this is that:
-			- Entity templates are created with the resource components
-			- When they are created as part of a group, those components need to be replaced with the real thing
-				- Eg: ModelResourceComponent -> Buffer/Shader/Texture component
-			- This will be fast because the resources have already been loaded.
+		* When entities are created from templates or as part of an entity group, then they will have 
+		* the resource component - not the components with asset pointers. So we need to perform the
+		* load asset code again. This will be fast, as the underlying resource will have already been
+		* loaded. We are just adding/removing a couple components / pointing pointers at memory. 
 		*/
 
-		m_AssetBank->LoadAssets();
+		ASSERT(m_AssetBank->RefreshLoadedAssets(assetType), "Failed to refresh loaded assets");
 	}
 } // namespace core
 

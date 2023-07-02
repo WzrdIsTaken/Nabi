@@ -393,6 +393,7 @@
     <ClInclude Include="Resource\Inc\ResourceWrappers.h" />
     <ClInclude Include="Resource\Inc\ResourceBank.h" />
     <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h" />
+    <ClInclude Include="Tests\Inc\Demo\Core\AssetTypes.h" />
     <ClInclude Include="Tests\Inc\Demo\Core\Demo.h" />
     <ClInclude Include="Tests\Inc\Demo\Core\DemoAssetBank.h" />
     <ClInclude Include="Tests\Inc\Demo\DemoCore.h" />
