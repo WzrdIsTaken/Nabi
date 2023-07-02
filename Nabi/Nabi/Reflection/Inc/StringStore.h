@@ -31,13 +31,19 @@ namespace nabi::Reflection
 	class StringStore final : public nabi::Templates::TSingleton<StringStore>
 	{
 	public:
+		enum class AddMode : int
+		{
+			CreateUnique,
+			PointAtDuplicate,
+
+			Default = PointAtDuplicate, // in case i get any strange bugs its easy to revert :p (was originally 'CreateUnique')
+			ENUM_COUNT
+		};
+
 		StringStore() NABI_NOEXCEPT;
 		~StringStore() = default;
 
-		[[nodiscard]] inline std::string const& Add(std::string_view const string) NABI_NOEXCEPT
-		{
-			return m_Store.emplace_back(string);
-		};
+		[[nodiscard]] std::string const& Add(std::string_view const string, AddMode const addMode = AddMode::Default) NABI_NOEXCEPT;
 		void Clear() NABI_NOEXCEPT;
 
 	private:
