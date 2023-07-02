@@ -14,7 +14,7 @@ namespace ecs
 		void Update(nabi::GameTime const& gameTime);
 
 	private:
-		void RotateAsteroids(float const dt) const;
+		void MoveAndRotateAsteroids(float const dt) const;
 		void CheckInput() const;
 
 		static entt::hashed_string constexpr c_AsteroidGroupName = "DemoEntities"_hs;

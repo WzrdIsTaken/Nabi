@@ -34,18 +34,22 @@ namespace ecs
 	{
 		float const dt = static_cast<float>(gameTime.GetDeltaTime());
 
-		RotateAsteroids(dt);
+		MoveAndRotateAsteroids(dt);
 		CheckInput();
 	}
 
-	void AsteroidSystem::RotateAsteroids(float const dt) const
+	void AsteroidSystem::MoveAndRotateAsteroids(float const dt) const
 	{
 		m_Context.m_Registry.view<TransformComponent, AsteroidComponent const>().each(
 			[&](auto& transformComponent, auto& asteroidComponent) -> void
 			{
+				dx::XMFLOAT3 moveSpeed = nabi::DirectXUtils::Float3Multiply(asteroidComponent.m_MoveDirection, asteroidComponent.m_MoveSpeed);
+				moveSpeed = nabi::DirectXUtils::Float3Multiply(moveSpeed, dt);
+
 				dx::XMFLOAT3 rotationSpeed = nabi::DirectXUtils::Float3Multiply(asteroidComponent.m_SpinDirection, asteroidComponent.m_SpinSpeed);
 				rotationSpeed = nabi::DirectXUtils::Float3Multiply(rotationSpeed, dt);
 
+				transformComponent.m_Position = nabi::DirectXUtils::Float3Add(transformComponent.m_Position, moveSpeed);
 				transformComponent.m_Rotation = nabi::DirectXUtils::Float3Add(transformComponent.m_Rotation, rotationSpeed);
 			});
 	}

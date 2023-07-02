@@ -3,10 +3,11 @@
 <entity_group id="DemoTemplateEntities">
   <entity_template id="AsteroidEntityTemplate">
     <component id="AsteroidComponent">
+      <property id="MoveDirection" value="-1, 0, 0" />
+      <property id="MoveSpeed" value="5" />
       <property id="SpinSpeed" value="1" />
     </component>
-    <component id="TransformComponent">
-    </component>
+    <component id="TransformComponent" />
     
     <component id="ModelResourceComponent">
       <property id="MeshPath" value="PrimativeCube=1x1x1" /> <!-- Tests/Data/Rendering/ball_model.obj -->
