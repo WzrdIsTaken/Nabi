@@ -20,6 +20,7 @@ namespace nabi::Reflection
 		REFLECT_PRIMITIVE_TYPE(char)
 		REFLECT_PRIMITIVE_TYPE(int);
 		REFLECT_PRIMITIVE_TYPE(unsigned int);
+		REFLECT_PRIMITIVE_TYPE_CUSTOM(unsigned long long, "unsigned __int64");
 		REFLECT_PRIMITIVE_TYPE(float);
 		REFLECT_PRIMITIVE_TYPE(double);
 		REFLECT_PRIMITIVE_TYPE(bool);

@@ -7,6 +7,7 @@ namespace ecs
 {
 	struct PlayerComponent;
 	struct RigidbodyComponent;
+	struct TransformComponent;
 } // namespace ecs
 
 namespace ecs
@@ -22,6 +23,7 @@ namespace ecs
 	private:
 		void MovePlayer(float const dt, PlayerComponent const& playerComponent, RigidbodyComponent& rigidbodyComponent) const;
 		void RotatePlayer(float const dt, PlayerComponent const& playerComponent, RigidbodyComponent& rigidbodyComponent) const;
+		void RaycastFromPlayer(PlayerComponent const& playerComponent, TransformComponent const& transformComponent) const;
 	};
 } // namespace ecs
 

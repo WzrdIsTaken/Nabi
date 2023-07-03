@@ -252,6 +252,7 @@
     <ClCompile Include="Tests\Fixtures\ReflectionTests\ReflectionTemplateTests.cpp" />
     <ClCompile Include="Tests\Fixtures\RenderingTests\RenderingCreationTests.cpp" />
     <ClCompile Include="Tests\Fixtures\ResourceTests\ResourceLoadTests.cpp" />
+    <ClCompile Include="Tests\Src\Demo\Core\CollisionMasks.cpp" />
     <ClCompile Include="Tests\Src\Demo\Core\Demo.cpp" />
     <ClCompile Include="Tests\Src\Demo\Core\DemoAssetBank.cpp" />
     <ClCompile Include="Tests\Src\Demo\ECS\Components\AsteroidComponent.cpp" />
@@ -396,6 +397,7 @@
     <ClInclude Include="Resource\Inc\ResourceBank.h" />
     <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h" />
     <ClInclude Include="Tests\Inc\Demo\Core\AssetTypes.h" />
+    <ClInclude Include="Tests\Inc\Demo\Core\CollisionMasks.h" />
     <ClInclude Include="Tests\Inc\Demo\Core\Demo.h" />
     <ClInclude Include="Tests\Inc\Demo\Core\DemoAssetBank.h" />
     <ClInclude Include="Tests\Inc\Demo\DemoCore.h" />

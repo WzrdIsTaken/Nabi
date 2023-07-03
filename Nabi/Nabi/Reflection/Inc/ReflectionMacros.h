@@ -239,7 +239,10 @@
 // A simple marcro to reflect primitive types. The ToString method for base types will always live in StringConverter.
 
 #define REFLECT_PRIMITIVE_TYPE(primitiveType) \
-	entt::meta<primitiveType>().type(entt::hashed_string(#primitiveType)) \
+	REFLECT_PRIMITIVE_TYPE_CUSTOM(primitiveType, #primitiveType)
+
+#define REFLECT_PRIMITIVE_TYPE_CUSTOM(primitiveType, primitiveTypeName) \
+	entt::meta<primitiveType>().type(entt::hashed_string(primitiveTypeName)) \
 		.func<&nabi::Reflection::StringConverter::FromString<primitiveType>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName);
 
 // --- UI Scene Reflection ---

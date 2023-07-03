@@ -21,6 +21,8 @@ namespace ecs
 		nabi::Input::InputCode m_RotateLeftKey;
 		nabi::Input::InputCode m_RotateRightKey;
 
+		nabi::Input::InputCode m_RaycastKey;
+
 		float m_Speed;
 		float m_RotateSpeed;
 
@@ -35,6 +37,7 @@ namespace ecs
 			, m_RotateBackwardKey(nabi::Input::InputCode::Key_DownArrow)
 			, m_RotateLeftKey(nabi::Input::InputCode::Key_LeftArrow)
 			, m_RotateRightKey(nabi::Input::InputCode::Key_RightArrow)
+			, m_RaycastKey(nabi::Input::InputCode::Key_R)
 			, m_Speed(10.0f)
 			, m_RotateSpeed(10.0f)
 		{

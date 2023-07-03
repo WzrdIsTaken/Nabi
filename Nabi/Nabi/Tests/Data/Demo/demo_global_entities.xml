@@ -19,13 +19,34 @@
       <property id="AngularDrag" value="100" />
       <property id="GravityScale" value="0" />
     </component>
-    <!--
     <component id="ColliderComponent">
-    </component> causes crash
-    -->
+      <property id="ColliderDimensions" value="10, 10, 10" />
+      <property id="Mask" value="CollisionMask::Player" />
+    </component>
     <component id="PlayerComponent">
       <property id="Speed" value="100" />
       <property id="RotateSpeed" value="100" />
     </component>
+  </entity>
+
+  <entity id="Collider">
+    <component id="TransformComponent">
+      <property id="Position" value="0, 10, 0" />
+    </component>
+    <component id="RigidbodyComponent">
+      <property id="GravityScale" value="0" />
+    </component>
+    <component id="ColliderComponent">
+      <property id="ColliderDimensions" value="10, 10, 10" />
+      <property id="Mask" value="CollisionMask::Object" />
+    </component>
+
+    <component id="ModelResourceComponent">
+      <property id="MeshPath" value="PrimativeCube=5x5x5" /> <!-- Tests/Data/Rendering/ball_model.obj -->
+      <property id="TexturePath" value="Tests/Data/Rendering/ball_texture.png" />
+      <property id="PixelShaderPath" value="Tests/Data/Rendering/PixelShader3D.cso" />
+      <property id="VertexShaderPath" value="Tests/Data/Rendering/VertexShader3D.cso" />
+    </component>
+    <component id="DrawPerspectiveTagComponent" />
   </entity>
 </entity_group>

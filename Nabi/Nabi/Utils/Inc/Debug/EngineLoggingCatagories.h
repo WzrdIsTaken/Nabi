@@ -3,6 +3,7 @@
 #define LOG_CATEGORY_AUDIO      "[Audio] "
 #define LOG_CATEGORY_COLLISION  "[Collision] "
 #define LOG_CATEGORY_CORE       "[Core] " 
+#define LOG_CATEGORY_DEMO       "[Demo] "
 #define LOG_CATEGORY_ECS        "[ECS] " 
 #define LOG_CATEGORY_REFLECTION "[Reflection] "
 #define LOG_CATEGORY_RENDERING  "[Rendering] "

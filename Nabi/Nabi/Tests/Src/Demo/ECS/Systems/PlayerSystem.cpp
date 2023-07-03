@@ -4,10 +4,13 @@
 
 #include "Demo\ECS\Systems\PlayerSystem.h"
 
+#include "CoreComponents\EntityInfoComponent.h"
 #include "CoreComponents\RigidbodyComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\InputModule.h"
 #include "CoreModules\CameraModule.h"
+#include "CoreModules\PhysicsModule.h"
+#include "DirectXUtils.h"
 
 #include "Demo\ECS\Components\PlayerComponent.h"
 
@@ -36,7 +39,8 @@ namespace ecs
 				{
 					MovePlayer(dt, playerComponent, rigidbodyComponent);
 					RotatePlayer(dt, playerComponent, rigidbodyComponent);
-
+					RaycastFromPlayer(playerComponent, transformComponent);
+					
 					CameraModule::UpdateCamera(m_Context, CameraModule::GetMainPerspectiveCameraComponent(m_Context),
 						[transformComponent](CameraComponent& cameraComponent) -> void
 						{
@@ -80,6 +84,40 @@ namespace ecs
 		if (bwdKeyState   == InputState::Held) rigidbodyComponent.m_AngularVelocity.x -= rotationSpeed;
 		if (leftKeyState  == InputState::Held) rigidbodyComponent.m_AngularVelocity.y += rotationSpeed;
 		if (rightKeyState == InputState::Held) rigidbodyComponent.m_AngularVelocity.y -= rotationSpeed;
+	}
+
+	void PlayerSystem::RaycastFromPlayer(PlayerComponent const& playerComponent, TransformComponent const& transformComponent) const
+	{
+		using namespace nabi::Input;
+		auto constexpr raycastDirection = nabi::WorldConstants::c_Forward;
+
+		auto const raycastKeyState = InputModule::GetKeyboardKey(m_Context, playerComponent.m_RaycastKey);
+		if (raycastKeyState == InputState::Pressed)
+		{
+			float constexpr smallDistanceInFrontOfPlayer = 2.0f;
+			dx::XMFLOAT3 raycastFrom = nabi::DirectXUtils::Float3Multiply(raycastDirection, smallDistanceInFrontOfPlayer);
+			raycastFrom = nabi::DirectXUtils::Float3Add(transformComponent.m_Position, raycastFrom);
+
+			auto const result = PhysicsModule::Raycast(
+				m_Context,
+				raycastFrom,
+				raycastDirection,
+				ecs::PhysicsModule::c_DefaultRaycastSettings
+			);
+
+			if (result)
+			{
+				auto const& entityInfoComponent = m_Context.m_Registry.get<EntityInfoComponent>(result.m_Entity);
+				float const distance = result.m_Distance;
+
+				LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_DEMO, "Raycast hit " << entityInfoComponent.m_EntityName.data() << 
+					" at " << distance << " units", LOG_END);
+			}
+			else
+			{
+				LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_DEMO, "Raycast didn't hit", LOG_END);
+			}
+		}
 	}
 } // namespace ecs
 

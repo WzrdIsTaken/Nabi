@@ -8,6 +8,7 @@
 #include "ReflectionGlobals.h"
 #include "ReflectionHelpers.h"
 #include "StringConverter.h"
+#include "StringStore.h"
 
 namespace nabi::Reflection::Creation
 {
@@ -142,9 +143,12 @@ namespace nabi::Reflection::Creation
 	void AddEntityInfoComponentToEntity(entt::registry& registey, entt::entity const entity,
 		entt::hashed_string const& entityGroupHash, std::string_view entityName) NABI_NOEXCEPT
 	{
+		std::string const& storedEntityGroup = StringStore::Instance()->Add(entityGroupHash.data());
+		std::string const& storedEntityName = StringStore::Instance()->Add(entityName);
+
 		auto entityInfoComponentSettings = ecs::c_EntityInfoComponentDefaultSettings;
-		entityInfoComponentSettings.m_EntityGroup = entityGroupHash;
-		entityInfoComponentSettings.m_EntityName = entt::hashed_string(entityName.data());
+		entityInfoComponentSettings.m_EntityGroup = entt::hashed_string(storedEntityGroup.c_str());
+		entityInfoComponentSettings.m_EntityName = entt::hashed_string(storedEntityName.c_str());
 
 		registey.emplace<ecs::EntityInfoComponent>(entity, entityInfoComponentSettings);
 	}

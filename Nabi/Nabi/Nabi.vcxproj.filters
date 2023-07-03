@@ -635,6 +635,9 @@
     <ClCompile Include="ECS\Src\CoreSystems\CameraSystem.cpp">
       <Filter>ECS\Src\CoreSystems</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\Src\Demo\Core\CollisionMasks.cpp">
+      <Filter>Tests\Src\Demo\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -1097,6 +1100,9 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreSystems\CameraSystem.h">
       <Filter>ECS\Inc\CoreSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\Core\CollisionMasks.h">
+      <Filter>Tests\Inc\Demo\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

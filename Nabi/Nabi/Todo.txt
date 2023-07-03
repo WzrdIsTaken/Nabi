@@ -70,6 +70,7 @@ Current:
 - actually make sure the inclues for standard are only what they need be>?
 - replace get singleton component functions with Get[SingletonComponentName] and Get[SingletonComponentName]NonConst
     - otherwise the const ver will never be called i dont think. also getcontext/getcontextnon const for nabicore?
+    - also the physics module get can me made one line. make sure all the gets are one line!
 - improve the lighting system
     - eg have a get light statement component in render module and use it in both the event functions and update. unlike now - got some code rpeititon
 
@@ -79,6 +80,10 @@ Current:
 - visual studio sign in error (top right)
 - make a note in the 'read before start a proj' txt about: system update order: eg input->update->render. and about having multithread off at first..
     - and a note about the camera direction. if the camera is moving one way and the player the other.. just invert the camerasysem::updatecamera vector?
+    - and about what the demo is actually doing
+    - about example archive
+
+- had some strange bugs on startup. did you solve any of them?
 
 // --- Low Priority ---
 

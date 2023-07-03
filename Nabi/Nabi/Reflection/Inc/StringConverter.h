@@ -123,6 +123,19 @@ namespace nabi::Reflection::StringConverter
 		return result;
 	}
 
+	// ulonglong
+	template<>
+	[[nodiscard]] unsigned long long FromString<unsigned long long>(std::string const& string) NABI_NOEXCEPT
+	{
+		unsigned long long result;
+		if (!CheckIfValueCouldBeEnum(string, &result))
+		{
+			result = std::stoull(string);
+		}
+
+		return result;
+	}
+
 	// float
 	template<>
 	[[nodiscard]] float FromString<float>(std::string const& string) NABI_NOEXCEPT
