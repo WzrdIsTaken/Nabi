@@ -80,8 +80,8 @@ Current:
 - visual studio sign in error (top right)
 - make a note in the 'read before start a proj' txt about: system update order: eg input->update->render. and about having multithread off at first..
     - and a note about the camera direction. if the camera is moving one way and the player the other.. just invert the camerasysem::updatecamera vector?
-    - and about what the demo is actually doing
-    - about example archive
+    - and about what the demo is actually doing  + the keys for stuff
+    - about example archive. esp collisioN!
 
 - had some strange bugs on startup. did you solve any of them?
 

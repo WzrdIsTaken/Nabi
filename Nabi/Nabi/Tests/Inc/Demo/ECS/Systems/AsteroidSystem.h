@@ -3,6 +3,12 @@
 
 #ifdef INCLUDE_DEMO
 
+// this is really really bot, but its just a really quick way to test 3d audio effects
+namespace ecs
+{
+	struct AudioEmitterComponent;
+} // namespace ecs
+
 namespace ecs
 {
 	class AsteroidSystem final : public nabi::ECS::SystemBase
@@ -16,8 +22,10 @@ namespace ecs
 	private:
 		void MoveAndRotateAsteroids(float const dt) const;
 		void CheckInput() const;
+		void PlaySoundEffect() const;
 
 		static entt::hashed_string constexpr c_AsteroidGroupName = "DemoEntities"_hs;
+		mutable AudioEmitterComponent* m_LastAudioEmitter; // see above. this is super bot! just want to be done with this project though...
 
 		REFLECT_PRIVATES(AsteroidSystem)
 	};

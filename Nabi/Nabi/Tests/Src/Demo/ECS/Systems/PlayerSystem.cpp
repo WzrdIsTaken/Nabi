@@ -40,6 +40,9 @@ namespace ecs
 					MovePlayer(dt, playerComponent, rigidbodyComponent);
 					RotatePlayer(dt, playerComponent, rigidbodyComponent);
 					RaycastFromPlayer(playerComponent, transformComponent);
+
+					m_Context.m_AudioCommand->SetListener(
+						transformComponent.m_Position, transformComponent.m_Rotation, rigidbodyComponent.m_Velocity);
 					
 					CameraModule::UpdateCamera(m_Context, CameraModule::GetMainPerspectiveCameraComponent(m_Context),
 						[transformComponent](CameraComponent& cameraComponent) -> void

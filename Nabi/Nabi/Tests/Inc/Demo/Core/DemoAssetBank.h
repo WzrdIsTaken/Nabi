@@ -14,7 +14,7 @@
 #include "ResourceBank.h"
 #include "Textures\Texture.h"
 
-#include "Demo\Core\AssetTypes.h"
+#include "Demo\Core\DemoEnums.h"
 
 namespace core
 {

@@ -4,7 +4,7 @@
 
 #include "Demo\Core\Demo.h"
 
-#include "Demo\Core\AssetTypes.h"
+#include "Demo\Core\DemoEnums.h"
 
 namespace core
 {

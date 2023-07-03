@@ -11,6 +11,7 @@
 #include "CoreComponents\BufferComponent.h"
 #include "CoreComponents\ShaderComponent.h"
 #include "CoreComponents\TextureComponent.h"
+#include "CoreModules\AudioModule.h"
 
 namespace core
 {
@@ -90,6 +91,8 @@ namespace core
 		// would it be too bad to make the renderable loading a macro ? cos the m_Mesh/Sprite path is different
 		// for each i couldnt use a template to do the whole thing
 
+		// the stuff REMOVE_RESOURCE_COMPONENT_FROM_ENTITY / the ifdef could also be a macro
+
 		return true;
 	}
 
@@ -103,7 +106,19 @@ namespace core
 
 	bool DemoAssetBank::LoadAudio()
 	{
-		FAST_LOG("Implement me!");
+		m_Context.m_Registry.view<ecs::RComp::AudioResourceComponent const>()
+			.each([&](entt::entity const entity, auto& audioResourceComponent)
+				{
+					for (auto const [audioID, audioPath] : audioResourceComponent.m_Resources.Get())
+					{
+						nabi::Resource::ResourceRef<nabi::Audio::AudioEffect> audioResource = m_AudioEffectBank.LoadResource(audioPath);
+						ecs::AudioModule::MapLoadedAudioEffectToID(m_Context, audioID, audioResource);
+					}
+
+#ifdef REMOVE_RESOURCE_COMPONENT_FROM_ENTITY
+					m_Context.m_Registry.remove<ecs::RComp::AudioResourceComponent>(entity);
+#endif // ifdef REMOVE_RESOURCE_COMPONENT_FROM_ENTITY
+				});
 
 		return true;
 	}

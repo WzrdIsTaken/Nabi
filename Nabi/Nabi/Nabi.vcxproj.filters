@@ -635,7 +635,7 @@
     <ClCompile Include="ECS\Src\CoreSystems\CameraSystem.cpp">
       <Filter>ECS\Src\CoreSystems</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\Src\Demo\Core\CollisionMasks.cpp">
+    <ClCompile Include="Tests\Src\Demo\Core\DemoEnums.cpp">
       <Filter>Tests\Src\Demo\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1095,14 +1095,11 @@
     <ClInclude Include="Tests\Inc\Demo\ECS\Systems\PlayerSystem.h">
       <Filter>Tests\Inc\Demo\ECS\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Tests\Inc\Demo\Core\AssetTypes.h">
+    <ClInclude Include="Tests\Inc\Demo\Core\DemoEnums.h">
       <Filter>Tests\Inc\Demo\Core</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreSystems\CameraSystem.h">
       <Filter>ECS\Inc\CoreSystems</Filter>
-    </ClInclude>
-    <ClInclude Include="Tests\Inc\Demo\Core\CollisionMasks.h">
-      <Filter>Tests\Inc\Demo\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,13 +4,15 @@
 
 #include "Demo\ECS\Systems\AsteroidSystem.h"
 
+#include "CoreComponents\AudioEmitterComponent.h"
 #include "CoreComponents\TransformComponent.h"
+#include "CoreModules\AudioModule.h"
 #include "CoreModules\EntityModule.h"
 #include "CoreModules\InputModule.h"
 #include "DirectXUtils.h"
 
-#include "Demo\Core\AssetTypes.h"
 #include "Demo\Core\Demo.h"
+#include "Demo\Core\DemoEnums.h"
 #include "Demo\ECS\Components\AsteroidComponent.h"
 #include "Demo\ECS\SingletonComponents\DemoPropertiesComponent.h"
 
@@ -21,6 +23,7 @@ namespace ecs
 
 	AsteroidSystem::AsteroidSystem(nabi::Context& context, entt::hashed_string const systemId, entt::hashed_string const systemGroupId)
 		: SystemBase(context, systemId, systemGroupId)
+		, m_LastAudioEmitter(nullptr)
 	{
 		REGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(AsteroidSystem)
 	}
@@ -40,8 +43,8 @@ namespace ecs
 
 	void AsteroidSystem::MoveAndRotateAsteroids(float const dt) const
 	{
-		m_Context.m_Registry.view<TransformComponent, AsteroidComponent const>().each(
-			[&](auto& transformComponent, auto& asteroidComponent) -> void
+		m_Context.m_Registry.view<TransformComponent, AsteroidComponent const, AudioEmitterComponent>().each(
+			[&](auto& transformComponent, auto& asteroidComponent, auto& audioEmitterComponent) -> void
 			{
 				dx::XMFLOAT3 moveSpeed = nabi::DirectXUtils::Float3Multiply(asteroidComponent.m_MoveDirection, asteroidComponent.m_MoveSpeed);
 				moveSpeed = nabi::DirectXUtils::Float3Multiply(moveSpeed, dt);
@@ -51,12 +54,19 @@ namespace ecs
 
 				transformComponent.m_Position = nabi::DirectXUtils::Float3Add(transformComponent.m_Position, moveSpeed);
 				transformComponent.m_Rotation = nabi::DirectXUtils::Float3Add(transformComponent.m_Rotation, rotationSpeed);
+
+				// ---
+
+				m_LastAudioEmitter = &audioEmitterComponent;
 			});
 	}
 
 	void AsteroidSystem::CheckInput() const
 	{
 		auto const& demoPropertiesComponent = EntityModule::GetSingletonComponent<SComp::DemoPropertiesComponent>(m_Context);
+
+		// --
+
 		auto const loadAsteroidGroupKeyState = InputModule::GetKeyboardKey(m_Context, demoPropertiesComponent.m_LoadAsteroidGroupKey);
 		auto const unloadAsteroidGroupKeyState = InputModule::GetKeyboardKey(m_Context, demoPropertiesComponent.m_UnloadAsteroidGroupKey);
 
@@ -72,6 +82,29 @@ namespace ecs
 		if (unloadAsteroidGroupKeyState == nabi::Input::InputState::Pressed)
 		{
 			m_Context.m_EntityCreator->DestroyEntityGroup(c_AsteroidGroupName.data());
+		}
+
+		// ---
+
+		auto const playSoundEffectKey = InputModule::GetKeyboardKey(m_Context, demoPropertiesComponent.m_PlaySoundEffectKey);
+
+		if (playSoundEffectKey == nabi::Input::InputState::Pressed)
+		{
+			PlaySoundEffect();
+		}
+	}
+
+	void AsteroidSystem::PlaySoundEffect() const
+	{
+		auto constexpr audioID = static_cast<SComp::AudioStateComponent::AudioID>(core::AudioID::BingoBangoBongo);
+
+		// 2D
+		//AudioModule::Play2DAudioEffect(m_Context, audioID, AudioModule::c_DefaultPlaySettings);
+
+		// 3D
+		if (m_LastAudioEmitter)
+		{
+			AudioModule::Play3DAudioEffect(m_Context, *m_LastAudioEmitter, audioID, AudioModule::c_DefaultPlaySettings);
 		}
 	}
 } // namespace ecs

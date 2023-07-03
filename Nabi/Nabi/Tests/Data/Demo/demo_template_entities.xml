@@ -9,6 +9,12 @@
     </component>
     <component id="TransformComponent" />
     
+    <component id="AudioEmitterComponent" />
+    <component id="AudioResourceComponent">
+      <!-- For an example of how to have multiple audio resources, see "test_audio_entities.xml" -->
+      <property id="Resources" value="AudioIDs::BingoBangoBongo, Tests/Data/Audio/bingo_bango_bongo_bish_bash_bosh.wav" />
+    </component>
+    
     <component id="ModelResourceComponent">
       <property id="MeshPath" value="PrimativeCube=1x1x1" /> <!-- Tests/Data/Rendering/ball_model.obj -->
       <property id="TexturePath" value="Tests/Data/Rendering/ball_texture.png" />
