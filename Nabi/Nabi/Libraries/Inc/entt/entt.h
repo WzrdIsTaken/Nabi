@@ -60,6 +60,12 @@
 #    define ENTT_PACKED_PAGE 1024
 #endif
 
+// Custom logic for asserting if we try to get a component on an entity which doesn't exist. See 'get()' calls
+#include "Defines.h"
+#ifdef ENTT_CHECK_IF_COMPONENT_EXISTS_BEFORE_GET
+#   include "DebugUtils.h"
+#endif // ifdef ENTT_CHECK_IF_COMPONENT_EXISTS_BEFORE_GET
+
 #ifdef ENTT_DISABLE_ASSERT
 #    undef ENTT_ASSERT
 #    define ENTT_ASSERT(condition, msg) (void(0))
@@ -35658,6 +35664,9 @@ namespace entt {
         template<typename... Type>
         [[nodiscard]] decltype(auto) get([[maybe_unused]] const entity_type entt) const {
             if constexpr (sizeof...(Type) == 1u) {
+#ifdef ENTT_CHECK_IF_COMPONENT_EXISTS_BEFORE_GET
+                ASSERT_FATAL(try_get<Type...>(entt), "Trying to get a component on an entity which doesn't exist");
+#endif // ifdef ENTT_CHECK_IF_COMPONENT_EXISTS_BEFORE_GET
                 return (assure<std::remove_const_t<Type>>().get(entt), ...);
             }
             else {
@@ -35669,6 +35678,9 @@ namespace entt {
         template<typename... Type>
         [[nodiscard]] decltype(auto) get([[maybe_unused]] const entity_type entt) {
             if constexpr (sizeof...(Type) == 1u) {
+#ifdef ENTT_CHECK_IF_COMPONENT_EXISTS_BEFORE_GET
+                ASSERT_FATAL(try_get<Type...>(entt), "Trying to get a component on an entity which doesn't exist");
+#endif // ifdef ENTT_CHECK_IF_COMPONENT_EXISTS_BEFORE_GET
                 return (const_cast<Type&>(std::as_const(*this).template get<Type>(entt)), ...);
             }
             else {

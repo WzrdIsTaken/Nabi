@@ -13,6 +13,9 @@
 	#define RUN_TESTS		 // gMock Tests
 	//#define RUN_SLOW_TESTS   // Any tests which take over ~10ms to run. Make sure to run before commiting
 	#define USE_DEBUG_UTILS  // Asserts + Logging + Sneaky hacks
+
+	// Exactly what you think. Effectively means we double the registry.get() calls, so may be worth toggling outside of release builds
+	#define ENTT_CHECK_IF_COMPONENT_EXISTS_BEFORE_GET 
 #else
 	// Can shift around the defines if need to test stuff
 #endif // ifdef _DEBUG
