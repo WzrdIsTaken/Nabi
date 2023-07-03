@@ -21,10 +21,10 @@ namespace nabi::Reflection
 		{
 		default:
 			ASSERT_FAIL("Using an unexpected AddMode! Defaulting to CreateUnique");
-		case AddMode::CreateUnique:
+		[[unlikely]] case AddMode::CreateUnique:
 			stringInStore = &m_Store.emplace_back(string);
 			break;
-		case AddMode::PointAtDuplicate:
+		[[likely]] case AddMode::PointAtDuplicate: // likely because addMode is currently defaulted to this
 			{
 				auto duplicate = std::find(m_Store.begin(), m_Store.end(), string);
 				if (duplicate != m_Store.end())

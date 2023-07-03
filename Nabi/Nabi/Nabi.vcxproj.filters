@@ -632,6 +632,9 @@
     <ClCompile Include="Tests\Src\Demo\ECS\Systems\PlayerSystem.cpp">
       <Filter>Tests\Src\Demo\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Src\CoreSystems\CameraSystem.cpp">
+      <Filter>ECS\Src\CoreSystems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -1091,6 +1094,9 @@
     </ClInclude>
     <ClInclude Include="Tests\Inc\Demo\Core\AssetTypes.h">
       <Filter>Tests\Inc\Demo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Inc\CoreSystems\CameraSystem.h">
+      <Filter>ECS\Inc\CoreSystems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

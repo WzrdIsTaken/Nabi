@@ -204,6 +204,7 @@
     <ClCompile Include="ECS\Src\CoreModules\TextModule.cpp" />
     <ClCompile Include="ECS\Src\CoreModules\UIModule.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\AudioSystem.cpp" />
+    <ClCompile Include="ECS\Src\CoreSystems\CameraSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\CollisionSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\InputSystem.cpp" />
     <ClCompile Include="ECS\Src\CoreSystems\LightingSystem.cpp" />
@@ -336,6 +337,7 @@
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\LightStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\UIStateComponent.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\AudioSystem.h" />
+    <ClInclude Include="ECS\Inc\CoreSystems\CameraSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\CollisionSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\InputSystem.h" />
     <ClInclude Include="ECS\Inc\CoreSystems\LightingSystem.h" />

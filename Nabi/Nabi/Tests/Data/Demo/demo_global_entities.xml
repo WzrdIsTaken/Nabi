@@ -16,12 +16,16 @@
       <property id="Position" value="0, 0, 0" />
     </component>
     <component id="RigidbodyComponent">
+      <property id="AngularDrag" value="100" />
+      <property id="GravityScale" value="0" />
     </component>
     <!--
     <component id="ColliderComponent">
     </component> causes crash
     -->
     <component id="PlayerComponent">
+      <property id="Speed" value="100" />
+      <property id="RotateSpeed" value="100" />
     </component>
   </entity>
 </entity_group>

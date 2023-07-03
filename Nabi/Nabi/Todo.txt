@@ -59,14 +59,26 @@ Current:
 - move rendering shaders out of TestData/Rendering etc. Make a new main level folder like "Shaders" and put them in
     - we will probs just always use these shaders anyway
     - make to note down all usage places before the change, and switch them all over
+    - change the lightbuffer in common.hlsli to 'b2'? its duplicating b0 atm . google what this 'b' actually means..
 - Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
 - nabi::Templates -> nabi::Patterns? Namespace like the folder
 
 - make a note for future ben that in an emtpty proj turn off multitheading in defines to start
 - perhaps remove the log warn about getting fixed dt if sim is false if youve noticed no problems with it
+    - if we remve this, i think we can move the debug utils include just into cpp
 
 - actually make sure the inclues for standard are only what they need be>?
-- make asset bank have a typdef uint64 for bitfield asset type and have the load/unload asset functions take in that type
+- replace get singleton component functions with Get[SingletonComponentName] and Get[SingletonComponentName]NonConst
+    - otherwise the const ver will never be called i dont think. also getcontext/getcontextnon const for nabicore?
+- improve the lighting system
+    - eg have a get light statement component in render module and use it in both the event functions and update. unlike now - got some code rpeititon
+
+- add the ->void thing to all view lambas (eg like CameraSystem)
+- why doesnt the renderinternal function in render system just take in one camera component. and in the other two render functions that info is extracted? that would be better right?
+
+- visual studio sign in error (top right)
+- make a note in the 'read before start a proj' txt about: system update order: eg input->update->render. and about having multithread off at first..
+    - and a note about the camera direction. if the camera is moving one way and the player the other.. just invert the camerasysem::updatecamera vector?
 
 // --- Low Priority ---
 
@@ -95,6 +107,7 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- make asset bank have a typdef uint64 for bitfield asset type and have the load/unload asset functions take in that type
 - REMEMEBER! Turn back on multithreading and see what happens
 - i dont know if im a fan of how the demo files are structured...
 - how should we handle demo singleton components?

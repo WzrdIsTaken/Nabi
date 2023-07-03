@@ -41,4 +41,23 @@ namespace nabi
 		std::unique_ptr<Audio::AudioCommand> m_AudioCommand;
 		std::unique_ptr<Threading::ThreadCommand> m_ThreadCommand;
 	};
+
+	namespace ContextHelpers
+	{
+		/// <summary>
+		/// reinterpret_cast'ing can be risky, so i think its a good idea to route through one function for it? 
+		/// rather than having casts all over the place..
+		/// </summary>
+		template<typename T>
+		inline void CorePointerOperation(Context const& context, std::function<void(T* const)> const& operation) NABI_NOEXCEPT
+		{
+			ASSERT(context.m_CorePointer, "Trying to do a core pointer operation but the pointer is null");
+
+			if (context.m_CorePointer)
+			{
+				T* const corePointerAsT = reinterpret_cast<T* const>(context.m_CorePointer);
+				operation(corePointerAsT);
+			}
+		}
+	} // namespace ContextHelpers
 } // namespace nabi

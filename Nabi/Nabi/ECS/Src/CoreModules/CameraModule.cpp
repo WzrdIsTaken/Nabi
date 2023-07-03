@@ -6,10 +6,6 @@ namespace ecs::CameraModule
 {
 	void DefaultCameraValues(nabi::Context const& /*context*/, ecs::CameraComponent& cameraComponent, DefaultCameraValuesSettings const& defaultSettings)
 	{
-		// The thought process here is that a camera system is kinda game specific, so I don't want to make a core one.
-		// However, the camera component is created in the default nabi initialization so this function can be used to default it.
-		// Or, reset any other camera.
-
 		float const aspectRatio = defaultSettings.m_WindowWidth / defaultSettings.m_WindowHeight;
 		dx::XMMATRIX const projMatrix = dx::XMMatrixPerspectiveFovLH(defaultSettings.m_FovAngleY, aspectRatio, defaultSettings.m_NearZ, defaultSettings.m_FarZ);
 

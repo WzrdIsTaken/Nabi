@@ -63,8 +63,11 @@ namespace ecs
 		if (loadAsteroidGroupKeyState == nabi::Input::InputState::Pressed)
 		{
 			m_Context.m_EntityCreator->CreateEntityGroup(c_AsteroidGroupName.data());
-			reinterpret_cast<core::Demo* const>(m_Context.m_CorePointer)->RefreshLoadedAssets(core::AssetType::Model); // See Demo.cpp::RefreshLoadedAssets for an explanation
-
+			nabi::ContextHelpers::CorePointerOperation<core::Demo>(m_Context,
+				[](auto* const corePointer) -> void
+				{
+					corePointer->RefreshLoadedAssets(core::AssetType::Model); // See Demo.cpp::RefreshLoadedAssets for an explanation
+				});
 		}
 		if (unloadAsteroidGroupKeyState == nabi::Input::InputState::Pressed)
 		{

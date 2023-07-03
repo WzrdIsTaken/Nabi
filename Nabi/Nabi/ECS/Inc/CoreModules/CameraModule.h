@@ -20,6 +20,11 @@ namespace ecs::CameraModule
 	};
 
 	void DefaultCameraValues(nabi::Context const& context, CameraComponent& camera, DefaultCameraValuesSettings const& defaultSettings);
+	inline void UpdateCamera(nabi::Context const& /*context*/, CameraComponent& camera, std::function<void(CameraComponent&)> const& operation)
+	{
+		operation(camera);
+		camera.m_HasToBeUpdated = true;
+	}
 
 	[[nodiscard]] inline CameraComponent const& GetMainPerspectiveCameraComponent(nabi::Context const& context)
 	{

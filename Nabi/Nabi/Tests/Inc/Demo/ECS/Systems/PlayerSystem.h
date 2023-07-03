@@ -21,6 +21,7 @@ namespace ecs
 
 	private:
 		void MovePlayer(float const dt, PlayerComponent const& playerComponent, RigidbodyComponent& rigidbodyComponent) const;
+		void RotatePlayer(float const dt, PlayerComponent const& playerComponent, RigidbodyComponent& rigidbodyComponent) const;
 	};
 } // namespace ecs
 

@@ -15,7 +15,14 @@ namespace ecs
 		nabi::Input::InputCode m_RightKey;
 		nabi::Input::InputCode m_UpKey;
 		nabi::Input::InputCode m_DownKey;
+
+		nabi::Input::InputCode m_RotateForwardKey;
+		nabi::Input::InputCode m_RotateBackwardKey;
+		nabi::Input::InputCode m_RotateLeftKey;
+		nabi::Input::InputCode m_RotateRightKey;
+
 		float m_Speed;
+		float m_RotateSpeed;
 
 		PlayerComponent()
 			: m_ForwardKey(nabi::Input::InputCode::Key_W)
@@ -24,7 +31,12 @@ namespace ecs
 			, m_RightKey(nabi::Input::InputCode::Key_D)
 			, m_UpKey(nabi::Input::InputCode::Key_Q)
 			, m_DownKey(nabi::Input::InputCode::Key_E)
+			, m_RotateForwardKey(nabi::Input::InputCode::Key_UpArrow)
+			, m_RotateBackwardKey(nabi::Input::InputCode::Key_DownArrow)
+			, m_RotateLeftKey(nabi::Input::InputCode::Key_LeftArrow)
+			, m_RotateRightKey(nabi::Input::InputCode::Key_RightArrow)
 			, m_Speed(10.0f)
+			, m_RotateSpeed(10.0f)
 		{
 		}
 	};

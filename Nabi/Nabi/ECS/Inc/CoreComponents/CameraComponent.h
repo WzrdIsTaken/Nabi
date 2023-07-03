@@ -20,10 +20,13 @@ namespace ecs
 
 	struct CameraComponent final : public nabi::ECS::ComponentBase
 	{
+		// Used for constant buffers, updated by CameraModule + CameraSystem
 		dx::XMFLOAT4X4 m_View;
 		dx::XMFLOAT4X4 m_Projection;
 
+		// Change these values in code (eg, to move the camera)
 		dx::XMFLOAT3 m_Position;
+		dx::XMFLOAT3 m_Rotation;
 		dx::XMFLOAT3 m_Target;
 
 		bool m_HasToBeUpdated;
@@ -32,6 +35,7 @@ namespace ecs
 			: m_View{}
 			, m_Projection{}
 			, m_Position{}
+			, m_Rotation{}
 			, m_Target{}
 			, m_HasToBeUpdated(true)
 		{
