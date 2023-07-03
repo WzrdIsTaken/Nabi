@@ -37,7 +37,7 @@ namespace ecs
 			, m_Position{}
 			, m_Rotation{}
 			, m_Target{}
-			, m_HasToBeUpdated(true)
+			, m_HasToBeUpdated(false)
 		{
 		}
 	};
