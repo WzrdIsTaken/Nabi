@@ -24,6 +24,8 @@ namespace ecs
 		void MovePlayer(float const dt, PlayerComponent const& playerComponent, RigidbodyComponent& rigidbodyComponent) const;
 		void RotatePlayer(float const dt, PlayerComponent const& playerComponent, RigidbodyComponent& rigidbodyComponent) const;
 		void RaycastFromPlayer(PlayerComponent const& playerComponent, TransformComponent const& transformComponent) const;
+
+		REFLECT_PRIVATES(PlayerSystem)
 	};
 } // namespace ecs
 

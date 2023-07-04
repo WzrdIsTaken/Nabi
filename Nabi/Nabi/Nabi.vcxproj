@@ -261,6 +261,7 @@
     <ClCompile Include="Tests\Src\Demo\ECS\SingletonComponents\DemoPropertiesComponent.cpp" />
     <ClCompile Include="Tests\Src\Demo\ECS\Systems\AsteroidSystem.cpp" />
     <ClCompile Include="Tests\Src\Demo\ECS\Systems\PlayerSystem.cpp" />
+    <ClCompile Include="Tests\Src\Demo\UI\DemoUIScene.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestAudio.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestDraw.cpp" />
     <ClCompile Include="Tests\Src\Examples\TestInput.cpp" />
@@ -406,6 +407,7 @@
     <ClInclude Include="Tests\Inc\Demo\ECS\SingletonComponents\DemoPropertiesComponent.h" />
     <ClInclude Include="Tests\Inc\Demo\ECS\Systems\AsteroidSystem.h" />
     <ClInclude Include="Tests\Inc\Demo\ECS\Systems\PlayerSystem.h" />
+    <ClInclude Include="Tests\Inc\Demo\UI\DemoUIScene.h" />
     <ClInclude Include="Tests\Inc\Examples\TestAudio.h" />
     <ClInclude Include="Tests\Inc\Examples\TestDraw.h" />
     <ClInclude Include="Tests\Inc\Examples\IExample.h" />

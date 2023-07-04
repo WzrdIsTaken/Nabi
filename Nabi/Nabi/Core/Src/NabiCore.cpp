@@ -104,12 +104,16 @@ namespace nabi
 			"The pool size is " << m_Context.m_ThreadCommand->GetThreadPoolSize() << " and the minimum required threads is " << minimumRequiredThreads << 
 			". Consider increasing the number of threads in the pool (InitSettings.h->ThreadingSettings) or undefining USE_CORE_FUNCTIONALITY_MULTITHREADING (Defines.h).");
 
+		std::promise<void> waitForStart = {}; // Ensures the threads don't try and access something before its ready
+		std::future<void> const waitForStartFuture = waitForStart.get_future();
+
 		std::vector<std::future<void>> lifetimeTaskFutures;
 		lifetimeTaskFutures.reserve(requiredThreadsForLifetimeTasks);
 
 		lifetimeTaskFutures.emplace_back(m_Context.m_ThreadCommand->EnqueueTask("Render", LIFETIME_TASK, CRITICAL_PRIORITY,
 			[&]() -> void
 			{
+				waitForStartFuture.wait();
 				while (runGame)
 				{
 					Render();
@@ -118,11 +122,14 @@ namespace nabi
 		lifetimeTaskFutures.emplace_back(m_Context.m_ThreadCommand->EnqueueTask("Simulation", LIFETIME_TASK, CRITICAL_PRIORITY,
 			[&]() -> void
 			{
+				waitForStartFuture.wait();
 				while (runGame)
 				{
 					FixedUpdate();
 				}
 			}));
+
+		waitForStart.set_value();
 #endif // ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
 
 		while (runGame)

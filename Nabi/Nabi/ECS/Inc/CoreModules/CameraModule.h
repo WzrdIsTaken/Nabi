@@ -26,6 +26,11 @@ namespace ecs::CameraModule
 		camera.m_HasToBeUpdated = true;
 	}
 
+	[[nodiscard]] dx::XMFLOAT2 ConvertWorldCoordToScreenCoord(nabi::Context const& context, 
+		CameraComponent const& perspectiveCamera, dx::XMFLOAT3 const& worldCoord);
+	[[nodiscard]] dx::XMFLOAT3 ConvertScreenCoordToWorldCoord(nabi::Context const& context, 
+		CameraComponent const& orthographicCamera, dx::XMFLOAT2 const& screenCoord);
+
 	[[nodiscard]] inline CameraComponent const& GetMainPerspectiveCameraComponent(nabi::Context const& context)
 	{
 		return context.m_Registry.get<CameraGroupComponent>(context.m_SingletonEntites

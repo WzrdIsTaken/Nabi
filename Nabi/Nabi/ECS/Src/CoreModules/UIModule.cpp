@@ -2,6 +2,9 @@
 
 #include "CoreModules\UIModule.h"
 
+#include "CoreComponents\TextureComponent.h"
+#include "CoreComponents\TransformComponent.h"
+#include "CoreModules\CameraModule.h"
 #include "CoreModules\InputModule.h"
 
 namespace ecs::UIModule
@@ -38,6 +41,17 @@ namespace ecs::UIModule
 		}
 
 		return currentUISceneEntities;
+	}
+
+	bool CheckIfMouseIsOverElement(nabi::Context const& context, CameraComponent const& perspectiveCamera, entt::entity const elementEntity)
+	{
+		auto const& elementTransformComponent = context.m_Registry.get<ecs::TransformComponent>(elementEntity);
+		dx::XMFLOAT2 const position = CameraModule::ConvertWorldCoordToScreenCoord(context, perspectiveCamera, elementTransformComponent.m_Position);
+
+		auto const& elementTextureComponent = context.m_Registry.get<ecs::TextureComponent>(elementEntity);
+		dx::XMFLOAT2 const textureDims = context.m_RenderCommand->GetTextureDimensions(*elementTextureComponent.m_TextureResource.GetResource());
+
+		return CheckIfMouseIsOverElement(context, position, textureDims);
 	}
 
 	bool CheckIfMouseIsOverElement(nabi::Context const& context, dx::XMFLOAT2 const elementPosition, dx::XMFLOAT2 const elementDimensions)

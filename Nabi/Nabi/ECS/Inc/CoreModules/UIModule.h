@@ -3,6 +3,11 @@
 
 #include "CoreSingletonComponents\UIStateComponent.h"
 
+namespace ecs
+{
+	struct CameraComponent;
+} // namespace ecs
+
 namespace ecs::UIModule
 {
 	// --- UI State ---
@@ -124,6 +129,8 @@ namespace ecs::UIModule
 
 	// --- UI Input ---
 
+	[[nodiscard]] bool CheckIfMouseIsOverElement(nabi::Context const& context, 
+		CameraComponent const& perspectiveCamera, entt::entity const elementEntity);
 	[[nodiscard]] bool CheckIfMouseIsOverElement(nabi::Context const& context, 
 		dx::XMFLOAT2 const elementPosition, dx::XMFLOAT2 const elementDimensions);
 	[[nodiscard]] bool CheckIfMouseIsOverElement(nabi::Context const& context, 

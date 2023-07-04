@@ -3,7 +3,8 @@
 #include "CoreModules\RenderModule.h"
 
 #include "Containers\Vertex.h"
-#include "RenderCommand.h"
+#include "DirectXUtils.h"
+#include "MathUtils.h"
 
 namespace ecs::RenderModule
 {

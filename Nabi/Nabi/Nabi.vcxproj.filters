@@ -326,6 +326,12 @@
     <Filter Include="Tests\Src\Demo\Core">
       <UniqueIdentifier>{08fcebcf-1f6d-4e8f-9d08-f919c965952c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Inc\Demo\UI">
+      <UniqueIdentifier>{2e554030-1fb4-4eff-ba4e-9c7fb9d0b767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Src\Demo\UI">
+      <UniqueIdentifier>{60e2e93d-c412-4644-9a7a-a69e63c085ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -637,6 +643,9 @@
     </ClCompile>
     <ClCompile Include="Tests\Src\Demo\Core\DemoEnums.cpp">
       <Filter>Tests\Src\Demo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Src\Demo\UI\DemoUIScene.cpp">
+      <Filter>Tests\Src\Demo\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -969,9 +978,6 @@
     <ClInclude Include="Physics\Inc\RaycastHitResult.h">
       <Filter>Physics\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h">
-      <Filter>Tests\Fixtures\PhysicsTests</Filter>
-    </ClInclude>
     <ClInclude Include="Audio\Inc\AudioSourceVoice.h">
       <Filter>Audio\Inc</Filter>
     </ClInclude>
@@ -1100,6 +1106,12 @@
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreSystems\CameraSystem.h">
       <Filter>ECS\Inc\CoreSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Inc\Demo\UI\DemoUIScene.h">
+      <Filter>Tests\Inc\Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h">
+      <Filter>Tests\Fixtures\PhysicsTests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

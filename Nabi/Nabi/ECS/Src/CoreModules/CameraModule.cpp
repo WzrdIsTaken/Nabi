@@ -18,4 +18,16 @@ namespace ecs::CameraModule
 		cameraComponent.m_Position = defaultSettings.m_CameraPosition;
 		cameraComponent.m_Target = defaultSettings.m_CameraTarget;
 	}
+
+	dx::XMFLOAT2 ConvertWorldCoordToScreenCoord(nabi::Context const& context, CameraComponent const& perspectiveCamera, dx::XMFLOAT3 const& worldCoord)
+	{
+		FUNCTION_NOT_IMPLEMENTED
+		return {};
+	}
+
+	dx::XMFLOAT3 ConvertScreenCoordToWorldCoord(nabi::Context const& context, CameraComponent const& orthographicCamera, dx::XMFLOAT2 const& screenCoord)
+	{
+		FUNCTION_NOT_IMPLEMENTED
+		return {};
+	}
 } // namespace ecs::CameraModule

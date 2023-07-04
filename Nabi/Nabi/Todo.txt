@@ -82,8 +82,18 @@ Current:
     - and a note about the camera direction. if the camera is moving one way and the player the other.. just invert the camerasysem::updatecamera vector?
     - and about what the demo is actually doing  + the keys for stuff
     - about example archive. esp collisioN!
+    - and about not using mouse input for menus.. but saying this is a good thing cos it easily supports console input as well
+    - about text being a little jank
+
+- give collision a round 2?
+
+- rename transformVector in RenderSystem to positionVector
+- fix the text issue?
 
 - had some strange bugs on startup. did you solve any of them?
+    - have to solve them. its to do with multiplethreading. im not sure how yet though or how to solve. the problem is in nabicore::run though i think
+    - might have just fixed?
+    - if we see it again, perhaps have to set the valid about the first update is called?
 
 // --- Low Priority ---
 

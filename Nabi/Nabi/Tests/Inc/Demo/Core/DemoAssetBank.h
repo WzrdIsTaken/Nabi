@@ -43,7 +43,8 @@ namespace core
 		bool LoadAudio();
 
 #pragma region Render Banks
-		static size_t constexpr c_RenderBankCapacity = 5u;
+		static size_t constexpr c_RenderBufferBankCapacity   = 30u;
+		static size_t constexpr c_RenderResourceBankCapacity = 5u;
 
 		struct RenderablePaths final
 		{
@@ -54,12 +55,14 @@ namespace core
 		};
 
 		void SetRenderBankProperties(AssetType const renderableType);
-		void LoadRenderable(RenderablePaths const& renderablePaths, entt::entity const entity, std::optional<std::function<void()>> preLoadOperation);
+		void LoadRenderable(RenderablePaths const& renderablePaths, entt::entity const entity, 
+			std::optional<std::function<void()>> preLoadOperation, nabi::Resource::ResourceCreationSettings const& renderBufferCreationSettings);
+		[[nodiscard]] std::string CreateSpriteSheetResourceName(std::string const& filePath, std::string const& resourceName) const noexcept;
 
-		nabi::Resource::ResourceBank<nabi::Rendering::Mesh,         nabi::Rendering::RenderBufferLoader, c_RenderBankCapacity> m_RenderBufferBank;
-		nabi::Resource::ResourceBank<nabi::Rendering::VertexShader, nabi::Rendering::VertexShaderLoader, c_RenderBankCapacity> m_VertexShaderBank;
-		nabi::Resource::ResourceBank<nabi::Rendering::PixelShader,  nabi::Rendering::PixelShaderLoader,  c_RenderBankCapacity> m_PixelShaderBank;
-		nabi::Resource::ResourceBank<nabi::Rendering::Texture,      nabi::Rendering::TextureLoader,      c_RenderBankCapacity> m_TextureBank;
+		nabi::Resource::ResourceBank<nabi::Rendering::RenderBuffers, nabi::Rendering::RenderBufferLoader, c_RenderBufferBankCapacity  > m_RenderBufferBank;
+		nabi::Resource::ResourceBank<nabi::Rendering::VertexShader,  nabi::Rendering::VertexShaderLoader, c_RenderResourceBankCapacity> m_VertexShaderBank;
+		nabi::Resource::ResourceBank<nabi::Rendering::PixelShader,   nabi::Rendering::PixelShaderLoader,  c_RenderResourceBankCapacity> m_PixelShaderBank;
+		nabi::Resource::ResourceBank<nabi::Rendering::Texture,       nabi::Rendering::TextureLoader,      c_RenderResourceBankCapacity> m_TextureBank;
 #pragma endregion
 
 #pragma region Audio Bank

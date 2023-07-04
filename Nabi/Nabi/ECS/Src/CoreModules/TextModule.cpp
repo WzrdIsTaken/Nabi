@@ -8,6 +8,7 @@
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\EntityModule.h"
 #include "DirectXUtils.h"
+#include "LockCriticalSection.h"
 
 namespace ecs::TextModule
 {
@@ -41,6 +42,7 @@ namespace ecs::TextModule
 		std::string const currentTextContent = textComponent.m_Content.data();
 		int const currentTextContentLength = static_cast<int>(currentTextContent.length());
 		int const newTextContentLength = static_cast<int>(newContent.length());
+		int const textPoolSize = textComponent.m_CharacterPoolSize;
 
 		ASSERT(newTextContentLength < textComponent.m_CharacterPoolSize,
 			"Text's character pool (" << textComponent.m_CharacterPoolSize << ") doesn't support a string of size " << newTextContentLength << "! " <<
@@ -53,9 +55,9 @@ namespace ecs::TextModule
 			{
 				using namespace nabi::Rendering;
 
-				if (characterIndex < newTextContentLength)
+				if (characterIndex < textPoolSize)
 				{
-					char const newCharacter = newContent.at(characterIndex);
+					char const newCharacter = characterIndex < newTextContentLength ? newContent.at(characterIndex) : ' ';
 					char oldCharacter = '\0';
 					if (characterIndex < currentTextContentLength)
 					{

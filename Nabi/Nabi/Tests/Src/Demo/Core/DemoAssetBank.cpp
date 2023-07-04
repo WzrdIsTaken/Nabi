@@ -10,12 +10,24 @@
 #include "CoreComponents\ResourceComponents\TextResourceComponent.h"
 #include "CoreComponents\BufferComponent.h"
 #include "CoreComponents\ShaderComponent.h"
+#include "CoreComponents\TagComponents\DrawOrthographicTagComponent.h"
+#include "CoreComponents\TagComponents\DrawPerspectiveTagComponent.h"
+#include "CoreComponents\TextComponent.h"
 #include "CoreComponents\TextureComponent.h"
+#include "CoreComponents\TransformComponent.h"
 #include "CoreModules\AudioModule.h"
+#include "CoreModules\TextModule.h"
+#include "StringStore.h"
 
 namespace core
 {
 #define REMOVE_RESOURCE_COMPONENT_FROM_ENTITY
+	
+#ifdef REMOVE_RESOURCE_COMPONENT_FROM_ENTITY
+	#define REMOVE_RESOURCE_COMPONENT_FROM_ENTITY_OPERATION(componentType) m_Context.m_Registry.remove<componentType>(entity);
+#else
+#define REMOVE_RESOURCE_COMPONENT_FROM_ENTITY_OPERATION NOT_DEFINED
+#endif // ifdef REMOVE_RESOURCE_COMPONENT_FROM_ENTITY
 
 	DemoAssetBank::DemoAssetBank(nabi::Context& context)
 		: AssetBank(context)
@@ -73,11 +85,9 @@ namespace core
 						modelResourceComponent.m_PixelShaderPath,
 						modelResourceComponent.m_TexturePath
 					};
-					LoadRenderable(modelPaths, entity, std::nullopt);
+					LoadRenderable(modelPaths, entity, std::nullopt, nabi::Resource::c_DefaultResourceCreationSettings);
 
-#ifdef REMOVE_RESOURCE_COMPONENT_FROM_ENTITY
-					m_Context.m_Registry.remove<ecs::RComp::ModelResourceComponent>(entity);
-#endif // ifdef REMOVE_RESOURCE_COMPONENT_FROM_ENTITY
+					REMOVE_RESOURCE_COMPONENT_FROM_ENTITY_OPERATION(ecs::RComp::ModelResourceComponent);
 				});
 
 		return true;
@@ -86,12 +96,27 @@ namespace core
 	bool DemoAssetBank::LoadSprites()
 	{
 		SetRenderBankProperties(AssetType::Sprite);
-		FAST_LOG("Implement me!");
+		
+		m_Context.m_Registry.view<ecs::RComp::SpriteResourceComponent>()
+			.each([&](entt::entity const entity, auto const& spriteResourceComponent)
+				{
+					RenderablePaths const spritePaths =
+					{
+						spriteResourceComponent.m_ImagePath,
+						spriteResourceComponent.m_VertexShaderPath,
+						spriteResourceComponent.m_PixelShaderPath,
+						spriteResourceComponent.m_ImagePath
+					};
+					LoadRenderable(spritePaths, entity,
+						[&]()
+						{
+							auto& renderBufferLoader = m_RenderBufferBank.GetLoader();
+							renderBufferLoader.SetSpriteSheetProperties(spriteResourceComponent.m_UVs);
+						}, 
+						nabi::Resource::c_DefaultResourceCreationSettings);
 
-		// would it be too bad to make the renderable loading a macro ? cos the m_Mesh/Sprite path is different
-		// for each i couldnt use a template to do the whole thing
-
-		// the stuff REMOVE_RESOURCE_COMPONENT_FROM_ENTITY / the ifdef could also be a macro
+					REMOVE_RESOURCE_COMPONENT_FROM_ENTITY_OPERATION(ecs::RComp::SpriteResourceComponent);
+				});
 
 		return true;
 	}
@@ -99,7 +124,82 @@ namespace core
 	bool DemoAssetBank::LoadText()
 	{
 		SetRenderBankProperties(AssetType::Text);
-		FAST_LOG("Implement me!");
+		
+		m_Context.m_Registry.view<ecs::TransformComponent const, ecs::RComp::TextResourceComponent>()
+			.each([&](entt::entity const entity, auto& transformComponent, auto& textResourceComponent)
+				{
+					int const textPoolSize = textResourceComponent.m_CharacterPoolSize;
+					int const textContentLength = textResourceComponent.m_Content.length();
+
+					// Add the text component to the base entity
+					std::string const& textContent = nabi::Reflection::StringStore::Instance()->Add(textResourceComponent.m_Content,
+						nabi::Reflection::StringStore::AddMode::CreateUnique); // if two bits of text have the same content, changing one shouldn't change the other
+
+					ecs::TextComponent textComponent = {};
+					textComponent.m_Content = entt::hashed_string(textContent.c_str());
+					textComponent.m_Characters.reserve(static_cast<size_t>(textContentLength));
+					textComponent.m_CharacterSpace    = textResourceComponent.m_CharacterSpace;
+					textComponent.m_AsciiShift        = textResourceComponent.m_AsciiShift;
+					textComponent.m_TextureAtlas      = textResourceComponent.m_TextureAtlas;
+					textComponent.m_CharacterPoolSize = textResourceComponent.m_CharacterPoolSize;
+					textComponent.m_ActiveInPool      = textContentLength;
+
+					// Iterate through each character and load the sprite
+					for (int i = 0; i < textPoolSize; ++i)
+					{
+						auto characterResourceCreationSettings = nabi::Resource::c_CreateUniqueDefaultCreationSettings;
+						char character = ' ';
+
+						if (i < textContentLength)
+						{
+							characterResourceCreationSettings = nabi::Resource::c_DefaultResourceCreationSettings;
+							character = textResourceComponent.m_Content[i];
+						}
+
+						// Create the character entity
+						entt::entity const characterEntity = m_Context.m_EntityCreator->CreateEntity();
+
+						ecs::TransformComponent characterTransformComponent = transformComponent;
+						characterTransformComponent.m_Position.x += textResourceComponent.m_CharacterSpace.x * static_cast<float>(i);
+						characterTransformComponent.m_Position.y += textResourceComponent.m_CharacterSpace.y * static_cast<float>(i);
+						m_Context.m_Registry.emplace<ecs::TransformComponent>(characterEntity, characterTransformComponent);
+
+						if (m_Context.m_Registry.any_of<ecs::TComp::DrawOrthographicTagComponent>(entity))
+						{
+							m_Context.m_Registry.emplace<ecs::TComp::DrawOrthographicTagComponent>(characterEntity);
+						}
+						if (m_Context.m_Registry.any_of<ecs::TComp::DrawPerspectiveTagComponent>(entity))
+						{
+							m_Context.m_Registry.emplace<ecs::TComp::DrawPerspectiveTagComponent>(characterEntity);
+						}
+
+						// Create the character sprite
+						std::string const assetPath = CreateSpriteSheetResourceName(textResourceComponent.m_FontPath, std::string(character, 1u));
+						RenderablePaths const textPaths =
+						{
+							assetPath,
+							textResourceComponent.m_VertexShaderPath,
+							textResourceComponent.m_PixelShaderPath,
+							textResourceComponent.m_FontPath
+						};
+						LoadRenderable(textPaths, characterEntity,
+							[&]()
+							{
+								auto& renderBufferLoader = m_RenderBufferBank.GetLoader();
+								auto const characterUVs = ecs::TextModule::CalculateCharacterUvs(m_Context, character,
+									textResourceComponent.m_AsciiShift, textResourceComponent.m_TextureAtlas);
+
+								renderBufferLoader.SetSpriteSheetProperties(characterUVs);
+							}, 
+							characterResourceCreationSettings);
+
+						// Add the character to the text
+						textComponent.m_Characters.push_back(characterEntity);
+					}
+
+					m_Context.m_Registry.emplace<ecs::TextComponent>(entity, textComponent);
+					REMOVE_RESOURCE_COMPONENT_FROM_ENTITY_OPERATION(ecs::RComp::TextResourceComponent)
+				});
 
 		return true;
 	}
@@ -115,9 +215,7 @@ namespace core
 						ecs::AudioModule::MapLoadedAudioEffectToID(m_Context, audioID, audioResource);
 					}
 
-#ifdef REMOVE_RESOURCE_COMPONENT_FROM_ENTITY
-					m_Context.m_Registry.remove<ecs::RComp::AudioResourceComponent>(entity);
-#endif // ifdef REMOVE_RESOURCE_COMPONENT_FROM_ENTITY
+					REMOVE_RESOURCE_COMPONENT_FROM_ENTITY_OPERATION(ecs::RComp::AudioResourceComponent)
 				});
 
 		return true;
@@ -157,7 +255,8 @@ namespace core
 		}
 	}
 
-	void DemoAssetBank::LoadRenderable(RenderablePaths const& renderablePaths, entt::entity const entity, std::optional<std::function<void()>> preLoadOperation)
+	void DemoAssetBank::LoadRenderable(RenderablePaths const& renderablePaths, entt::entity const entity, 
+		std::optional<std::function<void()>> preLoadOperation, nabi::Resource::ResourceCreationSettings const& renderBufferCreationSettings)
 	{
 		using namespace nabi::Rendering;
 		using namespace nabi::Resource;
@@ -172,7 +271,7 @@ namespace core
 		}
 
 		// Asset
-		ResourceRef<RenderBuffers> const renderBufferResource = m_RenderBufferBank.LoadResource(renderablePaths.m_AssetPath);
+		ResourceRef<RenderBuffers> const renderBufferResource = m_RenderBufferBank.LoadResource(renderablePaths.m_AssetPath, renderBufferCreationSettings);
 		bufferComponent.m_BufferResource = renderBufferResource;
 
 		// Shaders
@@ -189,6 +288,16 @@ namespace core
 		m_Context.m_Registry.emplace_or_replace<ecs::BufferComponent>(entity, bufferComponent);
 		m_Context.m_Registry.emplace_or_replace<ecs::ShaderComponent>(entity, shaderComponent);
 		m_Context.m_Registry.emplace_or_replace<ecs::TextureComponent>(entity, textureComponent);
+	}
+
+	std::string DemoAssetBank::CreateSpriteSheetResourceName(std::string const& filePath, std::string const& resourceName) const noexcept
+	{
+		// This is because since resources are cached by name, if multiple sprites pulled from a sprite sheet use the same filepath,
+		// then the resource will never be different as its just pulled from cache. This is important because the vertex buffer will 
+		// be created with different UVs for each sprite. (aka, this is an easy hack)
+
+		std::string const spriteSheetResourceName = filePath + "_" + resourceName;
+		return spriteSheetResourceName;
 	}
 } // namespace core
 

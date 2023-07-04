@@ -66,6 +66,10 @@ namespace nabi
 		/// Sets the window title
 		/// </summary>
 		void SetWindowTitle(std::wstring const& windowName) const NABI_NOEXCEPT;
+		/// <summary>
+		/// Returns the sizeof the window
+		/// </summary>
+		POINT GetWindowSize() const NABI_NOEXCEPT;
 
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(Window)

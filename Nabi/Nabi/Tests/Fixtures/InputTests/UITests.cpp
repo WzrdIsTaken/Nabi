@@ -18,6 +18,9 @@
 	If anyone is reading this in the future and knows why this is then please lmk!
 
 	For now I've just done the quick/hacky/bot solution of using the TestInput function.. I want to be done with this!!
+
+	04/07/23 Update - I have realised why this doesn't work (it wasn't valid to attach all of the ui scenes methods to one type, so instead I'm attaching
+	                  each ui scene's methods to its reflector) and its now been fixed :). I'll leave this test code how it is though.. because it works!!
 */
 #include "Examples\TestInput.h"
 

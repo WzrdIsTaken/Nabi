@@ -47,4 +47,13 @@ namespace nabi::MathUtils
 	{
 		return std::fabs(a - b) < epsilon;
 	}
+
+	/// <summary>
+	/// Makes [value] in the range of [oldMin-oldMax] in the range of [newMin-newMax]
+	/// </summary>
+	template<typename T>
+	[[nodiscard]] inline T LinearlyInterpolate(T value, T const oldMinValue, T const oldMaxValue, T const newMinValue, T const newMaxValue) NABI_NOEXCEPT
+	{
+		return ((value - oldMinValue) / (oldMaxValue - oldMinValue)) * (newMaxValue - newMinValue) + newMinValue;
+	}
 } // namespace nabi::MathUtils

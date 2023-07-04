@@ -142,6 +142,17 @@ namespace nabi
 		DX_ASSERT(SetWindowText(m_hWnd, windowName.c_str()));
 	}
 
+	POINT Window::GetWindowSize() const
+	{
+		RECT clientRect;
+		DX_ASSERT(GetClientRect(m_hWnd, &clientRect));
+
+		LONG const screenWidth  = clientRect.right  - clientRect.left;
+		LONG const screenHeight = clientRect.bottom - clientRect.top;
+
+		return { screenWidth, screenHeight };
+	}
+
 	LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) NABI_NOEXCEPT
 	{
 		// If the message is about handling window setup, handle that separately

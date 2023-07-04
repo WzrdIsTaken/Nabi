@@ -12,11 +12,11 @@
 // As it contains a static instance, we also need to declare it somewhere in the cpp - hense the CREATE_REFLECTOR_INSTANCE macro
 
 #define CREATE_REFLECTOR_BEGIN(typeName) \
-	class CONCAT(typeName, Reflector) \
+	class CONCAT(typeName, Reflector) final \
 	{ \
 		friend class ReflectorConstructor; \
 		\
-		class ReflectorConstructor \
+		class ReflectorConstructor final \
 		{ \
 		public: \
 			ReflectorConstructor() NABI_NOEXCEPT \
@@ -246,20 +246,12 @@
 		.func<&nabi::Reflection::StringConverter::FromString<primitiveType>>(nabi::Reflection::ReflectionGlobals::c_FromStringFunctionName);
 
 // --- UI Scene Reflection ---
-// UI scenes are a different different, as they are just all free functions. However, everything that is reflected in entt needs to be attached to a type.
-// This type is defined below
-
-namespace nabi::Reflection
-{
-	struct UIScene final
-	{
-	};
-} // namespace nabi::Reflection
+// UI scenes are a little different, as they are just all free functions. 
 
 #define REFLECT_UI_SCENE_BEGIN(sceneName)\
 	CREATE_REFLECTOR_BEGIN(sceneName) \
 	CREATE_INIT_REFLECTION_FUNCTION() \
-		entt::meta<nabi::Reflection::UIScene>().type(entt::hashed_string(#sceneName))
+		entt::meta<CONCAT(sceneName, Reflector)>().type(entt::hashed_string(#sceneName))
 
 #define REFLECT_UI_SCENE_METHOD_DEFAULT(method) \
 		.func<&method>(entt::hashed_string(#method))
