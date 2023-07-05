@@ -143,7 +143,7 @@ namespace nabi::Threading
 	std::string ThreadCommand::TaskStatistics::GetStatistics() const NABI_NOEXCEPT
 	{
 		auto GetStatisticsHelper =
-			[](std::ostringstream& stream, std::string const& statistic, auto const& statisticsMap)
+			[](std::ostringstream& stream, std::string const& statistic, auto const& statisticsMap) -> void
 			{
 				constexpr size_t longestTaskName = 8u;
 

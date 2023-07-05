@@ -176,7 +176,7 @@ namespace nabitest::Examples
 	bool TestDraw::Update()
 	{
 		m_Context.m_Registry.view<ecs::TransformComponent, ecs::BufferComponent>()
-			.each([&](entt::entity const entity, auto& transformComponent, auto const& modelComponent)
+			.each([&](entt::entity const entity, auto& transformComponent, auto const& modelComponent) -> void
 				{
 					float constexpr speed = 0.001f;
 					//transformComponent.m_Rotation.x += speed;
@@ -257,7 +257,7 @@ namespace nabitest::Examples
 
 		// Iterate through all the entities with model components
 		m_Context.m_Registry.view<ecs::RComp::ModelResourceComponent>()
-			.each([&](entt::entity const entity, auto const& modelResourceComponent)
+			.each([&](entt::entity const entity, auto const& modelResourceComponent) -> void
 				{
 					// Mesh
 					ResourceRef<Mesh> const meshResource = m_RenderBufferBank.LoadResource(modelResourceComponent.m_MeshPath);
@@ -309,7 +309,7 @@ namespace nabitest::Examples
 
 		// Iterate through all the entities with sprite components
 		m_Context.m_Registry.view<ecs::RComp::SpriteResourceComponent>()
-			.each([&](entt::entity const entity, auto const& spriteResourceComponent)
+			.each([&](entt::entity const entity, auto const& spriteResourceComponent) -> void
 				{
 					// Sprite
 					renderBufferLoader.SetSpriteSheetProperties(spriteResourceComponent.m_UVs); // TODO - Do what text does with CreateSpriteSheetResourceName
@@ -367,7 +367,7 @@ namespace nabitest::Examples
 		renderBufferLoader.SetLoadMode(RenderBufferLoader::LoadMode::_2D);
 
 		m_Context.m_Registry.view<ecs::TransformComponent, ecs::RComp::TextResourceComponent>()
-			.each([&](entt::entity const entity, auto const& transformComponent, auto const& textResourceComponent)
+			.each([&](entt::entity const entity, auto const& transformComponent, auto const& textResourceComponent) -> void
 				{
 					int const textPoolSize = 16;
 					int const textContentLength = textResourceComponent.m_Content.length();

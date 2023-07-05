@@ -29,7 +29,7 @@ namespace ecs
 	void AudioSystem::Update(nabi::GameTime const& gameTime)
 	{
 		m_Context.m_Registry.view<TransformComponent const, AudioEmitterComponent>()
-			.each([&](entt::entity const entity, auto& transformComponent, auto& audioEmitterComponent)
+			.each([&](entt::entity const entity, auto& transformComponent, auto& audioEmitterComponent) -> void
 				{
 					// Update the emitter's position and orientation
 					dx::XMFLOAT3 const emitterForward = nabi::DirectXUtils::Float3Normalize(

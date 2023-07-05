@@ -70,7 +70,7 @@ namespace ecs
 
 			// Directional
 			m_Context.m_Registry.view<TransformComponent const, DirectionalLightComponent const>()
-				.each([&](auto& transformComponent, auto& directionalLightComponent)
+				.each([&](auto& transformComponent, auto& directionalLightComponent) -> void
 					{
 						nabi::Rendering::PerLightChange& light = lightConstantBufferData.at(currentLightCount);
 
@@ -93,14 +93,14 @@ namespace ecs
 			/*
 			// Spot
 			m_Context.m_Registry.view<TransformComponent, SpotLightComponent>()
-				.each([&](auto const& transformComponent, auto const& spotLightComponent)
+				.each([&](auto const& transformComponent, auto const& spotLightComponent) -> void
 					{
 						++currentLightCount;
 					});
 
 			// Point
 			m_Context.m_Registry.view<TransformComponent, PointLightComponent>()
-				.each([&](auto const& transformComponent, auto const& pointLightComponent)
+				.each([&](auto const& transformComponent, auto const& pointLightComponent) -> void
 					{
 
 						++currentLightCount;

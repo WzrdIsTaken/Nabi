@@ -78,19 +78,19 @@ namespace ecs
 #ifdef USE_DEBUG_UTILS	
 					entt::entity const entity,
 #endif // USE_DEBUG_UTILS
-					auto& transformComponent, auto& bufferComponent, auto& shaderComponent, auto& textureComponent)
+					auto& transformComponent, auto& bufferComponent, auto& shaderComponent, auto& textureComponent) -> void
 					{
 						// Update the per mesh constant buffer
 						{
 							// Get the data
-							dx::XMVECTOR const transformVector = dx::XMLoadFloat3(&transformComponent.m_Position);
+							dx::XMVECTOR const positionVector = dx::XMLoadFloat3(&transformComponent.m_Position);
 							dx::XMVECTOR const scaleVector = dx::XMLoadFloat3(&transformComponent.m_Scale);
 
 							dx::XMVECTOR const rotationVector = dx::XMLoadFloat3(&transformComponent.m_Rotation);
 							dx::XMVECTOR const rotationQuaternion = dx::XMQuaternionRotationRollPitchYawFromVector(rotationVector);
 
 							// Calculate the model matrix
-							dx::XMMATRIX modelMatrix = dx::XMMatrixAffineTransformation(scaleVector, dx::XMVectorZero(), rotationQuaternion, transformVector);
+							dx::XMMATRIX modelMatrix = dx::XMMatrixAffineTransformation(scaleVector, dx::XMVectorZero(), rotationQuaternion, positionVector);
 
 							// Transpose for HLSL
 							modelMatrix = dx::XMMatrixTranspose(modelMatrix);

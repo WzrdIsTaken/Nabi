@@ -149,7 +149,7 @@ namespace nabi::ECS
 		bool validGroup = false;
 
 		m_Registry.view<ecs::EntityInfoComponent>()
-			.each([&](entt::entity entity, auto const& entityInfoComponent)
+			.each([&](entt::entity entity, auto const& entityInfoComponent) -> void
 				{
 					if (entityInfoComponent.m_EntityGroup == hashedGroupName)
 					{

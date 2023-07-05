@@ -27,7 +27,7 @@ namespace ecs
 		float const dt = static_cast<float>(gameTime.GetDeltaTime()); // Perhaps this should use fixed dt? But when I used that things seemed less smooth
 
 		m_Context.m_Registry.view<TransformComponent, RigidbodyComponent>()
-			.each([&](auto& transformComponent, auto& rigidbodyComponent)
+			.each([&](auto& transformComponent, auto& rigidbodyComponent) -> void
 				{
 					SetPosition(transformComponent, rigidbodyComponent, dt);
 					SetRotation(transformComponent, rigidbodyComponent, dt);

@@ -76,7 +76,7 @@ namespace core
 		SetRenderBankProperties(AssetType::Model);
 
 		m_Context.m_Registry.view<ecs::RComp::ModelResourceComponent>()
-			.each([&](entt::entity const entity, auto const& modelResourceComponent)
+			.each([&](entt::entity const entity, auto const& modelResourceComponent) -> void
 				{
 					RenderablePaths const modelPaths =
 					{
@@ -98,7 +98,7 @@ namespace core
 		SetRenderBankProperties(AssetType::Sprite);
 		
 		m_Context.m_Registry.view<ecs::RComp::SpriteResourceComponent>()
-			.each([&](entt::entity const entity, auto const& spriteResourceComponent)
+			.each([&](entt::entity const entity, auto const& spriteResourceComponent) -> void
 				{
 					RenderablePaths const spritePaths =
 					{
@@ -108,7 +108,7 @@ namespace core
 						spriteResourceComponent.m_ImagePath
 					};
 					LoadRenderable(spritePaths, entity,
-						[&]()
+						[&]() -> void
 						{
 							auto& renderBufferLoader = m_RenderBufferBank.GetLoader();
 							renderBufferLoader.SetSpriteSheetProperties(spriteResourceComponent.m_UVs);
@@ -126,7 +126,7 @@ namespace core
 		SetRenderBankProperties(AssetType::Text);
 		
 		m_Context.m_Registry.view<ecs::TransformComponent const, ecs::RComp::TextResourceComponent>()
-			.each([&](entt::entity const entity, auto& transformComponent, auto& textResourceComponent)
+			.each([&](entt::entity const entity, auto& transformComponent, auto& textResourceComponent) -> void
 				{
 					int const textPoolSize = textResourceComponent.m_CharacterPoolSize;
 					int const textContentLength = textResourceComponent.m_Content.length();
@@ -183,7 +183,7 @@ namespace core
 							textResourceComponent.m_FontPath
 						};
 						LoadRenderable(textPaths, characterEntity,
-							[&]()
+							[&]() -> void
 							{
 								auto& renderBufferLoader = m_RenderBufferBank.GetLoader();
 								auto const characterUVs = ecs::TextModule::CalculateCharacterUvs(m_Context, character,
@@ -207,7 +207,7 @@ namespace core
 	bool DemoAssetBank::LoadAudio()
 	{
 		m_Context.m_Registry.view<ecs::RComp::AudioResourceComponent const>()
-			.each([&](entt::entity const entity, auto& audioResourceComponent)
+			.each([&](entt::entity const entity, auto& audioResourceComponent) -> void
 				{
 					for (auto const [audioID, audioPath] : audioResourceComponent.m_Resources.Get())
 					{

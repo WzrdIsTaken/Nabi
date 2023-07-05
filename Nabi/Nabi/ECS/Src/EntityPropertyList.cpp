@@ -42,7 +42,7 @@ namespace nabi::ECS
 		entt::hashed_string propertyHash  = entt::hashed_string(propertyName.data());
 
 		auto result = std::find_if(m_OverriddenProperties.begin(), m_OverriddenProperties.end(), 
-			[componentHash, propertyHash](PropertyComponentPair const& propertyComponentPair)
+			[componentHash, propertyHash](PropertyComponentPair const& propertyComponentPair) -> bool
 			{
 				return propertyComponentPair.m_ComponentHash == componentHash &&
 					propertyComponentPair.m_PropertyOverride.m_Id == propertyHash;

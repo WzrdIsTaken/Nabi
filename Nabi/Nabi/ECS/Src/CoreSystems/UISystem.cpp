@@ -195,7 +195,7 @@ namespace ecs
 					// Destroy the ui entities in the scene
 					UISceneComponent::UISceneEntities uiElements = uiSceneComponent->m_UISceneEntities;
 					std::for_each(uiElements.begin(), uiElements.end(),
-						[&](entt::entity const entity)
+						[&](entt::entity const entity) -> void
 						{
 							m_Context.m_Registry.destroy(entity);
 						});

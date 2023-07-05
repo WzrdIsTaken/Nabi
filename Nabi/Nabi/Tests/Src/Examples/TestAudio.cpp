@@ -163,7 +163,7 @@ namespace nabitest::Examples
 	bool TestAudio::TestAssetBank::LoadAudioEffects()
 	{
 		m_Context.m_Registry.view<ecs::RComp::AudioResourceComponent /*const?*/>()
-			.each([&](entt::entity const entity, auto& audioResourceComponent)
+			.each([&](entt::entity const entity, auto& audioResourceComponent) -> void
 				{
 					for (auto const [audioID, audioPath] : audioResourceComponent.m_Resources.Get())
 					{

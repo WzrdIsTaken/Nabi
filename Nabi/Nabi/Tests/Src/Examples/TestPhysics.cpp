@@ -313,7 +313,7 @@ namespace nabitest::Examples
 
 		// Iterate through all the entities with model components
 		m_Context.m_Registry.view<ecs::RComp::ModelResourceComponent>()
-			.each([&](entt::entity const entity, auto const& modelResourceComponent)
+			.each([&](entt::entity const entity, auto const& modelResourceComponent) -> void
 				{
 					// Mesh
 					ResourceRef<Mesh> const meshResource = m_RenderBufferBank.LoadResource(modelResourceComponent.m_MeshPath);

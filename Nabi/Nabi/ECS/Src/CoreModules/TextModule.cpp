@@ -74,7 +74,7 @@ namespace ecs::TextModule
 						UINT const characterVertexBufferSize = characterBuffers->m_VertexBuffer.m_ByteWidth;
 
 						context.m_RenderCommand->UpdateBuffer(characterVertexBuffer, characterVertexBufferSize,
-							[characterUvs, characterVertexBufferSize](D3D11_MAPPED_SUBRESOURCE& subresource)
+							[characterUvs, characterVertexBufferSize](D3D11_MAPPED_SUBRESOURCE& subresource) -> void
 							{
 								Vertex* const vertexData = reinterpret_cast<Vertex*>(subresource.pData);
 								std::vector<Vertex> characterVertices = { vertexData, vertexData + characterVertexBufferSize };

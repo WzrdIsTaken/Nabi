@@ -27,7 +27,7 @@ namespace ui::DemoUIScene
 			// Solution 2 is a lot worse than solution 1, but this problem might never actually exist so I'm not going to worry about it rn!
 
 			context.m_Registry.view<ecs::TextComponent>().each( 
-				[&](auto& textComponent)
+				[&](auto& textComponent) -> void
 				{
 					static int count = 0;
 					++count;

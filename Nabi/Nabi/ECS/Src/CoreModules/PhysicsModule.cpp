@@ -113,7 +113,7 @@ namespace ecs::PhysicsModule
 			// (see the original code at the bottom of this file)
 
 			view.storage<TransformComponent const>().sort(
-				[&context, &view, comparisonAxis, &lhsAABB, &rhsAABB](entt::entity const lhs, entt::entity const rhs)
+				[&context, &view, comparisonAxis, &lhsAABB, &rhsAABB](entt::entity const lhs, entt::entity const rhs) -> bool
 				{
 					bool lhsCloser = false;
 
@@ -197,7 +197,7 @@ namespace ecs::PhysicsModule
 	{
 		auto view = context.m_Registry.view<TransformComponent, RigidbodyComponent, ColliderComponent const>();
 		view.storage<TransformComponent const>().sort(
-			[&context, comparisonAxis, &lhsAABB, &rhsAABB](entt::entity const lhs, entt::entity const rhs)
+			[&context, comparisonAxis, &lhsAABB, &rhsAABB](entt::entity const lhs, entt::entity const rhs) -> bool
 			{
 				TransformComponent const& lhsTransform = context.m_Registry.get<TransformComponent>(lhs);
 				TransformComponent const& rhsTransform = context.m_Registry.get<TransformComponent>(rhs);
