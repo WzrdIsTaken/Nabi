@@ -8,7 +8,6 @@
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\EntityModule.h"
 #include "DirectXUtils.h"
-#include "LockCriticalSection.h"
 
 namespace ecs::TextModule
 {

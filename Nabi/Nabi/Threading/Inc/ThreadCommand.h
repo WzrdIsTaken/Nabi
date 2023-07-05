@@ -21,6 +21,23 @@ namespace nabi::Threading
 #define MEDIUM_PRIORITY   nabi::Threading::ThreadCommand::TaskPriority::Medium
 #define LOW_PRIORITY      nabi::Threading::ThreadCommand::TaskPriority::Low
 
+#define CREATE_LIFETIME_TASK_WITH_TASK_QUEUE(context, taskName, futureOperation, runCondition, loopFunction) \
+	auto& CONCAT(taskName, TaskQueue) = context.m_ThreadCommand->CreateTaskTaskQueue(#taskName); \
+	futureOperation (context.m_ThreadCommand->EnqueueTask(#taskName, LIFETIME_TASK, CRITICAL_PRIORITY, \
+		[&]() -> void \
+		{	\
+			while (runCondition) \
+			{ \
+				while (!CONCAT(taskName, TaskQueue).empty()) \
+				{ \
+					auto const task = CONCAT(taskName, TaskQueue).front(); \
+					CONCAT(taskName, TaskQueue).pop(); \
+					task(); \
+				} \
+				loopFunction; \
+			} \
+		}));
+
 	/// <summary>
 	/// Manages a thread pool submits tasks to a priority queue 
 	/// Currently task priority isn't accounted for. I'm using macros not constexprs because I think the purple looks cool
@@ -31,6 +48,17 @@ namespace nabi::Threading
 	class ThreadCommand final
 	{
 	public:
+		/// <summary>
+		/// A TaskTask is a task's task. I don't think this is the best way to structure this, but the thought process is:
+		/// If we have a lifetime task, eg Render, and from another thread, eg the main update loop, need to do an operation
+		/// on the render thread - what can we do? Well we could look the section/resources.. but I don't know if thats the 
+		/// best thing to do. Would it be better for the Render thread to have a queue of tasks that it first checks before
+		/// drawing the frame? I thought so at least, hence this code. It is a bit rushed though, because this coding thing
+		/// is doing my bloody head in and I want to do something else.
+		/// </summary>
+		typedef std::function<void()> TaskTaskFunction;
+		typedef std::queue<TaskTaskFunction> TaskTaskQueue;
+
 		enum class TaskDuration : unsigned int
 		{
 			Lifetime = 1u,
@@ -87,6 +115,12 @@ namespace nabi::Threading
 				LOG(LOG_PREP, LOG_WARN, LOG_CATEGORY_THREADING, "Trying to enqueue and detach a task but the thread pool is null", LOG_END);
 			}
 		}
+
+		// TaskTask stuff (see explanation above)
+		TaskTaskQueue& CreateTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT;
+		[[nodiscard]] TaskTaskQueue* const GetTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT;
+		bool PushTaskToTaskTaskQueue(std::string const& queueName, TaskTaskFunction&& task) NABI_NOEXCEPT;
+		bool RemoveTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT;
 
 		[[nodiscard]] inline CRITICAL_SECTION& GetCriticalSection() const NABI_NOEXCEPT
 		{
@@ -150,5 +184,6 @@ namespace nabi::Threading
 #endif // ifdef USE_DEBUG_UTILS
 
 		ThreadingObjects& m_ThreadingObjects;
+		std::unordered_map<std::string, TaskTaskQueue> m_TaskTaskQueues;
 	};
 } // namespace nabi::Threading

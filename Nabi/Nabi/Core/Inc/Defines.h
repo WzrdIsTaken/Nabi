@@ -53,3 +53,7 @@
 #else
 	#define NABI_NOEXCEPT noexcept
 #endif // ifndef USE_NABI_NOEXCEPT
+
+	// ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING (but we want these task name defines regardless of if its enabled)
+#define CORE_TASK_RENDER Render
+#define CORE_TASK_SIMULATION Simulation

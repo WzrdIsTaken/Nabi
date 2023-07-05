@@ -17,7 +17,7 @@ namespace ui::DemoUIScene
 
 	void ButtonResponse(nabi::Context& context, entt::entity const uiEntity)
 	{
-		bool const clickInsideElement = true; //ecs::UIModule::CheckIfMouseIsOverElement(context, uiEntity); (wip)
+		bool const clickInsideElement = true; //ecs::UIModule::CheckIfMouseIsOverElement(context, CameraModule::GetMainPerspectiveCameraComponent(context), uiEntity); (wip)
 		if (clickInsideElement)
 		{
 			// There is only one text component in the scene, so we can do this.
@@ -31,7 +31,14 @@ namespace ui::DemoUIScene
 				{
 					static int count = 0;
 					++count;
-					ecs::TextModule::UpdateTextContent(context, textComponent, std::to_string(count));
+
+					int const nonStaticCount = count;
+					context.m_ThreadCommand->PushTaskToTaskTaskQueue(STRINGIFY(CORE_TASK_RENDER),
+						[&context, &textComponent, nonStaticCount]() -> void
+						{
+							ecs::TextModule::UpdateTextContent(context, textComponent, std::to_string(nonStaticCount));
+						}
+					);
 				});
 		}
 	}

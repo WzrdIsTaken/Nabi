@@ -10,6 +10,7 @@ namespace nabi::Threading
 
 	ThreadCommand::ThreadCommand(ThreadingObjects& threadingObjects, ThreadingSettings const& threadingSettings) NABI_NOEXCEPT
 		: m_ThreadingObjects(threadingObjects)
+		, m_TaskTaskQueues{}
 #ifdef USE_DEBUG_UTILS
 		, m_TaskStatistics{}
 #endif // ifdef USE_DEBUG_UTILS
@@ -36,6 +37,61 @@ namespace nabi::Threading
 
 		m_ThreadingObjects.m_ThreadPool.reset();
 		DeleteCriticalSection(&m_ThreadingObjects.m_CriticalSection);
+	}
+
+	ThreadCommand::TaskTaskQueue& ThreadCommand::CreateTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT
+	{
+		return m_TaskTaskQueues.emplace(queueName, TaskTaskQueue{}).first->second;
+	}
+
+	ThreadCommand::TaskTaskQueue* const ThreadCommand::GetTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT
+	{
+		auto const itr = m_TaskTaskQueues.find(queueName);
+		if (itr != m_TaskTaskQueues.end())
+		{
+			return &(itr->second);
+		}
+		else
+		{
+			ASSERT_FAIL("Trying to find a TaskTaskQueue with the name " << queueName << " which doesn't exist");
+			return nullptr;
+		}
+	}
+
+	bool ThreadCommand::PushTaskToTaskTaskQueue(std::string const& queueName, TaskTaskFunction&& task) NABI_NOEXCEPT
+	{
+#ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
+		auto* const queue = GetTaskTaskQueue(queueName);
+		if (queue)
+		{
+			queue->push(task);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+#else
+		// I think the easiest way to manage core functionality multithreading on/off it to just leave the rest
+		// of the task task stuff as it is, but for this function just make it execute the task immediately.
+		// Of course this has the caveat of requiring us to always add tasks in this way. So future ben, do this!
+		task();
+		return true;
+#endif // ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
+	}
+
+	bool ThreadCommand::RemoveTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT
+	{
+		auto const itr = m_TaskTaskQueues.find(queueName);
+		if (itr != m_TaskTaskQueues.end())
+		{
+			m_TaskTaskQueues.erase(itr);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	// --- Task Statistics ---
