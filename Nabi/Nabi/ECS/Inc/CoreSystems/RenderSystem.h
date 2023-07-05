@@ -34,7 +34,7 @@ namespace ecs
 		using ValidTags = typename std::enable_if<std::is_same<T, TComp::DrawOrthographicTagComponent>::value || std::is_same<T, TComp::DrawPerspectiveTagComponent>::value>::type;
 
 		template<typename RenderableTag, typename = ValidTags<RenderableTag>>
-		void RenderInternal(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameras, CameraIndex::Enum const cameraType)
+		void RenderInternal(SComp::GraphicsComponent& graphicsComponent, CameraComponent const& camera)
 		{
 			// Update the per frame constant buffer
 			{
@@ -44,7 +44,6 @@ namespace ecs
 				nabi::Rendering::PerFrame perFrameConstantBufferData;
 
 				// Get the data
-				CameraComponent const& camera = cameras.m_Cameras.at(cameraType);
 				dx::XMMATRIX viewMatrix = dx::XMLoadFloat4x4(&camera.m_View);
 				dx::XMMATRIX projectionMatrix = dx::XMLoadFloat4x4(&camera.m_Projection);
 

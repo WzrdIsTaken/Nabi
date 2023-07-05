@@ -42,14 +42,14 @@ namespace ecs
 
 	void RenderSystem::RenderPerspective(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent)
 	{
-		CameraIndex::Enum constexpr camera = CameraIndex::Perspective;
-		RenderInternal<TComp::DrawPerspectiveTagComponent>(graphicsComponent, cameraGroupComponent, camera);
+		CameraComponent const& cameraComponent = cameraGroupComponent.m_Cameras.at(CameraIndex::Perspective);
+		RenderInternal<TComp::DrawPerspectiveTagComponent>(graphicsComponent, cameraComponent);
 	}
 
 	void RenderSystem::RenderOrthographic(SComp::GraphicsComponent& graphicsComponent, CameraGroupComponent const& cameraGroupComponent)
 	{
-		CameraIndex::Enum constexpr camera = CameraIndex::Orthographic;
-		RenderInternal<TComp::DrawOrthographicTagComponent>(graphicsComponent, cameraGroupComponent, camera);
+		CameraComponent const& cameraComponent = cameraGroupComponent.m_Cameras.at(CameraIndex::Orthographic);
+		RenderInternal<TComp::DrawOrthographicTagComponent>(graphicsComponent, cameraComponent);
 	}
 
 #ifdef USE_DEBUG_UTILS

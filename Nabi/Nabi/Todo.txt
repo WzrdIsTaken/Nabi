@@ -74,8 +74,8 @@ Current:
 - improve the lighting system
     - eg have a get light statement component in render module and use it in both the event functions and update. unlike now - got some code rpeititon
 
-- add the ->void thing to all view lambas (eg like CameraSystem)
-- why doesnt the renderinternal function in render system just take in one camera component. and in the other two render functions that info is extracted? that would be better right?
+
+
 
 - visual studio sign in error (top right)
 - make a note in the 'read before start a proj' txt about: system update order: eg input->update->render. and about having multithread off at first..
@@ -87,7 +87,7 @@ Current:
 
 - give collision a round 2?
 
-- rename transformVector in RenderSystem to positionVector
+
 - fix the text issue?
 
 - had some strange bugs on startup. did you solve any of them?
@@ -122,6 +122,9 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- why doesnt the renderinternal function in render system just take in one camera component. and in the other two render functions that info is extracted? that would be better right?
+- rename transformVector in RenderSystem to positionVector
+- add the ->void thing to all view lambas (eg like CameraSystem)
 - make asset bank have a typdef uint64 for bitfield asset type and have the load/unload asset functions take in that type
 - REMEMEBER! Turn back on multithreading and see what happens
 - i dont know if im a fan of how the demo files are structured...
