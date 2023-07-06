@@ -1,9 +1,9 @@
 #pragma once
 #include "EngineCore.h"
 
-namespace nabi::Templates
+namespace nabi::Patterns
 {
-#define TSINGLETON_INSTANCE(_class) std::unique_ptr<_class> nabi::Templates::TSingleton<_class>::s_Instance = nullptr;
+#define TSINGLETON_INSTANCE(_class) std::unique_ptr<_class> nabi::Patterns::TSingleton<_class>::s_Instance = nullptr;
 
 	namespace SingletonHelpers
 	{
@@ -17,7 +17,7 @@ namespace nabi::Templates
 		/// <param name="assertCondition">- The condition that will trigger the assertion</param>
 		/// <param name="assertMessge">- The message displayed in the assertion</param>
 		void CallAssert(bool const assertCondition, std::string_view const assertMessge) NABI_NOEXCEPT;
-	} // namespace nabi::Templates::SingletonHelpers
+	} // namespace nabi::Patterns::SingletonHelpers
 
 	template<class T>
 	class TSingleton
@@ -50,5 +50,5 @@ namespace nabi::Templates
 	private:
 		static std::unique_ptr<T> s_Instance;
 	};
-} // namespace nabi::Templates
+} // namespace nabi::Patterns
 

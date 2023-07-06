@@ -60,8 +60,9 @@ Current:
     - we will probs just always use these shaders anyway
     - make to note down all usage places before the change, and switch them all over
     - change the lightbuffer in common.hlsli to 'b2'? its duplicating b0 atm . google what this 'b' actually means..
+ 
 - Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
-- nabi::Templates -> nabi::Patterns? Namespace like the folder
+    - not sure it can actually. in class initaliser and all that. leave a comment if i cant
 
 - make a note for future ben that in an emtpty proj turn off multitheading in defines to start
 - perhaps remove the log warn about getting fixed dt if sim is false if youve noticed no problems with it
@@ -84,8 +85,10 @@ Current:
     - about example archive. esp collisioN!
     - and about not using mouse input for menus.. but saying this is a good thing cos it easily supports console input as well
     - about text being a little jank
+    - and about might havign to do the bot create resource with dif name if i add sprite sheets though i probs will not (see example of how i did this in text loading)
 
 - give collision a round 2?
+    - do all the other todos, then go back to the example code and load that from xml etc. start from the bottom and head up
 
 
 - fix the text issue?
@@ -122,6 +125,7 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- nabi::Templates -> nabi::Patterns? Namespace like the folder
 - why doesnt the renderinternal function in render system just take in one camera component. and in the other two render functions that info is extracted? that would be better right?
 - rename transformVector in RenderSystem to positionVector
 - add the ->void thing to all view lambas (eg like CameraSystem)

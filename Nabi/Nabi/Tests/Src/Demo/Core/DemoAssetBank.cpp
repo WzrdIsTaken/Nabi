@@ -174,7 +174,7 @@ namespace core
 						}
 
 						// Create the character sprite
-						std::string const assetPath = CreateSpriteSheetResourceName(textResourceComponent.m_FontPath, std::string(character, 1u));
+						std::string const assetPath = CreateSpriteSheetResourceName(textResourceComponent.m_FontPath, std::string(1u, character));
 						RenderablePaths const textPaths =
 						{
 							assetPath,

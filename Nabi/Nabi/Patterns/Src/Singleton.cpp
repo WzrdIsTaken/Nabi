@@ -4,7 +4,7 @@
 
 #include "DebugUtils.h"
 
-namespace nabi::Templates
+namespace nabi::Patterns
 {
 	namespace SingletonHelpers
 	{
@@ -12,5 +12,5 @@ namespace nabi::Templates
 		{
 			ASSERT(assertCondition, assertMessge);
 		}
-	} // namespace nabi::Templates::SingletonHelpers
-} // namespace nabi::Templates
+	} // namespace nabi::Patterns::SingletonHelpers
+} // namespace nabi::Patterns

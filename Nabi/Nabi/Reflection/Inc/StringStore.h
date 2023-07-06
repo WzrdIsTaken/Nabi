@@ -28,7 +28,7 @@ namespace nabi::Reflection
 	/// But this whole system has kinda turned into a disaster. I just hope it can hold together.
 	/// :(
 	/// </summary>
-	class StringStore final : public nabi::Templates::TSingleton<StringStore>
+	class StringStore final : public nabi::Patterns::TSingleton<StringStore>
 	{
 	public:
 		enum class AddMode : int

@@ -39,30 +39,36 @@ namespace nabi::Threading
 		DeleteCriticalSection(&m_ThreadingObjects.m_CriticalSection);
 	}
 
-	ThreadCommand::TaskTaskQueue& ThreadCommand::CreateTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT
+	ThreadCommand::TaskTaskQueue* const ThreadCommand::CreateTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT
 	{
-		return m_TaskTaskQueues.emplace(queueName, TaskTaskQueue{}).first->second;
+		if (auto const itr = m_TaskTaskQueues.find(queueName); itr == m_TaskTaskQueues.end())
+		{
+			return &m_TaskTaskQueues.emplace(queueName, TaskTaskQueue{}).first->second;
+		}
+		else
+		{
+			ASSERT_FAIL("Trying to create a TaskTaskQueue with the name " << queueName << " but it already exists");
+			return nullptr;
+		}
 	}
 
 	ThreadCommand::TaskTaskQueue* const ThreadCommand::GetTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT
 	{
-		auto const itr = m_TaskTaskQueues.find(queueName);
-		if (itr != m_TaskTaskQueues.end())
+		if (auto const itr = m_TaskTaskQueues.find(queueName); itr != m_TaskTaskQueues.end())
 		{
 			return &(itr->second);
 		}
 		else
 		{
-			ASSERT_FAIL("Trying to find a TaskTaskQueue with the name " << queueName << " which doesn't exist");
+			ASSERT_FAIL("Trying to find a TaskTaskQueue with the name " << queueName << " but it doesn't exist");
 			return nullptr;
 		}
 	}
 
-	bool ThreadCommand::PushTaskToTaskTaskQueue(std::string const& queueName, TaskTaskFunction&& task) NABI_NOEXCEPT
+	bool ThreadCommand::PushTaskToTaskTaskQueue(std::string const& queueName, TaskTaskFunction const&& task) NABI_NOEXCEPT
 	{
 #ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
-		auto* const queue = GetTaskTaskQueue(queueName);
-		if (queue)
+		if (auto* const queue = GetTaskTaskQueue(queueName); queue)
 		{
 			queue->push(task);
 			return true;
@@ -82,10 +88,9 @@ namespace nabi::Threading
 
 	bool ThreadCommand::RemoveTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT
 	{
-		auto const itr = m_TaskTaskQueues.find(queueName);
-		if (itr != m_TaskTaskQueues.end())
+		if (auto* const queue = GetTaskTaskQueue(queueName); queue)
 		{
-			m_TaskTaskQueues.erase(itr);
+			m_TaskTaskQueues.erase(queueName);
 			return true;
 		}
 		else
@@ -145,12 +150,12 @@ namespace nabi::Threading
 		auto GetStatisticsHelper =
 			[](std::ostringstream& stream, std::string const& statistic, auto const& statisticsMap) -> void
 			{
-				constexpr size_t longestTaskName = 8u;
+				size_t constexpr longestTaskName = 8u;
 
 				stream << "Tasks started by " << statistic << ":" << NEWLINE;
 				for (auto const& [stat, info] : statisticsMap)
 				{
-					stream << info.m_TaskName << SPACE(8 - info.m_TaskName.length()) << " - " << info.m_StartedCount << NEWLINE;
+					stream << info.m_TaskName << SPACE(longestTaskName - info.m_TaskName.length()) << " - " << info.m_StartedCount << NEWLINE;
 				}
 			};
 

@@ -16,7 +16,7 @@ namespace nabi::DebugUtils
 	/// *almost...
 	///
 	/// </summary>
-	class Logger final : public nabi::Templates::TSingleton<Logger>
+	class Logger final : public nabi::Patterns::TSingleton<Logger>
 	{
 	public:
 		typedef unsigned long long LogCount;

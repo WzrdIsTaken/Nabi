@@ -22,16 +22,16 @@ namespace nabi::Threading
 #define LOW_PRIORITY      nabi::Threading::ThreadCommand::TaskPriority::Low
 
 #define CREATE_LIFETIME_TASK_WITH_TASK_QUEUE(context, taskName, futureOperation, runCondition, loopFunction) \
-	auto& CONCAT(taskName, TaskQueue) = context.m_ThreadCommand->CreateTaskTaskQueue(#taskName); \
+	auto* const CONCAT(taskName, TaskQueue) = context.m_ThreadCommand->CreateTaskTaskQueue(#taskName); \
 	futureOperation (context.m_ThreadCommand->EnqueueTask(#taskName, LIFETIME_TASK, CRITICAL_PRIORITY, \
 		[&]() -> void \
 		{	\
 			while (runCondition) \
 			{ \
-				while (!CONCAT(taskName, TaskQueue).empty()) \
+				while (!CONCAT(taskName, TaskQueue)->empty()) \
 				{ \
-					auto const task = CONCAT(taskName, TaskQueue).front(); \
-					CONCAT(taskName, TaskQueue).pop(); \
+					auto const task = CONCAT(taskName, TaskQueue)->front(); \
+					CONCAT(taskName, TaskQueue)->pop(); \
 					task(); \
 				} \
 				loopFunction; \
@@ -117,9 +117,9 @@ namespace nabi::Threading
 		}
 
 		// TaskTask stuff (see explanation above)
-		TaskTaskQueue& CreateTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT;
+		TaskTaskQueue* const CreateTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT;
 		[[nodiscard]] TaskTaskQueue* const GetTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT;
-		bool PushTaskToTaskTaskQueue(std::string const& queueName, TaskTaskFunction&& task) NABI_NOEXCEPT;
+		bool PushTaskToTaskTaskQueue(std::string const& queueName, TaskTaskFunction const&& task) NABI_NOEXCEPT;
 		bool RemoveTaskTaskQueue(std::string const& queueName) NABI_NOEXCEPT;
 
 		[[nodiscard]] inline CRITICAL_SECTION& GetCriticalSection() const NABI_NOEXCEPT
