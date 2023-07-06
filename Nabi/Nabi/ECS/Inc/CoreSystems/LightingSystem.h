@@ -3,12 +3,6 @@
 
 namespace ecs
 {
-	namespace SComp
-	{
-		struct LightStateComponent;
-	} // namespace SComp
-
-	struct DirectionalLightComponent;
 	struct LightingProperties;
 } // namespace ecs
 namespace nabi::Rendering
@@ -29,10 +23,9 @@ namespace ecs
 	private:
 		void AssignLightingProperties(nabi::Rendering::PerLightChange& perLightChangeConstantBuffer, LightingProperties const& lightProperties) const;
 
-		void OnLightCreated(entt::registry& registry, entt::entity entity);
-		void OnLightUpdated(entt::registry& registry, entt::entity entity);
-		void OnLightDestroyed(entt::registry& registry, entt::entity entity);
-		[[nodiscard]] SComp::LightStateComponent* const GetLightStateComponent() const;
+		void OnLightCreated(entt::registry& registry, entt::entity const entity);
+		void OnLightUpdated(entt::registry& registry, entt::entity const entity);
+		void OnLightDestroyed(entt::registry& registry, entt::entity const entity);
 
 		REFLECT_PRIVATES(LightingSystem)
 	};

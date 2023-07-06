@@ -6,6 +6,7 @@
 #include "CoreComponents\TransformComponent.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
+#include "CoreModules\RenderModule.h"
 
 namespace ecs
 {
@@ -25,8 +26,8 @@ namespace ecs
 
 		// Set up listeners for the creation, updating and destruction of lights
 		MANAGE_LIGHT_LISTENERS(on_construct, connect, LightingSystem::OnLightCreated);
-		MANAGE_LIGHT_LISTENERS(on_update, connect, LightingSystem::OnLightUpdated);
-		MANAGE_LIGHT_LISTENERS(on_destroy, connect, LightingSystem::OnLightDestroyed);
+		MANAGE_LIGHT_LISTENERS(on_update,    connect, LightingSystem::OnLightUpdated);
+		MANAGE_LIGHT_LISTENERS(on_destroy,   connect, LightingSystem::OnLightDestroyed);
 	}
 
 	LightingSystem::~LightingSystem()
@@ -35,17 +36,14 @@ namespace ecs
 
 		// Remove listeners for the creation, updating and destruction of lights
 		MANAGE_LIGHT_LISTENERS(on_construct, disconnect, LightingSystem::OnLightCreated);
-		MANAGE_LIGHT_LISTENERS(on_update, disconnect, LightingSystem::OnLightUpdated);
-		MANAGE_LIGHT_LISTENERS(on_destroy, disconnect, LightingSystem::OnLightDestroyed);		
+		MANAGE_LIGHT_LISTENERS(on_update,    disconnect, LightingSystem::OnLightUpdated);
+		MANAGE_LIGHT_LISTENERS(on_destroy,   disconnect, LightingSystem::OnLightDestroyed);		
 	}
 
 	void LightingSystem::Render(nabi::GameTime const& /*gameTime*/)
 	{
-		// Get the graphics entity. This stores the camera, constant buffers, etc
-		entt::entity graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
-
 		// Cache the light state component
-		SComp::LightStateComponent& lightStateComponent = m_Context.m_Registry.get<SComp::LightStateComponent>(graphicEntity);
+		SComp::LightStateComponent& lightStateComponent = RenderModule::GetLightStateComponent(m_Context);
 
 #ifndef USE_EVENT_SYSTEM_UPDATE
 		// Check if the lights need to be updated
@@ -54,7 +52,7 @@ namespace ecs
 #endif // ifndef USE_EVENT_SYSTEM_UPDATE
 		{
 			// Cache the graphics component
-			SComp::GraphicsComponent& graphicsComponent = m_Context.m_Registry.get<SComp::GraphicsComponent>(graphicEntity);
+			SComp::GraphicsComponent& graphicsComponent = RenderModule::GetGraphicsComponent(m_Context);
 
 			// Get the light constant buffer
 			nabi::Rendering::ConstantBuffer const lightConstantBuffer = 
@@ -66,7 +64,7 @@ namespace ecs
 			lightConstantBufferData.resize(lightCount);
 
 			// --- Loop through all the lights ---
-			int currentLightCount = 0;
+			size_t currentLightCount = 0u;
 
 			// Directional
 			m_Context.m_Registry.view<TransformComponent const, DirectionalLightComponent const>()
@@ -92,14 +90,14 @@ namespace ecs
 
 			/*
 			// Spot
-			m_Context.m_Registry.view<TransformComponent, SpotLightComponent>()
+			m_Context.m_Registry.view<TransformComponent const, SpotLightComponent const>()
 				.each([&](auto const& transformComponent, auto const& spotLightComponent) -> void
 					{
 						++currentLightCount;
 					});
 
 			// Point
-			m_Context.m_Registry.view<TransformComponent, PointLightComponent>()
+			m_Context.m_Registry.view<TransformComponent const, PointLightComponent const>()
 				.each([&](auto const& transformComponent, auto const& pointLightComponent) -> void
 					{
 
@@ -123,37 +121,38 @@ namespace ecs
 
 	void LightingSystem::AssignLightingProperties(nabi::Rendering::PerLightChange& perLightChangeConstantBuffer, LightingProperties const& lightProperties) const
 	{
-		perLightChangeConstantBuffer.m_AmbientIntensity = lightProperties.m_AmbientIntensity;
-		perLightChangeConstantBuffer.m_DiffuseIntensity = lightProperties.m_DiffuseIntensity;
+		perLightChangeConstantBuffer.m_AmbientIntensity    = lightProperties.m_AmbientIntensity;
+		perLightChangeConstantBuffer.m_DiffuseIntensity    = lightProperties.m_DiffuseIntensity;
 		perLightChangeConstantBuffer.m_SpecularAttenuation = lightProperties.m_SpecularAttenuation;
-		perLightChangeConstantBuffer.m_SpecularIntensity = lightProperties.m_SpecularIntensity;
+		perLightChangeConstantBuffer.m_SpecularIntensity   = lightProperties.m_SpecularIntensity;
 	}
 
-	void LightingSystem::OnLightCreated(entt::registry& /*registry*/, entt::entity /*entity*/)
+	void LightingSystem::OnLightCreated(entt::registry& /*registry*/, entt::entity const /*entity*/)
 	{
-		SComp::LightStateComponent* const lightStateComponent = GetLightStateComponent();
-		if (lightStateComponent) ++lightStateComponent->m_LightCount;
+		SComp::LightStateComponent& lightStateComponent = RenderModule::GetLightStateComponent(m_Context);
+		++lightStateComponent.m_LightCount;
 
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		ENABLE_SYSTEM_RENDER(LightingSystem);
 #else
-		if (lightStateComponent) lightStateComponent->m_UpdateLights = true;
+		lightStateComponent.m_UpdateLights = true;
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
-	void LightingSystem::OnLightUpdated(entt::registry& /*registry*/, entt::entity /*entity*/)
+	void LightingSystem::OnLightUpdated(entt::registry& /*registry*/, entt::entity const /*entity*/)
 	{
 #ifdef USE_EVENT_SYSTEM_UPDATE
 		ENABLE_SYSTEM_RENDER(LightingSystem);
 #else
-		SComp::LightStateComponent* const lightStateComponent = GetLightStateComponent();
-		if (lightStateComponent) lightStateComponent->m_UpdateLights = true;
+		SComp::LightStateComponent& lightStateComponent = RenderModule::GetLightStateComponent(m_Context);
+		lightStateComponent.m_UpdateLights = true;
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
 	}
 
-	void LightingSystem::OnLightDestroyed(entt::registry& /*registry*/, entt::entity /*entity*/)
+	void LightingSystem::OnLightDestroyed(entt::registry& /*registry*/, entt::entity const /*entity*/)
 	{
-		SComp::LightStateComponent* const lightStateComponent = GetLightStateComponent();
+		// Need to try_get because on shutdown registry.get might fail
+		SComp::LightStateComponent* const lightStateComponent = RenderModule::TryGetLightStateComponent(m_Context);
 		if (lightStateComponent) --lightStateComponent->m_LightCount;
 
 #ifdef USE_EVENT_SYSTEM_UPDATE
@@ -161,16 +160,5 @@ namespace ecs
 #else
 		if (lightStateComponent) lightStateComponent->m_UpdateLights = true;
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
-	}
-
-	SComp::LightStateComponent* const LightingSystem::GetLightStateComponent() const
-	{
-		// I had to change this function to use a ptr because on shutdown registry.get will fail.
-		// However, the whole of this system's logic could be improved. I've now learned (since
-		// doing the collision system) that we can iterate through a view and don't need to 
-		// hold onto the current light count like I do in this system.
-
-		entt::entity const graphicEntity = m_Context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Graphic);
-		return m_Context.m_Registry.try_get<SComp::LightStateComponent>(graphicEntity);
 	}
 } // namespace ecs

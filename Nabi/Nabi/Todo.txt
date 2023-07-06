@@ -60,16 +60,12 @@ Current:
 - Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
     - not sure it can actually. in class initaliser and all that. leave a comment if i cant
 
-- make a note for future ben that in an emtpty proj turn off multitheading in defines to start
+- make sure all places which dont use gametime have it commented
+
 - perhaps remove the log warn about getting fixed dt if sim is false if youve noticed no problems with it
     - if we remve this, i think we can move the debug utils include just into cpp
 
 - actually make sure the inclues for standard are only what they need be>?
-- replace get singleton component functions with Get[SingletonComponentName] and Get[SingletonComponentName]NonConst
-    - otherwise the const ver will never be called i dont think. also getcontext/getcontextnon const for nabicore?
-    - also the physics module get can me made one line. make sure all the gets are one line!
-- improve the lighting system
-    - eg have a get light statement component in render module and use it in both the event functions and update. unlike now - got some code rpeititon
 
 - visual studio sign in error (top right)
 - make a note in the 'read before start a proj' txt about: system update order: eg input->update->render. and about having multithread off at first..
@@ -79,6 +75,7 @@ Current:
     - and about not using mouse input for menus.. but saying this is a good thing cos it easily supports console input as well
     - about text being a little jank
     - and about might havign to do the bot create resource with dif name if i add sprite sheets though i probs will not (see example of how i did this in text loading)
+    - about nabi's actual functionalities. remember to mention ui storage and how this should be an enum in the core enums
 
 - give collision a round 2?
     - do all the other todos, then go back to the example code and load that from xml etc. start from the bottom and head up
@@ -118,6 +115,12 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- improve the lighting system
+    - eg have a get light statement component in render module and use it in both the event functions and update. unlike now - got some code rpeititon
+- replace get singleton component functions with Get[SingletonComponentName] and Get[SingletonComponentName]NonConst
+    - otherwise the const ver will never be called i dont think. also getcontext/getcontextnon const for nabicore?
+        - acc i think its ok. i cant quite wrap my head around what past ben was thinking.. and even if there is a different it will be so tiny its ok
+    - also the physics module get can me made one line. make sure all the gets are one line!
 - move rendering shaders out of TestData/Rendering etc. Make a new main level folder like "Shaders" and put them in
     - we will probs just always use these shaders anyway
     - make to note down all usage places before the change, and switch them all over

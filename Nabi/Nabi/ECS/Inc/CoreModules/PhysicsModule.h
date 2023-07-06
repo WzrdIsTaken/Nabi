@@ -29,8 +29,7 @@ namespace ecs::PhysicsModule
 
 	[[nodiscard]] inline SComp::CollisionStateComponent const& GetCollisionStateComponent(nabi::Context const& context)
 	{
-		entt::entity const physicsEntity = context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Physics);
-		return context.m_Registry.get<SComp::CollisionStateComponent>(physicsEntity);
+		return context.m_Registry.get<SComp::CollisionStateComponent>(context.m_SingletonEntites.at(nabi::Context::SingletonEntities::Physics));
 	}
 	[[nodiscard]] inline SComp::CollisionStateComponent& GetCollisionStateComponent(nabi::Context& context)
 	{
