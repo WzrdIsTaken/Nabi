@@ -41,15 +41,6 @@ Current:
 
 // --- High Priority ---
 
-- Make a new demo branch and then Put everything together in a game core / project setup how you want it example
-    - make a new solution for this? or should it live in nabi
-    - then right a stress test for it
-        - define out the examples in nabicore.. remove the example/test_ calls.. crazy
-        - Make loads of asteroids or something and player that can move around. test all of nabis features
-        - Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func (see what we did for the audio id))
-    - should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
-    - should render tags be assigned in xml, or when the model / sprite is loaded in? I think xml
-
 - Remember to comment out INCLUDE_DEMO at the end, and do a second pass of the multiproject thing. See the txt file "new2" in downloads for some wip notes
     - make sure all demo code has the include_demo macro
 - remember in the game solution to make Gamecore pch
@@ -59,8 +50,6 @@ Current:
  
 - Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
     - not sure it can actually. in class initaliser and all that. leave a comment if i cant
-
-- make sure all places which dont use gametime have it commented
 
 - perhaps remove the log warn about getting fixed dt if sim is false if youve noticed no problems with it
     - if we remve this, i think we can move the debug utils include just into cpp
@@ -81,8 +70,6 @@ Current:
     - do all the other todos, then go back to the example code and load that from xml etc. start from the bottom and head up
     - that crash with deleting objects
 
-- fix the text issue?
-
 - had some strange bugs on startup. did you solve any of them?
     - have to solve them. its to do with multiplethreading. im not sure how yet though or how to solve. the problem is in nabicore::run though i think
     - might have just fixed?
@@ -100,6 +87,7 @@ Current:
 
 // --- Nice to have stuff / random ideas ---
 
+- make sure all places which dont use gametime have it commented
 - Log to file functionality for Logger
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 - Make it so we dont have to do the typedef thing for reflecting nested types (ie types which have :: in their name)
@@ -115,6 +103,15 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- fix the text issue? (fixed one issue, cba to fix the other)
+- Make a new demo branch and then Put everything together in a game core / project setup how you want it example
+    - make a new solution for this? or should it live in nabi
+    - then right a stress test for it
+        - define out the examples in nabicore.. remove the example/test_ calls.. crazy
+        - Make loads of asteroids or something and player that can move around. test all of nabis features
+        - Check collision id reflection works (might have to make an unsigned long long reflection and use the could be enum func (see what we did for the audio id))
+    - should resource components be removed and the memory freed after use? i think this should be a define in the actual game code asset bank
+    - should render tags be assigned in xml, or when the model / sprite is loaded in? I think xml
 - improve the lighting system
     - eg have a get light statement component in render module and use it in both the event functions and update. unlike now - got some code rpeititon
 - replace get singleton component functions with Get[SingletonComponentName] and Get[SingletonComponentName]NonConst

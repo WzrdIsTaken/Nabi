@@ -20,7 +20,7 @@ namespace ecs
 		UNREGISTER_SYSTEM_UPDATE_EVENT_SUBSCRIBER(CameraSystem)
 	}
 
-	void CameraSystem::Update(nabi::GameTime const& gameTime)
+	void CameraSystem::Update(nabi::GameTime const& /*gameTime*/)
 	{
 		m_Context.m_Registry.view<CameraGroupComponent>().each(
 			[&](auto& cameraGroupComponent) -> void

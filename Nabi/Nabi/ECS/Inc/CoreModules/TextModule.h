@@ -11,8 +11,8 @@ namespace ecs
 
 namespace ecs::TextModule
 {
-	void UpdateTextContent(nabi::Context& context, entt::entity const textEntity, std::string const& newContent);
-	void UpdateTextContent(nabi::Context& context, TextComponent& textComponent, std::string const& newContent);
+	void UpdateTextContent(nabi::Context& context, entt::entity const textEntity, std::string const& newContent, bool const storeUpdatedStringInStore=false);
+	void UpdateTextContent(nabi::Context& context, TextComponent& textComponent,  std::string const& newContent, bool const storeUpdatedStringInStore=false);
 
 	void CenterText(nabi::Context& context, entt::entity const textEntity, dx::XMFLOAT3 const* const position = nullptr);
 	void CenterText(nabi::Context& context, TextComponent const& textComponent, 

@@ -26,7 +26,7 @@ namespace ecs
 		m_Context.m_Registry.on_construct<AudioEmitterComponent>().disconnect<&AudioSystem::OnAudioEmitterCreated>(this);
 	}
 
-	void AudioSystem::Update(nabi::GameTime const& gameTime)
+	void AudioSystem::Update(nabi::GameTime const& /*gameTime*/)
 	{
 		m_Context.m_Registry.view<TransformComponent const, AudioEmitterComponent>()
 			.each([&](entt::entity const entity, auto& transformComponent, auto& audioEmitterComponent) -> void

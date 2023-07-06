@@ -8,12 +8,13 @@
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\EntityModule.h"
 #include "DirectXUtils.h"
+#include "StringStore.h"
 
 namespace ecs::TextModule
 {
 	namespace
 	{
-		TextComponent* TryGetTextComponent(nabi::Context& context, entt::entity const textEntity)
+		TextComponent* const TryGetTextComponent(nabi::Context& context, entt::entity const textEntity)
 		{
 			TextComponent* textComponent = context.m_Registry.try_get<TextComponent>(textEntity);
 			ASSERT(textComponent != nullptr, "Trying to do a text operation an entity which doesn't have a text component!");
@@ -22,15 +23,15 @@ namespace ecs::TextModule
 		}
 	}
 
-	void UpdateTextContent(nabi::Context& context, entt::entity const textEntity, std::string const& newContent)
+	void UpdateTextContent(nabi::Context& context, entt::entity const textEntity, std::string const& newContent, bool const storeUpdatedStringInStore)
 	{
 		if (TextComponent* const textComponent = TryGetTextComponent(context, textEntity))
 		{
-			UpdateTextContent(context, *textComponent, newContent);
+			UpdateTextContent(context, *textComponent, newContent, storeUpdatedStringInStore);
 		}
 	}
 
-	void UpdateTextContent(nabi::Context& context, TextComponent& textComponent, std::string const& newContent)
+	void UpdateTextContent(nabi::Context& context, TextComponent& textComponent, std::string const& newContent, bool const storeUpdatedStringInStore)
 	{
 		// Text is not dynamic (right now) for the following reason:
 		// Basically we would need to re-create the vertex/index buffers because we can't just straight up clone an entity.
@@ -97,6 +98,11 @@ namespace ecs::TextModule
 				return false;
 			});
 
+		if (storeUpdatedStringInStore)
+		{
+			auto const& storedString = nabi::Reflection::StringStore::Instance()->Add(newContent, nabi::Reflection::StringStore::AddMode::CreateUnique);
+			textComponent.m_Content = entt::hashed_string(storedString.c_str());
+		}
 		textComponent.m_ActiveInPool = characterIndex;
 	}
 
