@@ -46,8 +46,8 @@
     <component id="ModelResourceComponent">
       <property id="MeshPath" value="PrimativeCube=5x5x5" /> <!-- Tests/Data/Rendering/ball_model.obj -->
       <property id="TexturePath" value="Tests/Data/Rendering/ball_texture.png" />
-      <property id="PixelShaderPath" value="Tests/Data/Rendering/PixelShader3D.cso" />
-      <property id="VertexShaderPath" value="Tests/Data/Rendering/VertexShader3D.cso" />
+      <property id="PixelShaderPath" value="Rendering/Shaders/PixelShader3D.cso" />
+      <property id="VertexShaderPath" value="Rendering/Shaders/VertexShader3D.cso" />
     </component>
     <component id="DrawPerspectiveTagComponent" />
   </entity>
@@ -78,8 +78,8 @@
 
     <component id="SpriteResourceComponent">
       <property id="ImagePath" value="Tests/Data/Rendering/sprite.png" />
-      <property id="PixelShaderPath" value="Tests/Data/Rendering/PixelShader2D.cso" />
-      <property id="VertexShaderPath" value="Tests/Data/Rendering/VertexShader2D.cso" />
+      <property id="PixelShaderPath" value="Rendering/Shaders/PixelShader2D.cso" />
+      <property id="VertexShaderPath" value="Rendering/Shaders/VertexShader2D.cso" />
     </component>
     <component id="DrawOrthographicTagComponent" />
   </entity>
@@ -92,8 +92,8 @@
 
     <component id="TextResourceComponent">
       <property id="FontPath" value="Tests/Data/Rendering/font.png" />
-      <property id="PixelShaderPath" value="Tests/Data/Rendering/PixelShader2D.cso" />
-      <property id="VertexShaderPath" value="Tests/Data/Rendering/VertexShader2D.cso" />
+      <property id="PixelShaderPath" value="Rendering/Shaders/PixelShader2D.cso" />
+      <property id="VertexShaderPath" value="Rendering/Shaders/VertexShader2D.cso" />
       <property id="Content" value="Hello" />
       <property id="CharacterSpace" value="0.38, 0" />
       <property id="AsciiShift" value="32" />

@@ -56,10 +56,6 @@ Current:
 
 - should system's constructor take a const reference to the hashed string? i think so...
     - when doing this, make sure any systems which dont use gametime but have it passed in have it commented out /*gameTime*/ eg audio system
-- move rendering shaders out of TestData/Rendering etc. Make a new main level folder like "Shaders" and put them in
-    - we will probs just always use these shaders anyway
-    - make to note down all usage places before the change, and switch them all over
-    - change the lightbuffer in common.hlsli to 'b2'? its duplicating b0 atm . google what this 'b' actually means..
  
 - Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
     - not sure it can actually. in class initaliser and all that. leave a comment if i cant
@@ -75,9 +71,6 @@ Current:
 - improve the lighting system
     - eg have a get light statement component in render module and use it in both the event functions and update. unlike now - got some code rpeititon
 
-
-
-
 - visual studio sign in error (top right)
 - make a note in the 'read before start a proj' txt about: system update order: eg input->update->render. and about having multithread off at first..
     - and a note about the camera direction. if the camera is moving one way and the player the other.. just invert the camerasysem::updatecamera vector?
@@ -89,7 +82,7 @@ Current:
 
 - give collision a round 2?
     - do all the other todos, then go back to the example code and load that from xml etc. start from the bottom and head up
-
+    - that crash with deleting objects
 
 - fix the text issue?
 
@@ -125,6 +118,10 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- move rendering shaders out of TestData/Rendering etc. Make a new main level folder like "Shaders" and put them in
+    - we will probs just always use these shaders anyway
+    - make to note down all usage places before the change, and switch them all over
+    - change the lightbuffer in common.hlsli to 'b2'? its duplicating b0 atm . google what this 'b' actually means.. (ok googled, i need)
 - nabi::Templates -> nabi::Patterns? Namespace like the folder
 - why doesnt the renderinternal function in render system just take in one camera component. and in the other two render functions that info is extracted? that would be better right?
 - rename transformVector in RenderSystem to positionVector

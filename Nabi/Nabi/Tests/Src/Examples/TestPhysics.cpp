@@ -206,8 +206,8 @@ namespace nabitest::Examples
 		ecs::RComp::ModelResourceComponent modelComponent = {};
 		modelComponent.m_MeshPath = "PrimativeCube=1x1x1";
 		modelComponent.m_TexturePath = creationSettings.m_TexturePath;
-		modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShaderSkybox.cso";
-		modelComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShaderSkybox.cso";
+		modelComponent.m_PixelShaderPath = "Rendering/Shaders/PixelShaderSkybox.cso";
+		modelComponent.m_VertexShaderPath = "Rendering/Shaders/VertexShaderSkybox.cso";
 
 		// Physics
 		ecs::RigidbodyComponent rigidbodyComponent = {};

@@ -95,9 +95,6 @@
     <Filter Include="Tests\Data\Reflection">
       <UniqueIdentifier>{890fb8f2-01b0-414d-a265-09e15bc3ce50}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tests\Data\Rendering">
-      <UniqueIdentifier>{093709c1-ebd8-499a-9c35-08fcd56f0809}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Libraries\Inc">
       <UniqueIdentifier>{4bc2feea-4663-4a82-abb8-f441e2259d40}</UniqueIdentifier>
     </Filter>
@@ -119,23 +116,14 @@
     <Filter Include="Resource\Inc">
       <UniqueIdentifier>{2e0ed657-f061-4001-9299-f28039132372}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource\Src">
-      <UniqueIdentifier>{5f33c036-d6c3-4269-b096-dbdf6bd22636}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tests\Fixtures\ResourceTests">
       <UniqueIdentifier>{7ae99563-f203-4ab5-a182-e667c5d3d74e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Rendering">
       <UniqueIdentifier>{d5eaf5ce-0e5d-4886-b9d2-d79834095410}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Rendering\Inc">
-      <UniqueIdentifier>{b34b42c2-a66f-4894-be8e-c8586392ff49}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Rendering\Src">
       <UniqueIdentifier>{62f2de42-f4d6-46f2-a136-31ba85bc6773}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Inc\Containers">
-      <UniqueIdentifier>{77da8503-fe9a-46dc-a57a-f47b93715b79}</UniqueIdentifier>
     </Filter>
     <Filter Include="Rendering\Src\Containers">
       <UniqueIdentifier>{fc86e6e8-aec6-41d5-b077-e98e95aa60d2}</UniqueIdentifier>
@@ -145,15 +133,6 @@
     </Filter>
     <Filter Include="Utils\Src\Debug">
       <UniqueIdentifier>{d7e2b8d6-7c53-492d-a497-ee90cfab1fda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Inc\Buffers">
-      <UniqueIdentifier>{eb92a748-e67f-436b-97bc-a1336613dd2f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Inc\Shaders">
-      <UniqueIdentifier>{0d872b12-08c1-4933-a10c-46bdf1f31858}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Inc\Textures">
-      <UniqueIdentifier>{d4274879-706b-4818-93a8-8f33836e4132}</UniqueIdentifier>
     </Filter>
     <Filter Include="Libraries\Inc\WICTextureLoader">
       <UniqueIdentifier>{cc7ec30f-28c8-4a44-a92b-d736f29aea74}</UniqueIdentifier>
@@ -331,6 +310,24 @@
     </Filter>
     <Filter Include="Tests\Src\Demo\UI">
       <UniqueIdentifier>{60e2e93d-c412-4644-9a7a-a69e63c085ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders">
+      <UniqueIdentifier>{181e373e-8a9d-416d-b329-515f8ebd8092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Inc">
+      <UniqueIdentifier>{b34b42c2-a66f-4894-be8e-c8586392ff49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Inc\Containers">
+      <UniqueIdentifier>{77da8503-fe9a-46dc-a57a-f47b93715b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Inc\Buffers">
+      <UniqueIdentifier>{eb92a748-e67f-436b-97bc-a1336613dd2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Inc\Shaders">
+      <UniqueIdentifier>{0d872b12-08c1-4933-a10c-46bdf1f31858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Inc\Textures">
+      <UniqueIdentifier>{d4274879-706b-4818-93a8-8f33836e4132}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1117,8 +1114,8 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="cpp.hint" />
-    <None Include="Tests\Data\Rendering\Common.hlsli">
-      <Filter>Tests\Data\Rendering</Filter>
+    <None Include="Rendering\Shaders\Common.hlsli">
+      <Filter>Rendering\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1177,28 +1174,28 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Tests\Data\Rendering\PixelShader3D.hlsl">
-      <Filter>Tests\Data\Rendering</Filter>
-    </FxCompile>
-    <FxCompile Include="Tests\Data\Rendering\VertexShader3D.hlsl">
-      <Filter>Tests\Data\Rendering</Filter>
-    </FxCompile>
-    <FxCompile Include="Tests\Data\Rendering\PixelShader2D.hlsl">
-      <Filter>Tests\Data\Rendering</Filter>
-    </FxCompile>
-    <FxCompile Include="Tests\Data\Rendering\VertexShader2D.hlsl">
-      <Filter>Tests\Data\Rendering</Filter>
-    </FxCompile>
-    <FxCompile Include="Tests\Data\Rendering\PixelShaderSkybox.hlsl">
-      <Filter>Tests\Data\Rendering</Filter>
-    </FxCompile>
-    <FxCompile Include="Tests\Data\Rendering\VertexShaderSkybox.hlsl">
-      <Filter>Tests\Data\Rendering</Filter>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="Icon\icon.ico">
       <Filter>Miscellaneous</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Rendering\Shaders\PixelShader2D.hlsl">
+      <Filter>Rendering\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Rendering\Shaders\PixelShader3D.hlsl">
+      <Filter>Rendering\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Rendering\Shaders\PixelShaderSkybox.hlsl">
+      <Filter>Rendering\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Rendering\Shaders\VertexShader2D.hlsl">
+      <Filter>Rendering\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Rendering\Shaders\VertexShader3D.hlsl">
+      <Filter>Rendering\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Rendering\Shaders\VertexShaderSkybox.hlsl">
+      <Filter>Rendering\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

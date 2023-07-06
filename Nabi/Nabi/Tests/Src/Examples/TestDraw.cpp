@@ -50,8 +50,8 @@ namespace nabitest::Examples
 			ecs::RComp::ModelResourceComponent modelComponent = {};
 			modelComponent.m_MeshPath = "Tests/Data/Rendering/ball_model.obj";
 			modelComponent.m_TexturePath = "Tests/Data/Rendering/ball_texture.png";
-			modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader3D.cso";
-			modelComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader3D.cso";
+			modelComponent.m_PixelShaderPath = "Rendering/Shaders/PixelShader3D.cso";
+			modelComponent.m_VertexShaderPath = "Rendering/Shaders/VertexShader3D.cso";
 
 			// Create transform component
 			ecs::TransformComponent transformComponent = {};
@@ -100,8 +100,8 @@ namespace nabitest::Examples
 			// Create a sprite component
 			ecs::RComp::SpriteResourceComponent spriteComponent = {};
 			spriteComponent.m_ImagePath = "Tests/Data/Rendering/sprite.png"; // font.png
-			spriteComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
-			spriteComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
+			spriteComponent.m_PixelShaderPath = "Rendering/Shaders/PixelShader2D.cso";
+			spriteComponent.m_VertexShaderPath = "Rendering/Shaders/VertexShader2D.cso";
 
 			// Create transform component
 			ecs::TransformComponent transformComponent = {};
@@ -123,8 +123,8 @@ namespace nabitest::Examples
 			// Create the text component
 			ecs::RComp::TextResourceComponent textComponent;
 			textComponent.m_FontPath = "Tests/Data/Rendering/font.png";
-			textComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShader2D.cso";
-			textComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShader2D.cso";
+			textComponent.m_PixelShaderPath = "Rendering/Shaders/PixelShader2D.cso";
+			textComponent.m_VertexShaderPath = "Rendering/Shaders/VertexShader2D.cso";
 
 			textComponent.m_Content = "blue";
 			textComponent.m_CharacterSpace = { 0.38f, 0 };
@@ -151,8 +151,8 @@ namespace nabitest::Examples
 		ecs::RComp::ModelResourceComponent modelComponent = {};
 		modelComponent.m_MeshPath = "PrimativeCube=15x15x15";
 		modelComponent.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
-		modelComponent.m_PixelShaderPath = "Tests/Data/Rendering/PixelShaderSkybox.cso";
-		modelComponent.m_VertexShaderPath = "Tests/Data/Rendering/VertexShaderSkybox.cso";
+		modelComponent.m_PixelShaderPath = "Rendering/Shaders/PixelShaderSkybox.cso";
+		modelComponent.m_VertexShaderPath = "Rendering/Shaders/VertexShaderSkybox.cso";
 
 		// Create transform component
 		ecs::TransformComponent transformComponent = {};
