@@ -12,31 +12,13 @@ Current:
 - Have all entity groups / event calls etc as constexpr in a file
 
 // --- Critical Priority ---
-- Remember to write a learnings txt doc once finished everything (i've started this in the nabi folder) (example topic: tests)
-    - "There are some jank bits, there are some bits I sorely wish I had done very differently, but you know what - I count that as a success, because it means I've learned something.
-       If I thought everything was perfect and I did everything right all the time then, well, I probably haven't grown as a developer."
-    - See the comment in StringConverter about FromString template specialization. That should go in the write up + the jankness which is container reflection
-    - xml parser/just generally the whole reflection systems string handling. could i have done it all with ids?
-        - could have defo done it all with ids...... cba to refactor now i thikn
 
-    - Probs should have multiple projects.. but cba..? explain issues had/honestly yeah just cba
-        - just put nabi in its own folder and have one solution/proj
-        - acc i just realised what the problem could of been. perhaps go round 2 with this later. game running too fast xd?
-        - have googletest package installed soltuion wide?
-        - do this when you test setting up a new solution from scratch. its esaier to work out any kinks when the 'stuff which can go wrong' size is smaller
-            - and then we can just create the demo class from another solution and see if that runs, if it does
-              create a super basic other class which inherits from nabicore and see if that runs. if it doest - we are set!
-                - When we do this, we can just follow this tutorial to make things easy: 
-                    - https://youtu.be/Wt4dxDNmDA8 (remember the new2 doc and chilli tomato noodle's video for proj settings)
-                    - AND we can make sure googletest is included on a solution level, not a project one. i think it is actually best to have the demo in this proj so we can test thigns out
 
 - Once the test stuff is removed from NabiCore, make sure the engine compiles in release
 
 - Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown (i think this is to do with rendering..?). Also can tidy up this todo txt
     - When nothing is being drawn I dont get the error
 
-- Fix container reflection so it works nicely? do this after the demo etc. If you don't have the time or the will (remember, we have other stuff todo before korea)
-  just move this to the nice to have section and make sure its in the write up
 - make sure all high prio/critica prio tasks are done / organised and this section looks empty. will be nice!
 
 // --- High Priority ---
@@ -45,35 +27,9 @@ Current:
     - make sure all demo code has the include_demo macro
 - remember in the game solution to make Gamecore pch
 
-- should system's constructor take a const reference to the hashed string? i think so...
-    - when doing this, make sure any systems which dont use gametime but have it passed in have it commented out /*gameTime*/ eg audio system
- 
-- Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
-    - not sure it can actually. in class initaliser and all that. leave a comment if i cant
-
-- perhaps remove the log warn about getting fixed dt if sim is false if youve noticed no problems with it
-    - if we remve this, i think we can move the debug utils include just into cpp
-
-- actually make sure the inclues for standard are only what they need be>?
-
-- visual studio sign in error (top right)
-- make a note in the 'read before start a proj' txt about: system update order: eg input->update->render. and about having multithread off at first..
-    - and a note about the camera direction. if the camera is moving one way and the player the other.. just invert the camerasysem::updatecamera vector?
-    - and about what the demo is actually doing  + the keys for stuff
-    - about example archive. esp collisioN!
-    - and about not using mouse input for menus.. but saying this is a good thing cos it easily supports console input as well
-    - about text being a little jank
-    - and about might havign to do the bot create resource with dif name if i add sprite sheets though i probs will not (see example of how i did this in text loading)
-    - about nabi's actual functionalities. remember to mention ui storage and how this should be an enum in the core enums
-
 - give collision a round 2?
     - do all the other todos, then go back to the example code and load that from xml etc. start from the bottom and head up
     - that crash with deleting objects
-
-- had some strange bugs on startup. did you solve any of them?
-    - have to solve them. its to do with multiplethreading. im not sure how yet though or how to solve. the problem is in nabicore::run though i think
-    - might have just fixed?
-    - if we see it again, perhaps have to set the valid about the first update is called?
 
 // --- Low Priority ---
 
@@ -92,6 +48,7 @@ Current:
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 - Make it so we dont have to do the typedef thing for reflecting nested types (ie types which have :: in their name)
 - Allow reflecting nested custom types and custom types in containers. See the comment in StringConverter.h
+    - Just fix container reflection in general...
 - Make it so that the loop is not something that is done by loading.. instead when playing. Could possibly solve this problem nicely by setting a callback on the voice..? 
 - Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? (i think it does exist and im just dumb)
     - Try overriding entt assert with my version
@@ -103,6 +60,23 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- visual studio sign in error (top right)
+- should system's constructor take a const reference to the hashed string? i think so...
+        - i actually dont know if it should. should i pass hashed_strings by reference or value? in any case, it makes like no different for this use case
+          i'm passing by reference/value all over the place :p . ngl at this stage of the day, as long as it WORKS its ok
+            - its like what waby said. sure you can go back and refactor old code to make it better, but is it worth it? not only for the time,
+              but that old code has run hundreds, thousands, millions of times and worked every time. why change it now if there isnt a big problem?
+    - when doing this, make sure any systems which dont use gametime but have it passed in have it commented out /*gameTime*/ eg audio system
+- had some strange bugs on startup. did you solve any of them?
+    - have to solve them. its to do with multiplethreading. im not sure how yet though or how to solve. the problem is in nabicore::run though i think
+    - might have just fixed?
+    - if we see it again, perhaps have to set the valid about the first update is called?
+        - I'm not seeing these anymore. perhaps they are fixed while i was putting looking into it off / doing other stuff?? idk, anyways i'll break in if i hit it again
+- Make EntityCreator::EntityCreationSettings have a constexpr c_DefaultEntityCreationSettings like everything else
+    - not sure it can actually. in class initaliser and all that. leave a comment if i cant
+- Fix container reflection so it works nicely? do this after the demo etc. If you don't have the time or the will (remember, we have other stuff todo before korea)
+  just move this to the nice to have section and make sure its in the write up
+    - dont have time or will. it works fine
 - fix the text issue? (fixed one issue, cba to fix the other)
 - Make a new demo branch and then Put everything together in a game core / project setup how you want it example
     - make a new solution for this? or should it live in nabi

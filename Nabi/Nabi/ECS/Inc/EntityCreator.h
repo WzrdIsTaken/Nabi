@@ -18,7 +18,7 @@ namespace nabi::ECS
 	/// Used to create entities at runtime
 	/// (I know that the xml parser is technically creating runtime entities... but this is runtimeruntime! :D)
 	/// 
-	/// Ngl a lot of things this class does don't seem very efficient... this might be a point of optimisation in the future
+	/// Ngl a lot of things this class does don't seem very efficient / jank... this might be a point of optimisation / improvement in the future
 	/// </summary>
 	class EntityCreator final
 	{
@@ -33,7 +33,7 @@ namespace nabi::ECS
 			mutable std::string m_EntityName = "Entity";
 			EntityPropertyList* m_EntityOverriddenProperties = nullptr; // (optional)
 			bool m_AppendUUID = true;
-		};
+		}; // We can't have a c_DefaultEntityCreationSettings for this because of the dynamic allocations it can't use an in-class initializer
 
 		EntityCreator(entt::registry& registry) NABI_NOEXCEPT;
 		void AssignEntityTemplateStore(EntityTemplateStore const&& entityTemplateStore) NABI_NOEXCEPT;

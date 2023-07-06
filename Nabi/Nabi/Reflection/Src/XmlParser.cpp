@@ -92,8 +92,8 @@ namespace nabi::Reflection
 	void XmlParser::ParseSystems(pugi::xml_document const& doc, nabi::Context& context, MetaObjectLookup* const systemsLookup) const NABI_NOEXCEPT
 	{
 		// Get the system group's id
-		std::string_view const systemGroupId = doc.first_child().attribute(c_IdAttribute.c_str()).value();
-		entt::hashed_string const systemGroupIdHash = entt::hashed_string(systemGroupId.data());
+		std::string const& systemGroupId = StringStore::Instance()->Add(doc.first_child().attribute(c_IdAttribute.c_str()).value());
+		entt::hashed_string const systemGroupIdHash = entt::hashed_string(systemGroupId.c_str());
 		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_REFLECTION, "Found a system group with id " << WRAP(systemGroupId, "'"), LOG_END);
 
 		// Iterate through all of the systems in the group
@@ -103,8 +103,8 @@ namespace nabi::Reflection
 			if (!CheckIfNodeHasDebugPropertyAndConfigurationIsDebug(systemNode))
 			{
 				// Get the system's id
-				std::string_view const systemId = systemNode.attribute(c_IdAttribute.c_str()).value();
-				entt::hashed_string const systemIdHash = entt::hashed_string(systemId.data());
+				std::string const& systemId = StringStore::Instance()->Add(systemNode.attribute(c_IdAttribute.c_str()).value());
+				entt::hashed_string const systemIdHash = entt::hashed_string(systemId.c_str());
 				LOG(LOG_PREP, LOG_INFO, SPACE(INDENT_1) << LOG_CATEGORY_REFLECTION, "Created a system with id " << WRAP(systemId, "'"), LOG_END);
 
 				// Construct the system
@@ -112,7 +112,7 @@ namespace nabi::Reflection
 				// I have no idea why, but this function was the cause of all my pain. It works in an isolated example, but not within this flow?? idk dude, im just glad i found that bug				
 				//entt::meta_any metaSystem = ReflectionHelpers::ConstructMetaObject(systemIdHash, entt::forward_as_meta(context), systemIdHash, systemGroupIdHash);
 
-				entt::meta_type systemType = entt::resolve(systemIdHash);
+				entt::meta_type const systemType = entt::resolve(systemIdHash);
 				entt::meta_any metaSystem = systemType.construct(entt::forward_as_meta(context), systemIdHash, systemGroupIdHash);
 
 				// Construct the data for the ststem

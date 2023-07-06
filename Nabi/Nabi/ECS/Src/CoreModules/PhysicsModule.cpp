@@ -12,15 +12,10 @@ namespace ecs::PhysicsModule
 {
 	namespace
 	{
-		[[nodiscard]] bool IsCollisionViewValidForSorting(CollisionView const& view) noexcept
+		[[nodiscard]] inline bool IsCollisionViewValidForSorting(CollisionView const& view) noexcept
 		{
-			// We could use size_hint()... but I don't know how accurate the estimate is 
-
-			entt::entity const frontEntity = view.front();
-			entt::entity const backEntity = view.back();
-
-			return frontEntity != entt::null && // The view contains at least one entity
-				frontEntity != backEntity;      // The view contains at least two entities
+			// We could use size_hint()... but I don't know how accurate the estimate is (+ this can crash if its not accurate!)
+			return std::distance(view.begin(), view.end()) > 1u;
 		}
 	}
 
