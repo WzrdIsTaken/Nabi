@@ -7,16 +7,9 @@ Sam, Jake, Brandon, Matt
 
 Current:
 
-// --- Remember when you actually do an assignment... ---
-- If the game code is in another solution, try having a GameCore file which includes Core and is set at the pre compiled header.
-- Have all entity groups / event calls etc as constexpr in a file
+07/07/23, 13:58 - I have just completed Nabi's last todo. Lets go dude.
 
 // --- Critical Priority ---
-
-- Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown (i think this is to do with rendering..?). Also can tidy up this todo txt
-    - When nothing is being drawn I dont get the error
-
-- make sure all high prio/critica prio tasks are done / organised and this section looks empty. will be nice!
 
 // --- High Priority ---
 
@@ -49,6 +42,10 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- make sure all high prio/critica prio tasks are done / organised and this section looks empty. will be nice!
+- Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown (i think this is to do with rendering..?). Also can tidy up this todo txt
+    - When nothing is being drawn I dont get the error
+    - update as of 07/07/23 i can't repro this, perhaps like the other threading thing i just fixed it. i'll break in if i get it
 - Once the test stuff is removed from NabiCore, make sure the engine compiles in release
 - give collision a round 2?
     - do all the other todos, then go back to the example code and load that from xml etc. start from the bottom and head up
