@@ -13,9 +13,6 @@ Current:
 
 // --- Critical Priority ---
 
-
-- Once the test stuff is removed from NabiCore, make sure the engine compiles in release
-
 - Then done! And can look into the error code -1073741510 (0xc000013a) we sometime's get on shutdown (i think this is to do with rendering..?). Also can tidy up this todo txt
     - When nothing is being drawn I dont get the error
 
@@ -52,6 +49,7 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- Once the test stuff is removed from NabiCore, make sure the engine compiles in release
 - give collision a round 2?
     - do all the other todos, then go back to the example code and load that from xml etc. start from the bottom and head up
     - that crash with deleting objects

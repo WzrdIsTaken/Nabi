@@ -24,6 +24,7 @@
 	#define STATIC_ASSERT(...) NOT_DEFINED
 
 	#define LOG(message) NOT_DEFINED
+	#define CONDITIONAL_LOG(condition, message) NOT_DEFINED
 	#define LOG_RAW(message) NOT_DEFINED
 
 	#define FUNCTION_NOT_IMPLEMENTED NOT_DEFINED
