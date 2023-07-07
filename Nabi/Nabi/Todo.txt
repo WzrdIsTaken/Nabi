@@ -23,10 +23,6 @@ Current:
 
 // --- High Priority ---
 
-- Remember to comment out INCLUDE_DEMO at the end, and do a second pass of the multiproject thing. See the txt file "new2" in downloads for some wip notes
-    - make sure all demo code has the include_demo macro
-- remember in the game solution to make Gamecore pch
-
 - give collision a round 2?
     - do all the other todos, then go back to the example code and load that from xml etc. start from the bottom and head up
     - that crash with deleting objects
@@ -60,6 +56,8 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- Remember to comment out INCLUDE_DEMO at the end, and do a second pass of the multiproject thing. See the txt file "new2" in downloads for some wip notes
+    - make sure all demo code has the include_demo macro
 - visual studio sign in error (top right)
 - should system's constructor take a const reference to the hashed string? i think so...
         - i actually dont know if it should. should i pass hashed_strings by reference or value? in any case, it makes like no different for this use case

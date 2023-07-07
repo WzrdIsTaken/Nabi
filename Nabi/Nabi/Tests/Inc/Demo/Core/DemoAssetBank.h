@@ -25,7 +25,7 @@ namespace core
 		~DemoAssetBank() override;
 
 		bool LoadAssets(AssetType const assetType);
-		bool UnloadAssets(); // unloading assets is currently only supported as a bulk operation
+		bool UnloadAssets(/*this should just take in the asset type and assert if not all*/); // unloading assets is currently only supported as a bulk operation
 
 		inline bool RefreshLoadedAssets(AssetType const assetType) { return LoadAssets(assetType); };
 
