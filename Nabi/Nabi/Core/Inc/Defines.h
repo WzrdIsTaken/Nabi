@@ -9,7 +9,7 @@
 
 // Debug defines
 #ifdef _DEBUG
-	#define INCLUDE_DEMO     // Demo of all Nabi's features working together
+	//#define INCLUDE_DEMO     // Demo of all Nabi's features working together
 	#define RUN_TESTS		 // gMock Tests
 	//#define RUN_SLOW_TESTS   // Any tests which take over ~10ms to run. Make sure to run before commiting
 	#define USE_DEBUG_UTILS  // Asserts + Logging + Sneaky hacks
