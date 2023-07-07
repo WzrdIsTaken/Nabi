@@ -39,7 +39,16 @@ namespace nabi
 		};
 		[[nodiscard]] /*constexpr*/ inline Interval GetFixedDeltaTime() const NABI_NOEXCEPT
 		{
-			CONDITIONAL_LOG(!RunSimulation(), LOG_PREP, LOG_WARN, LOG_CATEGORY_CORE, "Getting FixedDeltaTime but RunSimulation is false", LOG_END);
+			// It's possible this hits because when core functionality is multithreaded the simulation is on another thread and as of 
+			// now there are no locks. However, I haven't noticed any problems (and this log kinda clogs the console) hence the ifdef. 
+			auto constexpr logLevel =
+#ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
+				LOG_TRACE;
+#else
+				LOG_WARN;
+#endif // ifdef USE_CORE_FUNCTIONALITY_MULTITHREADING
+			CONDITIONAL_LOG(!RunSimulation(), LOG_PREP, logLevel, LOG_CATEGORY_CORE, "Getting FixedDeltaTime but RunSimulation is false", LOG_END);
+
 			return c_FixedTimeStep;
 		};
 		[[nodiscard]] inline Interval GetFrameTime() const NABI_NOEXCEPT

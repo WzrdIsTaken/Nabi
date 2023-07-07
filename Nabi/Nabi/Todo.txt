@@ -23,10 +23,6 @@ Current:
 
 // --- High Priority ---
 
-- give collision a round 2?
-    - do all the other todos, then go back to the example code and load that from xml etc. start from the bottom and head up
-    - that crash with deleting objects
-
 // --- Low Priority ---
 
 - When we make a GameCore, can use m_WindowEventsListener to stop the game rendering when its minimised. might still want it to update thou? idk
@@ -56,6 +52,9 @@ Current:
 - use doxygen comment style?
 
 Archive:
+- give collision a round 2?
+    - do all the other todos, then go back to the example code and load that from xml etc. start from the bottom and head up
+    - that crash with deleting objects
 - Remember to comment out INCLUDE_DEMO at the end, and do a second pass of the multiproject thing. See the txt file "new2" in downloads for some wip notes
     - make sure all demo code has the include_demo macro
 - visual studio sign in error (top right)

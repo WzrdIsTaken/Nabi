@@ -2,11 +2,15 @@
 
 #include "Examples\TestPhysics.h"
 
+#include "pugixml.hpp"
+
 #include "CoreComponents\RigidbodyComponent.h"
 #include "CoreComponents\ResourceComponents\ModelResourceComponent.h"
 #include "CoreModules\InputModule.h"
 #include "CoreModules\PhysicsModule.h"
 #include "CoreModules\ReflectionModule.h"
+#include "CoreSystems\LightingSystem.h"
+#include "XmlParser.h"
 
 #ifdef RUN_TESTS
 
@@ -16,11 +20,19 @@ namespace nabitest::Examples
 	ecs::ColliderComponent::ColliderMask constexpr c_ObjectMask  = 1 << 1;
 	ecs::ColliderComponent::ColliderMask constexpr c_RaycastMask = 1 << 2;
 
+	typedef TestPhysics::TestPhysicsCollisionMasks TestPhysicsCollisionMasks;
+	REFLECT_ENUM_UNDERLYING_BEGIN_DEFAULT(TestPhysicsCollisionMasks)
+		REFLECT_ENUM_VALUE(TestPhysicsCollisionMasks::Object, "Object")
+		REFLECT_ENUM_VALUE(TestPhysicsCollisionMasks::Player, "Player")
+		REFLECT_ENUM_VALUE(TestPhysicsCollisionMasks::All,    "All")
+	REFLECT_ENUM_END(TestPhysicsCollisionMasks)
+
 	// --- Physics ---
 
 	TestPhysics::TestPhysics(nabi::Context& context)
 		: m_Context(context)
 		, m_PlayerEntity(entt::null)
+		, m_TestGameTime(nullptr)
 	{
 	}
 
@@ -45,6 +57,8 @@ namespace nabitest::Examples
 
 		// --- Entities ---
 		
+
+		// Non xml loading
 		auto result = m_Context.m_ThreadCommand->EnqueueTask("LoadEntities", MEDIUM_TASK, CRITICAL_PRIORITY, [&]() -> void
 		{
 			// Player Entity
@@ -86,6 +100,28 @@ namespace nabitest::Examples
 		); result.wait();
 
 		// Multithreaded loading works fine (i think...)! Before or after NabiCore::Init. Just make sure to wait for the result, otherwise could get null data.
+
+		/*
+		* XML Loading
+			CollisionEntitySettings playerSettings = {};
+			playerSettings.m_Position = { 0.0f, 0.0f, 0.0f };
+			playerSettings.m_TexturePath = "Tests/Data/Rendering/skybox_daybreak.png";
+			playerSettings.m_CollisionMask = c_PlayerMask;
+			playerSettings.m_ColliderType = ecs::ColliderComponent::ColliderType::Sphere;
+			playerSettings.m_CollderInteractionType = ecs::ColliderComponent::InteractionType::Dynamic;
+			playerSettings.m_ColliderSize = { 0.3f, 0.3f, 0.3f };
+			playerSettings.m_GravityScale = 0.0f; // 1.0f
+			m_PlayerEntity = CreateCollisionEntity(playerSettings);
+
+			nabi::Reflection::XmlParser xmlParser{};
+			std::string const docPath = "Tests/Data/Physics/test_physics_entities.xml";
+
+			pugi::xml_document const doc = xmlParser.LoadDocument(docPath);
+			xmlParser.ParseEntities(doc, m_Context.m_Registry);
+
+			m_AssetBank = std::make_unique<SimpleAssetBank>(m_Context);
+			m_AssetBank->LoadAssets();
+		*/
 
 		return true;
 	}
@@ -150,32 +186,32 @@ namespace nabitest::Examples
 		if (wKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.y += testEntitySpeed * GetGameTime();
-			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation; 
+			if constexpr (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation; 
 		}
 		if (sKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.y -= testEntitySpeed * GetGameTime();
-			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
+			if constexpr (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
 		}
 		if (aKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.x -= testEntitySpeed * GetGameTime();
-			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.y += testEntityRotation;
+			if constexpr (adjustRotation) playerEntityRigidbody.m_AngularVelocity.y += testEntityRotation;
 		}
 		if (dKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.x += testEntitySpeed * GetGameTime();
-			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.y -= testEntityRotation;
+			if constexpr (adjustRotation) playerEntityRigidbody.m_AngularVelocity.y -= testEntityRotation;
 		}
 		if (qKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.z -= testEntitySpeed * GetGameTime();
-			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
+			if constexpr (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x -= testEntityRotation;
 		}
 		if (eKeyState == InputState::Held)
 		{
 			playerEntityRigidbody.m_Velocity.z += testEntitySpeed * GetGameTime();
-			if (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation;
+			if constexpr (adjustRotation) playerEntityRigidbody.m_AngularVelocity.x += testEntityRotation;
 		}
 
 		return true;

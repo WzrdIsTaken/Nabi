@@ -329,6 +329,9 @@
     <Filter Include="Rendering\Inc\Textures">
       <UniqueIdentifier>{d4274879-706b-4818-93a8-8f33836e4132}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Data\Physics">
+      <UniqueIdentifier>{7b2ff2be-2aa2-41c3-b349-ed63203c40ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -1166,6 +1169,9 @@
     </Xml>
     <Xml Include="Tests\Data\Demo\demo_global_entities.xml">
       <Filter>Tests\Data\Demo</Filter>
+    </Xml>
+    <Xml Include="Tests\Data\Physics\test_physics_entities.xml">
+      <Filter>Tests\Data\Physics</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

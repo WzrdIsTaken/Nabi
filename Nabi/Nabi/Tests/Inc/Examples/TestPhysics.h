@@ -23,6 +23,13 @@ namespace nabitest::Examples
 	class TestPhysics final : public IExample
 	{
 	public:
+		enum class TestPhysicsCollisionMasks : ecs::ColliderComponent::ColliderMask
+		{
+			Object = 1 << 1,
+			Player = 1 << 2,
+			All = ~0
+		};
+
 		TestPhysics(nabi::Context& context);
 
 		bool Init() override;

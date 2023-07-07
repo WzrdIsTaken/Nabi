@@ -455,6 +455,7 @@
     <Xml Include="Tests\Data\Demo\demo_systems.xml" />
     <Xml Include="Tests\Data\Demo\demo_template_entities.xml" />
     <Xml Include="Tests\Data\Input\test_ui_entities.xml" />
+    <Xml Include="Tests\Data\Physics\test_physics_entities.xml" />
     <Xml Include="Tests\Data\Reflection\test_container_entity_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_debug_entity_file.xml" />
     <Xml Include="Tests\Data\Reflection\test_library_entity_file.xml" />
