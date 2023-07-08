@@ -444,9 +444,6 @@
     <None Include="Rendering\Shaders\Common.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Todo.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Xml Include="Tests\Data\Audio\test_audio_entities.xml" />
     <Xml Include="Tests\Data\Demo\demo_entities.xml" />
     <Xml Include="Tests\Data\Demo\demo_global_entities.xml" />

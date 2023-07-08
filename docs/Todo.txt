@@ -13,28 +13,22 @@ Current:
 
 // --- High Priority ---
 
-// --- Low Priority ---
+// --- Low Priority (aka things that will never get done) ---
 
-- When we make a GameCore, can use m_WindowEventsListener to stop the game rendering when its minimised. might still want it to update thou? idk
 - Pixel shader might need to take in an array of lights..? what happens if we have two lights?
 	- two lights is acc fine. ngl in all off my projects i wont want complex lighting, so i think what we've got is ok
 - The entity clone appending of "_clone" to the entity name might be broken somehow. This isnt super high prio though as the entity group looks ok, and thats more important
-- Inline string converter From[Type] functions?
 - look into ENTT_USE_ATOMIC / entts multithreading needs
     - I don't think this is needed (rn..), but here is the link if it is https://github.com/skypjack/entt/wiki/Crash-Course:-configuration#entt_use_atomic
 
 // --- Nice to have stuff / random ideas ---
 
-- make sure all places which dont use gametime have it commented
 - Log to file functionality for Logger
 - Work out how to have the REFLECTION_END macro's not have to take in the type again
 - Make it so we dont have to do the typedef thing for reflecting nested types (ie types which have :: in their name)
 - Allow reflecting nested custom types and custom types in containers. See the comment in StringConverter.h
     - Just fix container reflection in general...
 - Make it so that the loop is not something that is done by loading.. instead when playing. Could possibly solve this problem nicely by setting a callback on the voice..? 
-- Add an assert for entt::get when the get fails? why isnt this a thing? is it a thing and im just dumb? (i think it does exist and im just dumb)
-    - Try overriding entt assert with my version
-    - I think registry::get might just not have any assert logic and the code is too beyond my tired self to add
 - It might be possible to make Singleton's use a static constructor to init themselves as well? But when I did a quick attempt I got a lot of scary linker errors
   and I don't want to go down that road right now!
 - Find and fix that incomplete type not allowed (can we do a seperate thing to what we did in google test in entt.h?)
