@@ -49,10 +49,10 @@ namespace nabi::MathUtils
 	}
 
 	/// <summary>
-	/// Makes [value] in the range of [oldMin-oldMax] in the range of [newMin-newMax]
+	/// Makes [value] (in the range of [oldMin-oldMax]) in the range of [newMin-newMax]
 	/// </summary>
 	template<typename T>
-	[[nodiscard]] inline T LinearlyInterpolate(T value, T const oldMinValue, T const oldMaxValue, T const newMinValue, T const newMaxValue) NABI_NOEXCEPT
+	[[nodiscard]] inline T LinearlyInterpolate(T const value, T const oldMinValue, T const oldMaxValue, T const newMinValue, T const newMaxValue) NABI_NOEXCEPT
 	{
 		return ((value - oldMinValue) / (oldMaxValue - oldMinValue)) * (newMaxValue - newMinValue) + newMinValue;
 	}

@@ -24,7 +24,7 @@ namespace nabi::StringUtils
 
 #define STRING_TO_WCHAR_INLINE(string) STRING_TO_LPCWSTR_INLINE(string)
 
-	struct SplitSettings
+	struct SplitSettings final
 	{
 		char m_Delimiter;
 		bool m_TrimEachValue;

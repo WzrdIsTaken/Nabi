@@ -15,7 +15,7 @@ namespace ecs::PhysicsModule
 		[[nodiscard]] inline bool IsCollisionViewValidForSorting(CollisionView const& view) noexcept
 		{
 			// We could use size_hint()... but I don't know how accurate the estimate is (+ this can crash if its not accurate!)
-			return std::distance(view.begin(), view.end()) > 1u;
+			return view && std::distance(view.begin(), view.end()) > 1u;
 		}
 	}
 
