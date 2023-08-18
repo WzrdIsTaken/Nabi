@@ -1,11 +1,10 @@
 #pragma once
 
-// RENAME TO LIKE EngineLevel.h?
-// And GameLevel.h? idk
+// The Lib Level include file for all engine code.
 
 // Nabi Core
-// Have like a Config.h file
-#include "Defines.h"
+#include "Config.h"
+#include "Defines.h" // Including defines here just makes life easier. 
 
-// Lib Level
-// code here
+// Lib Level check
+static_assert(LIB_LEVEL >= LIB_LEVEL_ENGINE);

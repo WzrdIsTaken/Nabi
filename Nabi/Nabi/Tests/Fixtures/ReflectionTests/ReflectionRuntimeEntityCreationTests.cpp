@@ -5,6 +5,7 @@
 #include "CoreComponents/EntityInfoComponent.h"
 #include "EntityCreator.h"
 #include "EntityPropertyList.h"
+#include "MockObjects\MockComponent.h"
 #include "XmlParser.h"
 
 #ifdef RUN_TESTS

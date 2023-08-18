@@ -1,5 +1,9 @@
 #pragma once
+
+// An example lib level file for game code
+
 #include "Core.h"
+// (see Core.h for why there is no lib level check, in the real game solution there would be a lib level check)
 
 /*
 * See docs/Quick Start Guide for an explanation of what the demo is doing.

@@ -1,6 +1,8 @@
 #pragma once
 
-// A collection of core includes to make life easier
+// The Lib Level include file for all core game code. Also includes a number of headers to make life easier.
+// 'core game code' refers to things which interface with the engine to perform core functionality - eg rendering. 
+//  They are like pre-written building blocks to jump start whatever project I need to make. 
 
 // Entt
 #include "entt.h"
@@ -12,3 +14,17 @@ using namespace entt::literals;
 
 // Utils
 #include "DebugUtils.h" // (includes Logger)
+
+// Lib Level check
+/*
+*	So, the lib level is used to make sure eg game code isn't included in engine code. However, the static assert check 
+*   only works if the, eg, game and engine code is in different solutions. I wrote a bunch of core[systems/components/etc]
+*   to be used in the game code, but they live in the engine solution. Therefore, despite "Core.h" being the lib level include
+*   for these files I can't enforce the check. When I make a game solution for a project, I will add the assert in a 'GameCore'. 
+*   For now, just trust me that things are ok! I cba to improve this projects structure any more.. I've learned my lesson.. ;_;
+*/
+
+// TODOS
+// - Should entt / context be included here? Can do namespace entt::literals{}; before the using to allow the namespace thing. 
+// - test the demo still runs
+// - update the postmortem doc saying we fixed the include stuff (mainly...)

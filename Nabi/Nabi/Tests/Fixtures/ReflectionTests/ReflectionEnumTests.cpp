@@ -1,5 +1,8 @@
 #include "TestCore.h"
 
+#include "MockObjects\MockEnum.h"
+#include "ReflectionIncludes.h"
+
 #ifdef RUN_TESTS
 
 namespace nabitest::ReflectionTests

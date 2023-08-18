@@ -4,6 +4,7 @@
 
 #include "CoreComponents/EntityInfoComponent.h"
 #include "MetaObjectLookup.h"
+#include "MockObjects\MockComponent.h"
 #include "XmlParser.h"
 
 #ifdef RUN_TESTS

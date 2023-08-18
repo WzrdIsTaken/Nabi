@@ -6,6 +6,10 @@
 #include "CoreComponents/EntityInfoComponent.h"
 #include "DirectXUtils.h"
 #include "MetaObjectLookup.h"
+#include "MockObjects\MockComponent.h"
+#include "MockObjects\MockCustomDataType.h"
+#include "MockObjects\MockEnum.h"
+#include "MockObjects\MockSystem.h"
 #include "ReflectionIncludes.h"
 #include "XmlParser.h"
 

@@ -1,6 +1,7 @@
 #include "TestCore.h"
 
 #include "GameTime.h"
+#include "MockObjects\MockSystem.h"
 
 #ifdef RUN_TESTS
 
