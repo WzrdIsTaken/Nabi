@@ -1,10 +1,9 @@
 #pragma once
+#include "EngineCore.h"
 
 #include <string>
 
 #include "entt.h"
-
-#include "Defines.h"
 
 namespace nabi::ECSUtils
 {

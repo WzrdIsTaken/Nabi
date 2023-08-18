@@ -1,9 +1,8 @@
 #pragma once
+#include "EngineCore.h"
 
 #include <string>
 #include <vector>
-
-#include "Defines.h"
 
 namespace nabi::StringUtils
 {

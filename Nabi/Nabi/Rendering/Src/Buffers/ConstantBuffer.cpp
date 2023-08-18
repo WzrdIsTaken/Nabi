@@ -1,5 +1,6 @@
 #include "EngineCore.h"
-#include "WinCore.h" // Context includes RenderCommand, which includes WinCore - so things get messy if we don't include it here
+
+#include "WinIncludes.h" // Context includes RenderCommand, which includes WinCore - so things get messy if we don't include it here
 
 #include "Buffers\ConstantBuffer.h"
 

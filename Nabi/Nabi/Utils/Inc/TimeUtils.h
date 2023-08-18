@@ -1,8 +1,7 @@
 #pragma once
+#include "EngineCore.h"
 
 #include <chrono>
-
-#include "Defines.h"
 
 namespace nabi::TimeUtils
 {

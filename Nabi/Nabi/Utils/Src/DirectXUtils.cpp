@@ -1,3 +1,5 @@
+#include "EngineCore.h"
+
 #include "DirectXUtils.h"
 
 #include <sstream>

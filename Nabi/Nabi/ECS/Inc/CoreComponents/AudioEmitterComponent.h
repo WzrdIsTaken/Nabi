@@ -1,6 +1,9 @@
 #pragma once
 #include "Core.h"
-#include "AudioCore.h"
+
+#include "AudioIncludes.h"
+
+#include "ComponentBase.h"
 
 namespace ecs
 {

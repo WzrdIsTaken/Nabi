@@ -3,6 +3,7 @@
 #include "CoreSystems\CameraSystem.h"
 
 #include "CoreComponents\CameraComponent.h"
+#include "GameTime.h"
 
 namespace ecs
 {

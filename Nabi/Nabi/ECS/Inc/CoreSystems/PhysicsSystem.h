@@ -1,13 +1,20 @@
 #pragma once
 #include "Core.h"
 
+#include "ReflectionIncludes.h"
+
 #include "CoreComponents\RigidbodyComponent.h" // Can't forward declare nested classes ):
+#include "SystemBase.h"
 #include "WorldConstants.h"
 
 namespace ecs
 {
 	struct TransformComponent;
 } // namespace ecs
+namespace nabi
+{
+	class GameTime;
+} // namespace nabi
 
 namespace ecs
 {

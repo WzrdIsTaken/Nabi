@@ -1,10 +1,18 @@
 #pragma once
 #include "Core.h"
 
+#include "ReflectionIncludes.h"
+
+#include "SystemBase.h"
+
 namespace ecs
 {
 	struct LightingProperties;
 } // namespace ecs
+namespace nabi
+{
+	class GameTime;
+} // namespace nabi
 namespace nabi::Rendering
 {
 	struct PerLightChange;

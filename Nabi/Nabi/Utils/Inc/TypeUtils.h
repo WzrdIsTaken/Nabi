@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineCore.h"
 
 #include <functional>
 

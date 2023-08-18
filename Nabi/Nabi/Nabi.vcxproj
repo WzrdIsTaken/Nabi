@@ -282,12 +282,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio\Inc\AudioCommand.h" />
-    <ClInclude Include="Audio\Inc\AudioCore.h" />
+    <ClInclude Include="Audio\Inc\AudioIncludes.h" />
     <ClInclude Include="Audio\Inc\AudioEffect.h" />
     <ClInclude Include="Audio\Inc\AudioSourceVoice.h" />
     <ClInclude Include="Audio\Inc\XAudioObjects.h" />
     <ClInclude Include="Core.h" />
-    <ClInclude Include="Core\DirectXCore.h" />
+    <ClInclude Include="Core\DirectXIncludes.h" />
     <ClInclude Include="Core\EngineCore.h" />
     <ClInclude Include="Core\Inc\Console.h" />
     <ClInclude Include="Core\Inc\Context.h" />
@@ -300,7 +300,7 @@
     <ClInclude Include="Core\Inc\Window.h" />
     <ClInclude Include="Core\Inc\WindowEventsListener.h" />
     <ClInclude Include="Core\Inc\WorldConstants.h" />
-    <ClInclude Include="Core\WinCore.h" />
+    <ClInclude Include="Core\WinIncludes.h" />
     <ClInclude Include="ECS\Inc\ComponentBase.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\BaseComponents\UIElementComponentBase.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\BufferComponent.h" />
@@ -351,6 +351,7 @@
     <ClInclude Include="ECS\Inc\EntityGroup.h" />
     <ClInclude Include="ECS\Inc\EntityPropertyList.h" />
     <ClInclude Include="ECS\Inc\SystemBase.h" />
+    <ClInclude Include="Input\Inc\InputIncludes.h" />
     <ClInclude Include="Input\Inc\InputState.h" />
     <ClInclude Include="Input\Inc\InputCodes.h" />
     <ClInclude Include="Libraries\Inc\entt\entt.h" />
@@ -372,7 +373,7 @@
     <ClInclude Include="Reflection\Inc\EnumConverter.h" />
     <ClInclude Include="Reflection\Inc\MetaECSTypes.h" />
     <ClInclude Include="Reflection\Inc\MetaObjectLookup.h" />
-    <ClInclude Include="Reflection\Inc\ReflectionCore.h" />
+    <ClInclude Include="Reflection\Inc\ReflectionIncludes.h" />
     <ClInclude Include="Reflection\Inc\ReflectionGlobals.h" />
     <ClInclude Include="Reflection\Inc\ReflectionHelpers.h" />
     <ClInclude Include="Reflection\Inc\ReflectionMacros.h" />

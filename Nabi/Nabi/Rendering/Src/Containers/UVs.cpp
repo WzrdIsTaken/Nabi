@@ -1,9 +1,10 @@
 #include "EngineCore.h"
-#include "WinCore.h"
+
+#include "WinIncludes.h"
 
 #include "Containers\UVs.h"
 
-#include "ReflectionCore.h"
+#include "ReflectionIncludes.h"
 
 namespace nabi::Rendering
 {

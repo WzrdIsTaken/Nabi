@@ -2,6 +2,8 @@
 
 #include "CoreComponents\TransformComponent.h"
 
+#include "ReflectionIncludes.h"
+
 namespace ecs
 {
 	REFLECT_COMPONENT_BEGIN_DEFAULT(TransformComponent)

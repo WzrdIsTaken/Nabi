@@ -2,6 +2,8 @@
 
 #include "CoreComponents\RigidbodyComponent.h"
 
+#include "ReflectionIncludes.h"
+
 namespace ecs
 {
 	typedef RigidbodyComponent::Constraints Constraints; // little hack to get around the limits of these reflection macros

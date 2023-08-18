@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
 #include "Shaders\PixelShader.h"
 #include "Shaders\VertexShader.h"
 #include "ResourceWrappers.h"

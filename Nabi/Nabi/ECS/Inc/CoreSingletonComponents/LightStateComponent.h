@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
+
 namespace ecs::SComp
 {
 	struct LightStateComponent final : public nabi::ECS::ComponentBase

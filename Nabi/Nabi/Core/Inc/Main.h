@@ -6,6 +6,7 @@
 
 #include "Console.h"
 #include "InitSettings.h"
+#include "MathUtils.h"
 #include "NabiCore.h"
 #include "StringStore.h"
 

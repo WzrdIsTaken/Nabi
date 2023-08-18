@@ -1,6 +1,11 @@
 #pragma once
 #include "EngineCore.h"
-#include "DirectXCore.h"
+
+#include <memory>
+#include <string>
+#include <vector>
+
+#include "DirectXIncludes.h"
 
 #include "Buffers\IndexBuffer.h"
 #include "Buffers\VertexBuffer.h"

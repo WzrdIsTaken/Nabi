@@ -1,6 +1,5 @@
 #pragma once
-
-#include "Defines.h"
+#include "EngineCore.h"
 
 namespace nabi::BuildUtils
 {

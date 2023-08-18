@@ -11,6 +11,7 @@
 #include "CoreModules\ReflectionModule.h"
 #include "DirectXUtils.h"
 #include "ECSUtils.h"
+#include "GameTime.h"
 
 // For some games, narrow phase collision resolution might not be needed - just collision detection
 #define ENABLE_NARROW_PHASE 

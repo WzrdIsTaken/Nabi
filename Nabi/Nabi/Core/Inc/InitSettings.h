@@ -1,5 +1,9 @@
 #pragma once
-#include "WinCore.h"
+#include "EngineCore.h"
+
+#include <string>
+
+#include "WinIncludes.h"
 
 namespace nabi
 {

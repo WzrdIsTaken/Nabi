@@ -1,8 +1,7 @@
 #pragma once
+#include "EngineCore.h"
 
 #include <cmath>
-
-#include "Defines.h"
 
 namespace nabi::MathUtils
 {

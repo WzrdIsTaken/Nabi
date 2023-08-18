@@ -2,7 +2,10 @@
 
 #include "CoreSystems/InputSystem.h"
 
+#include "InputIncludes.h"
+
 #include "CoreModules\InputModule.h"
+#include "GameTime.h"
 #include "InputCodes.h"
 
 namespace ecs

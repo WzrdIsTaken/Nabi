@@ -2,6 +2,7 @@
 
 #include "CoreSingletonComponents\CollisionStateComponent.h"
 #include "CoreSystems\CollisionSystem.h"
+#include "GameTime.h"
 #include "PhysicsTestHelpers.h"
 
 #ifdef RUN_TESTS

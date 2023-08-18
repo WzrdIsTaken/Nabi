@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "ReflectionIncludes.h"
+
 #include "ComponentBase.h"
 #include "MockCustomDataType.h"
 #include "MockEnum.h"

@@ -1,8 +1,12 @@
 #pragma once
 #include "EngineCore.h"
 
+#include <map>
+#include <queue>
+
 #include "DebugUtils.h"
 #include "ThreadingObjects.h"
+#include "TypeUtils.h"
 
 namespace nabi
 {

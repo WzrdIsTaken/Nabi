@@ -1,6 +1,10 @@
 #pragma once
 #include "Core.h"
 
+#include "ReflectionIncludes.h"
+
+#include "SystemBase.h"
+
 #ifdef RUN_TESTS
 
 namespace nabitest::ECS

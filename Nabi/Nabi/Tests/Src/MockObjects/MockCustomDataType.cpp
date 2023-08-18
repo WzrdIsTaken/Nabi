@@ -2,6 +2,8 @@
 
 #include "MockObjects/MockCustomDataType.h"
 
+#include "ReflectionIncludes.h"
+
 #ifdef RUN_TESTS
 
 namespace nabitest

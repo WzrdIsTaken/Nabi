@@ -2,6 +2,8 @@
 
 #include "CoreModules\UIModule.h"
 
+#include <stack>
+
 #include "CoreComponents\TextureComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\CameraModule.h"

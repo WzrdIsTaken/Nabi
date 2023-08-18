@@ -2,6 +2,7 @@
 #include "Core.h"
 
 #include "Buffers\ConstantBuffer.h"
+#include "ComponentBase.h"
 
 namespace ecs::SComp
 {

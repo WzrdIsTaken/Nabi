@@ -1,6 +1,8 @@
 #pragma once
 #include "EngineCore.h"
 
+#include "TypeUtils.h"
+
 namespace nabi
 {
 	struct Context;

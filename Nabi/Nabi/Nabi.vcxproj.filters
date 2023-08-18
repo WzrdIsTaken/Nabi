@@ -791,10 +791,10 @@
     <ClInclude Include="Rendering\Inc\DXObjects.h">
       <Filter>Rendering\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Core\WinCore.h">
+    <ClInclude Include="Core\WinIncludes.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Core\DirectXCore.h">
+    <ClInclude Include="Core\DirectXIncludes.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\Inc\Buffers\ConstantBuffer.h">
@@ -888,7 +888,7 @@
     <ClInclude Include="Rendering\Inc\Buffers\RenderBuffers.h">
       <Filter>Rendering\Inc\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="Reflection\Inc\ReflectionCore.h">
+    <ClInclude Include="Reflection\Inc\ReflectionIncludes.h">
       <Filter>Reflection\Inc</Filter>
     </ClInclude>
     <ClInclude Include="Input\Inc\InputState.h">
@@ -990,7 +990,7 @@
     <ClInclude Include="Audio\Inc\XAudioObjects.h">
       <Filter>Audio\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Audio\Inc\AudioCore.h">
+    <ClInclude Include="Audio\Inc\AudioIncludes.h">
       <Filter>Audio\Inc</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Inc\CoreSingletonComponents\AudioStateComponent.h">
@@ -1112,6 +1112,9 @@
     </ClInclude>
     <ClInclude Include="Tests\Fixtures\PhysicsTests\PhysicsTestHelpers.h">
       <Filter>Tests\Fixtures\PhysicsTests</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Inc\InputIncludes.h">
+      <Filter>Input\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,18 @@
 #pragma once
 #include "Core.h"
 
+#include "ReflectionIncludes.h"
+
+#include "SystemBase.h"
+
 namespace ecs
 {
 	struct CameraComponent;
 } // namespace ecs
+namespace nabi
+{
+	class GameTime;
+} // namespace nabi
 
 namespace ecs
 {

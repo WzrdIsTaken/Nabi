@@ -1,5 +1,6 @@
 #include "EngineCore.h"
-#include "WinCore.h"
+
+#include "WinIncludes.h"
 
 #include "WindowEventsListener.h"
 

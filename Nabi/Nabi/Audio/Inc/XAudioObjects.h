@@ -1,8 +1,9 @@
 #pragma once
 #include "EngineCore.h"
-#include "WinCore.h"
-#include "DirectXCore.h"
-#include "AudioCore.h"
+
+#include "WinIncludes.h"
+#include "DirectXIncludes.h"
+#include "AudioIncludes.h"
 
 namespace nabi::Audio
 {

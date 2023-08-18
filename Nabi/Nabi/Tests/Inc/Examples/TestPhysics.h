@@ -10,6 +10,7 @@
 #include "CoreSystems\PhysicsSystem.h"
 #include "CoreSystems\RenderSystem.h"
 #include "Buffers\RenderBuffers.h"
+#include "GameTime.h"
 #include "Shaders\PixelShader.h"
 #include "Shaders\VertexShader.h"
 #include "Textures\Texture.h"

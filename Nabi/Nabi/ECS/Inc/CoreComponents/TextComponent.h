@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
+
 namespace ecs
 {
 	// This component gets created from the data in a TextResourceComponent

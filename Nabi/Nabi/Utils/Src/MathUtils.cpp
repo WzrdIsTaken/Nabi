@@ -1,3 +1,5 @@
+#include "EngineCore.h"
+
 #include "MathUtils.h"
 
 #include "DebugUtils.h"

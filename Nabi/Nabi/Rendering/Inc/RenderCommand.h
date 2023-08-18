@@ -1,7 +1,8 @@
 #pragma once
 #include "EngineCore.h"
-#include "WinCore.h"
-#include "DirectXCore.h"
+
+#include "WinIncludes.h"
+#include "DirectXIncludes.h"
 
 #include "Buffers/ConstantBuffer.h"
 #include "Buffers/IndexBuffer.h"
@@ -12,6 +13,7 @@
 #include "Shaders/VertexShader.h"
 #include "Textures/Sampler.h"
 #include "Textures/Texture.h"
+#include "TypeUtils.h"
 
 // Forward Declares
 namespace nabi

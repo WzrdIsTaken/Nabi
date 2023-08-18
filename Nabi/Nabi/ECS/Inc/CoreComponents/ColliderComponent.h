@@ -1,6 +1,9 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
+#include "ReflectionGlobals.h"
+
 namespace ecs
 {
 	struct ColliderComponent final : public nabi::ECS::ComponentBase

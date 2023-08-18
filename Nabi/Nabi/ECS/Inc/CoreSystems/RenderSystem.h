@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "ReflectionIncludes.h"
+
 #include "CoreComponents\BufferComponent.h"
 #include "CoreComponents\CameraComponent.h"
 #include "CoreComponents\ShaderComponent.h"
@@ -10,6 +12,12 @@
 #include "CoreComponents\TagComponents\DrawOrthographicTagComponent.h"
 #include "CoreComponents\TagComponents\DrawPerspectiveTagComponent.h"
 #include "ResourceWrappers.h"
+#include "SystemBase.h"
+
+namespace nabi
+{
+	class GameTime;
+} // namespace nabi
 
 namespace ecs
 {

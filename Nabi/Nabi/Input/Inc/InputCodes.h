@@ -1,6 +1,8 @@
 #pragma once
 #include "EngineCore.h" 
 
+#include "TypeUtils.h"
+
 // Contains keyboard, mouse and controller key/button codes
 
 namespace nabi::Input

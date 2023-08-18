@@ -4,6 +4,7 @@
 
 #include "CoreComponents\EntityInfoComponent.h"
 #include "DirectXUtils.h"
+#include "GameTime.h"
 
 namespace ecs
 {

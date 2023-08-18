@@ -6,6 +6,7 @@
 #include "ECSGlobals.h"
 #include "EntityGroup.h"
 #include "MetaECSTypes.h"
+#include "TypeUtils.h"
 
 namespace nabi::ECS
 {

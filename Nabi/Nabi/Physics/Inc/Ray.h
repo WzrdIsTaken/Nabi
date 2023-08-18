@@ -1,6 +1,7 @@
 #pragma once
 #include "EngineCore.h"
-#include "DirectXCore.h"
+
+#include "DirectXIncludes.h"
 
 namespace nabi::Physics
 {

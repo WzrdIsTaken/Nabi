@@ -2,7 +2,8 @@
 
 #include "BaseTypeReflection.h"
 
-#include "ReflectionCore.h"
+#include "ReflectionIncludes.h"
+
 #include "StringStore.h"
 
 namespace nabi::Reflection

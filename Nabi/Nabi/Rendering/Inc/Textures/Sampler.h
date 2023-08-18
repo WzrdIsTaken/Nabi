@@ -1,5 +1,7 @@
 #pragma once
-#include "DirectXCore.h"
+#include "EngineCore.h"
+
+#include "DirectXIncludes.h"
 
 namespace nabi::Rendering
 {

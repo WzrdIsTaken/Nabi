@@ -1,6 +1,15 @@
 #pragma once
 #include "Core.h"
 
+#include "ReflectionIncludes.h"
+
+#include "SystemBase.h"
+
+namespace nabi
+{
+	class GameTime;
+} // namespace nabi
+
 namespace ecs
 {
 	class InputSystem final : public nabi::ECS::SystemBase

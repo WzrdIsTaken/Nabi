@@ -4,6 +4,7 @@
 #include "entt.h"
 
 #include "DebugUtils.h"
+#include "StringUtils.h"
 
 namespace nabi::Reflection::EnumConverter
 {

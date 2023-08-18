@@ -1,6 +1,11 @@
 #pragma once
 #include "Core.h"
 
+#include <any>
+#include <stack>
+#include <unordered_map>
+
+#include "ComponentBase.h"
 #include "CoreComponents\UISceneComponent.h"
 
 namespace ecs::SComp

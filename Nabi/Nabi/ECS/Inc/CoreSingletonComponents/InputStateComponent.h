@@ -1,6 +1,12 @@
 #pragma once
 #include "Core.h"
 
+#include <bitset>
+
+#include "InputIncludes.h"
+
+#include "ComponentBase.h"
+
 namespace ecs::SComp
 {
 	struct KeyboardState

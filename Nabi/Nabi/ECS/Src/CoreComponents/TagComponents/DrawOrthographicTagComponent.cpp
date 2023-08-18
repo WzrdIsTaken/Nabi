@@ -2,6 +2,8 @@
 
 #include "CoreComponents\TagComponents\DrawOrthographicTagComponent.h"
 
+#include "ReflectionIncludes.h"
+
 namespace ecs::TComp
 {
 	REFLECT_COMPONENT_BEGIN_DEFAULT(DrawOrthographicTagComponent)

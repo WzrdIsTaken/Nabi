@@ -2,6 +2,7 @@
 #include "EngineCore.h"
 
 #include "Singleton.h"
+#include "TypeUtils.h"
 
 #ifdef USE_DEBUG_UTILS
 

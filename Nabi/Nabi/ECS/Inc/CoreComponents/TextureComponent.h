@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
 #include "Textures\Texture.h"
 #include "ResourceWrappers.h"
 

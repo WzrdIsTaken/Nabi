@@ -1,6 +1,6 @@
 #pragma once
 
-// All the files needed to reflect something (should only be used on an engine level. otherwise, Core.h includes everything thats needed)
+// All the files needed to reflect anything!
 
 #include "entt.h"
 

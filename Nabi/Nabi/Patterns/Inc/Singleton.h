@@ -1,6 +1,9 @@
 #pragma once
 #include "EngineCore.h"
 
+#include <memory>
+#include <string>
+
 namespace nabi::Patterns
 {
 #define TSINGLETON_INSTANCE(_class) std::unique_ptr<_class> nabi::Patterns::TSingleton<_class>::s_Instance = nullptr;

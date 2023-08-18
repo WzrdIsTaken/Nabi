@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
+
 namespace ecs::RComp
 {
 	struct TextResourceComponent final : public nabi::ECS::ComponentSettingsBase

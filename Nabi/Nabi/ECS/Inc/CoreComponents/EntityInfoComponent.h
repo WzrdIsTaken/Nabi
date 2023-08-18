@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
+
 // Contains some basic infomation about an entity.
 // No need to reflect, as its always added anyway.
 

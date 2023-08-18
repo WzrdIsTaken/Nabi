@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
+
 // The SpatialHierarchyComponent is like the EntityInfoComponent. See EntityInfoComponent.h for an explanation
 
 namespace ecs

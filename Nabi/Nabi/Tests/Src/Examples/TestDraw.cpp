@@ -12,6 +12,7 @@
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\TextModule.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
+#include "GameTime.h"
 
 #ifdef RUN_TESTS
 

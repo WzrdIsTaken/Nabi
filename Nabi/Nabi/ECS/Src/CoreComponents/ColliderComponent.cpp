@@ -2,6 +2,8 @@
 
 #include "CoreComponents\ColliderComponent.h"
 
+#include "ReflectionIncludes.h"
+
 namespace ecs
 {
 	typedef ColliderComponent::ColliderType ColliderType;

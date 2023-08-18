@@ -1,6 +1,9 @@
 #pragma once
 #include "Core.h"
 
+#include "ReflectionIncludes.h"
+
+#include "ComponentBase.h"
 #include "CoreSingletonComponents\AudioStateComponent.h"
 
 namespace ecs::RComp

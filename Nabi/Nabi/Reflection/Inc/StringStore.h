@@ -1,7 +1,10 @@
 #pragma once
 #include "EngineCore.h"
 
+#include <deque>
+
 #include "Singleton.h"
+#include "TypeUtils.h"
 
 namespace nabi::Reflection
 {

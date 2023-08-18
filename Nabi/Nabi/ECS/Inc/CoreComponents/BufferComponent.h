@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
 #include "Buffers\RenderBuffers.h"
 #include "ResourceWrappers.h"
 

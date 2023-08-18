@@ -5,6 +5,7 @@
 #include "CoreComponents\RigidbodyComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "DirectXUtils.h"
+#include "GameTime.h"
 
 namespace ecs
 {

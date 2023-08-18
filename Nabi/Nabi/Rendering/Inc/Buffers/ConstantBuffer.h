@@ -1,6 +1,9 @@
 #pragma once
 #include "EngineCore.h"
-#include "DirectXCore.h"
+
+#include <vector>
+
+#include "DirectXIncludes.h"
 
 // Forward Declares
 namespace nabi

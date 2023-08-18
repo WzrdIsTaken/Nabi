@@ -1,7 +1,10 @@
 #pragma once
 #include "Core.h"
 
+#include "ReflectionIncludes.h"
+
 #include "CoreSingletonComponents\CollisionStateComponent.h"
+#include "SystemBase.h"
 
 namespace ecs
 {
@@ -9,6 +12,10 @@ namespace ecs
 	struct RigidbodyComponent;
 	struct TransformComponent;
 } // namespace ecs
+namespace nabi
+{
+	class GameTime;
+} // namespace nabi
 namespace nabi::Physics
 {
 	struct AABB;

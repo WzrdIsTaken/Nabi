@@ -1,7 +1,8 @@
 #pragma once
 #include "EngineCore.h"
-#include "WinCore.h"
-#include "AudioCore.h"
+
+#include "WinIncludes.h"
+#include "AudioIncludes.h"
 
 #include "DebugUtils.h"
 

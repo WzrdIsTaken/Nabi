@@ -2,6 +2,8 @@
 
 #include "pugixml.hpp"
 
+#include "BuildUtils.h"
+#include "TestUtils.h"
 #include "XmlParser.h"
 
 // This is kinda jank test ngl, I gotta get better at writing these things...

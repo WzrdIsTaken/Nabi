@@ -1,8 +1,8 @@
 #pragma once
+#include "EngineCore.h"
 
 #include <sstream>
 
-#include "Defines.h"
 #include "UtilClasses\Logger.h"
 #include "Debug\DXException.h" // For DX_ASSERT - So we have a single include debug file
 

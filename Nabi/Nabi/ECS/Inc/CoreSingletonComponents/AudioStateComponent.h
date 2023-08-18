@@ -3,6 +3,7 @@
 
 #include "AudioEffect.h"
 #include "AudioSourceVoice.h"
+#include "ComponentBase.h"
 #include "ResourceWrappers.h"
 
 namespace ecs::SComp

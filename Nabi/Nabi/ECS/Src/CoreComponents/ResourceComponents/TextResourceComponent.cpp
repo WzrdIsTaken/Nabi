@@ -2,6 +2,8 @@
 
 #include "CoreComponents\ResourceComponents\TextResourceComponent.h"
 
+#include "ReflectionIncludes.h"
+
 namespace ecs::RComp
 {
 	REFLECT_COMPONENT_BEGIN_DEFAULT(TextResourceComponent)

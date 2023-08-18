@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
 #include "CoreComponents\ColliderComponent.h"
 #include "CoreComponents\RigidbodyComponent.h"
 #include "CoreComponents\TransformComponent.h"

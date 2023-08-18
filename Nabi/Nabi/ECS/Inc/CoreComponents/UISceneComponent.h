@@ -1,10 +1,12 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
+
 namespace ecs
 {
 	// 1 entity per scene has this component
-	struct UISceneComponent final
+	struct UISceneComponent final : public nabi::ECS::ComponentBase
 	{
 		//typedef std::vector<entt::hashed_string> UISceneEntityNames; (i realised this could just be a string - will save me a lot of headaches)
 		typedef std::vector<entt::entity> UISceneEntities;

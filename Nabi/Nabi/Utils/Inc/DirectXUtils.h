@@ -1,9 +1,9 @@
 #pragma once
-#include "DirectXCore.h"
+#include "EngineCore.h"
+
+#include "DirectXIncludes.h"
 
 #include <string>
-
-#include "Defines.h"
 
 #define SAFE_RELEASE(obj) if ( (obj) != NULL    ) { (obj)->Release(); (obj) = NULL;    }
 #define SAFE_DELETE(obj)  if ( (obj) != nullptr ) { delete (obj);     (obj) = nullptr; }

@@ -1,6 +1,5 @@
 #pragma once
-
-#include "Defines.h"
+#include "EngineCore.h"
 
 #ifndef RUN_TESTS
 	#define MAKE_TESTABLE

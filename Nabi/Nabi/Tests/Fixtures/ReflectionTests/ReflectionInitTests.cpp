@@ -6,6 +6,7 @@
 #include "CoreComponents/EntityInfoComponent.h"
 #include "DirectXUtils.h"
 #include "MetaObjectLookup.h"
+#include "ReflectionIncludes.h"
 #include "XmlParser.h"
 
 #ifdef RUN_TESTS

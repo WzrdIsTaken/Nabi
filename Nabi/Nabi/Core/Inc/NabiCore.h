@@ -1,6 +1,7 @@
 #pragma once
 #include "EngineCore.h"
-#include "WinCore.h"
+
+#include "WinIncludes.h"
 
 #include "entt.h"
 

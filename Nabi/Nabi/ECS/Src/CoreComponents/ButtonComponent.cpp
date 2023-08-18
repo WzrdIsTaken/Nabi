@@ -2,6 +2,8 @@
 
 #include "CoreComponents\ButtonComponent.h"
 
+#include "ReflectionIncludes.h"
+
 namespace ecs
 {
 	REFLECT_COMPONENT_BEGIN_DEFAULT(ButtonComponent)

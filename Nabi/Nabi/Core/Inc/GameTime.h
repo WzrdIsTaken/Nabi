@@ -1,6 +1,8 @@
 #pragma once
 #include "EngineCore.h"
 
+#include <chrono>
+
 #include "DebugUtils.h"
 
 namespace nabi

@@ -394,7 +394,7 @@ namespace nabi::Reflection
 
 			newEntityGroup.push_back(entityData);
 
-			auto newGroupTemplatePair = std::make_pair(docGroup, newEntityGroup);
+			auto const newGroupTemplatePair = std::make_pair(docGroup, newEntityGroup);
 			m_EntityGroups.emplace(newGroupTemplatePair);
 		}
 	}

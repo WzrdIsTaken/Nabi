@@ -1,7 +1,9 @@
 #pragma once
 #include "EngineCore.h"
-#include "WinCore.h"
 
+#include <string>
+
+#include "WinIncludes.h"
 #include <d3d11.h>
 
 #ifdef USE_DEBUG_UTILS

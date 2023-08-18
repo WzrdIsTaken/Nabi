@@ -7,6 +7,7 @@
 #include "CoreSingletonComponents\GraphicsComponent.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
 #include "CoreModules\RenderModule.h"
+#include "GameTime.h"
 
 namespace ecs
 {

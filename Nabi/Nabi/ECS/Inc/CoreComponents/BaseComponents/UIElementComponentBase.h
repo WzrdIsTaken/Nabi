@@ -1,7 +1,11 @@
 #pragma once
 #include "Core.h"
 
+#include "entt.h"
+
+#include "ComponentBase.h"
 #include "InputCodes.h"
+#include "ReflectionGlobals.h"
 
 namespace ecs::BComp
 {
@@ -23,7 +27,7 @@ namespace ecs::BComp
 #pragma warning( push )
 #pragma warning( disable : 26495 ) // [var] is unitialized
 
-	struct UIElementComponentBase abstract
+	struct UIElementComponentBase abstract : public nabi::ECS::ComponentBase
 	{
 		entt::hashed_string m_Scene;
 		entt::hashed_string m_Action;

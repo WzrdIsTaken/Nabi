@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "ComponentBase.h"
+
 namespace ecs
 {
 	struct RigidbodyComponent final : public nabi::ECS::ComponentBase

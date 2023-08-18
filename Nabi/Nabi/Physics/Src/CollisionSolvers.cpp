@@ -1,5 +1,6 @@
 #include "EngineCore.h"
-#include "WinCore.h" // Undefs for min / max
+
+#include "WinIncludes.h" // Undefs for min / max
 
 #include "CollisionSolvers.h"
 

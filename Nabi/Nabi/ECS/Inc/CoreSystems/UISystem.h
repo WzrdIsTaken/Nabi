@@ -1,13 +1,20 @@
 #pragma once
 #include "Core.h"
 
+#include "ReflectionIncludes.h"
+
 #include "InputCodes.h"
 #include "InputState.h"
+#include "SystemBase.h"
 
 namespace ecs::BComp
 {
 	struct UIElementComponentBase;
 } // namespace ecs::BComp
+namespace nabi
+{
+	class GameTime;
+} // namespace nabi
 
 namespace ecs
 {

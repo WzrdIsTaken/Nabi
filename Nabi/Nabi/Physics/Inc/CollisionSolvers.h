@@ -1,6 +1,9 @@
 #pragma once
 #include "EngineCore.h"
-#include "DirectXCore.h"
+
+#include <optional>
+
+#include "DirectXIncludes.h"
 
 #include "AABB.h"
 #include "Collision.h"

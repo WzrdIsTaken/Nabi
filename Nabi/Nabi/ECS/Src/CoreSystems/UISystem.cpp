@@ -8,6 +8,7 @@
 #include "CoreModules\InputModule.h"
 #include "CoreModules\ReflectionModule.h"
 #include "CoreModules\UIModule.h"
+#include "GameTime.h"
 
 namespace ecs
 {

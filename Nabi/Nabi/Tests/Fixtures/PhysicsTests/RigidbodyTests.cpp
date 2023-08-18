@@ -4,6 +4,7 @@
 #include "CoreComponents\TransformComponent.h"
 #include "CoreSystems\PhysicsSystem.h"
 #include "DirectXUtils.h"
+#include "GameTime.h"
 
 #ifdef RUN_TESTS
 

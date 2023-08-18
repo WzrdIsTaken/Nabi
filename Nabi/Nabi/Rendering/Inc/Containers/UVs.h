@@ -1,6 +1,9 @@
 #pragma once
 #include "EngineCore.h"
 
+#include <string>
+#include <vector>
+
 #include "Buffers\ConstantBuffer.h"
 
 namespace nabi::Rendering

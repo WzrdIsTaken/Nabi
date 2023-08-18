@@ -1,5 +1,7 @@
 #include "TestCore.h"
 
+#include "GameTime.h"
+
 #ifdef RUN_TESTS
 
 namespace nabitest::ECSTests
