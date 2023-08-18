@@ -37,13 +37,10 @@ using namespace entt::literals;
 #include "EnumConverter.h"
 #include "StringConverter.h"
 
-// Testing
-#include "gtest/gtest.h" // Note - This has been done https://stackoverflow.com/questions/68193449/disable-warnings-from-google-test
-#include "BuildUtils.h"
-#include "TestUtils.h"
-
 // Utils
+#include "BuildUtils.h"
 #include "DebugUtils.h" // (includes Logger)
 #include "MathUtils.h"
 #include "StringUtils.h"
+#include "TestUtils.h"
 #include "TypeUtils.h"

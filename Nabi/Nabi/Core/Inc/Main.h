@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 
+#include "gtest/gtest.h" 
 #include "shellapi.h" // For CommandLineToArgvW
 
 #include "Console.h"

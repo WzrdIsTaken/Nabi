@@ -7,10 +7,6 @@
 
 namespace nabi::StringUtils
 {
-#define TOSTRING(thing)  #thing
-#define STRINGIFY(thing) #thing
-#define CONCAT(A, B) A ## B /*i know this isn't really a string thing but i can't think of anywhere better to put it rn*/
-
 	// Can't have a function for this which allocates on the stack cos otherwise the returned string ptr will be invalid 
 #define STRING_TO_LPCWSTR(string, lpcwstr) \
 	std::wstring const wtemp = std::wstring(string.begin(), string.end()); \

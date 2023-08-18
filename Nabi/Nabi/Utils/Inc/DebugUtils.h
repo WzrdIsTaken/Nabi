@@ -29,45 +29,49 @@
 
 	#define FUNCTION_NOT_IMPLEMENTED NOT_DEFINED
 #else
-#define ASSERT_FATAL(condition, message) ASSERT_BASE(condition, message, "ASSERT FATAL", LOG_FATAL)
-#define ASSERT(condition, message) ASSERT_BASE(condition, message, "ASSERT", LOG_ERROR)
+	#define ASSERT_FATAL(condition, message) ASSERT_BASE(condition, message, "ASSERT FATAL", LOG_FATAL)
+	#define ASSERT(condition, message) ASSERT_BASE(condition, message, "ASSERT", LOG_ERROR)
 
-#define ASSERT_FAIL_FATAL(message) ASSERT_FATAL(false, message)
-#define ASSERT_FAIL(message) ASSERT(false, message)
+	#define ASSERT_FAIL_FATAL(message) ASSERT_FATAL(false, message)
+	#define ASSERT_FAIL(message) ASSERT(false, message)
 
-#define FINAL_CODE(code) NOT_DEFINED
-#define ASSERT_CODE(code) code
-#define DX_ASSERT(result) nabi::DirectX::ThrowIfFailed(__FILE__, __LINE__, result); // Compiler is not guaranteed to inline so pass in __LINE__ and __FILE__ here
+	#define FINAL_CODE(code) NOT_DEFINED
+	#define ASSERT_CODE(code) code
+	#define DX_ASSERT(result) nabi::DirectX::ThrowIfFailed(__FILE__, __LINE__, result); // Compiler is not guaranteed to inline so pass in __LINE__ and __FILE__ here
 
-#define STATIC_ASSERT(...) static_assert(__VA_ARGS__);
+	#define STATIC_ASSERT(...) static_assert(__VA_ARGS__);
 
-#define LOG(prep, severity, category, message, end) \
+	#define LOG(prep, severity, category, message, end) \
+			{ \
+				using nabi::DebugUtils::Logger; \
+				\
+				std::ostringstream debugStream; \
+				debugStream << prep << severity << LEVEL_MESSAGE_DIVIDER << category << message << end; \
+				\
+				if (Logger::IsInstanceValid()) \
+				{ \
+					Logger::Instance()->Log(severity, debugStream); \
+				} \
+				else \
+				{ \
+					LOG_RAW(debugStream); \
+				} \
+			}
+	#define CONDITIONAL_LOG(condition, prep, severity, category, message, end) \
+		if ((condition)) \
 		{ \
-			using nabi::DebugUtils::Logger; \
-			\
-			std::ostringstream debugStream; \
-			debugStream << prep << severity << LEVEL_MESSAGE_DIVIDER << category << message << end; \
-			\
-			if (Logger::IsInstanceValid()) \
-			{ \
-				Logger::Instance()->Log(severity, debugStream); \
-			} \
-			else \
-			{ \
-				LOG_RAW(debugStream); \
-			} \
+			LOG(prep, severity, category, message, end); \
 		}
-#define CONDITIONAL_LOG(condition, prep, severity, category, message, end) \
-	if ((condition)) \
-	{ \
-		LOG(prep, severity, category, message, end); \
-	}
 
-#define LOG_RAW(message) nabi::DebugUtils::Logger::LogRaw(message);
-#define FAST_LOG(message) LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST, message, LOG_END); // for when you just want to quickly write a log message to check something. deliberately not accounted for in release
+	#define LOG_RAW(message) nabi::DebugUtils::Logger::LogRaw(message);
+	#define FAST_LOG(message) LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST, message, LOG_END); // for when you just want to quickly write a log message to check something. deliberately not accounted for in release
 
-#define FUNCTION_NOT_IMPLEMENTED ASSERT_FAIL("The function " << __FUNCTION__  << " is not implemented!");
+	#define FUNCTION_NOT_IMPLEMENTED ASSERT_FAIL("The function " << __FUNCTION__  << " is not implemented!");
 #endif // ifndef USE_DEBUG_UTILS
+
+#define TOSTRING(thing)  #thing
+#define STRINGIFY(thing) #thing
+#define CONCAT(A, B) A ## B 
 
 #define NOT_DEFINED (void(0));
 #define ASSERT_BASE(condition, message, messagePrefix, logLevel) \

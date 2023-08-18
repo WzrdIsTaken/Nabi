@@ -5,6 +5,9 @@
 // Nabi Core
 #include "Core.h"
 
+// gTest
+#include "gtest/gtest.h" // Note - This has been done https://stackoverflow.com/questions/68193449/disable-warnings-from-google-test
+
 // Mock Objects
 #include "MockObjects/MockComponent.h"
 #include "MockObjects/MockCustomDataType.h"
