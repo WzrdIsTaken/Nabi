@@ -791,12 +791,6 @@
     <ClInclude Include="Rendering\Inc\DXObjects.h">
       <Filter>Rendering\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Core\WinIncludes.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\DirectXIncludes.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\Inc\Buffers\ConstantBuffer.h">
       <Filter>Rendering\Inc\Buffers</Filter>
     </ClInclude>
@@ -1117,6 +1111,12 @@
       <Filter>Input\Inc</Filter>
     </ClInclude>
     <ClInclude Include="Core\Inc\Config.h">
+      <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Inc\DirectXIncludes.h">
+      <Filter>Core\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Inc\WinIncludes.h">
       <Filter>Core\Inc</Filter>
     </ClInclude>
   </ItemGroup>

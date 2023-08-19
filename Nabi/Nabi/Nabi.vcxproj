@@ -287,12 +287,12 @@
     <ClInclude Include="Audio\Inc\AudioSourceVoice.h" />
     <ClInclude Include="Audio\Inc\XAudioObjects.h" />
     <ClInclude Include="Core.h" />
-    <ClInclude Include="Core\DirectXIncludes.h" />
     <ClInclude Include="Core\EngineCore.h" />
     <ClInclude Include="Core\Inc\Config.h" />
     <ClInclude Include="Core\Inc\Console.h" />
     <ClInclude Include="Core\Inc\Context.h" />
     <ClInclude Include="Core\Inc\Defines.h" />
+    <ClInclude Include="Core\Inc\DirectXIncludes.h" />
     <ClInclude Include="Core\Inc\GameTime.h" />
     <ClInclude Include="Core\Inc\InitSettings.h" />
     <ClInclude Include="Core\Inc\Main.h" />
@@ -300,8 +300,8 @@
     <ClInclude Include="Core\Inc\NabiEventsManager.h" />
     <ClInclude Include="Core\Inc\Window.h" />
     <ClInclude Include="Core\Inc\WindowEventsListener.h" />
+    <ClInclude Include="Core\Inc\WinIncludes.h" />
     <ClInclude Include="Core\Inc\WorldConstants.h" />
-    <ClInclude Include="Core\WinIncludes.h" />
     <ClInclude Include="ECS\Inc\ComponentBase.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\BaseComponents\UIElementComponentBase.h" />
     <ClInclude Include="ECS\Inc\CoreComponents\BufferComponent.h" />
