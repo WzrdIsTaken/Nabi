@@ -5,14 +5,14 @@
 //  They are like pre-written building blocks to jump start whatever project I need to make. 
 
 // Entt
-#include "entt.h"
+namespace entt { inline namespace literals {} };
 using namespace entt::literals;
 
 // Nabi Core
-#include "Context.h"
+#include "Config.h"
 #include "Defines.h"
 
-// Utils
+// Debug
 #include "DebugUtils.h" // (includes Logger)
 
 // Lib Level check
@@ -24,7 +24,12 @@ using namespace entt::literals;
 *   For now, just trust me that things are ok! I cba to improve this projects structure any more.. I've learned my lesson.. ;_;
 */
 
-// TODOS
-// - Should entt / context be included here? Can do namespace entt::literals{}; before the using to allow the namespace thing. 
-// - test the demo still runs
-// - update the postmortem doc saying we fixed the include stuff (mainly...)
+// A couple of other notes:
+/*
+*	1 - I'm not 100% sure about the entt namespace stuff I do here... Basically any time I use a hashed string, I want to use
+*	    entt::literals so its convenient not to write it out all the time. But at the same time... it Core really the best
+*	    place for this? 
+*	2 - Also I'm not certain about globally including DebugUtils... but they are used pretty much everywhere so..?
+*   
+*	Regardless, these ~Core headers are so much better than they were. I don't think its worth doing any more...
+*/
