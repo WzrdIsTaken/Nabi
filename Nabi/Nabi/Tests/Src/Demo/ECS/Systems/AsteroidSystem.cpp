@@ -10,6 +10,7 @@
 #include "CoreModules\EntityModule.h"
 #include "CoreModules\InputModule.h"
 #include "DirectXUtils.h"
+#include "GameTime.h"
 
 #include "Demo\Core\Demo.h"
 #include "Demo\Core\DemoEnums.h"

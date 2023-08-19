@@ -4,6 +4,8 @@
 
 #include "Demo\Core\DemoEnums.h"
 
+#include "ReflectionIncludes.h"
+
 namespace core
 {
 	REFLECT_ENUM_UNDERLYING_BEGIN_DEFAULT(CollisionMask)

@@ -11,6 +11,7 @@
 #include "CoreModules\CameraModule.h"
 #include "CoreModules\PhysicsModule.h"
 #include "DirectXUtils.h"
+#include "GameTime.h"
 
 #include "Demo\ECS\Components\PlayerComponent.h"
 

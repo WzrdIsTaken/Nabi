@@ -3,12 +3,20 @@
 
 #ifdef INCLUDE_DEMO
 
+#include "ReflectionIncludes.h"
+
+#include "SystemBase.h"
+
 namespace ecs
 {
 	struct PlayerComponent;
 	struct RigidbodyComponent;
 	struct TransformComponent;
 } // namespace ecs
+namespace nabi
+{
+	class GameTime;
+} // namespace nabi
 
 namespace ecs
 {

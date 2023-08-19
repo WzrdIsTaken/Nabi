@@ -4,6 +4,8 @@
 
 #include "Demo\UI\DemoUIScene.h"
 
+#include "ReflectionIncludes.h"
+
 #include "CoreComponents\TextComponent.h"
 #include "CoreModules\CameraModule.h"
 #include "CoreModules\TextModule.h"

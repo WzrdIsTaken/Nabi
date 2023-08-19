@@ -3,6 +3,8 @@
 
 #ifdef INCLUDE_DEMO
 
+#include "ComponentBase.h"
+
 namespace ecs
 {
 	struct AsteroidComponent final : public nabi::ECS::ComponentBase

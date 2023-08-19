@@ -3,6 +3,7 @@
 
 #ifdef INCLUDE_DEMO
 
+#include "ComponentBase.h"
 #include "InputCodes.h"
 
 namespace ecs

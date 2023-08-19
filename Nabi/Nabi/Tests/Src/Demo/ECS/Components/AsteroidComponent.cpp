@@ -4,6 +4,8 @@
 
 #include "Demo\ECS\Components\AsteroidComponent.h"
 
+#include "ReflectionIncludes.h"
+
 namespace ecs
 {
 	REFLECT_COMPONENT_BEGIN_DEFAULT(AsteroidComponent)

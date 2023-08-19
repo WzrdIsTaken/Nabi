@@ -3,11 +3,19 @@
 
 #ifdef INCLUDE_DEMO
 
+#include "ReflectionIncludes.h"
+
+#include "SystemBase.h"
+
 // this is really really bot, but its just a really quick way to test 3d audio effects
 namespace ecs
 {
 	struct AudioEmitterComponent;
 } // namespace ecs
+namespace nabi
+{
+	class GameTime;
+} // namespace nabi
 
 namespace ecs
 {

@@ -4,6 +4,8 @@
 
 #include "Demo\ECS\SingletonComponents\DemoPropertiesComponent.h"
 
+#include "ReflectionIncludes.h"
+
 namespace ecs::SComp
 {
 	REFLECT_COMPONENT_BEGIN_DEFAULT(DemoPropertiesComponent)
