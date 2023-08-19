@@ -3,6 +3,8 @@
 
 #ifdef INCLUDE_DEMO
 
+#include "entt.h"
+
 namespace nabi
 {
 	struct Context;

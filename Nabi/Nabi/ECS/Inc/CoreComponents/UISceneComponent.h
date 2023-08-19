@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "entt.h"
+
 #include "ComponentBase.h"
 
 namespace ecs
