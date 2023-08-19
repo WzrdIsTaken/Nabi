@@ -143,13 +143,36 @@ namespace nabi::ECS
 		FUNCTION_NOT_IMPLEMENTED
 	}
 
+	bool EntityCreator::IsEntityGroupLoaded(std::string const& entityGroupName) const NABI_NOEXCEPT
+	{
+		entt::hashed_string const hashedGroupName = entt::hashed_string(entityGroupName.c_str());
+		bool groupIsLoaded = false;
+
+		for (auto [entity, entityInfoComponent] : m_Registry.view<ecs::EntityInfoComponent const>().each())
+		{
+			if (entityInfoComponent.m_EntityGroup == hashedGroupName)
+			{
+				groupIsLoaded = true;
+				break;
+			}
+		}
+
+		return groupIsLoaded;
+	}
+
+	bool EntityCreator::IsEntityGroupLoaded(EntityGroup const& /*entityGroup*/) const NABI_NOEXCEPT
+	{
+		FUNCTION_NOT_IMPLEMENTED
+		return false;
+	}
+
 	bool EntityCreator::DestroyEntityGroup(std::string const& entityGroupName) NABI_NOEXCEPT
 	{
 		entt::hashed_string const hashedGroupName = entt::hashed_string(entityGroupName.c_str());
 		bool validGroup = false;
 
-		m_Registry.view<ecs::EntityInfoComponent>()
-			.each([&](entt::entity entity, auto const& entityInfoComponent) -> void
+		m_Registry.view<ecs::EntityInfoComponent const>()
+			.each([&](entt::entity entity, auto& entityInfoComponent) -> void
 				{
 					if (entityInfoComponent.m_EntityGroup == hashedGroupName)
 					{
@@ -165,9 +188,10 @@ namespace nabi::ECS
 		return validGroup;
 	}
 
-	void EntityCreator::DestroyEntityGroup(EntityGroup& /*entityGroup*/) NABI_NOEXCEPT
+	bool EntityCreator::DestroyEntityGroup(EntityGroup& /*entityGroup*/) NABI_NOEXCEPT
 	{
 		FUNCTION_NOT_IMPLEMENTED
+		return false;
 	}
 
 	size_t EntityCreator::GetEntityStoreSize() const NABI_NOEXCEPT

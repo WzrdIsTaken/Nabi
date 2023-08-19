@@ -64,9 +64,13 @@ namespace nabi::ECS
 		EntityGroup CreateEntityGroup(std::string const& entityGroupName) NABI_NOEXCEPT;
 		void CreateEntityGroup(EntityGroup const& entityGroup) NABI_NOEXCEPT;
 
+		// Checks if any entities part of an entity group exist
+		bool IsEntityGroupLoaded(std::string const& entityGroupName) const NABI_NOEXCEPT;
+		bool IsEntityGroupLoaded(EntityGroup const& entityGroup) const NABI_NOEXCEPT;
+
 		// Deletes an entity group based off the groups name
 		bool DestroyEntityGroup(std::string const& entityGroupName) NABI_NOEXCEPT;
-		void DestroyEntityGroup(EntityGroup& entityGroup) NABI_NOEXCEPT;
+		bool DestroyEntityGroup(EntityGroup& entityGroup) NABI_NOEXCEPT;
 
 		// Returns how many entity templates exist in m_EntityTemplateStore
 		[[nodiscard]] size_t GetEntityStoreSize() const NABI_NOEXCEPT;
