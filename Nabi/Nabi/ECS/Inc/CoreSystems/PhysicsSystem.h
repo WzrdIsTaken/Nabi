@@ -13,6 +13,7 @@ namespace ecs
 } // namespace ecs
 namespace nabi
 {
+	struct Context;
 	class GameTime;
 } // namespace nabi
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 
+#include "Context.h"
 #include "InputCodes.h"
 #include "InputState.h"
 #include "CoreSingletonComponents\InputStateComponent.h"

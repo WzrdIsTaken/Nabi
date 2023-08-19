@@ -7,6 +7,7 @@
 
 namespace nabi
 {
+	struct Context;
 	class GameTime;
 } // namespace nabi
 

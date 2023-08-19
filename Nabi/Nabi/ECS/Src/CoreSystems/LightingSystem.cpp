@@ -2,6 +2,7 @@
 
 #include "CoreSystems\LightingSystem.h"
 
+#include "Context.h"
 #include "CoreComponents\LightComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"

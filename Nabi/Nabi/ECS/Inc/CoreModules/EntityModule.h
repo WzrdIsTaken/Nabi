@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 
+#include "Context.h"
 #include "EntityGroup.h"
 
 namespace ecs::EntityModule

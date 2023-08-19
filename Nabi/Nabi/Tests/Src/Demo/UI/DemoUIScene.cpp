@@ -6,6 +6,7 @@
 
 #include "ReflectionIncludes.h"
 
+#include "Context.h"
 #include "CoreComponents\TextComponent.h"
 #include "CoreModules\CameraModule.h"
 #include "CoreModules\TextModule.h"

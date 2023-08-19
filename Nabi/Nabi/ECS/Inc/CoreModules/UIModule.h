@@ -3,6 +3,7 @@
 
 #include <any>
 
+#include "Context.h"
 #include "CoreSingletonComponents\UIStateComponent.h"
 
 namespace ecs

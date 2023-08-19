@@ -4,6 +4,7 @@
 
 #include "Collision.h"
 #include "CollisionSolvers.h"
+#include "Context.h"
 #include "CoreComponents\ColliderComponent.h"
 #include "CoreComponents\RigidbodyComponent.h"
 #include "CoreComponents\TransformComponent.h"

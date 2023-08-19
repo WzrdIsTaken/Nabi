@@ -2,6 +2,7 @@
 
 #include "Examples\TestThreading.h"
 
+#include "Context.h"
 #include "CoreModules\InputModule.h"
 #include "CoreSystems\InputSystem.h"
 #include "LockCriticalSection.h"

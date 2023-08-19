@@ -2,6 +2,7 @@
 
 #include "CoreSystems\RenderSystem.h"
 
+#include "Context.h"
 #include "CoreComponents\EntityInfoComponent.h"
 #include "DirectXUtils.h"
 #include "GameTime.h"

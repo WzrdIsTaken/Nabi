@@ -3,6 +3,8 @@
 
 #ifdef INCLUDE_DEMO
 
+#include "DirectXIncludes.h"
+
 #include "ComponentBase.h"
 
 namespace ecs

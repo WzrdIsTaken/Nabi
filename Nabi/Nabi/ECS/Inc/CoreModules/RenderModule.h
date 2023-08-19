@@ -3,6 +3,7 @@
 #include "Core.h"
 
 #include "Buffers\RenderBuffers.h"
+#include "Context.h"
 #include "CoreSingletonComponents\GraphicsComponent.h"
 #include "CoreSingletonComponents\LightStateComponent.h"
 

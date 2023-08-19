@@ -2,6 +2,7 @@
 
 #include "CoreSystems\CameraSystem.h"
 
+#include "Context.h"
 #include "CoreComponents\CameraComponent.h"
 #include "GameTime.h"
 

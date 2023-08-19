@@ -4,6 +4,7 @@
 
 #include "InputIncludes.h"
 
+#include "Context.h"
 #include "CoreModules\InputModule.h"
 #include "GameTime.h"
 #include "InputCodes.h"

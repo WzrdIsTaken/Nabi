@@ -2,6 +2,7 @@
 #include "Core.h"
 
 #include "Containers\UVs.h"
+#include "Context.h"
 
 namespace ecs
 {

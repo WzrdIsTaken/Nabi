@@ -9,6 +9,10 @@ namespace ecs
 {
 	class InputSystem;
 } // namespace ecs
+namespace nabi
+{
+	struct Context;
+} // namespace nabi
 
 namespace nabitest::Examples
 {

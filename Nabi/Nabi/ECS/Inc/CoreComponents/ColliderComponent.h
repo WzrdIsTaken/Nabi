@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "DirectXIncludes.h"
+
 #include "ComponentBase.h"
 #include "ReflectionGlobals.h"
 

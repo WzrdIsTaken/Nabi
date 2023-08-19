@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 
+#include "Context.h"
+
 namespace ecs::ReflectionModule
 {
 	struct Constraints

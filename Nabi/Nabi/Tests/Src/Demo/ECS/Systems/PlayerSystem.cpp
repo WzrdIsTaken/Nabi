@@ -4,6 +4,7 @@
 
 #include "Demo\ECS\Systems\PlayerSystem.h"
 
+#include "Context.h"
 #include "CoreComponents\EntityInfoComponent.h"
 #include "CoreComponents\RigidbodyComponent.h"
 #include "CoreComponents\TransformComponent.h"

@@ -3,6 +3,7 @@
 
 #include "CoreSystems\UISystem.h"
 
+#include "Context.h"
 #include "CoreComponents\ButtonComponent.h"
 #include "CoreModules\EntityModule.h"
 #include "CoreModules\InputModule.h"

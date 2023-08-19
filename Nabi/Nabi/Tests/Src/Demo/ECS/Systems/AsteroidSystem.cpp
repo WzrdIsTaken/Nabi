@@ -4,6 +4,7 @@
 
 #include "Demo\ECS\Systems\AsteroidSystem.h"
 
+#include "Context.h"
 #include "CoreComponents\AudioEmitterComponent.h"
 #include "CoreComponents\TransformComponent.h"
 #include "CoreModules\AudioModule.h"

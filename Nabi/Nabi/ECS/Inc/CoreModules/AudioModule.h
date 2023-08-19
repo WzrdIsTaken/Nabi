@@ -1,13 +1,15 @@
 #pragma once
 #include "Core.h"
 
+#include <optional>
+
+#include "Context.h"
 #include "CoreSingletonComponents\AudioStateComponent.h"
 
 namespace ecs
 {
 	struct AudioEmitterComponent;
 } // namespace ecs
-
 namespace nabi::Audio
 {
 	class AudioSourceVoice;

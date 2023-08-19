@@ -3,6 +3,11 @@
 
 #ifdef INCLUDE_DEMO
 
+namespace nabi
+{
+	struct Context;
+} // namespace nabi
+
 namespace ui::DemoUIScene
 {
 	void ButtonResponse(nabi::Context& context, entt::entity const uiEntity);
