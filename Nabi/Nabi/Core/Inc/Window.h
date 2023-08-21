@@ -8,6 +8,7 @@
 #include "entt.h"
 
 #include "InitSettings.h"
+#include "TypeUtils.h"
 
 // Macros for registering a windows event. For example key input or resizing. 
 // Use REGISTER_WINDOWS_EVENT_SUBSCRIBER in constructor and UNREGISTER_WINDOWS_EVENT_SUBSCRIBER in destructor
