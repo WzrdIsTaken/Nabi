@@ -16,7 +16,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 #pragma region Draw
 

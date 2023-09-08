@@ -15,7 +15,7 @@ namespace ecs
 	class InputSystem;
 } // namespace ecs
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 	class TestAudio final : public IExample
 	{
@@ -59,6 +59,6 @@ namespace nabitest::Examples
 
 		entt::entity m_AudioEmitterEntity;
 	};
-} // namespace nabitest::Examples
+} // namespace nabi::Tests::Examples
 
 #endif // ifdef RUN_TESTS

@@ -7,7 +7,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::PhysicsTests
+namespace nabi::Tests::PhysicsTests
 {
 	void TickAndExpect(ecs::CollisionSystem& collisionSystem, ecs::SComp::CollisionStateComponent const& collisionStateComponent, size_t const expected)
 	{
@@ -76,6 +76,6 @@ namespace nabitest::PhysicsTests
 		// Expect a collision
 		TickAndExpect(collisionSystem, collisionStateComponent, 1u);
 	}
-} // namespace nabitest::PhysicsTests
+} // namespace nabi::Tests::PhysicsTests
 
 #endif // #ifdef RUN_TESTS

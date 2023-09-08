@@ -5,7 +5,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 	__interface IExample
 	{
@@ -13,6 +13,6 @@ namespace nabitest::Examples
 		bool Update() { return false; }
 		bool Render() { return false; }
 	};
-} // namespace nabitest::Examples
+} // namespace nabi::Tests::Examples
 
 #endif // ifdef RUN_TESTS

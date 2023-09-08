@@ -15,11 +15,11 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 	REFLECT_UI_SCENE_BEGIN(TestScene)
-		REFLECT_UI_SCENE_METHOD(nabitest::Examples::TestButtonResponseOne, "TestButtonResponseOne")
-		REFLECT_UI_SCENE_METHOD(nabitest::Examples::TestButtonResponseTwo, "TestButtonResponseTwo")
+		REFLECT_UI_SCENE_METHOD(nabi::Tests::Examples::TestButtonResponseOne, "TestButtonResponseOne")
+		REFLECT_UI_SCENE_METHOD(nabi::Tests::Examples::TestButtonResponseTwo, "TestButtonResponseTwo")
 	REFLECT_UI_SCENE_END(TestScene)
 
 	using namespace ecs::InputModule;
@@ -176,6 +176,6 @@ namespace nabitest::Examples
 
 		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST, "Button two was clicked!", LOG_END);
 	}
-} // namespace nabitest::Examples
+} // namespace nabi::Tests::Examples
 
 #endif // ifdef RUN_TESTS

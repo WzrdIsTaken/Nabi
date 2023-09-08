@@ -19,7 +19,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 	class TestPhysics final : public IExample
 	{
@@ -92,6 +92,6 @@ namespace nabitest::Examples
 		entt::entity m_PlayerEntity;
 		nabi::GameTime const* m_TestGameTime; // hack to test multithreading
 	};
-} // namespace nabitest::Examples
+} // namespace nabi::Tests::Examples
 
 #endif // ifdef RUN_TESTS

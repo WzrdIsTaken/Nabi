@@ -5,7 +5,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ECSTests
+namespace nabi::Tests::ECSTests
 {
 #ifdef USE_EVENT_SYSTEM_UPDATE
 	// Check that system update / render events are fired correctly
@@ -58,6 +58,6 @@ namespace nabitest::ECSTests
 		mockSystem.UnregisterSystemRenderEvent();
 	}
 #endif // ifdef USE_EVENT_SYSTEM_UPDATE
-} // namespace nabitest::ECSTests
+} // namespace nabi::Tests::ECSTests
 
 #endif // #ifdef RUN_TESTS

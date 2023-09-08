@@ -10,7 +10,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ReflectionTests
+namespace nabi::Tests::ReflectionTests
 {
 	// Check creating a runtime entity works as expected
 	TEST(ReflectionTests, CreateEntityAtRuntime)
@@ -154,6 +154,6 @@ namespace nabitest::ReflectionTests
 		registrySizeComparison = { 0u, registry.alive() }; // 0 because all the entities in parse entities and here are in the same group (this will never be a problem in the real game)
 		COMPAIR_EQ(registrySizeComparison);
 	}
-} // namespace nabitest::ReflectionTests
+} // namespace nabi::Tests::ReflectionTests
 
 #endif // #ifdef RUN_TESTS

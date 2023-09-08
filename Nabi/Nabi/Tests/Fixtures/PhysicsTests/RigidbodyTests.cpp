@@ -8,7 +8,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::PhysicsTests
+namespace nabi::Tests::PhysicsTests
 {
 	// Check that rigidbodies move when force is applied to them
 	TEST(PhysicsTests, CheckRigidbodies)
@@ -48,6 +48,6 @@ namespace nabitest::PhysicsTests
 		result = positionComparison.m_Expected.x < transformComponent.m_Position.x;
 		EXPECT_TRUE(result);
 	}
-} // namespace nabitest::PhysicsTests
+} // namespace nabi::Tests::PhysicsTests
 
 #endif // #ifdef RUN_TESTS

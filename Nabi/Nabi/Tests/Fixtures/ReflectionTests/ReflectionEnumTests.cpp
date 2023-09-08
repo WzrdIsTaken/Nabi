@@ -5,7 +5,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ReflectionTests
+namespace nabi::Tests::ReflectionTests
 {
 	// Enum -> String functionality is currently not needed, I will implement if it becomes needed!
 
@@ -49,6 +49,6 @@ namespace nabitest::ReflectionTests
 		COMPAIR_EQ(valueComparison);
 		COMPAIR_EQ(flagsComparison);
 	}
-} // namespace nabitest::ReflectionTests
+} // namespace nabi::Tests::ReflectionTests
 
 #endif // #ifdef RUN_TESTS

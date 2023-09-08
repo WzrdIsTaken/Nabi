@@ -3,6 +3,10 @@
 
 #include <functional>
 
+// I added the DEFAULT variation of these macros on 08/09/23. They could be parameterized more to make it one set, 
+// but the DELETE ones are already being used in lots of places around the code and I cba to refactor. 
+// Also, perhaps the explicitness is good. 
+
 #define DELETE_COPY_MOVE_CONSTRUCTORS(type) \
     DELETE_COPY_CONSTRUCTORS(type) \
     DELETE_MOVE_CONSTRUCTORS(type)
@@ -14,6 +18,18 @@
 #define DELETE_MOVE_CONSTRUCTORS(type) \
     type(type&&) = delete; \
     type(type const&&) = delete;
+
+#define DEFAULT_COPY_MOVE_CONSTRUCTORS(type) \
+    DEFAULT_COPY_CONSTRUCTORS(type) \
+    DEFAULT_MOVE_CONSTRUCTORS(type)
+
+#define DEFAULT_COPY_CONSTRUCTORS(type) \
+     type(type&) = default; \
+     type(type const&) = default; \
+
+#define DEFAULT_MOVE_CONSTRUCTORS(type) \
+    type(type&&) = default; \
+    type(type const&&) = default;
 
 namespace nabi::TypeUtils
 {

@@ -5,7 +5,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest
+namespace nabi::Tests
 {
 	class MockGameCore final //: public nabi::NabiCore
 	{
@@ -19,6 +19,6 @@ namespace nabitest
 	private:
 		DELETE_COPY_MOVE_CONSTRUCTORS(MockGameCore)
 	};
-} // namespace nabitest
+} // namespace nabi::Tests
 
 #endif // #ifdef RUN_TESTS

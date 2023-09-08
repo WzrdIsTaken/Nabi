@@ -10,7 +10,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ReflectionTests
+namespace nabi::Tests::ReflectionTests
 {
 #ifdef USE_DEBUG_UTILS
 	// Checks that debug attribute works as expected
@@ -50,6 +50,6 @@ namespace nabitest::ReflectionTests
 		BUILD_CONFIGURATION_CHANGE_END
 	}
 #endif // ifdef USE_DEBUG_UTILS
-} // namespace nabitest::ReflectionTests
+} // namespace nabi::Tests::ReflectionTests
 
 #endif // #ifdef RUN_TESTS

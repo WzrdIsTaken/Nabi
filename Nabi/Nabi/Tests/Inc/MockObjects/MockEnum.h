@@ -3,7 +3,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest
+namespace nabi::Tests
 {
 	enum class MockEnum 
 	{
@@ -43,6 +43,6 @@ namespace nabitest
 			TestTwo
 		};
 	} // namespace NamespacedMockEnum
-} // namespace nabitest
+} // namespace nabi::Tests
 
 #endif // ifdef RUN_TESTS

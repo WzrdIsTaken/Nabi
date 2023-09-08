@@ -7,7 +7,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::PhysicsTests::Helpers
+namespace nabi::Tests::PhysicsTests::Helpers
 {
 	// Used in CollisionTests + RaycastTests
 
@@ -45,6 +45,6 @@ namespace nabitest::PhysicsTests::Helpers
 
 		return entity;
 	}
-} // namespace nabitest::PhysicsTests::Helpers
+} // namespace nabi::Tests::PhysicsTests::Helpers
 
 #endif // #ifdef RUN_TESTS

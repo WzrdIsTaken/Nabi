@@ -8,7 +8,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::AudioTests
+namespace nabi::Tests::AudioTests
 {
 	// Check that the audio system updates audio emitters correctly
 	TEST(AudioTests, CheckAudioEmitterRespondsToTransformAndRigidbodyMovement)
@@ -66,6 +66,6 @@ namespace nabitest::AudioTests
 		LOG_NOT_RUNNING_SLOW_TEST_WARNING
 #endif // #ifdef RUN_SLOW_TESTS
 	}
-} // namespace nabitest::AudioTests
+} // namespace nabi::Tests::AudioTests
 
 #endif // #ifdef RUN_TESTS

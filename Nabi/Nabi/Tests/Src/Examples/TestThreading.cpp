@@ -12,7 +12,7 @@
 // This example is a lot shorter than the others.
 // For other (and probably better) examples of ThreadCommand being used see NabiCore and TestPhysics.
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 	long long constexpr c_ThreadSleepTime = 2000ll;
 
@@ -122,6 +122,6 @@ namespace nabitest::Examples
 		++value;
 		LOG(LOG_PREP, LOG_INFO, LOG_CATEGORY_TEST, value, LOG_END);
 	}
-} // namespace nabitest::Examples
+} // namespace nabi::Tests::Examples
 
 #endif // ifdef RUN_TESTS

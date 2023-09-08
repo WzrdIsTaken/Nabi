@@ -24,7 +24,7 @@
 */
 #include "Examples\TestInput.h"
 
-namespace nabitest::InputTests
+namespace nabi::Tests::InputTests
 {
 	namespace MockScene
 	{
@@ -130,7 +130,7 @@ namespace nabitest::InputTests
 		// See all the other comments for why I'm doing this. It is very bot. But tbh if this doesn't crash it works??
 		EXPECT_TRUE(true);
 	}
-} // namespace nabitest::InputTests
+} // namespace nabi::Tests::InputTests
 
 #endif // #ifdef RUN_TESTS
 

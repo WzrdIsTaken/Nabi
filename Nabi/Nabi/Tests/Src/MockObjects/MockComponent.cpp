@@ -4,7 +4,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ECS
+namespace nabi::Tests::ECS
 {
 	REFLECT_COMPONENT_BEGIN(MockComponent, "MockComponent")
 		REFLECT_COMPONENT_PROPERTY(MockComponent::m_IntType, "IntType")
@@ -32,6 +32,6 @@ namespace nabitest::ECS
 		REFLECT_COMPONENT_PROPERTY(MockComponentWithContainers::m_IntMap, "IntMap")
 		//REFLECT_COMPONENT_PROPERTY(MockComponentWithContainers::m_CustomTypeVector, "CustomTypeVector")
 	REFLECT_COMPONENT_END(MockComponentWithContainers)
-} // namespace nabitest::ECS
+} // namespace nabi::Tests::ECS
 
 #endif // #ifdef RUN_TESTS

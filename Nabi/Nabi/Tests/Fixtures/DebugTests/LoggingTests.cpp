@@ -4,7 +4,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::DebugTests
+namespace nabi::Tests::DebugTests
 {
 #ifdef USE_DEBUG_UTILS
 	// Test that logging works corretly
@@ -31,5 +31,5 @@ namespace nabitest::DebugTests
 
 	// Idea - Could write tests for asserts?
 #endif // #ifdef USE_DEBUG_UTILS
-}
+} // namespace nabi::Tests::DebugTests
 #endif // #ifdef RUN_TESTS

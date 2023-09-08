@@ -191,7 +191,7 @@ namespace nabi::Reflection::StringConverter
 	/// Container values are separated by commas (,) and entries by the pipe (|)
 	/// For example, for a map data could look like "x, y | a, b"
 	/// 
-	/// If you get an error like "nabi::Reflection::StringConverter::FromString<nabitest::MyCustomDataType>': must return a value" it probably
+	/// If you get an error like "nabi::Reflection::StringConverter::FromString<nabi::Tests::MyCustomDataType>': must return a value" it probably
 	/// means that you tried to use a custom type in a container. This is not currently supported. 
 	/// Consider using multiple containers and indexing into them. Eg:
 	/// vec1 { 1, 2, 3 }

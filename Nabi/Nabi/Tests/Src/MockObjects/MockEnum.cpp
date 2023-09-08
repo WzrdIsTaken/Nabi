@@ -6,7 +6,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest
+namespace nabi::Tests
 {
 	REFLECT_ENUM_BEGIN_DEFAULT(MockEnum)
 		REFLECT_ENUM_VALUE(MockEnum::None, "None")
@@ -37,6 +37,6 @@ namespace nabitest
 			REFLECT_ENUM_VALUE_DEFAULT(Enum::TestOne)
 		REFLECT_ENUM_END(Enum)
 	} // namespace NamespacedMockEnum
-} // namespace nabitest
+} // namespace nabi::Tests
 
 #endif // ifdef RUN_TESTS

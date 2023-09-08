@@ -2,7 +2,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::InputTests
+namespace nabi::Tests::InputTests
 {
 	// Like rendering, input is kinda tied to the window and so I'm finding it hard to write tests for it
 	// without basically setting up the entire pipeline.
@@ -34,6 +34,6 @@ namespace nabitest::InputTests
 		// See / run 'TestInput'
 		EXPECT_TRUE(true);
 	}
-} // namespace nabitest::InputTests
+} // namespace nabi::Tests::InputTests
 
 #endif // #ifdef RUN_TESTS

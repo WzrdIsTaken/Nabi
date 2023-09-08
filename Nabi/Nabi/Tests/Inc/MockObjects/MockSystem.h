@@ -7,7 +7,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ECS
+namespace nabi::Tests::ECS
 {
 	class MockSystem final : public nabi::ECS::SystemBase
 	{
@@ -36,6 +36,6 @@ namespace nabitest::ECS
 
 		REFLECT_PRIVATES(MockSystem)
 	};
-} // namespace nabitest::ECS
+} // namespace nabi::Tests::ECS
 
 #endif // #ifdef RUN_TESTS

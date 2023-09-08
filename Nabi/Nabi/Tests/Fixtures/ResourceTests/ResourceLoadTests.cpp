@@ -6,7 +6,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ResourceTests
+namespace nabi::Tests::ResourceTests
 {
 	struct MockResource
 	{
@@ -77,6 +77,6 @@ namespace nabitest::ResourceTests
 		Comparison<int> const activeResources(0, activeResourcesInBank);
 		COMPAIR_EQ(activeResources);
 	}
-} // namespace nabitest::ResourceTests
+} // namespace nabi::Tests::ResourceTests
 
 #endif // #ifdef RUN_TESTS

@@ -17,7 +17,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 	// --- Test Audio ---
 
@@ -174,7 +174,7 @@ namespace nabitest::Examples
 
 		return true;
 	}
-} // namespace nabitest::Examples
+} // namespace nabi::Tests::Examples
 
 #endif // ifdef RUN_TESTS
 

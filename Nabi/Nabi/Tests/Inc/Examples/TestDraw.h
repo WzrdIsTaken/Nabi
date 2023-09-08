@@ -20,7 +20,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 	class TestDraw final : public IExample
 	{
@@ -60,6 +60,6 @@ namespace nabitest::Examples
 
 		std::unique_ptr<TestAssetBank> m_AssetBank;
 	};
-} // namespace nabitest::Examples
+} // namespace nabi::Tests::Examples
 
 #endif //#ifdef RUN_TESTS

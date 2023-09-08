@@ -6,7 +6,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest
+namespace nabi::Tests
 {
 	struct MockCustomDataType final
 	{
@@ -34,6 +34,6 @@ namespace nabitest
 				   this->m_BoolType   == other.m_BoolType;
 		}
 	};
-} // namespace nabitest
+} // namespace nabi::Tests
 
 #endif // #ifdef RUN_TESTS

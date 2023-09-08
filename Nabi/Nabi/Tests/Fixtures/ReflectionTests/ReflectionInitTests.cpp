@@ -15,7 +15,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ReflectionTests
+namespace nabi::Tests::ReflectionTests
 {
 	// Check system files can be loaded correctly
 	TEST(ReflectionTests, ParseSystemsFromRoute)
@@ -184,7 +184,7 @@ namespace nabitest::ReflectionTests
 		COMPAIR_EQ(stringVector);
 		COMPAIR_EQ(intMap);
 	}
-} // namespace nabitest::ReflectionTests
+} // namespace nabi::Tests::ReflectionTests
 
 #endif // #ifdef RUN_TESTS
 

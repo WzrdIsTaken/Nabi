@@ -14,7 +14,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 	ecs::ColliderComponent::ColliderMask constexpr c_PlayerMask  = 1 << 1;
 	ecs::ColliderComponent::ColliderMask constexpr c_ObjectMask  = 1 << 1;
@@ -383,6 +383,6 @@ namespace nabitest::Examples
 		return true;
 	}
 
-} // namespace nabitest::Examples
+} // namespace nabi::Tests::Examples
 
 #endif // ifdef RUN_TESTS

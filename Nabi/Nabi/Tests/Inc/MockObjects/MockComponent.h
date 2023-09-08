@@ -10,7 +10,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ECS
+namespace nabi::Tests::ECS
 {
 	struct MockComponent final : public nabi::ECS::ComponentBase
 	{
@@ -63,6 +63,6 @@ namespace nabitest::ECS
 		// Containers with custom types are not currently supported. See the comment in StringConverter.h to see how they could be.
 		//REFLECTED_VECTOR(m_CustomTypeVector, MockCustomDataType);
 	};
-} // namespace nabitest::ECS
+} // namespace nabi::Tests::ECS
 
 #endif // #ifdef RUN_TESTS

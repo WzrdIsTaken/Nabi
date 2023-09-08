@@ -7,7 +7,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::AudioTests
+namespace nabi::Tests::AudioTests
 {
 	// Check that audio effects and voices are loaded and deleted ok
 	TEST(AudioTests, LoadAudioEffectAndVoiceThenPlay)
@@ -61,6 +61,6 @@ namespace nabitest::AudioTests
 		LOG_NOT_RUNNING_SLOW_TEST_WARNING
 #endif // #ifdef RUN_SLOW_TESTS
 	}
-} // namespace nabitest::AudioTests
+} // namespace nabi::Tests::AudioTests
 
 #endif // #ifdef RUN_TESTS

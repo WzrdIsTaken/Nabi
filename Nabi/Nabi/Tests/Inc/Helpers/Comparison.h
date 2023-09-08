@@ -4,7 +4,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest
+namespace nabi::Tests
 {
 	// Why is this a marco? Tbh I just like the different colour compaired to the rest of the code and think it makes the tests asserts stand out
 	// The main problem I wanted to solve was accidentally typing m_Expected/m_Actual twice, and these marcos do that still
@@ -41,6 +41,6 @@ namespace nabitest
 		T m_Expected;
 		T m_Actual;
 	};
-} // namespace nabitest
+} // namespace nabi::Tests
 
 #endif // #ifdef RUN_TESTS

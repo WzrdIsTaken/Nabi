@@ -6,7 +6,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::PhysicsTests
+namespace nabi::Tests::PhysicsTests
 {
 	ecs::ColliderComponent::ColliderMask constexpr c_ValidEntityMask   = 1 << 1;
 	ecs::ColliderComponent::ColliderMask constexpr c_InvalidEntityMask = 1 << 2;
@@ -88,6 +88,6 @@ namespace nabitest::PhysicsTests
 			EXPECT_EQ(results[1].m_Entity, entityTwo);
 		}
 	}
-} // namespace nabitest::PhysicsTests
+} // namespace nabi::Tests::PhysicsTests
 
 #endif // #ifdef RUN_TESTS

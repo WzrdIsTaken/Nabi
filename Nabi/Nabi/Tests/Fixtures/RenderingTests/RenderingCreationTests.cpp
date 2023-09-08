@@ -3,7 +3,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::RenderingTests
+namespace nabi::Tests::RenderingTests
 {
 	TEST(RenderingTests, InitRenderPipeline)
 	{
@@ -17,6 +17,6 @@ namespace nabitest::RenderingTests
 
 	// I don't really know what to do beyond that other than cross my fingers xD
 	// I could do some research into this, but I am very very done with rendering right now...
-} // namespace nabitest::RenderingTests
+} // namespace nabi::Tests::RenderingTests
 
 #endif // #ifdef RUN_TESTS

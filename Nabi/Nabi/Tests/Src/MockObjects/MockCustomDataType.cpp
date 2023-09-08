@@ -6,9 +6,9 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest
+namespace nabi::Tests
 {
 	REFLECT_DATA_TYPE_DEFAULT(MockCustomDataType)
-} // namespace nabitest::MockCustomDataType
+} // namespace nabi::Tests::MockCustomDataType
 
 #endif // #ifdef RUN_TESTS

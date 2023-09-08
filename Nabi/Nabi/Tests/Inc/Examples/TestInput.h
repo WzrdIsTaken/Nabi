@@ -13,7 +13,7 @@ namespace nabi::Input
 	enum class InputState : int;
 } // namespace nabi::Input
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 	class TestInput final : public IExample
 	{
@@ -43,6 +43,6 @@ namespace nabitest::Examples
 	// Buttons
 	void TestButtonResponseOne(nabi::Context& context, entt::entity const uiEntity);
 	void TestButtonResponseTwo(nabi::Context& context, entt::entity const uiEntity);
-} // namespace nabitest::Examples
+} // namespace nabi::Tests::Examples
 
 #endif // ifdef RUN_TESTS

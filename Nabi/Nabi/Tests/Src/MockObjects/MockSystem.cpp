@@ -4,7 +4,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ECS
+namespace nabi::Tests::ECS
 {
 	REFLECT_SYSTEM_BEGIN(MockSystem, "MockSystem")
 		REFLECT_SYSTEM_PROPERTY(MockSystem::m_MockSystemData, "MockSystemData")
@@ -53,7 +53,7 @@ namespace nabitest::ECS
 	{
 		DISABLE_SYSTEM_RENDER(MockSystem)
 	}
-} // namespace nabitest::ECS
+} // namespace nabi::Tests::ECS
 
 #endif // #ifdef RUN_TESTS
 

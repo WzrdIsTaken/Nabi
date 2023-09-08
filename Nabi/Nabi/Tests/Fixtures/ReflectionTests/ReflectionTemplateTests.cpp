@@ -9,7 +9,7 @@
 
 #ifdef RUN_TESTS
 
-namespace nabitest::ReflectionTests
+namespace nabi::Tests::ReflectionTests
 {
 	// Check entity template inheritance works correctly
 	TEST(ReflectionTests, ParseEntityTemplates)
@@ -80,6 +80,6 @@ namespace nabitest::ReflectionTests
 
 		COMPAIR_EQ(entityFourFloatType);
 	}
-} // namespace nabitest::ReflectionTests
+} // namespace nabi::Tests::ReflectionTests
 
 #endif // #ifdef RUN_TESTS

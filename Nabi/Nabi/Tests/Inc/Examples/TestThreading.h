@@ -14,7 +14,7 @@ namespace nabi
 	struct Context;
 } // namespace nabi
 
-namespace nabitest::Examples
+namespace nabi::Tests::Examples
 {
 	class TestThreading final : public IExample
 	{
@@ -35,6 +35,6 @@ namespace nabitest::Examples
 		nabi::Context& m_Context;
 		std::unique_ptr<ecs::InputSystem> m_InputSystem;
 	};
-} // namespace nabitest::Examples
+} // namespace nabi::Tests::Examples
 
 #endif // ifdef RUN_TESTS
